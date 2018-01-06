@@ -1,5 +1,7 @@
 /**
  * 
+ * *  This is the versionmanaged version!
+ * 
  * To Do:
  * √ load patch250.053 or pshift.053 from SD
  * - load patch from EEPROM
