@@ -5,8 +5,8 @@
  *  [x] Find out why Playback sometimes occasionally stops / crashes (IRQ?)
  *  [ ] Detect or circumvent garbage received (not plausible)
  *  [ ] Allow watching two serials at once (Terminal?)
- *  
- *  
+ *  [ ] Detect projector stops and stop the audio
+ *  [ ] add out of sync LED
  *  
  *  
  *  This is the versionmanaged version!
