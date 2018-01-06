@@ -1,5 +1,14 @@
 /* TODOs
  *  
+ *  [ ] Find out why Schmitt Trigger sometimes oscillates
+ *  [ ] Find out why sometimes just 77000 is sreceived
+ *  [x] Find out why Playback sometimes occasionally stops / crashes (IRQ?)
+ *  [ ] Detect or circumvent garbage received (not plausible)
+ *  [ ] Allow watching two serials at once (Terminal?)
+ *  
+ *  
+ *  
+ *  
  *  This is the versionmanaged version!
  * 
  * √ Auto Start und Stop
@@ -26,51 +35,12 @@
 #include <Wire.h>
 #include <WireData.h>
 
-/* define commands to remote nodes
-
-#define ADJUST_SPEED        10
-#define PLAY_TRACK          11
-#define PREP_TRACK          12
-#define PAUSE_ON            13
-#define PAUSE_OFF           14
-#define STOP_TRACK          15
-#define NAME_TRACK          16
-#define ADJUST_VOLUME       17
-
-#define SHOW_CURRENT_FPS    20
-#define SHOW_TARGET_FPS     21
-#define SHOW_NAME           22
-#define SHOW_TOO_FAST       23
-#define SHOW_TOO_SLOW       24
-#define SHOW_IN_SYNC        25
-#define CLS                 26
-#define SHOW_TEXT           27
-#define FOUND_NAME          28
-
-#define CONTINOUS_MEASURE   30
-#define LONGTERM_MEASURE    31
-#define RESET_MEASURE       32
-#define SET_TARGETFPS       33
-#define SET_BLADE_SEGMENTS  34
-*/
-
-// States
-#define IDLING            1
-#define TRACK_SELECTION   2
-#define TRACK_LOADED      3
-#define TRACK_PLAYING     4
-#define TRACK_PAUSED      5
-#define RESET             6
-#define SETTINGS_MENU     7
-#define IPR_CONFIG        8
-#define OFFSET_CONFIG     9
-#define FPS_MEASURE       10
-
-#define OVERFLOWLED       11
+// define OVERFLOWLED  
 
 byte sollfps = 18;
-byte segments = 3;          // Wieviele Segmente hat die Umlaufblende?
+byte segments = 2;          // Wieviele Segmente hat die Umlaufblende?
 byte flickrate = sollfps * segments;
+
 unsigned int projectorStopTimeoutMs = 250;
 unsigned int projectorRunoutMs = 1000;
 
@@ -103,8 +73,8 @@ unsigned long lastPausedMillis = 0;
 
 
 void setup() {
-  pinMode(RS232LED, OUTPUT);
-  pinMode(OVERFLOWLED, OUTPUT);
+//  pinMode(RS232LED, OUTPUT);
+//  pinMode(OVERFLOWLED, OUTPUT);
   Serial.begin(115200);
   FreqMeasure.begin();
   Wire.begin(); // join i2c bus (address optional for master)
@@ -121,89 +91,41 @@ void loop() {
 //    Serial.println(myState);
 //    prevState = myState;
 //  }
-//  if (FreqMeasure.available()) {
-//  // average several reading together
-//    impSum = impSum + FreqMeasure.read();
-//    impCount = impCount + 1;
-//    if (impCount > 10) {
-//      long frequency = 1000000 * FreqMeasure.countToFrequency(impSum / impCount);
-//      
+  if (FreqMeasure.available()) {
+  // average several reading together
+    impSum = impSum + FreqMeasure.read();
+    impCount = impCount + 1;
+    if (impCount > 30) {
+      long frequency = 1000000 * FreqMeasure.countToFrequency(impSum / impCount);
+      
 //      Wire.beginTransmission(8); // transmit to device #8
 //      wireWriteData(frequency);  
 //      Wire.endTransmission();    // stop transmitting
-//
-//      Serial.println(frequency);
-//      impSum = 0;
-//      impCount = 0;
-//    }
-//  }
-/*  switch(myState) {
-    case IDLING:
-      checkDebugKey();
-    break;
-    case REQUEST_AUDIO:
-    break;
-    case WAIT_FOR_RUN:
-      if (projectorRunning && freqMeasurementStarted == false) {
-        startSyncedPlayback();
-      }
-    break;
-    case RUNNING:
-      run();
-    break;
-    case PAUSE:
-      pauseSyncedPlayback();
-    break;
+
+      Serial.println(frequency);
+      impSum = 0;
+      impCount = 0;
+    }
   }
-  */
 }
 
 
 
-void runDetected() {  // ISR
-  projectorRunning = true;
-}
-
-void prepareSyncedPlayback() {
-  //sendMessage(RCPT_AUDIO, ADJUST_VOLUME, NULL, "15");
-  attachInterrupt (digitalPinToInterrupt (ISRPIN), runDetected, CHANGE);  // attach interrupt handler
-  // load selected track:
-  //sendWithStartEndMarkers("PREP", "03 Giorgio by Moroder.m4a");
-  // wait for confirmation from audio module
-  myState = WAIT_FOR_RUN;
-}
+//void runDetected() {  // ISR
+//  projectorRunning = true;
+//}
 
 void startSyncedPlayback() {
 
 // if (currentMillis - lastMeasurementMillis >= projectorStopTimeoutMs) {
   
-  detachInterrupt(digitalPinToInterrupt (ISRPIN));
-  FreqMeasure.begin();
-  freqMeasurementStarted = true;
-  //sendMessage(RCPT_AUDIO, ADJUST_VOLUME, NULL, "15");
-  //sendMessage(RCPT_AUDIO, PAUSE_OFF, NULL, "");
-  myState = RUNNING;
+//  detachInterrupt(digitalPinToInterrupt (ISRPIN));
+//  FreqMeasure.begin();
+//  freqMeasurementStarted = true;
+//  //sendMessage(RCPT_AUDIO, ADJUST_VOLUME, NULL, "15");
+//  //sendMessage(RCPT_AUDIO, PAUSE_OFF, NULL, "");
+//  myState = RUNNING;
 }
-
-void pauseSyncedPlayback() {
-  //sendMessage(RCPT_AUDIO, PAUSE_ON, NULL, "");
-  //sendMessage(RCPT_AUDIO, ADJUST_VOLUME, NULL, "0");
-  //sendMessage(RCPT_UI, SHOW_TEXT, NULL, "Stop");
-  projectorRunning = false;
-
-//  currentMillis = millis();  
-//  lastPausedMillis = currentMillis();
-  
-  FreqMeasure.end();
-  freqMeasurementStarted = false;
-  attachInterrupt (digitalPinToInterrupt (ISRPIN), runDetected, CHANGE);  // attach interrupt handler
-  impSum = 0;
-  impCount = 0;
-  myState = WAIT_FOR_RUN;
-//  myState = IDLING;
-}
-
-//void 
 
 void calculateCorrPpm() {
   currentMillis = millis();
@@ -223,13 +145,13 @@ void calculateCorrPpm() {
 //      Serial.print(" Hz -> CorrVal = ");
 //      Serial.print(ppmConstrained);
       if (ppmRoundedPlusCarryOver >= ppmHi) {
-        digitalWrite(OVERFLOWLED, HIGH);
+//        digitalWrite(OVERFLOWLED, HIGH);
         carryOverCorrection -= ppmHi - ppmRounded;
       } else if (ppmRoundedPlusCarryOver <= ppmLo) {
-        digitalWrite(OVERFLOWLED, HIGH);
+//        digitalWrite(OVERFLOWLED, HIGH);
         carryOverCorrection -= ppmLo - ppmRounded;       
       } else {
-        digitalWrite(OVERFLOWLED, LOW);
+//        digitalWrite(OVERFLOWLED, LOW);
         carryOverCorrection = 0;
       }
       Serial.print("Übertrag ");
@@ -249,46 +171,7 @@ void calculateCorrPpm() {
     }
   } else {
     if (currentMillis - lastMeasurementMillis >= projectorStopTimeoutMs) {
-      myState = PAUSE;
-    }
-  }
-}
-
-void checkDebugKey() {
-  if (Serial.available()) {
-    char c = Serial.read();
-   
-    if (c == 'w') {
-      //sendMessage(RCPT_AUDIO, PLAY_TRACK, NULL, "");
-    }
-    if (c == '3') {
-      //sendMessage(RCPT_AUDIO, PREP_TRACK, NULL, "003");
-      prepareSyncedPlayback();
-    }
-    if (c == '4') {
-      //sendMessage(RCPT_AUDIO, PREP_TRACK, NULL, "004");
-      prepareSyncedPlayback();
-    }
-    if (c == '9') {
-      //sendMessage(RCPT_AUDIO, PREP_TRACK, NULL, "009");
-      prepareSyncedPlayback();
-    }
-    if (c == 'p') {
-      //sendMessage(RCPT_AUDIO, PAUSE_ON, NULL, "");
-    }
-    if (c == 'P') {
-      //sendMessage(RCPT_AUDIO, PAUSE_OFF, NULL, "");
-    }
-    if (c == 's') {
-      //sendMessage(RCPT_AUDIO, STOP_TRACK, NULL, "");
-    }
-    if (c == 'n') {
-      //sendMessage(RCPT_AUDIO, NAME_TRACK, NULL, "");
-    }
-    if (c == 'r') {
-      //sendMessage(RCPT_AUDIO, STOP_TRACK, NULL, "");
-      //sendMessage(RCPT_AUDIO, ADJUST_VOLUME, 15, "");
-      //sendMessage(RCPT_AUDIO, PREP_TRACK, NULL, "009-18-Synkino Testfilm.m4a");
+//      myState = PAUSE;
     }
   }
 }
