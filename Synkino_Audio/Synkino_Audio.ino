@@ -26,6 +26,7 @@
 
 const int myAddress = 0x08;
 volatile long ppmCorrection;
+long lastPpmCorrection = 0;
 
 const byte startMarkDetectorPin = 4;
 
@@ -97,7 +98,15 @@ void loop() {
     parse_menu(Serial.read()); // get command from serial input
   }
 
-  delay(100);
+  if (ppmCorrection != lastPpmCorrection) {
+    lastPpmCorrection = ppmCorrection;
+    adjustSamplerate(ppmCorrection);
+    Serial.println(ppmCorrection);
+  }
+  
+
+
+  delay(50);
 }
 
 //------------------------------------------------------------------------------
@@ -105,7 +114,8 @@ void loop() {
 
 void i2cReceive(int byteCount) {
   wireReadData(ppmCorrection);
-  Serial.println(ppmCorrection);
+//  Serial.println(ppmCorrection);
+  
 }
 
 
@@ -225,7 +235,7 @@ void parse_menu(byte key_command) {
     musicPlayer.setVolume(3,3);
     
     musicPlayer.pauseMusic();
-    //enableResampler();
+    enableResampler();
     while(musicPlayer.getState() != paused_playback) {}
 //    adjustSamplerate(initialPpmCorrection);
     clearSampleCounter();
@@ -247,26 +257,26 @@ void parse_menu(byte key_command) {
      */
     unsigned long t = millis();
     unsigned long currentmillis = 0;
-    while(currentmillis <= 10000000) {
-      currentmillis = millis() - t +1;
-      if (currentmillis % 10000 == 0) {
-        unsigned long sampleCount = Read32BitsFromSCI(0x1800);
-   
-        Serial.print(F("Sample count: "));
-        Serial.print(sampleCount);
-        Serial.print(F(" after "));
-    
-       
-        Serial.print(currentmillis);
-        Serial.print(F(" ms, so "));
-        Serial.print((float)(sampleCount) / currentmillis * 1000);
-        Serial.print(F(" Samples"));
-        
-//        newPpmCorrection = ((float)44100 - ((float)(sampleCount) / currentmillis * 1000)) * 3 + initialPpmCorrection;
-        //adjustSamplerate(newPpmCorrection);
-        
-      }
-    }
+//    while(currentmillis <= 10000000) {
+//      currentmillis = millis() - t +1;
+//      if (currentmillis % 10000 == 0) {
+//        unsigned long sampleCount = Read32BitsFromSCI(0x1800);
+//   
+//        Serial.print(F("Sample count: "));
+//        Serial.print(sampleCount * 16/15);  // compensate 15/16 resampler
+//        Serial.print(F(" after "));
+//    
+//       
+//        Serial.print(currentmillis);
+//        Serial.print(F(" ms, so "));
+//        Serial.print((float)(sampleCount * 16/15) / currentmillis * 1000);
+//        Serial.println(F(" kHz in last 10 sec"));
+//        
+////        newPpmCorrection = ((float)44100 - ((float)(sampleCount) / currentmillis * 1000)) * 3 + initialPpmCorrection;
+//        //adjustSamplerate(newPpmCorrection);
+//        
+//      }
+//    }
     Serial.read();
 
 
