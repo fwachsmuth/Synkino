@@ -1,9 +1,9 @@
 /* TODOs
  *  
- *  [ ] Find out why Schmitt Trigger sometimes oscillates
- *  [ ] Find out why sometimes just 77000 is sreceived
+ *  [ ] Move STartmark detector to here (and the 15 frames delay as well)
+ *  [ ] Introduce Framecounter
+ *  [ ] Find out why Schmitt Trigger sometimes oscillates (not with scope. pulldown?)
  *  [x] Find out why Playback sometimes occasionally stops / crashes (IRQ?)
- *  [ ] Detect or circumvent garbage received (not plausible)
  *  [ ] Allow watching two serials at once (Terminal?)
  *  [ ] Detect projector stops and stop the audio
  *  [ ] add out of sync LED
@@ -35,11 +35,22 @@
 #include <Wire.h>
 #include <WireData.h>
 
+#define CMD_LOAD_TRACK    1
+#define CMD_CORRECT_PPM   2
+#define CMD_PLAY          3
+#define CMD_PAUSE         4
+#define CMD_STOP          5
+#define CMD_SYNC_TO_FRAME 6
+
+
 // define OVERFLOWLED  
 
 byte sollfps = 18;
 byte segments = 2;          // Wieviele Segmente hat die Umlaufblende?
 byte flickrate = sollfps * segments;
+
+const byte startMarkDetectorPin = 9;
+byte startMarkOffset = 15;
 
 unsigned int projectorStopTimeoutMs = 250;
 unsigned int projectorRunoutMs = 1000;
@@ -79,7 +90,7 @@ void setup() {
   FreqMeasure.begin();
   Wire.begin(); // join i2c bus (address optional for master)
   //delay(500);  // Virtual coffee break.
-
+  
 }
 
 void loop() {
@@ -108,6 +119,21 @@ void loop() {
     }
   }
 }
+
+void waitForStartMark() {
+  while (digitalRead(startMarkDetectorPin) = HIGH) {}
+    // count startMarkOffset Frames
+    // then
+    // pin8 15x togglen lassen. pollen?
+    
+    Wire.beginTransmission(8); // transmit to device #8
+    wireWriteData(CMD_PLAY);  
+    wireWriteData(0);  
+    Wire.endTransmission();    // stop transmitting
+
+  }
+}
+
 
 
 
