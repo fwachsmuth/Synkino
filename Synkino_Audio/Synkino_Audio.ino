@@ -28,7 +28,10 @@ const int myAddress = 0x08;
 volatile long ppmCorrection;
 long lastPpmCorrection = 0;
 
-const byte startMarkDetectorPin = 4;
+volatile boolean haveI2Cdata = false;
+volatile byte i2cCommand;
+volatile long i2cParameter;
+
 
 // Below is not needed if interrupt driven. Safe to remove if not using.
 #if defined(USE_MP3_REFILL_MEANS) && USE_MP3_REFILL_MEANS == USE_MP3_Timer1
@@ -86,6 +89,17 @@ void setup() {
 //------------------------------------------------------------------------------
 void loop() {
 
+  if (haveI2Cdata) {
+    Serial.print ("Received Command = ");
+    Serial.println (i2cCommand);  
+    Serial.print ("Received Parameter = ");
+    Serial.println (i2cParameter);  
+    haveI2Cdata = false;  
+  }  // end if haveData
+
+
+
+
 // Below is only needed if not interrupt driven. Safe to remove if not using.
 #if defined(USE_MP3_REFILL_MEANS) \
     && ( (USE_MP3_REFILL_MEANS == USE_MP3_SimpleTimer) \
@@ -112,12 +126,20 @@ void loop() {
 //------------------------------------------------------------------------------
 //long ppmOffset = 0;
 
-void i2cReceive(int byteCount) {
+void old_i2cReceive(int byteCount) {
   wireReadData(ppmCorrection);
-//  Serial.println(ppmCorrection);
-  
 }
 
+void i2cReceive (int howMany) {
+  if (howMany >= (sizeof i2cCommand) + (sizeof i2cParameter)) {
+     wireReadData(i2cCommand);   
+     wireReadData(i2cParameter);   
+     haveI2Cdata = true;     
+   }  // end if have enough data
+ }  // end of receive-ISR
+
+
+ 
 
 //void i2cRequest()
 //{
@@ -224,7 +246,7 @@ void parse_menu(byte key_command) {
     }
 
     //create a string with the filename
-    char trackName[] = "track004.m4a";
+    char trackName[] = "track003.m4a";
 
 #if USE_MULTIPLE_CARDS
     sd.chvol(); // assign desired sdcard's volume.
@@ -235,25 +257,26 @@ void parse_menu(byte key_command) {
     musicPlayer.setVolume(3,3);
     
     musicPlayer.pauseMusic();
+    
     enableResampler();
-    while(musicPlayer.getState() != paused_playback) {}
-//    adjustSamplerate(initialPpmCorrection);
+ 
+    while (musicPlayer.getState() != paused_playback) {}
     clearSampleCounter();
     musicPlayer.resumeMusic();
 
-    /*  Apparent fifoBufferSizes
-     *       
-     *                10s   60s   
-     *  track001.mp3  935   2203
-     *  track002.m4a  588   2942
-     *  track004.m4a  676   1257  Giorgio by Moroder
-     *  track005.m4a  829   2018
-     *  track006.m4a  554   2973
-     *  track007.m4a  188   2384
+
+    /*       
+     *
+     *  track001.mp3  
+     *  track002.m4a  
+     *  track003.m4a  Der Himmel ist Blau wie noch nie
+     *  track004.m4a  Giorgio by Moroder
+     *  track005.m4a  
+     *  track006.m4a  
+     *  track007.m4a  
      *  
-     *  15.9988 Pro       99.925%
-     *  12.2881 BoB      100.000 %
-     *  15.9999 Stemtera  99.999%
+     *  
+     *  
      */
     unsigned long t = millis();
     unsigned long currentmillis = 0;
