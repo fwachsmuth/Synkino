@@ -24,11 +24,18 @@
 #include <Wire.h>
 #include <WireData.h>
 
+#define CMD_LOAD_TRACK    1
+#define CMD_CORRECT_PPM   2
+#define CMD_PLAY          3
+#define CMD_PAUSE         4
+#define CMD_STOP          5
+#define CMD_SYNC_TO_FRAME 6
+
 const int myAddress = 0x08;
 volatile long ppmCorrection;
 long lastPpmCorrection = 0;
 
-volatile boolean haveI2Cdata = false;
+volatile bool haveI2Cdata = false;
 volatile byte i2cCommand;
 volatile long i2cParameter;
 
@@ -94,6 +101,11 @@ void loop() {
     Serial.println (i2cCommand);  
     Serial.print ("Received Parameter = ");
     Serial.println (i2cParameter);  
+
+    if (i2cCommand == CMD_PLAY) {
+      musicPlayer.resumeMusic();
+      Serial.println("Los geht's!");
+  }
     haveI2Cdata = false;  
   }  // end if haveData
 
@@ -112,11 +124,11 @@ void loop() {
     parse_menu(Serial.read()); // get command from serial input
   }
 
-  if (ppmCorrection != lastPpmCorrection) {
-    lastPpmCorrection = ppmCorrection;
-    adjustSamplerate(ppmCorrection);
-    Serial.println(ppmCorrection);
-  }
+//  if (ppmCorrection != lastPpmCorrection) {
+//    lastPpmCorrection = ppmCorrection;
+//    adjustSamplerate(ppmCorrection);
+//    Serial.println(ppmCorrection);
+//  }
   
 
 
@@ -262,7 +274,9 @@ void parse_menu(byte key_command) {
  
     while (musicPlayer.getState() != paused_playback) {}
     clearSampleCounter();
-    musicPlayer.resumeMusic();
+
+    Serial.println("Warten auf Play-Command...");
+//    musicPlayer.resumeMusic();
 
 
     /*       
