@@ -92,7 +92,6 @@ void setup() {
 //  pinMode(RS232LED, OUTPUT);
 //  pinMode(OVERFLOWLED, OUTPUT);
   Serial.begin(115200);
-//  FreqMeasure.begin();
   Wire.begin(); // join i2c bus (address optional for master)
   //delay(500);  // Virtual coffee break.
   
@@ -111,6 +110,7 @@ void loop() {
     case RESET:
     break;
     case PLAYING:
+      calculateCorrPpm();
     break;
     case PAUSED:
     break;
@@ -119,34 +119,13 @@ void loop() {
     default:
     break;
   }
-  
 
-  // calculateCorrPpm();
-  
   if (myState != prevState) {
     Serial.print("    --- State: ");
     Serial.println(myState);
     prevState = myState;
   }
-
-
   
-  if (FreqMeasure.available()) {
-  // average several reading together
-    impSum = impSum + FreqMeasure.read();
-    impCount = impCount + 1;
-    if (impCount > 30) {
-      long frequency = 1000000 * FreqMeasure.countToFrequency(impSum / impCount);
-      
-//      Wire.beginTransmission(8); // transmit to device #8
-//      wireWriteData(frequency);  
-//      Wire.endTransmission();    // stop transmitting
-
-      Serial.println(frequency);
-      impSum = 0;
-      impCount = 0;
-    }
-  }
 }
 
 void waitForStartMark() {
@@ -167,8 +146,10 @@ void waitForStartMark() {
     wireWriteData(cmd);  
     wireWriteData(param);  
     Wire.endTransmission();    // stop transmitting
-    myState = PLAYING;
+    
+    FreqMeasure.begin();
     impCountToStartMark = 0;
+    myState = PLAYING;
   }
 }
 
@@ -195,19 +176,14 @@ void calculateCorrPpm() {
   currentMillis = millis();
   if (FreqMeasure.available()) {
     lastMeasurementMillis = currentMillis;
- 
-    // average several reading together
-    impSum = impSum + FreqMeasure.read();
-    impCount = impCount + 1;
+    impSum = impSum + FreqMeasure.read();     // average several reading together
+    impCount++;
     if (impCount > 30) {
       frequency = FreqMeasure.countToFrequency(impSum / impCount);
       ppm = (1 - frequency / flickrate) * -480000;
       ppmRounded = ppm >= 0 ? (long)(ppm+0.5) : (long)(ppm-0.5);
       ppmRoundedPlusCarryOver = ppmRounded + carryOverCorrection;
       ppmConstrained = constrain(ppmRoundedPlusCarryOver, ppmLo, ppmHi);
-//      Serial.print(frequency,5);
-//      Serial.print(" Hz -> CorrVal = ");
-//      Serial.print(ppmConstrained);
       if (ppmRoundedPlusCarryOver >= ppmHi) {
 //        digitalWrite(OVERFLOWLED, HIGH);
         carryOverCorrection -= ppmHi - ppmRounded;
@@ -218,24 +194,20 @@ void calculateCorrPpm() {
 //        digitalWrite(OVERFLOWLED, LOW);
         carryOverCorrection = 0;
       }
-      Serial.print("Übertrag ");
-      Serial.println(carryOverCorrection);
-
+//      Serial.print("Übertrag ");
+//      Serial.println(carryOverCorrection);
       Wire.beginTransmission(8); // transmit to device #8
+      byte cmd = CMD_CORRECT_PPM;
+      wireWriteData(cmd);  
       wireWriteData(ppmConstrained);  
-      Wire.endTransmission();    // stop transmitting
-
       Serial.println(ppmConstrained);
-
-      
-      //sendMessage(RCPT_AUDIO, ADJUST_SPEED, NULL, "");
-//      //sendMessage(RCPT_UI, "SHOW_CURRENT_FPS", NULL, String(frequency / segments,4));
+      Wire.endTransmission();    // stop transmitting
       impSum = 0;
       impCount = 0;
     }
   } else {
     if (currentMillis - lastMeasurementMillis >= projectorStopTimeoutMs) {
-//      myState = PAUSE;
+//      myState = PAUSED;
     }
   }
 }

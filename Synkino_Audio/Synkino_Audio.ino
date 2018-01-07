@@ -97,10 +97,30 @@ void loop() {
     Serial.print ("Received Parameter = ");
     Serial.println (i2cParameter);  
 
-    if (i2cCommand == CMD_PLAY) {
-      musicPlayer.resumeMusic();
-      Serial.println("Los geht's!");
-  }
+    switch (i2cCommand) {
+      case CMD_PLAY: 
+        musicPlayer.resumeMusic();
+        Serial.println("Los geht's!");
+      break;
+      case CMD_CORRECT_PPM:
+        if (i2cParameter != lastPpmCorrection) {
+          lastPpmCorrection = i2cParameter;
+          adjustSamplerate(i2cParameter);
+          Serial.println(i2cParameter);
+        }
+     break;
+    case CMD_LOAD_TRACK:
+    break;
+    case CMD_PAUSE:
+    break;
+    case CMD_STOP:
+    break;
+    case CMD_SYNC_TO_FRAME:
+    break;
+    default:
+    break;
+    }
+    
     haveI2Cdata = false;  
   }  // end if haveData
 
@@ -118,14 +138,6 @@ void loop() {
   if(Serial.available()) {
     parse_menu(Serial.read()); // get command from serial input
   }
-
-//  if (ppmCorrection != lastPpmCorrection) {
-//    lastPpmCorrection = ppmCorrection;
-//    adjustSamplerate(ppmCorrection);
-//    Serial.println(ppmCorrection);
-//  }
-  
-
 
   delay(50);
 }
@@ -253,7 +265,7 @@ void parse_menu(byte key_command) {
     }
 
     //create a string with the filename
-    char trackName[] = "track003.m4a";
+    char trackName[] = "track009.m4a";
 
 #if USE_MULTIPLE_CARDS
     sd.chvol(); // assign desired sdcard's volume.
@@ -276,14 +288,16 @@ void parse_menu(byte key_command) {
 
     /*       
      *
-     *  track001.mp3  
-     *  track002.m4a  
+     *  track001.mp3  tuuuut
+     *  track002.m4a  Mortel
      *  track003.m4a  Der Himmel ist Blau wie noch nie
      *  track004.m4a  Giorgio by Moroder
-     *  track005.m4a  
-     *  track006.m4a  
-     *  track007.m4a  
-     *  
+     *  track005.m4a  Kid Francescoli
+     *  track006.m4a  Der kleine Spatz
+     *  track007.m4a  Bar in Amsterdam
+     *  track008.m4a  Tatort
+     *  track009.m4a  Xylophon
+     *   
      *  
      *  
      */
