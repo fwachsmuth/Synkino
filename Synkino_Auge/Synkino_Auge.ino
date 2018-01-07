@@ -1,6 +1,5 @@
 /* TODOs
  *  
- *  [ ] Move STartmark detector to here (and the 15 frames delay as well)
  *  [ ] Introduce Framecounter
  *  [ ] Find out why Schmitt Trigger sometimes oscillates (not with scope. pulldown?)
  *  [x] Find out why Playback sometimes occasionally stops / crashes (IRQ?)
@@ -42,6 +41,13 @@
 #define CMD_STOP          5
 #define CMD_SYNC_TO_FRAME 6
 
+#define IDLING            1
+#define LOAD_TRACK        2
+#define TRACK_LOADED      3
+#define RESET             4
+#define PLAYING           5
+#define PAUSED            6
+#define SETTINGS_MENU     7
 
 // define OVERFLOWLED  
 
@@ -50,6 +56,7 @@ byte segments = 2;          // Wieviele Segmente hat die Umlaufblende?
 byte flickrate = sollfps * segments;
 
 const byte startMarkDetectorPin = 9;
+const byte impDetectorPin = 8;
 byte startMarkOffset = 15;
 
 unsigned int projectorStopTimeoutMs = 250;
@@ -68,9 +75,7 @@ long ppmRounded = 0;
 long carryOverCorrection = 0;
 long ppmRoundedPlusCarryOver = 0;
 
-
-
-byte myState;
+byte myState = 3;     // For now, let's assume (and make sure) the track is loaded 
 byte prevState;
 
 const byte ISRPIN = 2;
@@ -87,7 +92,7 @@ void setup() {
 //  pinMode(RS232LED, OUTPUT);
 //  pinMode(OVERFLOWLED, OUTPUT);
   Serial.begin(115200);
-  FreqMeasure.begin();
+//  FreqMeasure.begin();
   Wire.begin(); // join i2c bus (address optional for master)
   //delay(500);  // Virtual coffee break.
   
@@ -95,13 +100,37 @@ void setup() {
 
 void loop() {
 
-  calculateCorrPpm();
+  switch (myState) {
+    case IDLING:
+    break;
+    case LOAD_TRACK:
+    break;
+    case TRACK_LOADED:
+      waitForStartMark();
+    break;
+    case RESET:
+    break;
+    case PLAYING:
+    break;
+    case PAUSED:
+    break;
+    case SETTINGS_MENU:
+    break;
+    default:
+    break;
+  }
   
-//  if (myState != prevState) {
-//    Serial.print("    --- State: ");
-//    Serial.println(myState);
-//    prevState = myState;
-//  }
+
+  // calculateCorrPpm();
+  
+  if (myState != prevState) {
+    Serial.print("    --- State: ");
+    Serial.println(myState);
+    prevState = myState;
+  }
+
+
+  
   if (FreqMeasure.available()) {
   // average several reading together
     impSum = impSum + FreqMeasure.read();
@@ -121,16 +150,25 @@ void loop() {
 }
 
 void waitForStartMark() {
-  while (digitalRead(startMarkDetectorPin) = HIGH) {}
-    // count startMarkOffset Frames
-    // then
-    // pin8 15x togglen lassen. pollen?
-    
+  if (digitalRead(startMarkDetectorPin) == HIGH) return;  // There is still leader
+  static int impCountToStartMark = 0;
+  static byte previousImpDetectorState = LOW;
+  static byte impDetectorPinNow = 0;
+  impDetectorPinNow = digitalRead(impDetectorPin);
+  if (impDetectorPinNow != previousImpDetectorState) {
+    impCountToStartMark++;
+    // Serial.println(impCountToStartMark);
+    previousImpDetectorState = impDetectorPinNow;
+  }
+  if (impCountToStartMark >= segments * 2 * startMarkOffset) {
+    byte cmd = CMD_PLAY;
+    long param = 0;
     Wire.beginTransmission(8); // transmit to device #8
-    wireWriteData(CMD_PLAY);  
-    wireWriteData(0);  
+    wireWriteData(cmd);  
+    wireWriteData(param);  
     Wire.endTransmission();    // stop transmitting
-
+    myState = PLAYING;
+    impCountToStartMark = 0;
   }
 }
 

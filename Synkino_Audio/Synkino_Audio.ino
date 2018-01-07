@@ -3,16 +3,11 @@
  * *  This is the versionmanaged version!
  * 
  * To Do:
- * √ load patch250.053 or pshift.053 from SD
- * - load patch from EEPROM
- * √ support m4a loading 
- * - Increase Volume
- * - Document diffs to vs1053_SdFat.h
- * - use vs1053 Interrupt oder Timer based?
- * - decode delta-sigma line out
- * - add ppm constrains 
- * - make sure 15/16 bit resampler is always enabled after playback start
- * - Try/Switch to 15 MHz xtal
+ *  [ ] load patch from EEPROM
+ *  [ ] Document diffs to vs1053_SdFat.h
+ *  [ ] use vs1053 Interrupt oder Timer based?
+ *  [ ] decode delta-sigma line out
+ *  [ ] Try/Switch to 15 MHz xtal
  * 
  * 
  */
