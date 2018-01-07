@@ -1,10 +1,9 @@
 /* TODOs
  *  
+ *  [ ] Detect projector stops and stop the audio
  *  [ ] Introduce Framecounter
  *  [ ] Find out why Schmitt Trigger sometimes oscillates (not with scope. pulldown?)
  *  [x] Find out why Playback sometimes occasionally stops / crashes (IRQ?)
- *  [ ] Allow watching two serials at once (Terminal?)
- *  [ ] Detect projector stops and stop the audio
  *  [ ] add out of sync LED
  *  
  *  
@@ -53,14 +52,15 @@
 
 byte sollfps = 18;
 byte segments = 2;          // Wieviele Segmente hat die Umlaufblende?
+byte startMarkOffset = 15;
+
 byte flickrate = sollfps * segments;
 
 const byte startMarkDetectorPin = 9;
 const byte impDetectorPin = 8;
-byte startMarkOffset = 15;
 
 unsigned int projectorStopTimeoutMs = 250;
-unsigned int projectorRunoutMs = 1000;
+unsigned int projectorRunoutMs = 1000;      // ???
 
 long ppmLo = -100000;
 long ppmHi = 77000;
@@ -70,7 +70,7 @@ int impCount=0;
 
 float frequency = 0;
 float ppm = 0;
-long ppmConstrained = 0;
+long ppmConstrained = 0;            // these should be local
 long ppmRounded = 0;
 long carryOverCorrection = 0;
 long ppmRoundedPlusCarryOver = 0;
@@ -86,6 +86,7 @@ boolean freqMeasurementStarted = false;
 unsigned long lastMeasurementMillis = 0;
 unsigned long currentMillis = 0;
 unsigned long lastPausedMillis = 0;
+unsigned long playHeadStartMillis = 0;
 
 
 void setup() {
@@ -111,6 +112,7 @@ void loop() {
     break;
     case PLAYING:
       calculateCorrPpm();
+      considerResync();
     break;
     case PAUSED:
     break;
@@ -149,11 +151,25 @@ void waitForStartMark() {
     
     FreqMeasure.begin();
     impCountToStartMark = 0;
+    playHeadStartMillis = millis();
     myState = PLAYING;
   }
 }
 
+void considerResync() {
+  if (((millis() - playHeadStartMillis) % 5000) == 0) {
+    byte cmd = CMD_SYNC_TO_FRAME;
+    long param = random();
+    Wire.beginTransmission(8); // transmit to device #8
+    wireWriteData(cmd);  
+    wireWriteData(param);  
+    Wire.endTransmission();    // stop transmitting
 
+    Serial.println("Resync should happen now.");
+  }
+  // Every 10 seconds
+  // transmit the total framecounter to audio-bob
+}
 
 
 //void runDetected() {  // ISR
