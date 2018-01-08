@@ -93,8 +93,8 @@ void loop() {
 
   if (haveI2Cdata) {
     Serial.print ("Received Command = ");
-    Serial.println (i2cCommand);  
-    Serial.print ("Received Parameter = ");
+    Serial.print (i2cCommand);  
+    Serial.print (", Parameter = ");
     Serial.println (i2cParameter);  
 
     switch (i2cCommand) {
@@ -106,7 +106,6 @@ void loop() {
         if (i2cParameter != lastPpmCorrection) {
           lastPpmCorrection = i2cParameter;
           adjustSamplerate(i2cParameter);
-          Serial.println(i2cParameter);
         }
      break;
     case CMD_LOAD_TRACK:
@@ -116,6 +115,7 @@ void loop() {
     case CMD_STOP:
     break;
     case CMD_SYNC_TO_FRAME:
+      // resyncPlayhead(i2cParameter);
     break;
     default:
     break;
@@ -142,8 +142,9 @@ void loop() {
   delay(50);
 }
 
-//------------------------------------------------------------------------------
-//long ppmOffset = 0;
+void resyncPlayHead() {
+  // soll-frame von bob: (0x1800) / 44100 * 16/15 * fps
+}
 
 void old_i2cReceive(int byteCount) {
   wireReadData(ppmCorrection);

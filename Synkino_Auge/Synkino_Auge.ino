@@ -1,7 +1,9 @@
 /* TODOs
  *  
  *  [ ] Detect projector stops and stop the audio
- *  [ ] Introduce Framecounter
+ *  [x] Introduce Framecounter
+ *  [ ] Don't send twice in a row but avoid delay
+ *  [ ] Schmitt Trigger needs a higher threshold since all dat noise
  *  [ ] Find out why Schmitt Trigger sometimes oscillates (not with scope. pulldown?)
  *  [x] Find out why Playback sometimes occasionally stops / crashes (IRQ?)
  *  [ ] add out of sync LED
@@ -58,6 +60,7 @@ byte flickrate = sollfps * segments;
 
 const byte startMarkDetectorPin = 9;
 const byte impDetectorPin = 8;
+const byte impDetectorISRPIN = 2;
 
 unsigned int projectorStopTimeoutMs = 250;
 unsigned int projectorRunoutMs = 1000;      // ???
@@ -88,10 +91,12 @@ unsigned long currentMillis = 0;
 unsigned long lastPausedMillis = 0;
 unsigned long playHeadStartMillis = 0;
 
+volatile unsigned long totalImpCounter = 0;
 
 void setup() {
 //  pinMode(RS232LED, OUTPUT);
 //  pinMode(OVERFLOWLED, OUTPUT);
+  pinMode(impDetectorISRPIN, INPUT);
   Serial.begin(115200);
   Wire.begin(); // join i2c bus (address optional for master)
   //delay(500);  // Virtual coffee break.
@@ -148,6 +153,9 @@ void waitForStartMark() {
     wireWriteData(cmd);  
     wireWriteData(param);  
     Wire.endTransmission();    // stop transmitting
+
+    totalImpCounter = 0;
+    attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
     
     FreqMeasure.begin();
     impCountToStartMark = 0;
@@ -156,10 +164,14 @@ void waitForStartMark() {
   }
 }
 
+void countISR() {
+  totalImpCounter++;
+}
+
 void considerResync() {
   if (((millis() - playHeadStartMillis) % 5000) == 0) {
     byte cmd = CMD_SYNC_TO_FRAME;
-    long param = random();
+    long param = totalImpCounter / segments / 2;
     Wire.beginTransmission(8); // transmit to device #8
     wireWriteData(cmd);  
     wireWriteData(param);  
@@ -169,6 +181,9 @@ void considerResync() {
   }
   // Every 10 seconds
   // transmit the total framecounter to audio-bob
+  // soll-frame von bob: (0x1800) / 44100 * 16/15 * fps
+ 
+  
 }
 
 
