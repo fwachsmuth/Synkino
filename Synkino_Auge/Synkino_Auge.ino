@@ -2,11 +2,10 @@
  *  
  *  [ ] Detect projector stops and stop the audio
  *  [x] Introduce Framecounter
- *  [ ] Don't send twice in a row but avoid delay
+ *  [ ] Don't send resyncs twice in a row but avoid delay too
  *  [ ] Schmitt Trigger needs a higher threshold since all dat noise
- *  [ ] Find out why Schmitt Trigger sometimes oscillates (not with scope. pulldown?)
- *  [x] Find out why Playback sometimes occasionally stops / crashes (IRQ?)
  *  [ ] add out of sync LED
+ *  [ ] SPI vs i2c?
  *  
  *  
  *  This is the versionmanaged version!
@@ -169,7 +168,8 @@ void countISR() {
 }
 
 void considerResync() {
-  if (((millis() - playHeadStartMillis) % 5000) == 0) {
+  if (totalImpCounter % (sollfps * segments * 10) == 0) {    // every 5 seconds: 18 * 2 * 2 * 5
+//if (((millis() - playHeadStartMillis) % 5000) == 0) {
     byte cmd = CMD_SYNC_TO_FRAME;
     long param = totalImpCounter / segments / 2;
     Wire.beginTransmission(8); // transmit to device #8
