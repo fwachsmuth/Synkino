@@ -27,6 +27,9 @@
 #define CMD_SYNC_TO_FRAME 6
 
 const int myAddress = 0x08;
+const byte fps = 18;                 // Todo: Read this from filename!
+const float physicalSamplingrate = 44100 * 15 / 16;   // To compensate the 15/16 Bit Resampler
+
 volatile long ppmCorrection;
 long lastPpmCorrection = 0;
 
@@ -92,7 +95,7 @@ void setup() {
 void loop() {
 
   if (haveI2Cdata) {
-    switch (i2cCommand) {
+    switch (i2cCommand) {   // Debug output
       case 1: Serial.print(F("CMD: Load Track: "));
               Serial.println(i2cParameter);
       break;
@@ -115,6 +118,7 @@ void loop() {
     switch (i2cCommand) {
       case CMD_PLAY: 
         musicPlayer.resumeMusic();
+        clearSampleCounter();
         Serial.println("Los geht's!");
       break;
       case CMD_CORRECT_PPM:
@@ -130,7 +134,7 @@ void loop() {
     case CMD_STOP:
     break;
     case CMD_SYNC_TO_FRAME:
-      // resyncPlayhead(i2cParameter);
+      resyncPlayhead(i2cParameter);
     break;
     default:
     break;
@@ -138,9 +142,6 @@ void loop() {
     
     haveI2Cdata = false;  
   }  // end if haveData
-
-
-
 
 // Below is only needed if not interrupt driven. Safe to remove if not using.
 #if defined(USE_MP3_REFILL_MEANS) \
@@ -157,8 +158,25 @@ void loop() {
   delay(50);
 }
 
-void resyncPlayHead() {
+void resyncPlayhead(long syncToThisFrame) {
   // soll-frame von bob: (0x1800) / 44100 * 16/15 * fps
+  long desiredSampleCount = syncToThisFrame / fps * physicalSamplingrate ;
+  long actualSampleCount = Read32BitsFromSCI(0x1800) - 1000;  // Transfer Latency and FIFO buffer approximation
+  // sampleCount = sampleCount / 44100 * 16/15 * fps;
+  Serial.print(F("Soll: "));
+  Serial.print(desiredSampleCount);
+  Serial.print(F(", Ist: "));
+  Serial.print(actualSampleCount);
+  Serial.print(F(", Delta: "));
+  long delta = actualSampleCount - desiredSampleCount;
+  Serial.print(delta);
+  Serial.print(F(", equal to "));
+  Serial.print(delta / 44.1);
+  Serial.print(F("ms or "));
+  Serial.print((delta / 44.1) / (1000 / fps));
+  Serial.println(F(" Frames."));
+
+  
 }
 
 void old_i2cReceive(int byteCount) {
@@ -194,7 +212,7 @@ void parse_menu(byte key_command) {
 
   uint8_t result; // result code from some function as to be tested at later time.
 
-  Serial.print(F("Received command: "));
+  Serial.print(F("Received Serial command: "));
   Serial.write(key_command);
   Serial.println(F(" "));
 

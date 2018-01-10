@@ -184,7 +184,6 @@ void considerResync() {
       Serial.println("Resync should happen now.");
     }
   }
-  // soll-frame von bob: (0x1800) / 44100 * 16/15 * fps
 }
 
 
