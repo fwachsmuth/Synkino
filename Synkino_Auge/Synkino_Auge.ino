@@ -1,8 +1,8 @@
 /* TODOs
  *  
+ *  [ ] actually resync, don't just measure
+ *  [ ] find out why overloads are remaining
  *  [ ] Detect projector stops and stop the audio
- *  [x] Introduce Framecounter
- *  [ ] Don't send resyncs twice in a row but avoid delay too
  *  [ ] Schmitt Trigger needs a higher threshold since all dat noise
  *  [ ] add out of sync LED
  *  [ ] SPI vs i2c?
@@ -19,7 +19,6 @@
  * I-Komponente bauen
  * Mute outrun on pause
  * ppm constrains dynamisch machen
- * Track Selection umziehen zum Bedienteil
  * wait for confirmation from audio module
  * pullups forlonger i12 cable runs!
  * 
@@ -67,8 +66,8 @@ unsigned int projectorRunoutMs = 1000;      // ???
 long ppmLo = -100000;
 long ppmHi = 77000;
 
-double impSum=0;
-int impCount=0;
+double freqMeasureSum=0;
+int freqMeasureCount=0;
 
 float frequency = 0;
 float ppm = 0;
@@ -136,16 +135,16 @@ void loop() {
 
 void waitForStartMark() {
   if (digitalRead(startMarkDetectorPin) == HIGH) return;  // There is still leader
-  static int impCountToStartMark = 0;
+  static int freqMeasureCountToStartMark = 0;
   static byte previousImpDetectorState = LOW;
   static byte impDetectorPinNow = 0;
   impDetectorPinNow = digitalRead(impDetectorPin);
   if (impDetectorPinNow != previousImpDetectorState) {
-    impCountToStartMark++;
-    // Serial.println(impCountToStartMark);
+    freqMeasureCountToStartMark++;
+    // Serial.println(freqMeasureCountToStartMark);
     previousImpDetectorState = impDetectorPinNow;
   }
-  if (impCountToStartMark >= segments * 2 * startMarkOffset) {
+  if (freqMeasureCountToStartMark >= segments * 2 * startMarkOffset) {
     byte cmd = CMD_PLAY;
     long param = 0;
     Wire.beginTransmission(8); // transmit to device #8
@@ -157,7 +156,7 @@ void waitForStartMark() {
     attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
     
     FreqMeasure.begin();
-    impCountToStartMark = 0;
+    freqMeasureCountToStartMark = 0;
     playHeadStartMillis = millis();
     myState = PLAYING;
   }
@@ -187,54 +186,41 @@ void considerResync() {
 }
 
 
-//void runDetected() {  // ISR
-//  projectorRunning = true;
-//}
-
-void startSyncedPlayback() {
-
-// if (currentMillis - lastMeasurementMillis >= projectorStopTimeoutMs) {
-  
-//  detachInterrupt(digitalPinToInterrupt (ISRPIN));
-//  FreqMeasure.begin();
-//  freqMeasurementStarted = true;
-//  //sendMessage(RCPT_AUDIO, ADJUST_VOLUME, NULL, "15");
-//  //sendMessage(RCPT_AUDIO, PAUSE_OFF, NULL, "");
-//  myState = RUNNING;
-}
-
 void calculateCorrPpm() {
   currentMillis = millis();
   if (FreqMeasure.available()) {
     lastMeasurementMillis = currentMillis;
-    impSum = impSum + FreqMeasure.read();     // average several reading together
-    impCount++;
-    if (impCount > 30) {
-      frequency = FreqMeasure.countToFrequency(impSum / impCount);
+    freqMeasureSum = freqMeasureSum + FreqMeasure.read();     // average several reading together
+    freqMeasureCount++;
+    if (freqMeasureCount > 30) {                              // correct about every second
+      frequency = FreqMeasure.countToFrequency(freqMeasureSum / freqMeasureCount);
       ppm = (1 - frequency / flickrate) * -480000;
       ppmRounded = ppm >= 0 ? (long)(ppm+0.5) : (long)(ppm-0.5);
       ppmRoundedPlusCarryOver = ppmRounded + carryOverCorrection;
       ppmConstrained = constrain(ppmRoundedPlusCarryOver, ppmLo, ppmHi);
       if (ppmRoundedPlusCarryOver >= ppmHi) {
+        Serial.print(F("Projektor zu schnell, "));
 //        digitalWrite(OVERFLOWLED, HIGH);
         carryOverCorrection -= ppmHi - ppmRounded;
       } else if (ppmRoundedPlusCarryOver <= ppmLo) {
+        Serial.print(F("Projektor zu langsam, "));
 //        digitalWrite(OVERFLOWLED, HIGH);
         carryOverCorrection -= ppmLo - ppmRounded;       
       } else {
 //        digitalWrite(OVERFLOWLED, LOW);
         carryOverCorrection = 0;
       }
-//      Serial.print("Übertrag ");
-//      Serial.println(carryOverCorrection);
+      Serial.print(F("Korrektrur-Übertrag: "));
+      Serial.println(carryOverCorrection);
+      
       Wire.beginTransmission(8); // transmit to device #8
       byte cmd = CMD_CORRECT_PPM;
       wireWriteData(cmd);  
       wireWriteData(ppmConstrained);  
-      Serial.println(ppmConstrained);
+//      Serial.println(ppmConstrained);
       Wire.endTransmission();    // stop transmitting
-      impSum = 0;
-      impCount = 0;
+      freqMeasureSum = 0;
+      freqMeasureCount = 0;
     }
   } else {
     if (currentMillis - lastMeasurementMillis >= projectorStopTimeoutMs) {

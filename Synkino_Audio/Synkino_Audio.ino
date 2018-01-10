@@ -3,11 +3,13 @@
  * *  This is the versionmanaged version!
  * 
  * To Do:
+ *  [ ] Read lost samples counter
  *  [ ] load patch from EEPROM
  *  [ ] Document diffs to vs1053_SdFat.h
  *  [ ] use vs1053 Interrupt oder Timer based?
  *  [ ] decode delta-sigma line out
  *  [ ] Try/Switch to 15 MHz xtal
+ *  [ ] Dynamic Sample Rate support?
  * 
  * 
  */
@@ -159,10 +161,8 @@ void loop() {
 }
 
 void resyncPlayhead(long syncToThisFrame) {
-  // soll-frame von bob: (0x1800) / 44100 * 16/15 * fps
   long desiredSampleCount = syncToThisFrame / fps * physicalSamplingrate ;
-  long actualSampleCount = Read32BitsFromSCI(0x1800) - 1000;  // Transfer Latency and FIFO buffer approximation
-  // sampleCount = sampleCount / 44100 * 16/15 * fps;
+  long actualSampleCount = Read32BitsFromSCI(0x1800) - 1500;  // Transfer Latency and FIFO buffer approximation
   Serial.print(F("Soll: "));
   Serial.print(desiredSampleCount);
   Serial.print(F(", Ist: "));
