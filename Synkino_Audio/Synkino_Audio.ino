@@ -94,20 +94,23 @@ void loop() {
   if (haveI2Cdata) {
     switch (i2cCommand) {
       case 1: Serial.print(F("CMD: Load Track: "));
+              Serial.println(i2cParameter);
       break;
       case 2: Serial.print(F("CMD: Correct PPM: "));
+              Serial.println(i2cParameter);
       break;
-      case 3: Serial.print(F("CMD: Play"));
+      case 3: Serial.println(F("CMD: Play"));
       break;
-      case 4: Serial.print(F("CMD: Pause"));
+      case 4: Serial.println(F("CMD: Pause"));
       break;
-      case 5: Serial.print(F("CMD: Stop"));
+      case 5: Serial.println(F("CMD: Stop"));
       break;
       case 6: Serial.print(F("CMD: Sync to Frame: "));
+              Serial.println(i2cParameter);
       break;
+      default:Serial.print(i2cCommand);
+              Serial.println(i2cParameter);
     }
-    if (i2cParameter != 0) Serial.println(i2cParameter);
-    else Serial.println("");
 
     switch (i2cCommand) {
       case CMD_PLAY: 

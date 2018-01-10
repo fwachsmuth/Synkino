@@ -168,22 +168,23 @@ void countISR() {
 }
 
 void considerResync() {
-  if (totalImpCounter % (sollfps * segments * 10) == 0) {    // every 5 seconds: 18 * 2 * 2 * 5
-//if (((millis() - playHeadStartMillis) % 5000) == 0) {
-    byte cmd = CMD_SYNC_TO_FRAME;
-    long param = totalImpCounter / segments / 2;
-    Wire.beginTransmission(8); // transmit to device #8
-    wireWriteData(cmd);  
-    wireWriteData(param);  
-    Wire.endTransmission();    // stop transmitting
+  static unsigned long lastSyncedImpCounter = 0;
+  unsigned long totalImpCounterNow;
+  totalImpCounterNow = totalImpCounter;
 
-    Serial.println("Resync should happen now.");
+  if (lastSyncedImpCounter != totalImpCounterNow) {
+    if (totalImpCounterNow % (sollfps * segments * 10) == 0) {    // every 5 seconds: 18 * 2 * 2 * 5
+      byte cmd = CMD_SYNC_TO_FRAME;
+      long param = totalImpCounterNow / segments / 2;
+      Wire.beginTransmission(8); // transmit to device #8
+      wireWriteData(cmd);  
+      wireWriteData(param);  
+      Wire.endTransmission();    // stop transmitting
+      lastSyncedImpCounter = totalImpCounterNow;
+      Serial.println("Resync should happen now.");
+    }
   }
-  // Every 10 seconds
-  // transmit the total framecounter to audio-bob
   // soll-frame von bob: (0x1800) / 44100 * 16/15 * fps
- 
-  
 }
 
 
