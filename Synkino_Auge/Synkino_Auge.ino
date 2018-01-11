@@ -1,5 +1,7 @@
 /* TODOs
  *  
+ *  [ ] try lower ppmLo than 77k
+ *  [ ] 480k or 512k? (don't resample twice)
  *  [ ] actually resync, don't just measure
  *  [ ] find out why overloads are remaining
  *  [ ] Detect projector stops and stop the audio
@@ -172,7 +174,7 @@ void considerResync() {
   totalImpCounterNow = totalImpCounter;
 
   if (lastSyncedImpCounter != totalImpCounterNow) {
-    if (totalImpCounterNow % (sollfps * segments * 10) == 0) {    // every 5 seconds: 18 * 2 * 2 * 5
+    if (totalImpCounterNow % (sollfps * segments * 2) == 0) {    // every 2 seconds: 18 * 2 * 2
       byte cmd = CMD_SYNC_TO_FRAME;
       long param = totalImpCounterNow / segments / 2;
       Wire.beginTransmission(8); // transmit to device #8
@@ -194,7 +196,7 @@ void calculateCorrPpm() {
     freqMeasureCount++;
     if (freqMeasureCount > 30) {                              // correct about every second
       frequency = FreqMeasure.countToFrequency(freqMeasureSum / freqMeasureCount);
-      ppm = (1 - frequency / flickrate) * -480000;
+      ppm = (1 - frequency / flickrate) * -480000;            // 512,000 * 15/16
       ppmRounded = ppm >= 0 ? (long)(ppm+0.5) : (long)(ppm-0.5);
       ppmRoundedPlusCarryOver = ppmRounded + carryOverCorrection;
       ppmConstrained = constrain(ppmRoundedPlusCarryOver, ppmLo, ppmHi);
@@ -208,8 +210,17 @@ void calculateCorrPpm() {
         carryOverCorrection -= ppmLo - ppmRounded;       
       } else {
 //        digitalWrite(OVERFLOWLED, LOW);
-        carryOverCorrection = 0;
+        carryOverCorrection = 0;               
       }
+      /*
+       * The problem here that leads to drift is the carry-over routine. This doesn't work this way. 
+       * Spliting a 15% increase into a 10% increase and a 5% increase (on the result of the previous 
+       * calculation!), we end up with too much.
+       * Go, read about PID controllers, dude.
+       * http://brettbeauregard.com/blog/2011/04/improving-the-beginners-pid-introduction/
+       * http://playground.arduino.cc/Code/PIDLibrary
+       * 
+       */
       Serial.print(F("Korrektrur-Übertrag: "));
       Serial.println(carryOverCorrection);
       

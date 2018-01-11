@@ -174,7 +174,17 @@ void resyncPlayhead(long syncToThisFrame) {
   Serial.print(delta / 44.1);
   Serial.print(F("ms or "));
   Serial.print((delta / 44.1) / (1000 / fps));
-  Serial.println(F(" Frames."));
+  Serial.print(F(" Frames. Ton"));
+
+  if (delta < 0) {
+    Serial.print(F(" ist ")); 
+    Serial.print(delta / 44100);
+    Serial.println(F("s hinterher"));  
+  } else {
+    Serial.print(F(" eilt "));
+    Serial.print(delta / 44100);
+    Serial.println(F("s voraus"));
+  }
 
   
 }
