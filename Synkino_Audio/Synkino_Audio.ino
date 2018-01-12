@@ -1,12 +1,9 @@
 /**
  * 
- * *  This is the versionmanaged version!
- * 
  * To Do:
+ *  [ ] Anzeigen, wie lang das Delta in ms ist
  *  [ ] Optimize pid-feeding
  *  [ ] Optimize Kp, Ki and Kd
- *  [x] move start mark detection to here
- *  [x] Dont print debug when not running!
  *  [ ] KiCad all this. Soon.
  *  [ ] try lower ppmLo than 77k
  *  [ ] Read lost samples counter
@@ -69,6 +66,9 @@ volatile long i2cParameter;
 
 double Setpoint, Input, Output;
 double Kp=2, Ki=5, Kd=1;
+//double Kp=4, Ki=10, Kd=2;
+
+//PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, P_ON_M, DIRECT);
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
 
 
@@ -253,16 +253,16 @@ void loop() {
 
 void adjustSpeed(){
   static long prevTotalImpCounter;
-  long desiredSampleCount = totalImpCounter * (physicalSamplingrate / sollfps / 2 / segments );   // bitshift?
-  
-  long actualSampleCount = Read32BitsFromSCI(0x1800) - 1373;                // approx sample buffer size
-  long delta = (actualSampleCount - desiredSampleCount);
-
-  Input = delta;
-  myPID.Compute();
-  adjustSamplerate(Output);
 
   if (totalImpCounter != prevTotalImpCounter) {
+    long desiredSampleCount = totalImpCounter * (physicalSamplingrate / sollfps / 2 / segments );   // bitshift?
+    
+    long actualSampleCount = Read32BitsFromSCI(0x1800) - 1373;                // approx sample buffer size
+    long delta = (actualSampleCount - desiredSampleCount);
+  
+    Input = delta;
+    adjustSamplerate(Output);
+  
     prevTotalImpCounter = totalImpCounter;
     Serial.print(F("Imps: "));
     Serial.print(totalImpCounter);
@@ -274,7 +274,8 @@ void adjustSpeed(){
     Serial.print(delta);
     Serial.print(F(", Korrektur: "));
     Serial.println(Output);
- }
+  }
+  myPID.Compute();
  
 
 }
@@ -299,7 +300,7 @@ void waitForStartMark() {
 
     totalImpCounter = 0;
     myPID.SetMode(AUTOMATIC);
-    myPID.SetOutputLimits(-100000, 77000);
+    myPID.SetOutputLimits(-350000, 77000);
 
     attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
     
