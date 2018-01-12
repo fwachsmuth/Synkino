@@ -155,7 +155,7 @@ void waitForStartMark() {
     Wire.endTransmission();    // stop transmitting
 
     totalImpCounter = 0;
-    attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
+   // attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
     
     FreqMeasure.begin();
     freqMeasureCountToStartMark = 0;
@@ -224,12 +224,12 @@ void calculateCorrPpm() {
       Serial.print(F("Korrektrur-Übertrag: "));
       Serial.println(carryOverCorrection);
       
-      Wire.beginTransmission(8); // transmit to device #8
-      byte cmd = CMD_CORRECT_PPM;
-      wireWriteData(cmd);  
-      wireWriteData(ppmConstrained);  
+//      Wire.beginTransmission(8); // transmit to device #8
+//      byte cmd = CMD_CORRECT_PPM;
+//      wireWriteData(cmd);  
+//      wireWriteData(ppmConstrained);  
 //      Serial.println(ppmConstrained);
-      Wire.endTransmission();    // stop transmitting
+//      Wire.endTransmission();    // stop transmitting
       freqMeasureSum = 0;
       freqMeasureCount = 0;
     }

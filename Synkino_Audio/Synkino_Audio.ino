@@ -13,6 +13,7 @@
  * 
  * 
  */
+#include <PID_v1.h>
 
 #include <SPI.h>
 #include <FreeStack.h>
@@ -29,8 +30,13 @@
 #define CMD_SYNC_TO_FRAME 6
 
 const int myAddress = 0x08;
-const byte fps = 18;                 // Todo: Read this from filename!
+const byte sollfps = 18;                 // Todo: Read this from filename!
+byte segments = 2;          // Wieviele Segmente hat die Umlaufblende?
+
 const float physicalSamplingrate = 44100 * 15 / 16;   // To compensate the 15/16 Bit Resampler
+
+const byte impDetectorISRPIN = 3;
+
 
 volatile long ppmCorrection;
 long lastPpmCorrection = 0;
@@ -38,6 +44,10 @@ long lastPpmCorrection = 0;
 volatile bool haveI2Cdata = false;
 volatile byte i2cCommand;
 volatile long i2cParameter;
+
+double Setpoint, Input, Output;
+double Kp=2, Ki=5, Kd=1;
+PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
 
 
 // Below is not needed if interrupt driven. Safe to remove if not using.
@@ -53,11 +63,16 @@ vs1053 musicPlayer;
 
 uint32_t  millis_prv;
 long pitchrate = 0;
+long frameToSync = 0;
+
+volatile unsigned long totalImpCounter = 0;
 
 
 //------------------------------------------------------------------------------
 void setup() {
 
+  Setpoint = 0;
+  
   uint8_t result; //result code for initialization functions
 
   Serial.begin(115200);
@@ -119,6 +134,12 @@ void loop() {
 
     switch (i2cCommand) {
       case CMD_PLAY: 
+        totalImpCounter = 0;
+        myPID.SetMode(AUTOMATIC);
+        myPID.SetOutputLimits(-100000, 77000);
+
+        attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
+        
         musicPlayer.resumeMusic();
         clearSampleCounter();
         Serial.println("Los geht's!");
@@ -157,11 +178,42 @@ void loop() {
     parse_menu(Serial.read()); // get command from serial input
   }
 
-  delay(50);
+  // frameToSync = totalImpCounter / segments / 2;
+  
+  // long desiredSampleCount = frameToSync / sollfps * physicalSamplingrate ;
+  long desiredSampleCount = totalImpCounter * (physicalSamplingrate / sollfps / 2 / segments );   // bitshift?
+  
+  long actualSampleCount = Read32BitsFromSCI(0x1800) - 1373;                // approx sample buffer size
+  long delta = (actualSampleCount - desiredSampleCount);
+
+  Input = delta;
+  myPID.Compute();
+  adjustSamplerate(Output);
+
+  Serial.print(F("Imps: "));
+  Serial.print(totalImpCounter);
+  Serial.print(F(", Desired: "));
+  Serial.print(desiredSampleCount);
+  Serial.print(F(", Actual: "));
+  Serial.print(actualSampleCount);
+  Serial.print(F(", Delta: "));
+  Serial.print(delta);
+  Serial.print(F(", Korrektur: "));
+  Serial.println(Output);
+
+  
+
+  
+  delay(50);      // This need to go away
 }
 
+void countISR() {
+  totalImpCounter++;
+}
+
+
 void resyncPlayhead(long syncToThisFrame) {
-  long desiredSampleCount = syncToThisFrame / fps * physicalSamplingrate ;
+  long desiredSampleCount = syncToThisFrame / sollfps * physicalSamplingrate ;
   long actualSampleCount = Read32BitsFromSCI(0x1800) - 1500;  // Transfer Latency and FIFO buffer approximation
   Serial.print(F("Soll: "));
   Serial.print(desiredSampleCount);
@@ -173,7 +225,7 @@ void resyncPlayhead(long syncToThisFrame) {
   Serial.print(F(", equal to "));
   Serial.print(delta / 44.1);
   Serial.print(F("ms or "));
-  Serial.print((delta / 44.1) / (1000 / fps));
+  Serial.print((delta / 44.1) / (1000 / sollfps));
   Serial.print(F(" Frames. Ton"));
 
   if (delta < 0) {
@@ -189,9 +241,6 @@ void resyncPlayhead(long syncToThisFrame) {
   
 }
 
-void old_i2cReceive(int byteCount) {
-  wireReadData(ppmCorrection);
-}
 
 void i2cReceive (int howMany) {
   if (howMany >= (sizeof i2cCommand) + (sizeof i2cParameter)) {
