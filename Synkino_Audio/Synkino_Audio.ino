@@ -3,6 +3,12 @@
  * *  This is the versionmanaged version!
  * 
  * To Do:
+ *  [ ] Optimize pid-feeding
+ *  [ ] Optimize Kp, Ki and Kd
+ *  [x] move start mark detection to here
+ *  [x] Dont print debug when not running!
+ *  [ ] KiCad all this. Soon.
+ *  [ ] try lower ppmLo than 77k
  *  [ ] Read lost samples counter
  *  [ ] load patch from EEPROM
  *  [ ] Document diffs to vs1053_SdFat.h
@@ -10,14 +16,15 @@
  *  [ ] decode delta-sigma line out
  *  [ ] Try/Switch to 15 MHz xtal
  *  [ ] Dynamic Sample Rate support?
- * 
+ *  [ ] Forwards/Backwards Correction (Frame-wise)
+ *  [ ] complete state machine here
+ *  [ ] 
  * 
  */
 #include <PID_v1.h>
 
 #include <SPI.h>
 #include <FreeStack.h>
-#include <SdFat.h>
 #include <vs1053_SdFat.h>
 #include <Wire.h>
 #include <WireData.h>
@@ -29,14 +36,29 @@
 #define CMD_STOP          5
 #define CMD_SYNC_TO_FRAME 6
 
+#define IDLING            1
+#define LOAD_TRACK        2
+#define TRACK_LOADED      3
+#define RESET             4
+#define PLAYING           5
+#define PAUSED            6
+#define SETTINGS_MENU     7
+
 const int myAddress = 0x08;
-const byte sollfps = 18;                 // Todo: Read this from filename!
-byte segments = 2;          // Wieviele Segmente hat die Umlaufblende?
+
+const byte sollfps = 18;        // Todo: Read this from filename!
+byte segments = 2;              // Wieviele Segmente hat die Umlaufblende?
+byte startMarkOffset = 15;
+
 
 const float physicalSamplingrate = 44100 * 15 / 16;   // To compensate the 15/16 Bit Resampler
 
 const byte impDetectorISRPIN = 3;
+const byte impDetectorPin = 3;
+const byte startMarkDetectorPin = 5;
 
+byte myState = IDLING;     
+byte prevState;
 
 volatile long ppmCorrection;
 long lastPpmCorrection = 0;
@@ -70,6 +92,9 @@ volatile unsigned long totalImpCounter = 0;
 
 //------------------------------------------------------------------------------
 void setup() {
+
+  pinMode(impDetectorISRPIN, INPUT);
+  pinMode(startMarkDetectorPin, INPUT);
 
   Setpoint = 0;
   
@@ -157,7 +182,7 @@ void loop() {
     case CMD_STOP:
     break;
     case CMD_SYNC_TO_FRAME:
-      resyncPlayhead(i2cParameter);
+//    resyncPlayhead(i2cParameter);
     break;
     default:
     break;
@@ -178,9 +203,56 @@ void loop() {
     parse_menu(Serial.read()); // get command from serial input
   }
 
-  // frameToSync = totalImpCounter / segments / 2;
-  
-  // long desiredSampleCount = frameToSync / sollfps * physicalSamplingrate ;
+
+  switch (myState) {
+    case IDLING:
+    break;
+    case LOAD_TRACK:
+    break;
+    case TRACK_LOADED:
+      waitForStartMark();
+    break;
+    case RESET:
+    break;
+    case PLAYING:
+//      calculateCorrPpm();
+//      considerResync();
+        adjustSpeed();
+    break;
+    case PAUSED:
+    break;
+    case SETTINGS_MENU:
+    break;
+    default:
+    break;
+  }
+
+  if (myState != prevState) {
+    switch (i2cCommand) {   // Debug output
+      case 1: Serial.print(F("--- IDLING."));
+      break;
+      case 2: Serial.print(F("--- LOAD_TRACK"));
+      break;
+      case 3: Serial.println(F("--- TRACK_LOADED."));
+      break;
+      case 4: Serial.println(F("--- RESET"));
+      break;
+      case 5: Serial.println(F("--- PLAYING"));
+      break;
+      case 6: Serial.print(F("--- PAUSED"));
+      break;
+      case 7: Serial.print(F("--- SETTINGS_MENU"));
+      break;
+     }
+    prevState = myState;
+  }
+
+    
+  //delay(50);      // This need to go away
+}
+
+void adjustSpeed(){
+  static long prevTotalImpCounter;
   long desiredSampleCount = totalImpCounter * (physicalSamplingrate / sollfps / 2 / segments );   // bitshift?
   
   long actualSampleCount = Read32BitsFromSCI(0x1800) - 1373;                // approx sample buffer size
@@ -190,56 +262,56 @@ void loop() {
   myPID.Compute();
   adjustSamplerate(Output);
 
-  Serial.print(F("Imps: "));
-  Serial.print(totalImpCounter);
-  Serial.print(F(", Desired: "));
-  Serial.print(desiredSampleCount);
-  Serial.print(F(", Actual: "));
-  Serial.print(actualSampleCount);
-  Serial.print(F(", Delta: "));
-  Serial.print(delta);
-  Serial.print(F(", Korrektur: "));
-  Serial.println(Output);
+  if (totalImpCounter != prevTotalImpCounter) {
+    prevTotalImpCounter = totalImpCounter;
+    Serial.print(F("Imps: "));
+    Serial.print(totalImpCounter);
+    Serial.print(F(", Desired: "));
+    Serial.print(desiredSampleCount);
+    Serial.print(F(", Actual: "));
+    Serial.print(actualSampleCount);
+    Serial.print(F(", Delta: "));
+    Serial.print(delta);
+    Serial.print(F(", Korrektur: "));
+    Serial.println(Output);
+ }
+ 
 
-  
-
-  
-  delay(50);      // This need to go away
 }
+
 
 void countISR() {
   totalImpCounter++;
 }
 
-
-void resyncPlayhead(long syncToThisFrame) {
-  long desiredSampleCount = syncToThisFrame / sollfps * physicalSamplingrate ;
-  long actualSampleCount = Read32BitsFromSCI(0x1800) - 1500;  // Transfer Latency and FIFO buffer approximation
-  Serial.print(F("Soll: "));
-  Serial.print(desiredSampleCount);
-  Serial.print(F(", Ist: "));
-  Serial.print(actualSampleCount);
-  Serial.print(F(", Delta: "));
-  long delta = actualSampleCount - desiredSampleCount;
-  Serial.print(delta);
-  Serial.print(F(", equal to "));
-  Serial.print(delta / 44.1);
-  Serial.print(F("ms or "));
-  Serial.print((delta / 44.1) / (1000 / sollfps));
-  Serial.print(F(" Frames. Ton"));
-
-  if (delta < 0) {
-    Serial.print(F(" ist ")); 
-    Serial.print(delta / 44100);
-    Serial.println(F("s hinterher"));  
-  } else {
-    Serial.print(F(" eilt "));
-    Serial.print(delta / 44100);
-    Serial.println(F("s voraus"));
+void waitForStartMark() {
+  if (digitalRead(startMarkDetectorPin) == HIGH) return;  // There is still leader
+  static int freqMeasureCountToStartMark = 0;
+  static byte previousImpDetectorState = LOW;
+  static byte impDetectorPinNow = 0;
+  impDetectorPinNow = digitalRead(impDetectorPin);
+  if (impDetectorPinNow != previousImpDetectorState) {
+    freqMeasureCountToStartMark++;
+    //Serial.println(freqMeasureCountToStartMark);
+    previousImpDetectorState = impDetectorPinNow;
   }
+  if (freqMeasureCountToStartMark >= segments * 2 * startMarkOffset) {
 
-  
+    totalImpCounter = 0;
+    myPID.SetMode(AUTOMATIC);
+    myPID.SetOutputLimits(-100000, 77000);
+
+    attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
+    
+    musicPlayer.resumeMusic();
+    clearSampleCounter();
+    Serial.println("Los geht's!");
+
+    freqMeasureCountToStartMark = 0;
+    myState = PLAYING;
+  }
 }
+
 
 
 void i2cReceive (int howMany) {
@@ -253,15 +325,15 @@ void i2cReceive (int howMany) {
 
  
 
-//void i2cRequest()
-//{
-//  // FYI: The Atmel AVR 8 bit microcontroller provides for clock stretching while using
-//  // the ISR for the data request.  This is, by extension, happening here, since this
-//  // callback is called from the ISR.
-//
-//  // Send the data.
+void i2cRequest()
+{
+  // FYI: The Atmel AVR 8 bit microcontroller provides for clock stretching while using
+  // the ISR for the data request.  This is, by extension, happening here, since this
+  // callback is called from the ISR.
+
+  // Send the data.
 //  wireWriteData(ppmCorrection);
-//}
+}
 
 
 
@@ -375,9 +447,10 @@ void parse_menu(byte key_command) {
     while (musicPlayer.getState() != paused_playback) {}
     clearSampleCounter();
 
-    Serial.println("Warten auf Play-Command...");
-//    musicPlayer.resumeMusic();
+    myState = TRACK_LOADED;
 
+    Serial.println("Waiting for start mark...");
+    
 
     /*       
      *
@@ -390,32 +463,10 @@ void parse_menu(byte key_command) {
      *  track007.m4a  Bar in Amsterdam
      *  track008.m4a  Tatort
      *  track009.m4a  Xylophon
-     *   
-     *  
      *  
      */
     unsigned long t = millis();
     unsigned long currentmillis = 0;
-//    while(currentmillis <= 10000000) {
-//      currentmillis = millis() - t +1;
-//      if (currentmillis % 10000 == 0) {
-//        unsigned long sampleCount = Read32BitsFromSCI(0x1800);
-//   
-//        Serial.print(F("Sample count: "));
-//        Serial.print(sampleCount * 16/15);  // compensate 15/16 resampler
-//        Serial.print(F(" after "));
-//    
-//       
-//        Serial.print(currentmillis);
-//        Serial.print(F(" ms, so "));
-//        Serial.print((float)(sampleCount * 16/15) / currentmillis * 1000);
-//        Serial.println(F(" kHz in last 10 sec"));
-//        
-////        newPpmCorrection = ((float)44100 - ((float)(sampleCount) / currentmillis * 1000)) * 3 + initialPpmCorrection;
-//        //adjustSamplerate(newPpmCorrection);
-//        
-//      }
-//    }
     Serial.read();
 
 
@@ -593,15 +644,6 @@ void parse_menu(byte key_command) {
     Serial.println(sampleCount);
     
   }
-  // print prompt after key stroke has been processed.
-//  Serial.print(F("Time since last command: "));  
-//  Serial.println((float) (millis() -  millis_prv)/1000, 2);  
-//  millis_prv = millis();
-//  Serial.print(F("Enter s,1-9,+,-,>,<,f,F,d,i,p,S"));
-//#if !defined(__AVR_ATmega32U4__)
-//  Serial.print(F(",m,R,k,O,o,D,V,M"));
-//#endif
-//  Serial.println(F(" or h:"));
 }
 
 //------------------------------------------------------------------------------

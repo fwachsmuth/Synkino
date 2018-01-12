@@ -1,32 +1,9 @@
 /* TODOs
- *  
- *  [ ] try lower ppmLo than 77k
- *  [ ] 480k or 512k? (don't resample twice)
- *  [ ] actually resync, don't just measure
- *  [ ] find out why overloads are remaining
+ *  This is the versionmanaged version!
+ *   
  *  [ ] Detect projector stops and stop the audio
- *  [ ] Schmitt Trigger needs a higher threshold since all dat noise
  *  [ ] add out of sync LED
  *  [ ] SPI vs i2c?
- *  
- *  
- *  This is the versionmanaged version!
- * 
- * √ Auto Start und Stop
- * √ Überläufe merken und abbauen
- * √ Watermarking LED
- * √ Display unterstützen
- * 
- * Vorwärts/Rückwärtskorrektur (0.1 Sek) 
- * I-Komponente bauen
- * Mute outrun on pause
- * ppm constrains dynamisch machen
- * wait for confirmation from audio module
- * pullups forlonger i12 cable runs!
- * 
- * Tastverhältnis messen
- * Bessren OpAmp einbauen
- * Lichtleiter
  *  
  *  
  */
