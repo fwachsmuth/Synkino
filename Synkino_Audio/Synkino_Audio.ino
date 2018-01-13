@@ -2,10 +2,13 @@
  * 
  * To Do:
  *  [ ] Anzeigen, wie lang das Delta in ms ist
- *  [ ] Optimize pid-feeding
+ *  [ ] Doch noch p über freqMeasure regeln..?
+ *  [ ] Probierem imemr 2-3 Delta-Werte (oder Korrekturwerte) zu averagen
+ *  [x] Optimize pid-feeding
  *  [ ] Optimize Kp, Ki and Kd
  *  [ ] KiCad all this. Soon.
- *  [ ] try lower ppmLo than 77k
+ *  [x] try lower ppmLo than 77k
+ *  [ ] Korrekturwert auf long casten
  *  [ ] Read lost samples counter
  *  [ ] load patch from EEPROM
  *  [ ] Document diffs to vs1053_SdFat.h
@@ -65,7 +68,7 @@ volatile byte i2cCommand;
 volatile long i2cParameter;
 
 double Setpoint, Input, Output;
-double Kp=2, Ki=5, Kd=1;
+double Kp=5, Ki=5, Kd=1;
 //double Kp=4, Ki=10, Kd=2;
 
 //PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, P_ON_M, DIRECT);
@@ -261,19 +264,19 @@ void adjustSpeed(){
     long delta = (actualSampleCount - desiredSampleCount);
   
     Input = delta;
-    adjustSamplerate(Output);
+    adjustSamplerate((long) Output);
   
     prevTotalImpCounter = totalImpCounter;
     Serial.print(F("Imps: "));
     Serial.print(totalImpCounter);
-    Serial.print(F(", Desired: "));
+    Serial.print(F("\t Desired: "));
     Serial.print(desiredSampleCount);
-    Serial.print(F(", Actual: "));
+    Serial.print(F("\t Actual: "));
     Serial.print(actualSampleCount);
-    Serial.print(F(", Delta: "));
+    Serial.print(F("\t Delta: "));
     Serial.print(delta);
-    Serial.print(F(", Korrektur: "));
-    Serial.println(Output);
+    Serial.print(F("\t\t Korrektur: "));
+    Serial.println((long)Output);
   }
   myPID.Compute();
  
@@ -431,7 +434,7 @@ void parse_menu(byte key_command) {
     }
 
     //create a string with the filename
-    char trackName[] = "track009.m4a";
+    char trackName[] = "track003.m4a";
 
 #if USE_MULTIPLE_CARDS
     sd.chvol(); // assign desired sdcard's volume.
@@ -659,7 +662,6 @@ void adjustSamplerate(signed long ppm2) {
  
   musicPlayer.Mp3WriteRegister(SCI_AUDATA, musicPlayer.Mp3ReadRegister(SCI_AUDATA));
 }
-
 void enableResampler() {
   // Enable 15-16 Resampler
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1e09);
