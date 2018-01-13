@@ -3,10 +3,10 @@
  * To Do:
  *  [ ] Anzeigen, wie lang das Delta in ms ist
  *  [ ] Doch noch p über freqMeasure regeln..? Und nur bei hartem Drift pid-nachregeln?
- *  [ ] Probieren, imemr 2-3 Delta-Werte (oder Korrekturwerte) zu averagen
+ *  [ ] Probieren, immer 2-3 Delta-Werte (oder Korrekturwerte) zu averagen
  *  [ ] Optimize pid-feeding
  *  [ ] KiCad all this. Soon.
- *  [x] Read lost samples counter
+ *  [ ] Alle Deltas eines Impulses averagen? Wie viele sind das?
  *  [ ] load patch from EEPROM
  *  [ ] Document diffs to vs1053_SdFat.h
  *  [ ] use vs1053 Interrupt oder Timer based?
@@ -15,7 +15,8 @@
  *  [ ] Dynamic Sample Rate support?
  *  [ ] Forwards/Backwards Correction (Frame-wise)
  *  [ ] complete state machine here
- *  [ ] 
+ *  [ ] Projektor-Frequenzanzeige
+ *  [x] Detect Projector Pauses
  * 
  */
 #include <PID_v1.h>
@@ -53,6 +54,7 @@ const float physicalSamplingrate = 44100 * 15 / 16;   // To compensate the 15/16
 const byte impDetectorISRPIN = 3;
 const byte impDetectorPin = 3;
 const byte startMarkDetectorPin = 5;
+const int  pauseDetectedPeriod = (1000 / sollfps * 4);   // Duration of 4 single frames
 
 byte myState = IDLING;     
 byte prevState;
@@ -218,9 +220,11 @@ void loop() {
     case PLAYING:
 //      calculateCorrPpm();
 //      considerResync();
-        adjustSpeed();
+      speedControlPID();
+      checkIfStillRunning();
     break;
     case PAUSED:
+      
     break;
     case SETTINGS_MENU:
     break;
@@ -229,7 +233,7 @@ void loop() {
   }
 
   if (myState != prevState) {
-    switch (i2cCommand) {   // Debug output
+    switch (myState) {   // Debug output
       case 1: Serial.print(F("--- IDLING."));
       break;
       case 2: Serial.print(F("--- LOAD_TRACK"));
@@ -252,19 +256,39 @@ void loop() {
   //delay(50);      // This need to go away
 }
 
-void adjustSpeed(){
-  static long prevTotalImpCounter;
+void checkIfStillRunning() {
+  static unsigned long prevTotalImpCounter2;
+  static unsigned long lastImpMillis;
+ 
+  if (totalImpCounter != prevTotalImpCounter2) {
+    prevTotalImpCounter2 = totalImpCounter;
+    lastImpMillis = millis();
+  } else {
+   // start countdown pauseDetectedPeriod
+    if ((millis() - lastImpMillis) >= pauseDetectedPeriod) {
+      musicPlayer.pauseMusic();
+      myPID.SetMode(MANUAL);
+      myState = PAUSED;
+    }
+  }
+}
+
+
+
+void speedControlPID(){
+  static unsigned long prevTotalImpCounter;
 
   if (totalImpCounter != prevTotalImpCounter) {
+    long actualSampleCount = Read32BitsFromSCI(0x1800) - 1400;                // 1400 is approx sample buffer size
     long desiredSampleCount = totalImpCounter * (physicalSamplingrate / sollfps / 2 / segments );   // bitshift?
     
-    long actualSampleCount = Read32BitsFromSCI(0x1800) - 1373;                // approx sample buffer size
     long delta = (actualSampleCount - desiredSampleCount);
   
-    Input = delta;
+    Input = delta; 
     adjustSamplerate((long) Output);
   
     prevTotalImpCounter = totalImpCounter;
+    
     Serial.print(F("Imps: "));
     Serial.print(totalImpCounter);
     Serial.print(F("\t Desired: "));
@@ -294,7 +318,6 @@ void waitForStartMark() {
   impDetectorPinNow = digitalRead(impDetectorPin);
   if (impDetectorPinNow != previousImpDetectorState) {
     freqMeasureCountToStartMark++;
-    //Serial.println(freqMeasureCountToStartMark);
     previousImpDetectorState = impDetectorPinNow;
   }
   if (freqMeasureCountToStartMark >= segments * 2 * startMarkOffset) {
@@ -447,7 +470,6 @@ void parse_menu(byte key_command) {
     enableResampler();
  
     while (musicPlayer.getState() != paused_playback) {}
-    clearErrorCounter();
     clearSampleCounter();
 
     myState = TRACK_LOADED;
