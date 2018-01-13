@@ -2,14 +2,11 @@
  * 
  * To Do:
  *  [ ] Anzeigen, wie lang das Delta in ms ist
- *  [ ] Doch noch p über freqMeasure regeln..?
- *  [ ] Probierem imemr 2-3 Delta-Werte (oder Korrekturwerte) zu averagen
- *  [x] Optimize pid-feeding
- *  [ ] Optimize Kp, Ki and Kd
+ *  [ ] Doch noch p über freqMeasure regeln..? Und nur bei hartem Drift pid-nachregeln?
+ *  [ ] Probieren, imemr 2-3 Delta-Werte (oder Korrekturwerte) zu averagen
+ *  [ ] Optimize pid-feeding
  *  [ ] KiCad all this. Soon.
- *  [x] try lower ppmLo than 77k
- *  [ ] Korrekturwert auf long casten
- *  [ ] Read lost samples counter
+ *  [x] Read lost samples counter
  *  [ ] load patch from EEPROM
  *  [ ] Document diffs to vs1053_SdFat.h
  *  [ ] use vs1053 Interrupt oder Timer based?
@@ -68,7 +65,8 @@ volatile byte i2cCommand;
 volatile long i2cParameter;
 
 double Setpoint, Input, Output;
-double Kp=5, Ki=5, Kd=1;
+double Kp=3, Ki=5, Kd=1;
+//double Kp=5, Ki=5, Kd=1;
 //double Kp=4, Ki=10, Kd=2;
 
 //PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, P_ON_M, DIRECT);
@@ -449,6 +447,7 @@ void parse_menu(byte key_command) {
     enableResampler();
  
     while (musicPlayer.getState() != paused_playback) {}
+    clearErrorCounter();
     clearSampleCounter();
 
     myState = TRACK_LOADED;
@@ -494,10 +493,6 @@ void parse_menu(byte key_command) {
       Serial.println(F("Busy playing files, try again later."));
     }
 
-  /* Get and Display the Audio Information */
-  } else if(key_command == 'i') {
-    musicPlayer.getAudioInfo();
-
   } else if(key_command == 'p') {
     if( musicPlayer.getState() == playback) {
       musicPlayer.pauseMusic();
@@ -509,44 +504,6 @@ void parse_menu(byte key_command) {
       Serial.println(F("Not Playing!"));
     }
 
-  } else if(key_command == 'S') {
-    Serial.println(F("Current State of VS10xx is."));
-    Serial.print(F("isPlaying() = "));
-    Serial.println(musicPlayer.isPlaying());
-
-    Serial.print(F("getState() = "));
-    switch (musicPlayer.getState()) {
-    case uninitialized:
-      Serial.print(F("uninitialized"));
-      break;
-    case initialized:
-      Serial.print(F("initialized"));
-      break;
-    case deactivated:
-      Serial.print(F("deactivated"));
-      break;
-    case loading:
-      Serial.print(F("loading"));
-      break;
-    case ready:
-      Serial.print(F("ready"));
-      break;
-    case playback:
-      Serial.print(F("playback"));
-      break;
-    case paused_playback:
-      Serial.print(F("paused_playback"));
-      break;
-    case testing_memory:
-      Serial.print(F("testing_memory"));
-      break;
-    case testing_sinewave:
-      Serial.print(F("testing_sinewave"));
-      break;
-    }
-    Serial.println();
-
-   
 
 #if !defined(__AVR_ATmega32U4__)
   } else if(key_command == 'm') {
@@ -587,29 +544,6 @@ void parse_menu(byte key_command) {
       Serial.println(F("Disabled."));
     }
 
-  } else if(key_command == 'V') {
-    musicPlayer.setVUmeter(1);
-    Serial.println(F("Use \"No line ending\""));
-    Serial.print(F("VU meter = "));
-    Serial.println(musicPlayer.getVUmeter());
-    Serial.println(F("Hit Any key to stop."));
-
-    while(!Serial.available()) {
-      union twobyte vu;
-      vu.word = musicPlayer.getVUlevel();
-      Serial.print(F("VU: L = "));
-      Serial.print(vu.byte[1]);
-      Serial.print(F(" / R = "));
-      Serial.print(vu.byte[0]);
-      Serial.println(" dB");
-      delay(1000);
-    }
-    Serial.read();
-
-    musicPlayer.setVUmeter(0);
-    Serial.print(F("VU meter = "));
-    Serial.println(musicPlayer.getVUmeter());
-
   } else if(key_command == 'M') {
     uint16_t monostate = musicPlayer.getMonoMode();
     Serial.print(F("Mono Mode "));
@@ -644,8 +578,8 @@ void parse_menu(byte key_command) {
     
   } else if(key_command == 'a') {
     // Read and print Sample Count Register
-    unsigned long sampleCount = Read32BitsFromSCI(0x1800);
-    Serial.println(sampleCount);
+    unsigned long errorCount = Read32BitsFromSCI(0x5a82);
+    Serial.println(errorCount);
     
   }
 }
@@ -673,6 +607,10 @@ void clearSampleCounter() {
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1800);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1801);
+  musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
+}
+void clearErrorCounter() {
+  musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x5a82);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
 }
 
@@ -718,7 +656,7 @@ void help() {
   Serial.println(F(" [x] Pitch up"));
   Serial.println(F(" [y] Pitch down"));
   Serial.println(F(" [q] Enable 15/16 Resampler with rate compensation"));
-  Serial.println(F(" [a] Print SampleCount Register"));
+  Serial.println(F(" [a] Print ErrorCount Register"));
 #endif
   Serial.println(F(" [h] this help"));
 }
