@@ -284,7 +284,7 @@ void speedControlPID(){
     
     long delta = (actualSampleCount - desiredSampleCount);
   
-    Input = delta; 
+    Input = delta;
     adjustSamplerate((long) Output);
   
     prevTotalImpCounter = totalImpCounter;
@@ -312,15 +312,15 @@ void countISR() {
 
 void waitForStartMark() {
   if (digitalRead(startMarkDetectorPin) == HIGH) return;  // There is still leader
-  static int freqMeasureCountToStartMark = 0;
+  static int impCountToStartMark = 0;
   static byte previousImpDetectorState = LOW;
   static byte impDetectorPinNow = 0;
   impDetectorPinNow = digitalRead(impDetectorPin);
   if (impDetectorPinNow != previousImpDetectorState) {
-    freqMeasureCountToStartMark++;
+    impCountToStartMark++;
     previousImpDetectorState = impDetectorPinNow;
   }
-  if (freqMeasureCountToStartMark >= segments * 2 * startMarkOffset) {
+  if (impCountToStartMark >= segments * 2 * startMarkOffset) {
 
     totalImpCounter = 0;
     myPID.SetMode(AUTOMATIC);
@@ -332,7 +332,7 @@ void waitForStartMark() {
     clearSampleCounter();
     Serial.println("Los geht's!");
 
-    freqMeasureCountToStartMark = 0;
+    impCountToStartMark = 0;
     myState = PLAYING;
   }
 }
