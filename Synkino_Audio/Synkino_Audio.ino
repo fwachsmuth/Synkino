@@ -4,8 +4,7 @@
  *  [ ] Anzeigen, wie lang das Delta in ms ist
  *  [ ] Doch noch p über freqMeasure regeln..? Und nur bei hartem Drift pid-nachregeln?
  *  [ ] Probieren, immer 2-3 Delta-Werte (oder Korrekturwerte) zu averagen
- *  [ ] optimize clearSampleCounter
- *  [ ] is it save to go belo 187000 ppm?
+ *  [ ] is it save to go below 187000 ppm?
  *  [ ] Optimize pid-feeding
  *  [ ] KiCad all this. Soon.
  *  [ ] Alle Deltas eines Impulses averagen? Wie viele sind das?
@@ -289,7 +288,7 @@ void speedControlPID(){
     long actualSampleCount = Read32BitsFromSCI(0x1800) - 1400;                // 1400 is approx sample buffer size
     long desiredSampleCount = totalImpCounter * (physicalSamplingrate / sollfps / 2 / segments );   // bitshift?
     
-    long delta = (actualSampleCount /10 - desiredSampleCount / 10);
+    long delta = (actualSampleCount - desiredSampleCount);
   
     Input = delta;
     adjustSamplerate((long) Output);
@@ -653,7 +652,6 @@ void clearSampleCounter() {
   
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1800);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
-  musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1801);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
 }
 void clearErrorCounter() {
