@@ -50,7 +50,7 @@ byte segments = 2;              // Wieviele Segmente hat die Umlaufblende?
 byte startMarkOffset = 15;
 
 
-const float physicalSamplingrate = 44100 * 15 / 16;   // To compensate the 15/16 Bit Resampler
+const float physicalSamplingrate = 41344;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
 
 const byte impDetectorISRPIN = 3;
 const byte impDetectorPin = 3;
@@ -144,23 +144,23 @@ void loop() {
 
   if (haveI2Cdata) {
     switch (i2cCommand) {   // Debug output
-      case 1: Serial.print(F("CMD: Load Track: "));
-              Serial.println(i2cParameter);
-      break;
-      case 2: Serial.print(F("CMD: Correct PPM: "));
-              Serial.println(i2cParameter);
-      break;
-      case 3: Serial.println(F("CMD: Play"));
-      break;
-      case 4: Serial.println(F("CMD: Pause"));
-      break;
-      case 5: Serial.println(F("CMD: Stop"));
-      break;
-      case 6: Serial.print(F("CMD: Sync to Frame: "));
-              Serial.println(i2cParameter);
-      break;
-      default:Serial.print(i2cCommand);
-              Serial.println(i2cParameter);
+//      case 1: Serial.print(F("CMD: Load Track: "));
+//              Serial.println(i2cParameter);
+//      break;
+//      case 2: Serial.print(F("CMD: Correct PPM: "));
+//              Serial.println(i2cParameter);
+//      break;
+//      case 3: Serial.println(F("CMD: Play"));
+//      break;
+//      case 4: Serial.println(F("CMD: Pause"));
+//      break;
+//      case 5: Serial.println(F("CMD: Stop"));
+//      break;
+//      case 6: Serial.print(F("CMD: Sync to Frame: "));
+//              Serial.println(i2cParameter);
+//      break;
+//      default:Serial.print(i2cCommand);
+//              Serial.println(i2cParameter);
     }
 
     switch (i2cCommand) {
@@ -254,9 +254,7 @@ void loop() {
      }
     prevState = myState;
   }
-
     
-  //delay(50);      // This need to go away
 }
 
 void checkIfStillRunning() {
@@ -284,7 +282,8 @@ void speedControlPID(){
   static unsigned long prevTotalImpCounter;
 
   if (totalImpCounter != prevTotalImpCounter) {
-    long actualSampleCount = Read32BitsFromSCI(0x1800) - 1400;                // 1400 is approx sample buffer size
+    
+    long actualSampleCount = Read32BitsFromSCI(0x1800) - 1400;                
     long desiredSampleCount = totalImpCounter * (physicalSamplingrate / sollfps / 2 / segments );   // bitshift?
     
     long delta = (actualSampleCount - desiredSampleCount);
@@ -293,7 +292,10 @@ void speedControlPID(){
     adjustSamplerate((long) Output);
   
     prevTotalImpCounter = totalImpCounter;
-    
+
+    myPID.Compute();
+
+
     Serial.print(F("i\t"));
     Serial.print(totalImpCounter);
     Serial.print(F("\tset\t"));
@@ -305,9 +307,6 @@ void speedControlPID(){
     Serial.print(F("\tc\t"));
     Serial.println((long)Output);
   }
-  myPID.Compute();
- 
-
 }
 
 
@@ -415,31 +414,6 @@ void parse_menu(byte key_command) {
 
     }
 
-  //if +/- to change volume
-  } else if((key_command == '-') || (key_command == '+')) {
-    union twobyte mp3_vol; // create key_command existing variable that can be both word and double byte of left and right.
-    mp3_vol.word = musicPlayer.getVolume(); // returns a double uint8_t of Left and Right packed into int16_t
-
-    if(key_command == '-') { // note dB is negative
-      // assume equal balance and use byte[1] for math
-      if(mp3_vol.byte[1] >= 254) { // range check
-        mp3_vol.byte[1] = 254;
-      } else {
-        mp3_vol.byte[1] += 2; // keep it simpler with whole dB's
-      }
-    } else {
-      if(mp3_vol.byte[1] <= 2) { // range check
-        mp3_vol.byte[1] = 2;
-      } else {
-        mp3_vol.byte[1] -= 2;
-      }
-    }
-    // push byte[1] into both left and right assuming equal balance.
-    musicPlayer.setVolume(mp3_vol.byte[1], mp3_vol.byte[1]); // commit new volume
-    Serial.print(F("Volume changed to -"));
-    Serial.print(mp3_vol.byte[1]>>1, 1);
-    Serial.println(F("[dB]"));
-
   //if < or > to change Play Speed
   } else if((key_command == '>') || (key_command == '<')) {
     uint16_t playspeed = musicPlayer.getPlaySpeed(); // create key_command existing variable
@@ -542,22 +516,6 @@ void parse_menu(byte key_command) {
       Serial.println(F("Not Playing!"));
     }
 
-
-#if !defined(__AVR_ATmega32U4__)
-  } else if(key_command == 'm') {
-      uint16_t teststate = musicPlayer.memoryTest();
-    if(teststate == -1) {
-      Serial.println(F("Unavailable while playing music or chip in reset."));
-    } else if(teststate == 2) {
-      teststate = musicPlayer.disableTestSineWave();
-      Serial.println(F("Unavailable while Sine Wave Test"));
-    } else {
-      Serial.print(F("Memory Test Results = "));
-      Serial.println(teststate, HEX);
-      Serial.println(F("Result should be 0x83FF."));
-      Serial.println(F("Reset is needed to recover to normal operation"));
-    }
-
   } else if(key_command == 'R') {
     musicPlayer.stopTrack();
     musicPlayer.vs_init();
@@ -571,32 +529,6 @@ void parse_menu(byte key_command) {
     musicPlayer.begin();
     Serial.println(F("VS10xx restored from low power reset mode."));
 
-  } else if(key_command == 'D') {
-    uint16_t diff_state = musicPlayer.getDifferentialOutput();
-    Serial.print(F("Differential Mode "));
-    if(diff_state == 0) {
-      musicPlayer.setDifferentialOutput(1);
-      Serial.println(F("Enabled."));
-    } else {
-      musicPlayer.setDifferentialOutput(0);
-      Serial.println(F("Disabled."));
-    }
-
-  } else if(key_command == 'M') {
-    uint16_t monostate = musicPlayer.getMonoMode();
-    Serial.print(F("Mono Mode "));
-    if(monostate == 0) {
-      musicPlayer.setMonoMode(1);
-      Serial.println(F("Enabled."));
-    } else {
-      musicPlayer.setMonoMode(0);
-      Serial.println(F("Disabled."));
-    }
-#endif
-
-  } else if(key_command == 'h') {
-    help();
-    
   } else if(key_command == 'x') {
       pitchrate = pitchrate + 10000;
       adjustSamplerate(pitchrate);
@@ -687,27 +619,15 @@ void help() {
   Serial.println(F(" [F] same as [f] but with initial skip of 2 second"));
   Serial.println(F(" [s] to stop playing"));
   Serial.println(F(" [d] display directory of SdCard"));
-  Serial.println(F(" [+ or -] to change volume"));
   Serial.println(F(" [> or <] to increment or decrement play speed by 1 factor"));
-  Serial.println(F(" [i] retrieve current audio information (partial list)"));
   Serial.println(F(" [p] to pause."));
-  Serial.println(F(" [S] Show State of Device."));
-#if !defined(__AVR_ATmega32U4__)
-  Serial.println(F(" [m] perform memory test. reset is needed after to recover."));
-  Serial.println(F(" [M] Toggle between Mono and Stereo Output."));
-  Serial.println(F(" [k] Skip a predetermined number of ms in current track."));
   Serial.println(F(" [R] Resets and initializes VS10xx chip."));
   Serial.println(F(" [O] turns OFF the VS10xx into low power reset."));
   Serial.println(F(" [o] turns ON the VS10xx out of low power reset."));
-  Serial.println(F(" [D] to toggle SM_DIFF between inphase and differential output"));
-  Serial.println(F(" [V] Enable VU meter Test."));
-
   Serial.println(F(" [x] Pitch up"));
   Serial.println(F(" [y] Pitch down"));
   Serial.println(F(" [q] Enable 15/16 Resampler with rate compensation"));
   Serial.println(F(" [a] Print ErrorCount Register"));
-#endif
-  Serial.println(F(" [h] this help"));
 }
 
 
