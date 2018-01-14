@@ -4,6 +4,8 @@
  *  [ ] Anzeigen, wie lang das Delta in ms ist
  *  [ ] Doch noch p über freqMeasure regeln..? Und nur bei hartem Drift pid-nachregeln?
  *  [ ] Probieren, immer 2-3 Delta-Werte (oder Korrekturwerte) zu averagen
+ *  [ ] optimize clearSampleCounter
+ *  [ ] is it save to go belo 187000 ppm?
  *  [ ] Optimize pid-feeding
  *  [ ] KiCad all this. Soon.
  *  [ ] Alle Deltas eines Impulses averagen? Wie viele sind das?
@@ -17,6 +19,7 @@
  *  [ ] complete state machine here
  *  [ ] Projektor-Frequenzanzeige
  *  [x] Detect Projector Pauses
+ *  [ ] remove unused variable
  * 
  */
 #include <PID_v1.h>
@@ -54,7 +57,7 @@ const float physicalSamplingrate = 44100 * 15 / 16;   // To compensate the 15/16
 const byte impDetectorISRPIN = 3;
 const byte impDetectorPin = 3;
 const byte startMarkDetectorPin = 5;
-const int  pauseDetectedPeriod = (1000 / sollfps * 4);   // Duration of 4 single frames
+const int  pauseDetectedPeriod = (1000 / sollfps * 3);   // Duration of 3 single frames
 
 byte myState = IDLING;     
 byte prevState;
@@ -89,6 +92,8 @@ vs1053 musicPlayer;
 uint32_t  millis_prv;
 long pitchrate = 0;
 long frameToSync = 0;
+unsigned long lastImpCounterHaltPos = 0;
+unsigned long lastSampleCounterHaltPos = 0;
 
 volatile unsigned long totalImpCounter = 0;
 
@@ -224,7 +229,7 @@ void loop() {
       checkIfStillRunning();
     break;
     case PAUSED:
-      
+      waitForResumeToPlay(lastImpCounterHaltPos);
     break;
     case SETTINGS_MENU:
     break;
@@ -234,9 +239,9 @@ void loop() {
 
   if (myState != prevState) {
     switch (myState) {   // Debug output
-      case 1: Serial.print(F("--- IDLING."));
+      case 1: Serial.println(F("--- IDLING."));
       break;
-      case 2: Serial.print(F("--- LOAD_TRACK"));
+      case 2: Serial.println(F("--- LOAD_TRACK"));
       break;
       case 3: Serial.println(F("--- TRACK_LOADED."));
       break;
@@ -244,9 +249,9 @@ void loop() {
       break;
       case 5: Serial.println(F("--- PLAYING"));
       break;
-      case 6: Serial.print(F("--- PAUSED"));
+      case 6: Serial.println(F("--- PAUSED"));
       break;
-      case 7: Serial.print(F("--- SETTINGS_MENU"));
+      case 7: Serial.println(F("--- SETTINGS_MENU"));
       break;
      }
     prevState = myState;
@@ -266,8 +271,10 @@ void checkIfStillRunning() {
   } else {
    // start countdown pauseDetectedPeriod
     if ((millis() - lastImpMillis) >= pauseDetectedPeriod) {
+      lastSampleCounterHaltPos = Read32BitsFromSCI(0x1800);
       musicPlayer.pauseMusic();
       myPID.SetMode(MANUAL);
+      lastImpCounterHaltPos = totalImpCounter;
       myState = PAUSED;
     }
   }
@@ -282,22 +289,22 @@ void speedControlPID(){
     long actualSampleCount = Read32BitsFromSCI(0x1800) - 1400;                // 1400 is approx sample buffer size
     long desiredSampleCount = totalImpCounter * (physicalSamplingrate / sollfps / 2 / segments );   // bitshift?
     
-    long delta = (actualSampleCount - desiredSampleCount);
+    long delta = (actualSampleCount /10 - desiredSampleCount / 10);
   
     Input = delta;
     adjustSamplerate((long) Output);
   
     prevTotalImpCounter = totalImpCounter;
     
-    Serial.print(F("Imps: "));
+    Serial.print(F("i\t"));
     Serial.print(totalImpCounter);
-    Serial.print(F("\t Desired: "));
+    Serial.print(F("\tset\t"));
     Serial.print(desiredSampleCount);
-    Serial.print(F("\t Actual: "));
+    Serial.print(F("\tist\t"));
     Serial.print(actualSampleCount);
-    Serial.print(F("\t Delta: "));
+    Serial.print(F("\td\t"));
     Serial.print(delta);
-    Serial.print(F("\t\t Korrektur: "));
+    Serial.print(F("\tc\t"));
     Serial.println((long)Output);
   }
   myPID.Compute();
@@ -337,6 +344,17 @@ void waitForStartMark() {
   }
 }
 
+void waitForResumeToPlay(unsigned long impCounterStopPos) {
+  if (totalImpCounter == impCounterStopPos) {
+    return;
+  } else {
+    myPID.SetMode(AUTOMATIC);
+    restoreSampleCounter(lastSampleCounterHaltPos);
+    musicPlayer.resumeMusic();
+    Serial.println("Weiter geht's!");
+    myState = PLAYING;
+  }
+}
 
 
 void i2cReceive (int howMany) {
@@ -611,11 +629,8 @@ void adjustSamplerate(signed long ppm2) {
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1e07);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, ppm2);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, ppm2 >> 16);
-  /* oldClock4KHz = 0 forces adjustment calculation when rate checked. */
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x5b1c);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
-   /* Write to AUDATA or CLOCKF checks rate and recalculates adjustment. */
- 
   musicPlayer.Mp3WriteRegister(SCI_AUDATA, musicPlayer.Mp3ReadRegister(SCI_AUDATA));
 }
 void enableResampler() {
@@ -625,7 +640,17 @@ void enableResampler() {
   Serial.println(F("15/16 resampling enabled."));
   
 }
+
 void clearSampleCounter() {
+  /* SCI WRAM is used to upload application programs and data 
+  to instruction and data RAMs. The start address must be initialized 
+  by writing to SCI WRAMADDR prior to the first write/read of SCI WRAM. 
+  As 16 bits of data can be transferred with one SCI WRAM write/read, 
+  and the instruction word is 32 bits long, two consecutive writes/reads 
+  are needed for each instruction word. The byte order is big-endian 
+  (i.e. most significant words first). After each full-word write/read, 
+  the internal pointer is autoincremented. */
+  
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1800);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1801);
@@ -649,6 +674,11 @@ unsigned long Read32BitsFromSCI(unsigned short addr) {
   return ((unsigned long)msbV1 << 16) | lsb;
 }
 
+void restoreSampleCounter(unsigned long samplecounter) {
+  musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1800); // MSB
+  musicPlayer.Mp3WriteRegister(SCI_WRAM, samplecounter);
+  musicPlayer.Mp3WriteRegister(SCI_WRAM, samplecounter >> 16);
+}
 
 
 
