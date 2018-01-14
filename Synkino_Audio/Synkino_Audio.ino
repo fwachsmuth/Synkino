@@ -17,7 +17,6 @@
  *  [ ] Forwards/Backwards Correction (Frame-wise)
  *  [ ] complete state machine here
  *  [ ] Projektor-Frequenzanzeige
- *  [x] Detect Projector Pauses
  *  [ ] remove unused variable
  * 
  */
