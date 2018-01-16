@@ -1,6 +1,7 @@
 /**
  * 
  * To Do:
+ *  [ ] samplecounter leselatenz im delta rausrechnen
  *  [ ] Serial.print Fehler loswerden (Timer statt ISR?) USE_MP3_Polled 
  *  [ ] Corr Werte sind immer zwei mal gleich?
  *  https://github.com/madsci1016/Sparkfun-MP3-Player-Shield-Arduino-Library/blob/master/SFEMP3Shield/SFEMP3ShieldConfig.h
@@ -326,7 +327,7 @@ void speedControlPID(){
 
 
   
-    Input = delta;
+    Input = average;
     adjustSamplerate((long) Output);
   
     prevTotalImpCounter = totalImpCounter;        
