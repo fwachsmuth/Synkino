@@ -1,23 +1,28 @@
 /**
  * 
  * To Do:
+ *  [ ] Serial.print Fehler loswerden (Timer statt ISR?) USE_MP3_Polled 
+ *  [ ] Corr Werte sind immer zwei mal gleich?
+ *  https://github.com/madsci1016/Sparkfun-MP3-Player-Shield-Arduino-Library/blob/master/SFEMP3Shield/SFEMP3ShieldConfig.h
+ *  [ ] Öfter als alle 6 Imp messen?
+ *  [ ] Mehrere Deltas averagen? (Rolling?)
+ *  [ ] Seltener PID Samplen?  
  *  [ ] Anzeigen, wie lang das Delta in ms ist
  *  [ ] Doch noch p über freqMeasure regeln..? Und nur bei hartem Drift pid-nachregeln?
  *  [ ] Probieren, immer 2-3 Delta-Werte (oder Korrekturwerte) zu averagen
  *  [ ] is it save to go below 187000 ppm?
  *  [ ] Optimize pid-feeding
  *  [ ] KiCad all this. Soon.
- *  [ ] Alle Deltas eines Impulses averagen? Wie viele sind das?
  *  [ ] load patch from EEPROM
  *  [ ] Document diffs to vs1053_SdFat.h
- *  [ ] use vs1053 Interrupt oder Timer based?
  *  [ ] decode delta-sigma line out
  *  [ ] Try/Switch to 15 MHz xtal
  *  [ ] Dynamic Sample Rate support?
  *  [ ] Forwards/Backwards Correction (Frame-wise)
  *  [ ] complete state machine here
  *  [ ] Projektor-Frequenzanzeige
- *  [ ] remove unused variable
+ *  [ ] remove unused variables
+ *  
  * 
  */
 #include <PID_v1.h>
@@ -43,6 +48,8 @@
 #define PAUSED            6
 #define SETTINGS_MENU     7
 
+//#define USE_MP3_REFILL_MEANS  USE_MP3_Timer1
+
 const int myAddress = 0x08;
 
 const byte sollfps = 18;        // Todo: Read this from filename!
@@ -56,6 +63,7 @@ const byte impDetectorISRPIN = 3;
 const byte impDetectorPin = 3;
 const byte startMarkDetectorPin = 5;
 const int  pauseDetectedPeriod = (1000 / sollfps * 3);   // Duration of 3 single frames
+const int  impToSamplerateFactor = physicalSamplingrate / sollfps / segments / 2;
 
 byte myState = IDLING;     
 byte prevState;
@@ -66,6 +74,8 @@ long lastPpmCorrection = 0;
 volatile bool haveI2Cdata = false;
 volatile byte i2cCommand;
 volatile long i2cParameter;
+
+volatile unsigned long lastISRTime;
 
 double Setpoint, Input, Output;
 double Kp=3, Ki=5, Kd=1;
@@ -104,7 +114,7 @@ void setup() {
 
   Setpoint = 0;
   
-  uint8_t result; //result code for initialization functions
+  uint8_t result; //result code for initialization function
 
   Serial.begin(115200);
 
@@ -282,36 +292,51 @@ void speedControlPID(){
   static unsigned long prevTotalImpCounter;
 
   if (totalImpCounter != prevTotalImpCounter) {
+
     
-    long actualSampleCount = Read32BitsFromSCI(0x1800) - 1400;                
-    long desiredSampleCount = totalImpCounter * (physicalSamplingrate / sollfps / 2 / segments );   // bitshift?
-    
+    long actualSampleCount = Read32BitsFromSCI(0x1800);                 // 8.6ms Latenz here
+    long desiredSampleCount = totalImpCounter * impToSamplerateFactor;
+
+    unsigned long latenz = millis() - lastISRTime;
+
     long delta = (actualSampleCount - desiredSampleCount);
   
     Input = delta;
     adjustSamplerate((long) Output);
   
-    prevTotalImpCounter = totalImpCounter;
+    prevTotalImpCounter = totalImpCounter;        // 9.2ms Latenz here
 
     myPID.Compute();
 
+    Serial.println(latenz); 
 
-    Serial.print(F("i\t"));
-    Serial.print(totalImpCounter);
-    Serial.print(F("\tset\t"));
-    Serial.print(desiredSampleCount);
-    Serial.print(F("\tist\t"));
-    Serial.print(actualSampleCount);
-    Serial.print(F("\td\t"));
-    Serial.print(delta);
-    Serial.print(F("\tc\t"));
-    Serial.println((long)Output);
+
+// Most of the delay here is from printing. One line of printing means one measurement
+// every 2.3 imps, full CSV output is one ever ~6.3 imps.
+// Printing the long seems super pricy
+
+
+//    Serial.print(F("i\t"));
+//    Serial.print(totalImpCounter);
+//    Serial.print(",");
+//    Serial.print(F("\tset\t"));
+//    Serial.print(desiredSampleCount);
+//    Serial.print(",");
+//    Serial.print(F("\tist\t"));
+//    Serial.print(actualSampleCount);
+//    Serial.print(",");
+//    Serial.print(F("\td\t"));
+//    Serial.print(delta);
+//    Serial.print(",");
+////    Serial.print(F("\tc\t"));
+//    Serial.println((long)Output);
   }
 }
 
 
 void countISR() {
   totalImpCounter++;
+  lastISRTime = millis();
 }
 
 void waitForStartMark() {
