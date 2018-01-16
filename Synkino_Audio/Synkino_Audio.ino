@@ -65,6 +65,13 @@ const byte startMarkDetectorPin = 5;
 const int  pauseDetectedPeriod = (1000 / sollfps * 3);   // Duration of 3 single frames
 const int  impToSamplerateFactor = physicalSamplingrate / sollfps / segments / 2;
 
+const int numReadings = 8;
+int readings[numReadings];      // the readings from the analog input
+int readIndex = 0;              // the index of the current reading
+long total = 0;                  // the running total
+int average = 0;                // the average
+
+
 byte myState = IDLING;     
 byte prevState;
 
@@ -109,6 +116,10 @@ volatile unsigned long totalImpCounter = 0;
 //------------------------------------------------------------------------------
 void setup() {
 
+  for (int thisReading = 0; thisReading < numReadings; thisReading++) {
+    readings[thisReading] = 0;
+  }
+  
   pinMode(impDetectorISRPIN, INPUT);
   pinMode(startMarkDetectorPin, INPUT);
 
@@ -118,10 +129,10 @@ void setup() {
 
   Serial.begin(115200);
 
-  Serial.print(F("F_CPU = "));
-  Serial.println(F_CPU);
-  Serial.print(F("Free RAM = ")); 
-  Serial.println(FreeStack(), DEC);  // FreeStack() is provided by SdFat
+//  Serial.print(F("F_CPU = "));
+//  Serial.println(F_CPU);
+//  Serial.print(F("Free RAM = ")); 
+//  Serial.println(FreeStack(), DEC);  // FreeStack() is provided by SdFat
   
   //Initialize the SdCard
   if(!sd.begin(SD_SEL, SPI_FULL_SPEED)) sd.initErrorHalt();
@@ -297,36 +308,54 @@ void speedControlPID(){
     long actualSampleCount = Read32BitsFromSCI(0x1800);                 // 8.6ms Latenz here
     long desiredSampleCount = totalImpCounter * impToSamplerateFactor;
 
-    unsigned long latenz = millis() - lastISRTime;
+//    unsigned long latenz = millis() - lastISRTime;
 
     long delta = (actualSampleCount - desiredSampleCount);
+
+    total = total - readings[readIndex];  // subtract the last reading
+    readings[readIndex] = delta;          // read from the sensor:
+    total = total + readings[readIndex];  // add the reading to the total:
+    readIndex = readIndex + 1;            // advance to the next position in the array:
+  
+    if (readIndex >= numReadings) {       // if we're at the end of the array...
+      readIndex = 0;                      // ...wrap around to the beginning:
+    }
+  
+    average = total / numReadings;        // calculate the average
+//    Serial.println(average);              // send it to the computer as ASCII digits
+
+
   
     Input = delta;
     adjustSamplerate((long) Output);
   
-    prevTotalImpCounter = totalImpCounter;        // 9.2ms Latenz here
+    prevTotalImpCounter = totalImpCounter;        
 
-    myPID.Compute();
+    myPID.Compute();  // 9.2ms Latenz here
 
-    Serial.println(latenz); 
+    // Serial.println(latenz); 
 
 
 // Most of the delay here is from printing. One line of printing means one measurement
 // every 2.3 imps, full CSV output is one ever ~6.3 imps.
 // Printing the long seems super pricy
 
+Serial.print(delta);
+Serial.print(",");
+Serial.println(average);
 
-//    Serial.print(F("i\t"));
+
+////    Serial.print(F("i\t"));
 //    Serial.print(totalImpCounter);
 //    Serial.print(",");
-//    Serial.print(F("\tset\t"));
+////    Serial.print(F("\tset\t"));
 //    Serial.print(desiredSampleCount);
 //    Serial.print(",");
-//    Serial.print(F("\tist\t"));
+////    Serial.print(F("\tist\t"));
 //    Serial.print(actualSampleCount);
 //    Serial.print(",");
-//    Serial.print(F("\td\t"));
-//    Serial.print(delta);
+////    Serial.print(F("\td\t"));
+//    Serial.print(average);
 //    Serial.print(",");
 ////    Serial.print(F("\tc\t"));
 //    Serial.println((long)Output);
@@ -336,7 +365,7 @@ void speedControlPID(){
 
 void countISR() {
   totalImpCounter++;
-  lastISRTime = millis();
+//  lastISRTime = millis();
 }
 
 void waitForStartMark() {
