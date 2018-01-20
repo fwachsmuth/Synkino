@@ -64,8 +64,9 @@ volatile unsigned long lastISRTime;
 
 double Setpoint, Input, Output;
 
-double Kp=12, Ki=3, Kd=3;  // PonM WINNER für 8 Readings
+//double Kp=12, Ki=3, Kd=3;  // PonM WINNER für 8 Readings
 //double Kp=12, Ki=3, Kd=1;  // PonM not so good für 16 Readings
+double Kp=8, Ki=3, Kd=1;  // PonM WINNER für 16 Readings, but with fixed int overflow
 
 
 
@@ -411,7 +412,7 @@ void init_player() {
    *  track008.m4a  Tatort
    *  track009.m4a  Xylophon
    */
-  char trackName[] = "track004.m4a";
+  char trackName[] = "track003.m4a";
 
   result = musicPlayer.playMP3(trackName, offset);
   musicPlayer.pauseMusic();
