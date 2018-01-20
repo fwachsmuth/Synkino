@@ -44,10 +44,10 @@ const int  pauseDetectedPeriod = (1000 / sollfps * 3);   // Duration of 3 single
 const int  impToSamplerateFactor = physicalSamplingrate / sollfps / segments / 2;
 
 const int numReadings = 16;
-int readings[numReadings];      // the readings from the analog input
+long readings[numReadings];      // the readings from the analog input
 int readIndex = 0;              // the index of the current reading
 long total = 0;                  // the running total
-int average = 0;                // the average
+long average = 0;                // the average
 
 
 byte myState = IDLING;     
@@ -209,9 +209,9 @@ void loop() {
   musicPlayer.available();
 #endif
 
-  if(Serial.available()) {
-    init_player(); // get command from serial input
-  }
+//  if(Serial.available()) {
+//    init_player(); // get command from serial input
+//  }
 
 
   switch (myState) {
@@ -411,7 +411,7 @@ void init_player() {
    *  track008.m4a  Tatort
    *  track009.m4a  Xylophon
    */
-  char trackName[] = "track006.m4a";
+  char trackName[] = "track004.m4a";
 
   result = musicPlayer.playMP3(trackName, offset);
   musicPlayer.pauseMusic();
