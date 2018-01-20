@@ -1,6 +1,9 @@
 /**
  * 
  * To Do:
+ *  [x] PID neu kalibrieren -.-
+ *  [ ] Aufschaukeln bei mp3 fixen
+ * 
  *  [ ] Serial.print Fehler loswerden (Timer statt ISR?) USE_MP3_Polled 
  *  https://github.com/madsci1016/Sparkfun-MP3-Player-Shield-Arduino-Library/blob/master/SFEMP3Shield/SFEMP3ShieldConfig.h*  
  *  [ ] Corr Werte sind immer zwei mal gleich?
@@ -82,7 +85,8 @@ volatile long i2cParameter;
 volatile unsigned long lastISRTime;
 
 double Setpoint, Input, Output;
-double Kp=12, Ki=3, Kd=3;
+
+double Kp=8, Ki=3, Kd=1;  // PonM WINNER für 16 Readings, but with fixed int overflow
 
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, P_ON_M, DIRECT);
 //PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
