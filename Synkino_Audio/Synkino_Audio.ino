@@ -59,13 +59,14 @@ const byte impDetectorISRPIN = 3;
 const byte impDetectorPin = 3;
 const byte startMarkDetectorPin = 5;
 const int  pauseDetectedPeriod = (1000 / sollfps * 3);   // Duration of 3 single frames
-const int  impToSamplerateFactor = physicalSamplingrate / sollfps / segments / 2;
+unsigned int impToSamplerateFactor = physicalSamplingrate / sollfps / segments / 2;
+int deltaToFramesDivider = physicalSamplingrate / sollfps;
 
 const int numReadings = 16;
-int readings[numReadings];      // the readings from the analog input
+long readings[numReadings];      // the readings from the analog input
 int readIndex = 0;              // the index of the current reading
-long total = 0;                  // the running total
-int average = 0;                // the average
+long total = 0;                 // the running total
+long average = 0;                // the average
 
 
 byte myState = IDLING;     
@@ -295,14 +296,10 @@ void checkIfStillRunning() {
 
 void speedControlPID(){
   static unsigned long prevTotalImpCounter;
-
   if (totalImpCounter != prevTotalImpCounter) {
-
-    
     long actualSampleCount = Read32BitsFromSCI(0x1800);                 // 8.6ms Latenz here
     long desiredSampleCount = totalImpCounter * impToSamplerateFactor;
-
-//    unsigned long latenz = millis() - lastISRTime;
+//    unsigned long latenz = millis() - lastISRTime;               // This had less positive imapct than expected
 //    actualSampleCount = actualSampleCount + (latenz * 41);       // 41.344 samples per ms
     long delta = (actualSampleCount - desiredSampleCount);
 
@@ -316,7 +313,8 @@ void speedControlPID(){
     }
   
     average = total / numReadings;        // calculate the average
-//    Serial.println(average);              // send it to the computer as ASCII digits
+//    average = (total >> 4);
+//    Serial.println(average);            // send it to the computer as ASCII digits
 
 
   
@@ -334,9 +332,8 @@ void speedControlPID(){
 // every 2.3 imps, full CSV output is one ever ~6.3 imps.
 // Printing the long seems super pricy
 
-Serial.print(delta);
-Serial.print(",");
-Serial.println(average);
+Serial.print(average / deltaToFramesDivider);
+Serial.println(" Frames off");
 
 
 ////    Serial.print(F("i\t"));
@@ -493,7 +490,7 @@ void parse_menu(byte key_command) {
     }
 
     //create a string with the filename
-    char trackName[] = "track009.m4a";
+    char trackName[] = "track003.m4a";
 
 #if USE_MULTIPLE_CARDS
     sd.chvol(); // assign desired sdcard's volume.
