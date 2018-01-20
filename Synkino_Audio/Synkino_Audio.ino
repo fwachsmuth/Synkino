@@ -1,18 +1,18 @@
 /**
  * 
  * To Do:
- *  [ ] samplecounter leselatenz im delta rausrechnen
+ *  [x] samplecounter leselatenz im delta rausrechnen
  *  [ ] Serial.print Fehler loswerden (Timer statt ISR?) USE_MP3_Polled 
  *  [ ] Corr Werte sind immer zwei mal gleich?
  *  https://github.com/madsci1016/Sparkfun-MP3-Player-Shield-Arduino-Library/blob/master/SFEMP3Shield/SFEMP3ShieldConfig.h
- *  [ ] Öfter als alle 6 Imp messen?
+ *  [x] Öfter als alle 6 Imp messen?
  *  [ ] Mehrere Deltas averagen? (Rolling?)
  *  [ ] Seltener PID Samplen?  
  *  [ ] Anzeigen, wie lang das Delta in ms ist
  *  [ ] Doch noch p über freqMeasure regeln..? Und nur bei hartem Drift pid-nachregeln?
- *  [ ] Probieren, immer 2-3 Delta-Werte (oder Korrekturwerte) zu averagen
- *  [ ] is it save to go below 187000 ppm?
- *  [ ] Optimize pid-feeding
+ *  [x] Probieren, immer 2-3 Delta-Werte (oder Korrekturwerte) zu averagen
+ *  [x] is it save to go below 187000 ppm?
+ *  [x] Optimize pid-feeding
  *  [ ] KiCad all this. Soon.
  *  [ ] load patch from EEPROM
  *  [ ] Document diffs to vs1053_SdFat.h
@@ -55,9 +55,9 @@ const int myAddress = 0x08;
 
 const byte sollfps = 18;        // Todo: Read this from filename!
 byte segments = 2;              // Wieviele Segmente hat die Umlaufblende?
-byte startMarkOffset = 15;
-
-
+//byte startMarkOffset = 15;      // Noris
+byte startMarkOffset = 48;      // Bauer t610
+  
 const float physicalSamplingrate = 41344;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
 
 const byte impDetectorISRPIN = 3;
@@ -66,7 +66,7 @@ const byte startMarkDetectorPin = 5;
 const int  pauseDetectedPeriod = (1000 / sollfps * 3);   // Duration of 3 single frames
 const int  impToSamplerateFactor = physicalSamplingrate / sollfps / segments / 2;
 
-const int numReadings = 8;
+const int numReadings = 16;
 int readings[numReadings];      // the readings from the analog input
 int readIndex = 0;              // the index of the current reading
 long total = 0;                  // the running total
@@ -86,12 +86,10 @@ volatile long i2cParameter;
 volatile unsigned long lastISRTime;
 
 double Setpoint, Input, Output;
-double Kp=3, Ki=5, Kd=1;
-//double Kp=5, Ki=5, Kd=1;
-//double Kp=4, Ki=10, Kd=2;
+double Kp=12, Ki=3, Kd=3;
 
-//PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, P_ON_M, DIRECT);
-PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
+PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, P_ON_M, DIRECT);
+//PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
 
 
 // Below is not needed if interrupt driven. Safe to remove if not using.
@@ -189,7 +187,7 @@ void loop() {
       case CMD_PLAY: 
         totalImpCounter = 0;
         myPID.SetMode(AUTOMATIC);
-        myPID.SetOutputLimits(-100000, 77000);
+        myPID.SetOutputLimits(-77000, 77000);
 
         attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
         
@@ -310,7 +308,7 @@ void speedControlPID(){
     long desiredSampleCount = totalImpCounter * impToSamplerateFactor;
 
 //    unsigned long latenz = millis() - lastISRTime;
-
+//    actualSampleCount = actualSampleCount + (latenz * 41);       // 41.344 samples per ms
     long delta = (actualSampleCount - desiredSampleCount);
 
     total = total - readings[readIndex];  // subtract the last reading
@@ -383,7 +381,7 @@ void waitForStartMark() {
 
     totalImpCounter = 0;
     myPID.SetMode(AUTOMATIC);
-    myPID.SetOutputLimits(-350000, 77000);
+    myPID.SetOutputLimits(-77000, 77000);
 
     attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
     
