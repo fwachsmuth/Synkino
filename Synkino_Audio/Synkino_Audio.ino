@@ -1,18 +1,13 @@
 /**
  * 
  * To Do:
- *  [x] samplecounter leselatenz im delta rausrechnen
  *  [ ] Serial.print Fehler loswerden (Timer statt ISR?) USE_MP3_Polled 
+ *  https://github.com/madsci1016/Sparkfun-MP3-Player-Shield-Arduino-Library/blob/master/SFEMP3Shield/SFEMP3ShieldConfig.h*  
  *  [ ] Corr Werte sind immer zwei mal gleich?
- *  https://github.com/madsci1016/Sparkfun-MP3-Player-Shield-Arduino-Library/blob/master/SFEMP3Shield/SFEMP3ShieldConfig.h
- *  [x] Öfter als alle 6 Imp messen?
- *  [ ] Mehrere Deltas averagen? (Rolling?)
  *  [ ] Seltener PID Samplen?  
+ *  
  *  [ ] Anzeigen, wie lang das Delta in ms ist
- *  [ ] Doch noch p über freqMeasure regeln..? Und nur bei hartem Drift pid-nachregeln?
- *  [x] Probieren, immer 2-3 Delta-Werte (oder Korrekturwerte) zu averagen
- *  [x] is it save to go below 187000 ppm?
- *  [x] Optimize pid-feeding
+ *  
  *  [ ] KiCad all this. Soon.
  *  [ ] load patch from EEPROM
  *  [ ] Document diffs to vs1053_SdFat.h
@@ -56,7 +51,7 @@ const int myAddress = 0x08;
 const byte sollfps = 18;        // Todo: Read this from filename!
 byte segments = 2;              // Wieviele Segmente hat die Umlaufblende?
 //byte startMarkOffset = 15;      // Noris
-byte startMarkOffset = 48;      // Bauer t610
+byte startMarkOffset = 53;      // Bauer t610
   
 const float physicalSamplingrate = 41344;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
 
@@ -498,7 +493,7 @@ void parse_menu(byte key_command) {
     }
 
     //create a string with the filename
-    char trackName[] = "track003.m4a";
+    char trackName[] = "track009.m4a";
 
 #if USE_MULTIPLE_CARDS
     sd.chvol(); // assign desired sdcard's volume.
@@ -625,15 +620,6 @@ void enableResampler() {
 }
 
 void clearSampleCounter() {
-  /* SCI WRAM is used to upload application programs and data 
-  to instruction and data RAMs. The start address must be initialized 
-  by writing to SCI WRAMADDR prior to the first write/read of SCI WRAM. 
-  As 16 bits of data can be transferred with one SCI WRAM write/read, 
-  and the instruction word is 32 bits long, two consecutive writes/reads 
-  are needed for each instruction word. The byte order is big-endian 
-  (i.e. most significant words first). After each full-word write/read, 
-  the internal pointer is autoincremented. */
-  
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1800);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
