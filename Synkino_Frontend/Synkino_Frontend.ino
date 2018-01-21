@@ -35,30 +35,23 @@ void loop(void) {
   newPosition = (newPosition >> 1) % 1000;
   if (newPosition != oldPosition) {
     oldPosition = newPosition;
-
+    
     u8g2.firstPage();
-    do {
-      u8g2.setFont(u8g2_font_inb46_mn);
-      u8g2.setCursor(8, 64);
-      u8g2.print(newPosition);
-    } while ( u8g2.nextPage() );
-  
-    Serial.println(newPosition);
+    if (newPosition == 0) {
+      do {
+        u8g2.setFont(u8g2_font_helvR14_tr);
+        u8g2.drawStr(12,40,"Select Track");
+      } while ( u8g2.nextPage() );
+    } else {
+      do {
+        u8g2.setFont(u8g2_font_inb46_mn);
+        u8g2.setCursor(8, 64);
+        if (newPosition < 10)  u8g2.print("0");
+        if (newPosition < 100) u8g2.print("0");
+        u8g2.print(newPosition);
+      } while ( u8g2.nextPage() );
+    }  
   }
 
-  
-//  char m_str[3];
-//  strcpy(m_str, u8x8_u8toa(m, 2));		/* convert m to a string with two digits */
-//  u8g2.firstPage();
-//  do {
-//    u8g2.setFont(u8g2_font_logisoso62_tn);
-//    u8g2.drawStr(0,63,"9");
-//    u8g2.drawStr(33,63,":");
-//    u8g2.drawStr(50,63,m_str);
-//  } while ( u8g2.nextPage() );
-//  delay(1000);
-//  m++;
-//  if ( m == 60 )
-//    m = 0;
 }
 
