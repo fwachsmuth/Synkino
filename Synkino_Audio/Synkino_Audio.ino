@@ -57,23 +57,23 @@
 
 //#define USE_MP3_REFILL_MEANS  USE_MP3_Timer1
 
-const int myAddress = 0x08;
+//const int myAddress = 0x08;
 
-const byte sollfps = 18;        // Todo: Read this from filename!
+byte sollfps = 18;        // Todo: Read this from filename!
 byte segments = 2;              // Wieviele Segmente hat die Umlaufblende?
 //byte startMarkOffset = 15;      // Noris
 byte startMarkOffset = 53;      // Bauer t610
   
 const float physicalSamplingrate = 41344;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
 
-const byte impDetectorISRPIN = 3;
-const byte impDetectorPin = 3;
-const byte startMarkDetectorPin = 5;
-const int  pauseDetectedPeriod = (1000 / sollfps * 3);   // Duration of 3 single frames
+#define impDetectorISRPIN  3
+#define impDetectorPin 3
+#define startMarkDetectorPin 5
+int  pauseDetectedPeriod = (1000 / sollfps * 3);   // Duration of 3 single frames
 unsigned int impToSamplerateFactor = physicalSamplingrate / sollfps / segments / 2;
 int deltaToFramesDivider = physicalSamplingrate / sollfps;
 
-const int numReadings = 16;
+#define numReadings   16
 long readings[numReadings];      // the readings from the analog input
 int readIndex = 0;              // the index of the current reading
 long total = 0;                 // the running total
@@ -122,6 +122,8 @@ volatile unsigned long totalImpCounter = 0;
 Encoder myEnc(4, 14);   // 14 is A0
 long position  = -999;
 
+U8G2_SSD1306_128X64_NONAME_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+
 
 //------------------------------------------------------------------------------
 void setup() {
@@ -139,10 +141,10 @@ void setup() {
 
   Serial.begin(115200);
 
-//  Serial.print(F("F_CPU = "));
-//  Serial.println(F_CPU);
-//  Serial.print(F("Free RAM = ")); 
-//  Serial.println(FreeStack(), DEC);  // FreeStack() is provided by SdFat
+  Serial.print(F("F_CPU = "));
+  Serial.println(F_CPU);
+  Serial.print(F("Free RAM = ")); 
+  Serial.println(FreeStack(), DEC);  // FreeStack() is provided by SdFat
   
   //Initialize the SdCard
   if(!sd.begin(SD_SEL, SPI_FULL_SPEED)) sd.initErrorHalt();
@@ -356,7 +358,7 @@ void speedControlPID(){
 // Printing the long seems super pricy
 
     Serial.print(average / deltaToFramesDivider);
-    Serial.println(" Frames off");
+    Serial.println(F(" Frames off"));
   }
 }
 
@@ -386,7 +388,7 @@ void waitForStartMark() {
     
     musicPlayer.resumeMusic();
     clearSampleCounter();
-    Serial.println("Los geht's!");
+    Serial.println(F("Los geht's!"));
 
     impCountToStartMark = 0;
     myState = PLAYING;
@@ -400,7 +402,7 @@ void waitForResumeToPlay(unsigned long impCounterStopPos) {
     myPID.SetMode(AUTOMATIC);
     restoreSampleCounter(lastSampleCounterHaltPos);
     musicPlayer.resumeMusic();
-    Serial.println("Weiter geht's!");
+    Serial.println(F("Weiter geht's!"));
     myState = PLAYING;
   }
 }
@@ -465,28 +467,6 @@ void parse_menu(byte key_command) {
       Serial.println(F("Playing:"));
 
     }
-
-  //if < or > to change Play Speed
-  } else if((key_command == '>') || (key_command == '<')) {
-    uint16_t playspeed = musicPlayer.getPlaySpeed(); // create key_command existing variable
-    // note playspeed of Zero is equal to ONE, normal speed.
-    if(key_command == '>') { // note dB is negative
-      // assume equal balance and use byte[1] for math
-      if(playspeed >= 254) { // range check
-        playspeed = 5;
-      } else {
-        playspeed += 1; // keep it simpler with whole dB's
-      }
-    } else {
-      if(playspeed == 0) { // range check
-        playspeed = 0;
-      } else {
-        playspeed -= 1;
-      }
-    }
-    musicPlayer.setPlaySpeed(playspeed); // commit new playspeed
-    Serial.print(F("playspeed to "));
-    Serial.println(playspeed, DEC);
 
   /* Alterativly, you could call a track by it's file name by using playMP3(filename);
   But you must stick to 8.1 filenames, only 8 characters long, and 3 for the extension */
@@ -556,53 +536,6 @@ void parse_menu(byte key_command) {
     } else {
       Serial.println(F("Busy playing files, try again later."));
     }
-
-  } else if(key_command == 'p') {
-    if( musicPlayer.getState() == playback) {
-      musicPlayer.pauseMusic();
-      Serial.println(F("Pausing"));
-    } else if( musicPlayer.getState() == paused_playback) {
-      musicPlayer.resumeMusic();
-      Serial.println(F("Resuming"));
-    } else {
-      Serial.println(F("Not Playing!"));
-    }
-
-  } else if(key_command == 'R') {
-    musicPlayer.stopTrack();
-    musicPlayer.vs_init();
-    Serial.println(F("Reseting VS10xx chip"));
-
-  } else if(key_command == 'O') {
-    musicPlayer.end();
-    Serial.println(F("VS10xx placed into low power reset mode."));
-
-  } else if(key_command == 'o') {
-    musicPlayer.begin();
-    Serial.println(F("VS10xx restored from low power reset mode."));
-
-  } else if(key_command == 'x') {
-      pitchrate = pitchrate + 10000;
-      adjustSamplerate(pitchrate);
-      Serial.print(F("New Pitchrate: "));
-      Serial.println(pitchrate);
-    
-  } else if(key_command == 'y') {
-      pitchrate = pitchrate - 10000;
-      adjustSamplerate(pitchrate);
-      Serial.print(F("New Pitchrate: "));
-      Serial.println(pitchrate);
-   
-  } else if(key_command == 'q') {
-    // Resampler enable with rate compensation
-    musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1e09);
-    musicPlayer.Mp3WriteRegister(SCI_WRAM, 0x0080);
-    
-  } else if(key_command == 'a') {
-    // Read and print Sample Count Register
-    unsigned long errorCount = Read32BitsFromSCI(0x5a82);
-    Serial.println(errorCount);
-    
   }
 }
 
