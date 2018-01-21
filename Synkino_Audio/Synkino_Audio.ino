@@ -29,7 +29,13 @@
 #include <SPI.h>
 #include <FreeStack.h>
 #include <vs1053_SdFat.h>
-//#include <Wire.h>
+#include <Arduino.h>
+#include <U8g2lib.h>
+#include <Wire.h>
+#define ENCODER_DO_NOT_USE_INTERRUPTS
+#include <Encoder.h>
+
+
 //#include <WireData.h>
 
 #define CMD_LOAD_TRACK    1
@@ -111,6 +117,9 @@ unsigned long lastSampleCounterHaltPos = 0;
 
 volatile unsigned long totalImpCounter = 0;
 
+Encoder myEnc(4, 14);   // 14 is A0
+long position  = -999;
+
 
 //------------------------------------------------------------------------------
 void setup() {
@@ -151,8 +160,6 @@ void setup() {
     }
   }
 
-  help();
-
 //  Wire.begin(myAddress);
 //  Wire.onReceive(i2cReceive);
   //Wire.onRequest(i2cRequest);
@@ -161,6 +168,19 @@ void setup() {
 
 //------------------------------------------------------------------------------
 void loop() {
+
+  long newPos = myEnc.read();
+  if (newPos != position) {
+    position = newPos;
+    Serial.println(position >> 1);
+  }
+  
+//   if (Serial.available()) {
+//    Serial.read();
+//    Serial.println("Reset to zero");
+//    myEnc.write(0);
+//  }
+
 
   if (haveI2Cdata) {
     switch (i2cCommand) {   // Debug output
@@ -318,10 +338,7 @@ void speedControlPID(){
   
     average = total / numReadings;        // calculate the average
 //    average = (total >> 4);
-//    Serial.println(average);            // send it to the computer as ASCII digits
 
-
-  
     Input = average;
     adjustSamplerate((long) Output);
   
@@ -336,24 +353,8 @@ void speedControlPID(){
 // every 2.3 imps, full CSV output is one ever ~6.3 imps.
 // Printing the long seems super pricy
 
-Serial.print(average / deltaToFramesDivider);
-Serial.println(" Frames off");
-
-
-////    Serial.print(F("i\t"));
-//    Serial.print(totalImpCounter);
-//    Serial.print(",");
-////    Serial.print(F("\tset\t"));
-//    Serial.print(desiredSampleCount);
-//    Serial.print(",");
-////    Serial.print(F("\tist\t"));
-//    Serial.print(actualSampleCount);
-//    Serial.print(",");
-////    Serial.print(F("\td\t"));
-//    Serial.print(average);
-//    Serial.print(",");
-////    Serial.print(F("\tc\t"));
-//    Serial.println((long)Output);
+    Serial.print(average / deltaToFramesDivider);
+    Serial.println(" Frames off");
   }
 }
 
@@ -652,22 +653,6 @@ void restoreSampleCounter(unsigned long samplecounter) {
 
 
 //------------------------------------------------------------------------------
-void help() {
-  Serial.println(F("COMMANDS:"));
-  Serial.println(F(" [1-9] to play a track"));
-  Serial.println(F(" [f] play track001.mp3 by filename example"));
-  Serial.println(F(" [F] same as [f] but with initial skip of 2 second"));
-  Serial.println(F(" [s] to stop playing"));
-  Serial.println(F(" [d] display directory of SdCard"));
-  Serial.println(F(" [> or <] to increment or decrement play speed by 1 factor"));
-  Serial.println(F(" [p] to pause."));
-  Serial.println(F(" [R] Resets and initializes VS10xx chip."));
-  Serial.println(F(" [O] turns OFF the VS10xx into low power reset."));
-  Serial.println(F(" [o] turns ON the VS10xx out of low power reset."));
-  Serial.println(F(" [x] Pitch up"));
-  Serial.println(F(" [y] Pitch down"));
-  Serial.println(F(" [q] Enable 15/16 Resampler with rate compensation"));
-  Serial.println(F(" [a] Print ErrorCount Register"));
-}
+
 
 
