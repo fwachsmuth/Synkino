@@ -29,8 +29,8 @@
 #include <SPI.h>
 #include <FreeStack.h>
 #include <vs1053_SdFat.h>
-#include <Wire.h>
-#include <WireData.h>
+//#include <Wire.h>
+//#include <WireData.h>
 
 #define CMD_LOAD_TRACK    1
 #define CMD_CORRECT_PPM   2
@@ -153,8 +153,8 @@ void setup() {
 
   help();
 
-  Wire.begin(myAddress);
-  Wire.onReceive(i2cReceive);
+//  Wire.begin(myAddress);
+//  Wire.onReceive(i2cReceive);
   //Wire.onRequest(i2cRequest);
 
 }
@@ -403,13 +403,13 @@ void waitForResumeToPlay(unsigned long impCounterStopPos) {
 }
 
 
-void i2cReceive (int howMany) {
-  if (howMany >= (sizeof i2cCommand) + (sizeof i2cParameter)) {
-     wireReadData(i2cCommand);   
-     wireReadData(i2cParameter);   
-     haveI2Cdata = true;     
-   }  // end if have enough data
- }  // end of receive-ISR
+//void i2cReceive (int howMany) {
+//  if (howMany >= (sizeof i2cCommand) + (sizeof i2cParameter)) {
+//     wireReadData(i2cCommand);   
+//     wireReadData(i2cParameter);   
+//     haveI2Cdata = true;     
+//   }  // end if have enough data
+// }  // end of receive-ISR
 
 
  
