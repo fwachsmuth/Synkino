@@ -3,6 +3,8 @@
  * To Do:
  *  [x] PID neu kalibrieren -.-
  *  [ ] Aufschaukeln bei mp3 fixen
+ *  
+ *  [ ] 100n an den Encoderoutputs probieren (Prellschutz)
  * 
  *  [ ] Serial.print Fehler loswerden (Timer statt ISR?) USE_MP3_Polled 
  *  https://github.com/madsci1016/Sparkfun-MP3-Player-Shield-Arduino-Library/blob/master/SFEMP3Shield/SFEMP3ShieldConfig.h*  
@@ -169,10 +171,10 @@ void setup() {
 //------------------------------------------------------------------------------
 void loop() {
 
-  long newPos = myEnc.read();
+  long newPos = myEnc.read() >> 1;
   if (newPos != position) {
     position = newPos;
-    Serial.println(position >> 1);
+    Serial.println(position);
   }
   
 //   if (Serial.available()) {
