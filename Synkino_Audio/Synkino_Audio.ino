@@ -32,10 +32,9 @@
 #include <FreeStack.h>
 #include <vs1053_SdFat.h>
 #include <Arduino.h>
-#include <U8g2lib.h>
 #include <Wire.h>
-#define ENCODER_DO_NOT_USE_INTERRUPTS
-#include <Encoder.h>
+//#define ENCODER_DO_NOT_USE_INTERRUPTS
+//#include <Encoder.h>
 
 
 //#include <WireData.h>
@@ -119,10 +118,6 @@ unsigned long lastSampleCounterHaltPos = 0;
 
 volatile unsigned long totalImpCounter = 0;
 
-Encoder myEnc(4, 14);   // 14 is A0
-long position  = -999;
-
-U8G2_SSD1306_128X64_NONAME_1_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
 
 
 //------------------------------------------------------------------------------
@@ -173,19 +168,7 @@ void setup() {
 //------------------------------------------------------------------------------
 void loop() {
 
-  long newPos = myEnc.read() >> 1;
-  if (newPos != position) {
-    position = newPos;
-    Serial.println(position);
-  }
   
-//   if (Serial.available()) {
-//    Serial.read();
-//    Serial.println("Reset to zero");
-//    myEnc.write(0);
-//  }
-
-
   if (haveI2Cdata) {
     switch (i2cCommand) {   // Debug output
 //      case 1: Serial.print(F("CMD: Load Track: "));
@@ -217,7 +200,7 @@ void loop() {
         
         musicPlayer.resumeMusic();
         clearSampleCounter();
-        Serial.println("Los geht's!");
+        Serial.println(F("Los geht's!"));
       break;
       case CMD_CORRECT_PPM:
         if (i2cParameter != lastPpmCorrection) {
@@ -256,6 +239,7 @@ void loop() {
 
   switch (myState) {
     case IDLING:
+      
     break;
     case LOAD_TRACK:
     break;
@@ -496,7 +480,7 @@ void parse_menu(byte key_command) {
 
     myState = TRACK_LOADED;
 
-    Serial.println("Waiting for start mark...");
+    Serial.println(F("Waiting for start mark..."));
     
 
     /*       
