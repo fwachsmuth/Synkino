@@ -2,7 +2,6 @@
  * 
  *  This is the frontend part of Synkino
  * 
- * [ ] Exit von 2 ist hässlich
  * [ ] Startup wählt 3
  * 
  */
@@ -165,6 +164,7 @@ uint16_t selectTrackScreen() {
     }
   }
   myEnc.write(prevPosition);
+  u8g2.setFont(u8g2_font_helvR14_tr);   // Only until we go to the PLAYING_MENU here
   return newPosition;
 }
 
