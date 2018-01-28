@@ -10,6 +10,9 @@
 #include <U8g2lib.h>
 #include <SPI.h>
 #include <Encoder.h>
+#include <Wire.h>
+#include <WireData.h>
+
 
 // ---- Define the various Pins we use- --------------------------------------------
 //
@@ -48,6 +51,12 @@
 #define MENU_ITEM_P               1  
 #define MENU_ITEM_I               2
 #define MENU_ITEM_D               3
+
+// ---- Define the I2C Commands to control Audio ----------------------------------
+//
+#define CMD_LOAD_TRACK    1
+
+
 
 // ---- Initialize Objects ---------------------------------------------------------
 //
@@ -94,6 +103,8 @@ void setup(void) {
 
   Serial.begin(115200);
 
+  Wire.begin();
+  
   u8g2.begin();  
   //u8g2.begin(/*Select=*/ 7, /*Right/Next=*/ A1, /*Left/Prev=*/ A2, /*Up=*/ A0, /*Down=*/ A3, /*Home/Cancel=*/ 5);
   u8g2.setFont(u8g2_font_helvR14_tr);
@@ -127,6 +138,14 @@ void loop(void) {
     case 2:
       int trackChosen;
       trackChosen = selectTrackScreen();
+      byte cmd;
+      cmd = CMD_LOAD_TRACK;
+      long param;
+      param = trackChosen;
+      Wire.beginTransmission(8); // transmit to device #8
+      wireWriteData(cmd);  
+      wireWriteData(param);  
+      Wire.endTransmission();    // stop transmitting
     break;
     case 3:
       // go to Settings
