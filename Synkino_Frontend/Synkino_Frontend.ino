@@ -76,7 +76,7 @@ const char *projector_menu =
 uint8_t currentMenuSelection = 2;
 uint8_t prevMenuSelection = 0;
 
-unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
+// unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
 
 // ---- Setup ---------------------------------------------------------------------
 //
@@ -90,7 +90,7 @@ void setup(void) {
   digitalWrite(ENCODER_BTN, HIGH);
 
   myEnc.write(16000);
-  oldPosition = myEnc.read() >> 1;
+  // oldPosition = myEnc.read() >> 1;
 
   Serial.begin(115200);
 
@@ -106,9 +106,10 @@ void setup(void) {
 void loop(void) {
   
   prevMenuSelection = currentMenuSelection;       // store previous menu selection
-                                                  // Now (blockingly) wait for anew selection
+
   Serial.print("Before: ");
   Serial.println(currentMenuSelection);
+                                                  // Now (blockingly) wait for anew selection
   currentMenuSelection = u8g2.userInterfaceSelectionList(
     NULL, /* Header would go here */
     currentMenuSelection, 
@@ -139,6 +140,7 @@ uint16_t selectTrackScreen() {
   int parentMenuEncPosition;
   parentMenuEncPosition = myEnc.read();
   int newEncPosition;
+  int oldPosition;
   myEnc.write(16002);
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
     newEncPosition = myEnc.read();
@@ -173,7 +175,7 @@ uint16_t selectTrackScreen() {
 // This overwrites the weak function in u8x8_debounce.c
 uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
   int newEncPosition = myEnc.read() >> 1;
-  static int oldEncPosition = 0;
+  static int oldEncPosition = 8000;
   int encoderBttn = digitalRead(ENCODER_BTN);
 
   if (newEncPosition < oldEncPosition) {
