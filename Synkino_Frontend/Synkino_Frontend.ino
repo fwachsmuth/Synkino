@@ -136,36 +136,38 @@ void loop(void) {
 }
 
 uint16_t selectTrackScreen() {
-  int prevPosition;
-  prevPosition = myEnc.read();
-  int newPosition;
+  int parentMenuEncPosition;
+  parentMenuEncPosition = myEnc.read();
+  int newEncPosition;
   myEnc.write(16002);
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
-    newPosition = myEnc.read();
-    newPosition = (newPosition >> 1) % 1000;
-    if (newPosition != oldPosition) {
-      oldPosition = newPosition;
+    newEncPosition = myEnc.read();
+    newEncPosition = (newEncPosition >> 1) % 1000;
+    if (newEncPosition != oldPosition) {
+      oldPosition = newEncPosition;
       
       u8g2.firstPage();
-      if (newPosition == 0) {
+      if (newEncPosition == 0) {
         do {
           u8g2.setFont(u8g2_font_helvR14_tr);
-          u8g2.drawStr(12,40,"Select Track");
+          u8g2.drawStr(12,40,"< Main Menu");
         } while ( u8g2.nextPage() );
       } else {
         do {
           u8g2.setFont(u8g2_font_inb46_mn);
           u8g2.setCursor(8, 64);
-          if (newPosition < 10)  u8g2.print("0");
-          if (newPosition < 100) u8g2.print("0");
-          u8g2.print(newPosition);
+          if (newEncPosition < 10)  u8g2.print("0");
+          if (newEncPosition < 100) u8g2.print("0");
+          u8g2.print(newEncPosition);
         } while ( u8g2.nextPage() );
       }  
     }
   }
-  myEnc.write(prevPosition);
+  while (digitalRead(ENCODER_BTN) == 0) {};
+  oldPosition = 0;
+  myEnc.write(parentMenuEncPosition);
   u8g2.setFont(u8g2_font_helvR14_tr);   // Only until we go to the PLAYING_MENU here
-  return newPosition;
+  return newEncPosition;
 }
 
 // This overwrites the weak function in u8x8_debounce.c
