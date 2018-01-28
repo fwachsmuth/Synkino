@@ -1,7 +1,6 @@
 /**
  * 
  * To Do:
- *  [x] PID neu kalibrieren -.-
  *  [ ] Aufschaukeln bei mp3 fixen
  *  
  *  [ ] 100n an den Encoderoutputs probieren (Prellschutz)
@@ -33,11 +32,7 @@
 #include <vs1053_SdFat.h>
 #include <Arduino.h>
 #include <Wire.h>
-//#define ENCODER_DO_NOT_USE_INTERRUPTS
-//#include <Encoder.h>
-
-
-//#include <WireData.h>
+#include <WireData.h>
 
 #define CMD_LOAD_TRACK    1
 #define CMD_CORRECT_PPM   2
@@ -56,7 +51,7 @@
 
 //#define USE_MP3_REFILL_MEANS  USE_MP3_Timer1
 
-//const int myAddress = 0x08;
+const int myAddress = 0x08;   // Listen on the I2C Bus
 
 byte sollfps = 18;        // Todo: Read this from filename!
 byte segments = 2;              // Wieviele Segmente hat die Umlaufblende?
@@ -159,9 +154,9 @@ void setup() {
     }
   }
 
-//  Wire.begin(myAddress);
-//  Wire.onReceive(i2cReceive);
-  //Wire.onRequest(i2cRequest);
+  Wire.begin(myAddress);
+  Wire.onReceive(i2cReceive);
+  Wire.onRequest(i2cRequest);
 
 }
 
@@ -171,23 +166,23 @@ void loop() {
   
   if (haveI2Cdata) {
     switch (i2cCommand) {   // Debug output
-//      case 1: Serial.print(F("CMD: Load Track: "));
-//              Serial.println(i2cParameter);
-//      break;
-//      case 2: Serial.print(F("CMD: Correct PPM: "));
-//              Serial.println(i2cParameter);
-//      break;
-//      case 3: Serial.println(F("CMD: Play"));
-//      break;
-//      case 4: Serial.println(F("CMD: Pause"));
-//      break;
-//      case 5: Serial.println(F("CMD: Stop"));
-//      break;
-//      case 6: Serial.print(F("CMD: Sync to Frame: "));
-//              Serial.println(i2cParameter);
-//      break;
-//      default:Serial.print(i2cCommand);
-//              Serial.println(i2cParameter);
+      case 1: Serial.print(F("CMD: Load Track: "));
+              Serial.println(i2cParameter);
+      break;
+      case 2: Serial.print(F("CMD: Correct PPM: "));
+              Serial.println(i2cParameter);
+      break;
+      case 3: Serial.println(F("CMD: Play"));
+      break;
+      case 4: Serial.println(F("CMD: Pause"));
+      break;
+      case 5: Serial.println(F("CMD: Stop"));
+      break;
+      case 6: Serial.print(F("CMD: Sync to Frame: "));
+              Serial.println(i2cParameter);
+      break;
+      default:Serial.print(i2cCommand);
+              Serial.println(i2cParameter);
     }
 
     switch (i2cCommand) {
@@ -392,13 +387,13 @@ void waitForResumeToPlay(unsigned long impCounterStopPos) {
 }
 
 
-//void i2cReceive (int howMany) {
-//  if (howMany >= (sizeof i2cCommand) + (sizeof i2cParameter)) {
-//     wireReadData(i2cCommand);   
-//     wireReadData(i2cParameter);   
-//     haveI2Cdata = true;     
-//   }  // end if have enough data
-// }  // end of receive-ISR
+void i2cReceive (int howMany) {
+  if (howMany >= (sizeof i2cCommand) + (sizeof i2cParameter)) {
+     wireReadData(i2cCommand);   
+     wireReadData(i2cParameter);   
+     haveI2Cdata = true;     
+   }  // end if have enough data
+ }  // end of receive-ISR
 
 
  
