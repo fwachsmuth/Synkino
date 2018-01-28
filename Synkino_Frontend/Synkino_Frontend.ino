@@ -23,7 +23,7 @@
 U8G2_SH1106_128X64_NONAME_1_4W_HW_SPI u8g2(U8G2_R0, SPI_CS, SPI_DC, SPI_RESET);
 Encoder myEnc(ENCODER_A, ENCODER_B);
 
-unsigned int oldPosition = 8000;   // some ugly hack to cope with 0->65535 when turning left
+unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
 
 void setup(void) {
   pinMode(SPI_CS, OUTPUT);
@@ -45,8 +45,6 @@ void setup(void) {
 
 }
 
-//uint8_t m = 24;
-
 const char *main_menu = 
   "Projector\n"
   "Select Track\n"
@@ -64,23 +62,23 @@ const char *projector_menu =
   "Edit\n"
   "Delete";
 
-uint8_t current_selection = 2;
-uint8_t prev_selection = 0;
+uint8_t currentMenuSelection = 2;
+uint8_t prevMenuSelection = 0;
 
 
 void loop(void) {
   
-  prev_selection = current_selection;
-  current_selection = u8g2.userInterfaceSelectionList(
+  prevMenuSelection = currentMenuSelection;
+  currentMenuSelection = u8g2.userInterfaceSelectionList(
     NULL, /* Header would go here */
-    current_selection, 
+    currentMenuSelection, 
     main_menu);
 
     while (digitalRead(ENCODER_BTN) == 0) {};   // wait for button release 
 
-  if (current_selection != prev_selection) {
-    Serial.println(current_selection);
-    switch (current_selection) {
+  if (currentMenuSelection != prevMenuSelection) {
+    Serial.println(currentMenuSelection);
+    switch (currentMenuSelection) {
       case 1:
         // go to Projector
       break;
