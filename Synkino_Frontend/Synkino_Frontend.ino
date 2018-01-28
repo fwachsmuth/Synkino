@@ -2,8 +2,8 @@
  * 
  *  This is the frontend part of Synkino
  * 
- * [ ] Auswahl lässt sich kein zweites Mal "durchdrücken"
  * [ ] Exit von 2 ist hässlich
+ * [ ] Exit von 2 wählt 3
  * 
  */
 
@@ -68,60 +68,57 @@ uint8_t prevMenuSelection = 0;
 
 void loop(void) {
   
-  prevMenuSelection = currentMenuSelection;
+  prevMenuSelection = currentMenuSelection;     // store previous menu selection
+                                                // Now (blockingly) wait for anew selection
   currentMenuSelection = u8g2.userInterfaceSelectionList(
     NULL, /* Header would go here */
     currentMenuSelection, 
     main_menu);
 
-    while (digitalRead(ENCODER_BTN) == 0) {};   // wait for button release 
+  while (digitalRead(ENCODER_BTN) == 0) {};     // wait for button release 
 
-  if (currentMenuSelection != prevMenuSelection) {
-    Serial.println(currentMenuSelection);
-    switch (currentMenuSelection) {
-      case 1:
-        // go to Projector
-      break;
-      case 2:
-        // --------- Select Track --------------------
-        int prevPosition;
-        prevPosition = myEnc.read();
-        int newPosition;
-        myEnc.write(16002);
-        while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
-          newPosition = myEnc.read();
-          newPosition = (newPosition >> 1) % 1000;
-          if (newPosition != oldPosition) {
-            oldPosition = newPosition;
-            
-            u8g2.firstPage();
-            if (newPosition == 0) {
-              do {
-                u8g2.setFont(u8g2_font_helvR14_tr);
-                u8g2.drawStr(12,40,"Select Track");
-              } while ( u8g2.nextPage() );
-            } else {
-              do {
-                u8g2.setFont(u8g2_font_inb46_mn);
-                u8g2.setCursor(8, 64);
-                if (newPosition < 10)  u8g2.print("0");
-                if (newPosition < 100) u8g2.print("0");
-                u8g2.print(newPosition);
-              } while ( u8g2.nextPage() );
-            }  
-          }
+  Serial.println(currentMenuSelection);
+  switch (currentMenuSelection) {
+    case 1:
+      // go to Projector
+    break;
+    case 2:
+      // --------- Select Track --------------------
+      int prevPosition;
+      prevPosition = myEnc.read();
+      int newPosition;
+      myEnc.write(16002);
+      while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
+        newPosition = myEnc.read();
+        newPosition = (newPosition >> 1) % 1000;
+        if (newPosition != oldPosition) {
+          oldPosition = newPosition;
+          
+          u8g2.firstPage();
+          if (newPosition == 0) {
+            do {
+              u8g2.setFont(u8g2_font_helvR14_tr);
+              u8g2.drawStr(12,40,"Select Track");
+            } while ( u8g2.nextPage() );
+          } else {
+            do {
+              u8g2.setFont(u8g2_font_inb46_mn);
+              u8g2.setCursor(8, 64);
+              if (newPosition < 10)  u8g2.print("0");
+              if (newPosition < 100) u8g2.print("0");
+              u8g2.print(newPosition);
+            } while ( u8g2.nextPage() );
+          }  
         }
-        myEnc.write(prevPosition);
-      break;
-      case 3:
-        // go to Settings
-      break;
-      default:
-      break;
-    }
+      }
+      myEnc.write(prevPosition);
+    break;
+    case 3:
+      // go to Settings
+    break;
+    default:
+    break;
   }
-    
-
 }
 
 // This overwrites the weak function in u8x8_debounce.c
