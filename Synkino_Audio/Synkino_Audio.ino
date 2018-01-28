@@ -169,9 +169,6 @@ void loop() {
     switch (i2cCommand) {   // Debug output
       case 1: Serial.print(F("CMD: Load Track: "));
               Serial.println(i2cParameter);
-              char buf[4];
-              sprintf(buf, "%03d", i2cParameter);
-              Serial.println(buf);
       break;
       case 2: Serial.print(F("CMD: Correct PPM: "));
               Serial.println(i2cParameter);
@@ -191,23 +188,27 @@ void loop() {
 
     switch (i2cCommand) {
       case CMD_PLAY: 
-        totalImpCounter = 0;
-        myPID.SetMode(AUTOMATIC);
-        myPID.SetOutputLimits(-77000, 77000);
-
-        attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
-        
-        musicPlayer.resumeMusic();
-        clearSampleCounter();
-        Serial.println(F("Los geht's!"));
+//        totalImpCounter = 0;
+//        myPID.SetMode(AUTOMATIC);
+//        myPID.SetOutputLimits(-77000, 77000);
+//
+//        attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
+//        
+//        musicPlayer.resumeMusic();
+//        clearSampleCounter();
+//        Serial.println(F("Los geht's!"));
       break;
       case CMD_CORRECT_PPM:
-        if (i2cParameter != lastPpmCorrection) {
-          lastPpmCorrection = i2cParameter;
-          adjustSamplerate(i2cParameter);
-        }
+//        if (i2cParameter != lastPpmCorrection) {
+//          lastPpmCorrection = i2cParameter;
+//          adjustSamplerate(i2cParameter);
+//        }
      break;
     case CMD_LOAD_TRACK:
+      Serial.println(loadTrackByNo(i2cParameter));
+//      char paddedTrackNo[4];
+//      sprintf(paddedTrackNo, "%03d", i2cParameter);
+//      Serial.println(paddedTrackNo);
     break;
     case CMD_PAUSE:
     break;
@@ -282,6 +283,28 @@ void loop() {
     prevState = myState;
   }
     
+}
+
+uint8_t loadTrackByNo(int trackNo) {
+  char trackName[] = "001.m4a";
+  sprintf(trackName, "%03d.m4a", trackNo);
+  uint8_t result;
+  Serial.println(trackName);
+  result = musicPlayer.playMP3(trackName);
+  if (result != 0) {
+    Serial.print(F("Error code: "));
+    Serial.print(result);
+    Serial.println(F(" when trying to play track"));
+  } else {
+    Serial.println(F("Waiting for start mark..."));
+  }
+  musicPlayer.setVolume(3,3);
+  musicPlayer.pauseMusic();
+  enableResampler();
+  while (musicPlayer.getState() != paused_playback) {}
+  clearSampleCounter();
+  myState = TRACK_LOADED;
+  return result;
 }
 
 void checkIfStillRunning() {
