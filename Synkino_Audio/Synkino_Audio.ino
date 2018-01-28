@@ -286,11 +286,35 @@ void loop() {
 }
 
 uint8_t loadTrackByNo(int trackNo) {
-  char trackName[] = "001.m4a";
-  sprintf(trackName, "%03d.m4a", trackNo);
+  char trackName18[] = "000-18.m4a";
+  char trackName24[] = "000-24.m4a";
+  char trackName16[] = "000-16.m4a";
+  char trackName25[] = "000-25.m4a";
+  char trackNameFound[11];
+  sprintf(trackName18, "%03d-18.m4a", trackNo);
+  sprintf(trackName24, "%03d-24.m4a", trackNo);
+  sprintf(trackName16, "%03d-16.m4a", trackNo);
+  sprintf(trackName25, "%03d-25.m4a", trackNo);
+
+  if (sd.exists(trackName18)) {
+    Serial.println(F("File exists and has 18 fps"));
+    strcpy(trackNameFound, trackName18);
+  } else if (sd.exists(trackName24)) {
+    Serial.println(F("File exists and has 24 fps"));
+    strcpy(trackNameFound, trackName24);
+  } else if (sd.exists(trackName16)) {
+    Serial.println(F("File exists and has 16 fps"));
+    strcpy(trackNameFound, trackName16);
+  } else if (sd.exists(trackName25)) {
+    Serial.println(F("File exists and has 25 fps"));
+    strcpy(trackNameFound, trackName25);
+  } else {
+    Serial.println(F("File does not exist."));
+  }
+  
   uint8_t result;
-  Serial.println(trackName);
-  result = musicPlayer.playMP3(trackName);
+  Serial.println(trackNameFound);
+  result = musicPlayer.playMP3(trackNameFound);
   if (result != 0) {
     Serial.print(F("Error code: "));
     Serial.print(result);
