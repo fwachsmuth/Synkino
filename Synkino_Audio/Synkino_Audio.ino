@@ -161,6 +161,7 @@ void setup() {
 }
 
 //------------------------------------------------------------------------------
+
 void loop() {
 
   
@@ -168,6 +169,9 @@ void loop() {
     switch (i2cCommand) {   // Debug output
       case 1: Serial.print(F("CMD: Load Track: "));
               Serial.println(i2cParameter);
+              char buf[4];
+              sprintf(buf, "%03d", i2cParameter);
+              Serial.println(buf);
       break;
       case 2: Serial.print(F("CMD: Correct PPM: "));
               Serial.println(i2cParameter);
