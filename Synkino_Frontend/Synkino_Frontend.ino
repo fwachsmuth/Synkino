@@ -3,7 +3,7 @@
  *  This is the frontend part of Synkino
  * 
  * [ ] Exit von 2 ist hässlich
- * [ ] Exit von 2 wählt 3
+ * [ ] Startup wählt 3
  * 
  */
 
@@ -108,6 +108,8 @@ void loop(void) {
   
   prevMenuSelection = currentMenuSelection;       // store previous menu selection
                                                   // Now (blockingly) wait for anew selection
+  Serial.print("Before: ");
+  Serial.println(currentMenuSelection);
   currentMenuSelection = u8g2.userInterfaceSelectionList(
     NULL, /* Header would go here */
     currentMenuSelection, 
@@ -115,13 +117,16 @@ void loop(void) {
 
   while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release 
 
+  Serial.print("After: ");
   Serial.println(currentMenuSelection);
+
   switch (currentMenuSelection) {
     case 1:
       // go to Projector
     break;
     case 2:
-      int trackChosen = selectTrackScreen();
+      int trackChosen;
+      trackChosen = selectTrackScreen();
     break;
     case 3:
       // go to Settings
@@ -165,15 +170,16 @@ uint16_t selectTrackScreen() {
 
 // This overwrites the weak function in u8x8_debounce.c
 uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
-  int newPosition = myEnc.read() >> 1;
+  int newEncPosition = myEnc.read() >> 1;
+  static int oldEncPosition = 0;
   int encoderBttn = digitalRead(ENCODER_BTN);
 
-  if (newPosition < oldPosition) {
-    oldPosition = newPosition;
+  if (newEncPosition < oldEncPosition) {
+    oldEncPosition = newEncPosition;
     delay(50);
     return U8X8_MSG_GPIO_MENU_UP;
-  } else if (newPosition > oldPosition) {
-    oldPosition = newPosition;
+  } else if (newEncPosition > oldEncPosition) {
+    oldEncPosition = newEncPosition;
     delay(50);
     return U8X8_MSG_GPIO_MENU_DOWN;
   } else if (encoderBttn == 0) {
