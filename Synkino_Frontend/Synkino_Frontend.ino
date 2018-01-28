@@ -2,9 +2,8 @@
  * 
  *  This is the frontend part of Synkino
  * 
- * [ ] Track Count sollte bei 001 anfangen
  * [ ] Auswahl lässt sich kein zweites Mal "durchdrücken"
- * [ ] Menu Position restoren
+ * [ ] Exit von 2 ist hässlich
  * 
  */
 
@@ -24,7 +23,7 @@
 U8G2_SH1106_128X64_NONAME_1_4W_HW_SPI u8g2(U8G2_R0, SPI_CS, SPI_DC, SPI_RESET);
 Encoder myEnc(ENCODER_A, ENCODER_B);
 
-unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
+unsigned int oldPosition = 8000;   // some ugly hack to cope with 0->65535 when turning left
 
 void setup(void) {
   pinMode(SPI_CS, OUTPUT);
@@ -87,11 +86,10 @@ void loop(void) {
       break;
       case 2:
         // --------- Select Track --------------------
-        // init track selector
-        // myEnc.write(16000);  <-- bringt die Menuauswahl durcheinander. Restoren?
-        // loop until enc_bttn
+        int prevPosition;
+        prevPosition = myEnc.read();
         int newPosition;
-        myEnc.write(16000);
+        myEnc.write(16002);
         while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
           newPosition = myEnc.read();
           newPosition = (newPosition >> 1) % 1000;
@@ -115,6 +113,7 @@ void loop(void) {
             }  
           }
         }
+        myEnc.write(prevPosition);
       break;
       case 3:
         // go to Settings
