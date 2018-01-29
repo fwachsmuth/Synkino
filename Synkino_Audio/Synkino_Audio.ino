@@ -53,10 +53,10 @@
 
 const int myAddress = 0x08;   // Listen on the I2C Bus
 
-byte sollfps = 18;        // Todo: Read this from filename!
-byte segments = 2;              // Wieviele Segmente hat die Umlaufblende?
-//byte startMarkOffset = 15;      // Noris
-byte startMarkOffset = 53;      // Bauer t610
+uint8_t sollfps = 18;        
+uint8_t segments = 2;              // Wieviele Segmente hat die Umlaufblende?
+//uint8_t startMarkOffset = 15;      // Noris
+uint8_t startMarkOffset = 53;      // Bauer t610
   
 const float physicalSamplingrate = 41344;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
 
@@ -74,14 +74,14 @@ long total = 0;                 // the running total
 long average = 0;                // the average
 
 
-byte myState = IDLING;     
-byte prevState;
+uint8_t myState = IDLING;     
+uint8_t prevState;
 
 volatile long ppmCorrection;
 long lastPpmCorrection = 0;
 
 volatile bool haveI2Cdata = false;
-volatile byte i2cCommand;
+volatile uint8_t i2cCommand;
 volatile long i2cParameter;
 
 volatile unsigned long lastISRTime;
@@ -291,16 +291,15 @@ uint8_t loadTrackByNo(int trackNo) {
   for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
     sprintf(trackName, "%03d-%d.m4a", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
-      Serial.print(F("File exists and has ")); 
-      Serial.print(fpsGuess);
-      Serial.println(F("fps."));
+      updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
-      // set fps globally
+//      Serial.print(F("File exists and has ")); 
+//      Serial.print(fpsGuess);
+//      Serial.print(F(" fps:"));
+//      Serial.println(trackName);
     }
   }
-  
   uint8_t result;
-  Serial.println(trackNameFound);
   result = musicPlayer.playMP3(trackNameFound);
   if (result != 0) {
     Serial.print(F("Error code: "));
@@ -317,6 +316,14 @@ uint8_t loadTrackByNo(int trackNo) {
   myState = TRACK_LOADED;
   return result;
 }
+
+void updateFpsDependencies(uint8_t fps) {
+  sollfps = fps;                                // redundant?
+  pauseDetectedPeriod = (1000 / fps * 3);
+  impToSamplerateFactor = physicalSamplingrate / fps / segments / 2;
+  deltaToFramesDivider = physicalSamplingrate / fps;
+}
+
 
 void checkIfStillRunning() {
   static unsigned long prevTotalImpCounter2;
@@ -388,8 +395,8 @@ void countISR() {
 void waitForStartMark() {
   if (digitalRead(startMarkDetectorPin) == HIGH) return;  // There is still leader
   static int impCountToStartMark = 0;
-  static byte previousImpDetectorState = LOW;
-  static byte impDetectorPinNow = 0;
+  static uint8_t previousImpDetectorState = LOW;
+  static uint8_t impDetectorPinNow = 0;
   impDetectorPinNow = digitalRead(impDetectorPin);
   if (impDetectorPinNow != previousImpDetectorState) {
     impCountToStartMark++;
@@ -450,7 +457,7 @@ void i2cRequest()
 
 
 //------------------------------------------------------------------------------
-void parse_menu(byte key_command) {
+void parse_menu(uint8_t key_command) {
 
   uint8_t result; // result code from some function as to be tested at later time.
 
@@ -547,7 +554,7 @@ void parse_menu(byte key_command) {
     if(!musicPlayer.isPlaying()) {
       // prevent root.ls when playing, something locks the dump. but keeps playing.
       // yes, I have tried another unique instance with same results.
-      // something about SdFat and its 500byte cache.
+      // something about SdFat and its 500uint8_t cache.
       Serial.println(F("Files found (name date time size):"));
       sd.ls(LS_R | LS_DATE | LS_SIZE);
     } else {
