@@ -9,7 +9,7 @@
  *  https://github.com/madsci1016/Sparkfun-MP3-Player-Shield-Arduino-Library/blob/master/SFEMP3Shield/SFEMP3ShieldConfig.h*  
  *  [ ] Corr Werte sind immer zwei mal gleich?
  *  [ ] Seltener PID Samplen?  
- *  
+ *  [ ] Find & Load other files than m4a
  *  [ ] Anzeigen, wie lang das Delta in ms ist
  *  
  *  [ ] KiCad all this. Soon.
@@ -286,30 +286,17 @@ void loop() {
 }
 
 uint8_t loadTrackByNo(int trackNo) {
-  char trackName18[] = "000-18.m4a";
-  char trackName24[] = "000-24.m4a";
-  char trackName16[] = "000-16.m4a";
-  char trackName25[] = "000-25.m4a";
+  char trackName[11];
   char trackNameFound[11];
-  sprintf(trackName18, "%03d-18.m4a", trackNo);
-  sprintf(trackName24, "%03d-24.m4a", trackNo);
-  sprintf(trackName16, "%03d-16.m4a", trackNo);
-  sprintf(trackName25, "%03d-25.m4a", trackNo);
-
-  if (sd.exists(trackName18)) {
-    Serial.println(F("File exists and has 18 fps"));
-    strcpy(trackNameFound, trackName18);
-  } else if (sd.exists(trackName24)) {
-    Serial.println(F("File exists and has 24 fps"));
-    strcpy(trackNameFound, trackName24);
-  } else if (sd.exists(trackName16)) {
-    Serial.println(F("File exists and has 16 fps"));
-    strcpy(trackNameFound, trackName16);
-  } else if (sd.exists(trackName25)) {
-    Serial.println(F("File exists and has 25 fps"));
-    strcpy(trackNameFound, trackName25);
-  } else {
-    Serial.println(F("File does not exist."));
+  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
+    sprintf(trackName, "%03d-%d.m4a", trackNo, fpsGuess);  
+    if (sd.exists(trackName)) {
+      Serial.print(F("File exists and has ")); 
+      Serial.print(fpsGuess);
+      Serial.println(F("fps."));
+      strcpy(trackNameFound, trackName);
+      // set fps globally
+    }
   }
   
   uint8_t result;
