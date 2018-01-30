@@ -304,6 +304,15 @@ void loop() {
     
 }
 
+void tellFrontend(byte command, long parameter) {
+  Wire.beginTransmission(7); // This is the Frontend
+  wireWriteData(command);  
+  wireWriteData(parameter);  
+  Wire.endTransmission();    // stop transmitting
+}
+
+
+
 uint8_t loadTrackByNo(int trackNo) {
   char trackName[11];
   char trackNameFound[11];
@@ -312,10 +321,12 @@ uint8_t loadTrackByNo(int trackNo) {
     if (sd.exists(trackName)) {
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
-      Serial.print(F("File exists and has ")); 
-      Serial.print(fpsGuess);
-      Serial.print(F(" fps:"));
-      Serial.println(trackName);
+      tellFrontend(CMD_FOUND_FPS, fpsGuess);
+
+//      Serial.print(F("File exists and has ")); 
+//      Serial.print(fpsGuess);
+//      Serial.print(F(" fps:"));
+//      Serial.println(trackName);
     }
   }
   uint8_t result;

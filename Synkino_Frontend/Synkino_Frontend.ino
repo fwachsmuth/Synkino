@@ -73,6 +73,11 @@
 #define CMD_OOSYNC              16  /* ---> (frameCount)      */
 #define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)       */
 
+// ---- Define the various States --------------------------------------------------
+//
+#define MAIN_MENU               1
+#define SELECT_TRACK            2
+#define TRACK_LOADED            3
 
 // ---- Initialize Objects ---------------------------------------------------------
 //
@@ -82,7 +87,7 @@ Encoder myEnc(ENCODER_A, ENCODER_B);
 // ---- Initialize Consts and Vars -------------------------------------------------
 //
 
-const int myAddress = 0x07;
+const int myAddress = 0x07;     // Our i2c address here
 
 const char *main_menu = 
   "Projector\n"
@@ -108,6 +113,7 @@ volatile bool haveI2Cdata = false;
 volatile uint8_t i2cCommand;
 volatile long i2cParameter;
 
+uint8_t myState = MAIN_MENU;
 
 // unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
 
@@ -135,6 +141,7 @@ void setup(void) {
   //u8g2.begin(/*Select=*/ 7, /*Right/Next=*/ A1, /*Left/Prev=*/ A2, /*Up=*/ A0, /*Down=*/ A3, /*Home/Cancel=*/ 5);
   u8g2.setFont(u8g2_font_helvR14_tr);
 
+  myState = MAIN_MENU;
 }
 
 
@@ -173,6 +180,8 @@ void loop(void) {
       case CMD_FOUND_FMT:
       break; 
       case CMD_FOUND_FPS:
+        Serial.print(F("FPS sind "));
+        Serial.println(i2cParameter);
       break; 
       case CMD_CURRENT_FRAME:
       break; 
@@ -194,43 +203,51 @@ void loop(void) {
   }
   haveI2Cdata = false;  
 
-  prevMenuSelection = currentMenuSelection;       // store previous menu selection
-
-  Serial.print("Before: ");
-  Serial.println(currentMenuSelection);
-                                                  // Now (blockingly) wait for anew selection
-  currentMenuSelection = u8g2.userInterfaceSelectionList(
-    NULL, /* Header would go here */
-    currentMenuSelection, 
-    main_menu);
-
-  while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release 
-
-  Serial.print("After: ");
-  Serial.println(currentMenuSelection);
-
-  switch (currentMenuSelection) {
-    case 1:
-      // go to Projector
-    break;
-    case 2:
+  // State Machine ----------------------------------------------------------------
+  //
+  switch (myState) {
+    case MAIN_MENU:
+      prevMenuSelection = currentMenuSelection;       // store previous menu selection
+//    Serial.print("Before: ");
+//    Serial.println(currentMenuSelection);
+      currentMenuSelection = u8g2.userInterfaceSelectionList(NULL, currentMenuSelection, main_menu);
+      while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release 
+//    Serial.print("After: ");
+//    Serial.println(currentMenuSelection);
+      switch (currentMenuSelection) {
+        case MENU_ITEM_PROJECTOR:
+          // go to Projector
+          break;
+        case MENU_ITEM_SELECT_TRACK:
+          myState = SELECT_TRACK;
+          break;
+        case MENU_ITEM_SETTINGS:
+          // go to Settings
+          break;
+        default:
+          break;
+      }
+     break;
+    case SELECT_TRACK:
       int trackChosen;
       trackChosen = selectTrackScreen();
-      byte cmd;
-      cmd = CMD_LOAD_TRACK;
-      long param;
-      param = trackChosen;
-      Wire.beginTransmission(8); // transmit to device #8
-      wireWriteData(cmd);  
-      wireWriteData(param);  
-      Wire.endTransmission();    // stop transmitting
-    break;
-    case 3:
-      // go to Settings
-    break;
+      tellAudioPlayer(CMD_LOAD_TRACK, trackChosen);
+      myState = TRACK_LOADED;
+      break;
+    case TRACK_LOADED:
+      break;
     default:
-    break;
+      break;
   }
+
+
+}
+
+void tellAudioPlayer(byte command, long parameter) {
+  Wire.beginTransmission(8); // This is the Audio Player
+  wireWriteData(command);  
+  wireWriteData(parameter);  
+  Wire.endTransmission();    // stop transmitting
 }
 
 uint16_t selectTrackScreen() {
@@ -291,10 +308,14 @@ uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
   }
 }
 
-void i2cReceive(int byteCount) {
-  // Get and store the data.
-  // wireReadData(myData);
-}
+void i2cReceive (int howMany) {
+  if (howMany >= (sizeof i2cCommand) + (sizeof i2cParameter)) {
+     wireReadData(i2cCommand);   
+     wireReadData(i2cParameter);   
+     haveI2Cdata = true;     
+   }  // end if have enough data
+ }  // end of receive-ISR
+
 
 void i2cRequest() {
   // wireWriteData(myData);
