@@ -72,12 +72,14 @@
 #define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)     */
 #define CMD_OOSYNC              16  /* ---> (frameCount)      */
 #define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)       */
+#define CMD_TRACK_LOADED        18  /* --->                   */
 
 // ---- Define the various States --------------------------------------------------
 //
 #define MAIN_MENU               1
 #define SELECT_TRACK            2
-#define TRACK_LOADED            3
+#define WAIT_FOR_LOADING        3
+#define TRACK_LOADED            4
 
 // ---- Initialize Objects ---------------------------------------------------------
 //
@@ -114,6 +116,10 @@ volatile uint8_t i2cCommand;
 volatile long i2cParameter;
 
 uint8_t myState = MAIN_MENU;
+
+uint8_t fps = 0;
+uint8_t fileType = 0;
+uint8_t trackLoaded = 0;
 
 // unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
 
@@ -172,6 +178,8 @@ void loop(void) {
       case 17: Serial.print(F("CMD_SHOW_ERROR: "));
                Serial.println(i2cParameter);
                break;
+      case 18: Serial.println(F("CMD_TRACK_LOADED"));
+               break;
       default: Serial.println(i2cCommand);
                Serial.println(i2cParameter);
     }
@@ -182,6 +190,7 @@ void loop(void) {
       case CMD_FOUND_FPS:
         Serial.print(F("FPS sind "));
         Serial.println(i2cParameter);
+        fps = i2cParameter;
       break; 
       case CMD_CURRENT_FRAME:
       break; 
@@ -195,6 +204,9 @@ void loop(void) {
       break; 
       case CMD_SHOW_ERROR:
       break; 
+      case CMD_TRACK_LOADED:
+        trackLoaded = 1;
+      break;
       default:
         Serial.println(i2cCommand);
         Serial.println(i2cParameter);
@@ -208,12 +220,8 @@ void loop(void) {
   switch (myState) {
     case MAIN_MENU:
       prevMenuSelection = currentMenuSelection;       // store previous menu selection
-//    Serial.print("Before: ");
-//    Serial.println(currentMenuSelection);
       currentMenuSelection = u8g2.userInterfaceSelectionList(NULL, currentMenuSelection, main_menu);
       while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release 
-//    Serial.print("After: ");
-//    Serial.println(currentMenuSelection);
       switch (currentMenuSelection) {
         case MENU_ITEM_PROJECTOR:
           // go to Projector
@@ -232,7 +240,14 @@ void loop(void) {
       int trackChosen;
       trackChosen = selectTrackScreen();
       tellAudioPlayer(CMD_LOAD_TRACK, trackChosen);
-      myState = TRACK_LOADED;
+      myState = WAIT_FOR_LOADING;
+      break;
+    case WAIT_FOR_LOADING:
+      Serial.println(F("Draw Busy Bee..."));
+      if ((fps != 0) && (trackLoaded != 0)) {
+        myState = TRACK_LOADED;
+        Serial.println(F("Ready to play."));
+      }
       break;
     case TRACK_LOADED:
       break;

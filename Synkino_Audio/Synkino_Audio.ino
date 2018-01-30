@@ -60,6 +60,7 @@
 #define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)     */
 #define CMD_OOSYNC              16  /* ---> (frameCount)      */
 #define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)       */
+#define CMD_TRACK_LOADED        18  /* --->                   */
 
 // ---- Define the various States --------------------------------------------------
 //
@@ -344,6 +345,7 @@ uint8_t loadTrackByNo(int trackNo) {
   while (musicPlayer.getState() != paused_playback) {}
   clearSampleCounter();
   myState = TRACK_LOADED;
+  tellFrontend(CMD_TRACK_LOADED, 0);
   return result;
 }
 
