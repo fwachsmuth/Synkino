@@ -65,6 +65,9 @@ Encoder myEnc(ENCODER_A, ENCODER_B);
 
 // ---- Initialize Consts and Vars -------------------------------------------------
 //
+
+const int myAddress = 0x07;
+
 const char *main_menu = 
   "Projector\n"
   "Select Track\n"
@@ -103,8 +106,10 @@ void setup(void) {
 
   Serial.begin(115200);
 
-  Wire.begin();
-  
+  Wire.begin(myAddress);
+  Wire.onReceive(i2cReceive);
+  Wire.onRequest(i2cRequest);
+ 
   u8g2.begin();  
   //u8g2.begin(/*Select=*/ 7, /*Right/Next=*/ A1, /*Left/Prev=*/ A2, /*Up=*/ A0, /*Down=*/ A3, /*Home/Cancel=*/ 5);
   u8g2.setFont(u8g2_font_helvR14_tr);
@@ -213,4 +218,14 @@ uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
   }
 }
 
+void i2cReceive(int byteCount)
+{
+  // Get and store the data.
+  // wireReadData(myData);
+}
+
+void i2cRequest()
+{
+  // wireWriteData(myData);
+}
 

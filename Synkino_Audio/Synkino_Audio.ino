@@ -22,6 +22,9 @@
  *  [ ] complete state machine here
  *  [ ] Projektor-Frequenzanzeige
  *  [ ] remove unused variables
+ *  [ ] pull-up am i2c anbringen
+ *  [ ] Updtae https://github.com/nickgammon/I2C_Anything
+ *  
  *  
  * 
  */
@@ -293,10 +296,10 @@ uint8_t loadTrackByNo(int trackNo) {
     if (sd.exists(trackName)) {
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
-//      Serial.print(F("File exists and has ")); 
-//      Serial.print(fpsGuess);
-//      Serial.print(F(" fps:"));
-//      Serial.println(trackName);
+      Serial.print(F("File exists and has ")); 
+      Serial.print(fpsGuess);
+      Serial.print(F(" fps:"));
+      Serial.println(trackName);
     }
   }
   uint8_t result;
