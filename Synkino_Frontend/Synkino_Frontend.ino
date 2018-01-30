@@ -165,8 +165,31 @@ void loop(void) {
       case 17: Serial.print(F("CMD_SHOW_ERROR: "));
                Serial.println(i2cParameter);
                break;
-      default: Serial.print(i2cCommand);
+      default: Serial.println(i2cCommand);
                Serial.println(i2cParameter);
+    }
+  
+    switch (i2cCommand) {
+      case CMD_FOUND_FMT:
+      break; 
+      case CMD_FOUND_FPS:
+      break; 
+      case CMD_CURRENT_FRAME:
+      break; 
+      case CMD_SHOW_PAUSE:
+      break; 
+      case CMD_SHOW_PLAY:
+      break; 
+      case CMD_FOUND_TRACKLENGTH:
+      break; 
+      case CMD_OOSYNC:
+      break; 
+      case CMD_SHOW_ERROR:
+      break; 
+      default:
+        Serial.println(i2cCommand);
+        Serial.println(i2cParameter);
+      break;
     }
   }
   haveI2Cdata = false;  

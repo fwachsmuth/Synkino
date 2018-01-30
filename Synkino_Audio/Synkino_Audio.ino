@@ -40,7 +40,7 @@
 //
 
 
-// ---- Define the I2C Commands --------------------------------------------
+// ---- Define the I2C Commands ----------------------------------------------------
 //
 #define CMD_RESET               1   /* <---                   */
 #define CMD_SET_SHUTTERBLADES   2   /* <--- (shutterBlades)   */
@@ -61,7 +61,8 @@
 #define CMD_OOSYNC              16  /* ---> (frameCount)      */
 #define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)       */
 
-
+// ---- Define the various States --------------------------------------------------
+//
 #define IDLING            1
 #define LOAD_TRACK        2
 #define TRACK_LOADED      3
@@ -209,7 +210,7 @@ void loop() {
       case 9: Serial.print(F("CMD_LOAD_TRACK: "));
               Serial.println(i2cParameter);
       break;
-      default:Serial.print(i2cCommand);
+      default:Serial.println(i2cCommand);
               Serial.println(i2cParameter);
     }
 
@@ -234,6 +235,8 @@ void loop() {
         loadTrackByNo(i2cParameter);
       break;
       default:
+        Serial.println(i2cCommand);
+        Serial.println(i2cParameter);
       break;
     }
     
