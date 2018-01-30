@@ -24,12 +24,11 @@
  *  [ ] remove unused variables
  *  [ ] pull-up am i2c anbringen
  *  [ ] Updtae https://github.com/nickgammon/I2C_Anything
- *  
+ *  [ ] Error Codes verdrahten
  *  
  * 
  */
 #include <PID_v1.h>
-
 #include <SPI.h>
 #include <FreeStack.h>
 #include <vs1053_SdFat.h>
@@ -37,12 +36,31 @@
 #include <Wire.h>
 #include <WireData.h>
 
-#define CMD_LOAD_TRACK    1
-#define CMD_CORRECT_PPM   2
-#define CMD_PLAY          3
-#define CMD_PAUSE         4
-#define CMD_STOP          5
-#define CMD_SYNC_TO_FRAME 6
+// ---- Define the various Menu Screens --------------------------------------------
+//
+
+
+// ---- Define the I2C Commands --------------------------------------------
+//
+#define CMD_RESET               1   /* <---                   */
+#define CMD_SET_SHUTTERBLADES   2   /* <--- (shutterBlades)   */
+#define CMD_SET_STARTMARK       3   /* <--- (StartMarkOffset) */
+#define CMD_SET_P               4   /* <--- (P-Value for PID) */
+#define CMD_SET_I               5   /* <--- (I-Value for PID) */
+#define CMD_SET_D               6   /* <--- (D-Value for PID) */
+#define CMD_INC_FRAME           7   /* <---                   */
+#define CMD_DEC_FRAME           8   /* <---                   */
+#define CMD_LOAD_TRACK          9   /* <--- (trackId)         */
+
+#define CMD_FOUND_FMT           10  /* ---> (fileFormat)      */
+#define CMD_FOUND_FPS           11  /* ---> (fps)             */
+#define CMD_CURRENT_FRAME       12  /* ---> (frameNo)         */
+#define CMD_SHOW_PAUSE          13  /* --->                   */
+#define CMD_SHOW_PLAY           14  /* --->                   */
+#define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)     */
+#define CMD_OOSYNC              16  /* ---> (frameCount)      */
+#define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)       */
+
 
 #define IDLING            1
 #define LOAD_TRACK        2
@@ -134,12 +152,10 @@ void setup() {
 
   Serial.begin(115200);
 
-  Serial.print(F("F_CPU = "));
-  Serial.println(F_CPU);
   Serial.print(F("Free RAM = ")); 
   Serial.println(FreeStack(), DEC);  // FreeStack() is provided by SdFat
   
-  //Initialize the SdCard
+  // Initialize the SdCard
   if(!sd.begin(SD_SEL, SPI_FULL_SPEED)) sd.initErrorHalt();
   // depending upon your SdCard environment, SPI_HAVE_SPEED may work better.
   if(!sd.chdir("/")) sd.errorHalt("sd.chdir");
@@ -166,23 +182,31 @@ void setup() {
 //------------------------------------------------------------------------------
 
 void loop() {
-
-  
   if (haveI2Cdata) {
     switch (i2cCommand) {   // Debug output
-      case 1: Serial.print(F("CMD: Load Track: "));
+      case 1: Serial.println(F("CMD_RESET"));
+      break;
+      case 2: Serial.print(F("CMD_SET_SHUTTERBLADES: "));
               Serial.println(i2cParameter);
       break;
-      case 2: Serial.print(F("CMD: Correct PPM: "));
+      case 3: Serial.print(F("CMD_SET_STARTMARK: "));
               Serial.println(i2cParameter);
       break;
-      case 3: Serial.println(F("CMD: Play"));
+      case 4: Serial.print(F("CMD_SET_P: "));
+              Serial.println(i2cParameter);
       break;
-      case 4: Serial.println(F("CMD: Pause"));
+      case 5: Serial.print(F("CMD_SET_I: "));
+              Serial.println(i2cParameter);
       break;
-      case 5: Serial.println(F("CMD: Stop"));
+      case 6: Serial.print(F("CMD_SET_D: "));
+              Serial.println(i2cParameter);
+              Serial.println(i2cParameter);
       break;
-      case 6: Serial.print(F("CMD: Sync to Frame: "));
+      case 7: Serial.println(F("CMD_INC_FRAME"));
+      break;
+      case 8: Serial.println(F("CMD_DEC_FRAME"));
+      break;
+      case 9: Serial.print(F("CMD_LOAD_TRACK: "));
               Serial.println(i2cParameter);
       break;
       default:Serial.print(i2cCommand);
@@ -190,38 +214,27 @@ void loop() {
     }
 
     switch (i2cCommand) {
-      case CMD_PLAY: 
-//        totalImpCounter = 0;
-//        myPID.SetMode(AUTOMATIC);
-//        myPID.SetOutputLimits(-77000, 77000);
-//
-//        attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
-//        
-//        musicPlayer.resumeMusic();
-//        clearSampleCounter();
-//        Serial.println(F("Los geht's!"));
+      case CMD_RESET: 
       break;
-      case CMD_CORRECT_PPM:
-//        if (i2cParameter != lastPpmCorrection) {
-//          lastPpmCorrection = i2cParameter;
-//          adjustSamplerate(i2cParameter);
-//        }
-     break;
-    case CMD_LOAD_TRACK:
-      Serial.println(loadTrackByNo(i2cParameter));
-//      char paddedTrackNo[4];
-//      sprintf(paddedTrackNo, "%03d", i2cParameter);
-//      Serial.println(paddedTrackNo);
-    break;
-    case CMD_PAUSE:
-    break;
-    case CMD_STOP:
-    break;
-    case CMD_SYNC_TO_FRAME:
-//    resyncPlayhead(i2cParameter);
-    break;
-    default:
-    break;
+      case CMD_SET_SHUTTERBLADES: 
+      break;
+      case CMD_SET_STARTMARK: 
+      break;
+      case CMD_SET_P: 
+      break;
+      case CMD_SET_I: 
+      break;
+      case CMD_SET_D: 
+      break;
+      case CMD_INC_FRAME: 
+      break;
+      case CMD_DEC_FRAME: 
+      break;
+      case CMD_LOAD_TRACK: 
+        loadTrackByNo(i2cParameter);
+      break;
+      default:
+      break;
     }
     
     haveI2Cdata = false;  

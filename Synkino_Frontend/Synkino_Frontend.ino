@@ -52,10 +52,26 @@
 #define MENU_ITEM_I               2
 #define MENU_ITEM_D               3
 
-// ---- Define the I2C Commands to control Audio ----------------------------------
+// ---- Define the I2C Commands ----------------------------------------------------
 //
-#define CMD_LOAD_TRACK    1
+#define CMD_RESET               1   /* <---                   */
+#define CMD_SET_SHUTTERBLADES   2   /* <--- (shutterBlades)   */
+#define CMD_SET_STARTMARK       3   /* <--- (StartMarkOffset) */
+#define CMD_SET_P               4   /* <--- (P-Value for PID) */
+#define CMD_SET_I               5   /* <--- (I-Value for PID) */
+#define CMD_SET_D               6   /* <--- (D-Value for PID) */
+#define CMD_INC_FRAME           7   /* <---                   */
+#define CMD_DEC_FRAME           8   /* <---                   */
+#define CMD_LOAD_TRACK          9   /* <--- (trackId)         */
 
+#define CMD_FOUND_FMT           10  /* ---> (fileFormat)      */
+#define CMD_FOUND_FPS           11  /* ---> (fps)             */
+#define CMD_CURRENT_FRAME       12  /* ---> (frameNo)         */
+#define CMD_SHOW_PAUSE          13  /* --->                   */
+#define CMD_SHOW_PLAY           14  /* --->                   */
+#define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)     */
+#define CMD_OOSYNC              16  /* ---> (frameCount)      */
+#define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)       */
 
 
 // ---- Initialize Objects ---------------------------------------------------------
@@ -87,6 +103,11 @@ const char *projector_menu =
 
 uint8_t currentMenuSelection = 2;
 uint8_t prevMenuSelection = 0;
+
+volatile bool haveI2Cdata = false;
+volatile uint8_t i2cCommand;
+volatile long i2cParameter;
+
 
 // unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
 
@@ -120,7 +141,36 @@ void setup(void) {
 // ---- Main Loop ------------------------------------------------------------------
 //
 void loop(void) {
-  
+  if (haveI2Cdata) {
+    switch (i2cCommand) {   // Debug output
+      case 10: Serial.println(F("CMD_FOUND_FMT"));
+               Serial.println(i2cParameter);
+               break;
+      case 11: Serial.print(F("CMD_FOUND_FPS: "));
+               Serial.println(i2cParameter);
+               break;
+      case 12: Serial.print(F("CMD_CURRENT_FRAME: "));
+               Serial.println(i2cParameter);
+               break;
+      case 13: Serial.println(F("CMD_SHOW_PAUSE"));
+               break;
+      case 14: Serial.println(F("CMD_SHOW_PLAY"));
+               break;
+      case 15: Serial.print(F("CMD_FOUND_TRACKLENGTH: "));
+               Serial.println(i2cParameter);
+               break;
+      case 16: Serial.print(F("CMD_OOSYNC: "));
+               Serial.println(i2cParameter);
+               break;
+      case 17: Serial.print(F("CMD_SHOW_ERROR: "));
+               Serial.println(i2cParameter);
+               break;
+      default: Serial.print(i2cCommand);
+               Serial.println(i2cParameter);
+    }
+  }
+  haveI2Cdata = false;  
+
   prevMenuSelection = currentMenuSelection;       // store previous menu selection
 
   Serial.print("Before: ");
@@ -218,14 +268,12 @@ uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
   }
 }
 
-void i2cReceive(int byteCount)
-{
+void i2cReceive(int byteCount) {
   // Get and store the data.
   // wireReadData(myData);
 }
 
-void i2cRequest()
-{
+void i2cRequest() {
   // wireWriteData(myData);
 }
 
