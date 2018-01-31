@@ -81,6 +81,16 @@
 #define WAIT_FOR_LOADING        3
 #define TRACK_LOADED            4
 
+// ---- Define the busy Bee! --------------------------------------------------------
+//
+#define busybee_xbm_width 15
+#define busybee_xbm_height 15
+static const unsigned char busybee_xbm_bits[] U8X8_PROGMEM = {
+   0x10, 0x00, 0x10, 0x3C, 0x00, 0x46, 0x60, 0x43, 0x63, 0x21, 0x98, 0x51,
+   0xD8, 0x2A, 0x60, 0x07, 0xB8, 0x1A, 0xCC, 0x3F, 0x86, 0x06, 0x42, 0x7B,
+   0x22, 0x1B, 0x52, 0x6A, 0x2C, 0x28 };
+
+
 // ---- Initialize Objects ---------------------------------------------------------
 //
 U8G2_SH1106_128X64_NONAME_1_4W_HW_SPI u8g2(U8G2_R0, SPI_CS, SPI_DC, SPI_RESET);
@@ -243,7 +253,7 @@ void loop(void) {
       myState = WAIT_FOR_LOADING;
       break;
     case WAIT_FOR_LOADING:
-      Serial.println(F("Draw Busy Bee..."));
+      drawBusyBee(80,20);
       if ((fps != 0) && (trackLoaded != 0)) {
         myState = TRACK_LOADED;
         Serial.println(F("Ready to play."));
@@ -258,6 +268,12 @@ void loop(void) {
 
 }
 
+void drawBusyBee(byte x, byte y) {
+  u8g2.firstPage();
+  do {
+    u8g2.drawXBMP(x, y, busybee_xbm_width, busybee_xbm_height, busybee_xbm_bits);
+  } while ( u8g2.nextPage() );
+}
 void tellAudioPlayer(byte command, long parameter) {
   Wire.beginTransmission(8); // This is the Audio Player
   wireWriteData(command);  
