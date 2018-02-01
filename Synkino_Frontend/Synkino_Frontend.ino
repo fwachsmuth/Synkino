@@ -253,11 +253,12 @@ void loop(void) {
       myState = WAIT_FOR_LOADING;
       break;
     case WAIT_FOR_LOADING:
-      drawBusyBee(80,20);
+      drawBusyBee(90,10);
       if ((fps != 0) && (trackLoaded != 0)) {
         myState = TRACK_LOADED;
+        drawPlayingMenu();
         Serial.println(F("Ready to play."));
-      }
+      } // Todo: Timeout und Error Handler
       break;
     case TRACK_LOADED:
       break;
@@ -268,10 +269,26 @@ void loop(void) {
 
 }
 
+void drawPlayingMenu() {
+  u8g2.firstPage();
+  do {
+    u8g2.setFont(u8g2_font_helvR08_tr);
+    u8g2.drawStr(0,8,"Bauer t610");
+    u8g2.drawStr(90,8,"Film 008");
+    u8g2.setFont(u8g2_font_inb24_mn);
+    u8g2.drawStr(20,36,":");
+    u8g2.drawStr(71,36,":");
+    u8g2.drawStr( 4,40,"0");
+    u8g2.drawStr(35,40,"08");
+    u8g2.drawStr(85,40,"23");
+  } while ( u8g2.nextPage() );
+}
 void drawBusyBee(byte x, byte y) {
   u8g2.firstPage();
   do {
     u8g2.drawXBMP(x, y, busybee_xbm_width, busybee_xbm_height, busybee_xbm_bits);
+    u8g2.setFont(u8g2_font_helvR14_tr);
+    u8g2.drawStr(8,50,"Loading...");
   } while ( u8g2.nextPage() );
 }
 void tellAudioPlayer(byte command, long parameter) {
@@ -302,7 +319,7 @@ uint16_t selectTrackScreen() {
       } else {
         do {
           u8g2.setFont(u8g2_font_inb46_mn);
-          u8g2.setCursor(8, 64);
+          u8g2.setCursor(8, 60);
           if (newEncPosition < 10)  u8g2.print("0");
           if (newEncPosition < 100) u8g2.print("0");
           u8g2.print(newEncPosition);
