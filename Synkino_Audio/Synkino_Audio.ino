@@ -23,7 +23,7 @@
  *  [ ] Projektor-Frequenzanzeige
  *  [ ] remove unused variables
  *  [ ] pull-up am i2c anbringen
- *  [ ] Updtae https://github.com/nickgammon/I2C_Anything
+ *  [ ] Update https://github.com/nickgammon/I2C_Anything
  *  [ ] Error Codes verdrahten
  *  
  * 
@@ -55,12 +55,13 @@
 #define CMD_FOUND_FMT           10  /* ---> (fileFormat)      */
 #define CMD_FOUND_FPS           11  /* ---> (fps)             */
 #define CMD_CURRENT_FRAME       12  /* ---> (frameNo)         */
-#define CMD_SHOW_PAUSE          13  /* --->                   */
-#define CMD_SHOW_PLAY           14  /* --->                   */
+#define CMD_PROJ_PAUSE          13  /* --->                   */
+#define CMD_PROJ_PLAY           14  /* --->                   */
 #define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)     */
 #define CMD_OOSYNC              16  /* ---> (frameCount)      */
 #define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)       */
 #define CMD_TRACK_LOADED        18  /* --->                   */
+#define CMD_STARTMARK_HIT       19  /* --->                   */
 
 // ---- Define the various States --------------------------------------------------
 //
@@ -434,8 +435,8 @@ void waitForStartMark() {
     impCountToStartMark++;
     previousImpDetectorState = impDetectorPinNow;
   }
+  
   if (impCountToStartMark >= segments * 2 * startMarkOffset) {
-
     totalImpCounter = 0;
     myPID.SetMode(AUTOMATIC);
     myPID.SetOutputLimits(-77000, 77000);
@@ -444,6 +445,7 @@ void waitForStartMark() {
     
     musicPlayer.resumeMusic();
     clearSampleCounter();
+    tellFrontend(CMD_STARTMARK_HIT, 0);
     Serial.println(F("Los geht's!"));
 
     impCountToStartMark = 0;

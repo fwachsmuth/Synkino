@@ -67,12 +67,13 @@
 #define CMD_FOUND_FMT           10  /* ---> (fileFormat)      */
 #define CMD_FOUND_FPS           11  /* ---> (fps)             */
 #define CMD_CURRENT_FRAME       12  /* ---> (frameNo)         */
-#define CMD_SHOW_PAUSE          13  /* --->                   */
-#define CMD_SHOW_PLAY           14  /* --->                   */
+#define CMD_PROJ_PAUSE          13  /* --->                   */
+#define CMD_PROJ_PLAY           14  /* --->                   */
 #define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)     */
 #define CMD_OOSYNC              16  /* ---> (frameCount)      */
 #define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)       */
 #define CMD_TRACK_LOADED        18  /* --->                   */
+#define CMD_STARTMARK_HIT       19  /* --->                   */
 
 // ---- Define the various States --------------------------------------------------
 //
@@ -80,6 +81,7 @@
 #define SELECT_TRACK            2
 #define WAIT_FOR_LOADING        3
 #define TRACK_LOADED            4
+#define SYNC_PLAY               5
 
 // ---- Define the busy Bee! --------------------------------------------------------
 //
@@ -149,6 +151,7 @@ uint8_t myState = MAIN_MENU;
 uint8_t fps = 0;
 uint8_t fileType = 0;
 uint8_t trackLoaded = 0;
+uint8_t startMarkHit = 0;
 
 // unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
 
@@ -194,9 +197,9 @@ void loop(void) {
       case 12: Serial.print(F("CMD_CURRENT_FRAME: "));
                Serial.println(i2cParameter);
                break;
-      case 13: Serial.println(F("CMD_SHOW_PAUSE"));
+      case 13: Serial.println(F("CMD_PROJ_PAUSE"));
                break;
-      case 14: Serial.println(F("CMD_SHOW_PLAY"));
+      case 14: Serial.println(F("CMD_PROJ_PLAY"));
                break;
       case 15: Serial.print(F("CMD_FOUND_TRACKLENGTH: "));
                Serial.println(i2cParameter);
@@ -209,6 +212,8 @@ void loop(void) {
                break;
       case 18: Serial.println(F("CMD_TRACK_LOADED"));
                break;
+      case 19: Serial.println(F("CMD_STARTMARK_HIT"));
+               break;
       default: Serial.println(i2cCommand);
                Serial.println(i2cParameter);
     }
@@ -217,15 +222,15 @@ void loop(void) {
       case CMD_FOUND_FMT:
       break; 
       case CMD_FOUND_FPS:
-        Serial.print(F("FPS sind "));
-        Serial.println(i2cParameter);
+//        Serial.print(F("FPS sind "));
+//        Serial.println(i2cParameter);
         fps = i2cParameter;
       break; 
       case CMD_CURRENT_FRAME:
       break; 
-      case CMD_SHOW_PAUSE:
+      case CMD_PROJ_PAUSE:
       break; 
-      case CMD_SHOW_PLAY:
+      case CMD_PROJ_PLAY:
       break; 
       case CMD_FOUND_TRACKLENGTH:
       break; 
@@ -235,6 +240,9 @@ void loop(void) {
       break; 
       case CMD_TRACK_LOADED:
         trackLoaded = 1;
+      break;
+      case  CMD_STARTMARK_HIT:
+        startMarkHit = 1;
       break;
       default:
         Serial.println(i2cCommand);
@@ -274,18 +282,47 @@ void loop(void) {
     case WAIT_FOR_LOADING:
       drawBusyBee(90,10);
       if ((fps != 0) && (trackLoaded != 0)) {
+        drawWaitForPlayingMenu(trackChosen, fps);
         myState = TRACK_LOADED;
-        drawPlayingMenu(trackChosen, fps);
-        Serial.println(F("Ready to play."));
+        //drawPlayingMenu(trackChosen, fps);
+        //Serial.println(F("Ready to play."));
       } // Todo: Timeout und Error Handler
       break;
     case TRACK_LOADED:
+      if (startMarkHit != 0) {
+        myState = SYNC_PLAY;
+      }
+      break;
+    case SYNC_PLAY:
+      drawPlayingMenu(trackChosen, fps);
       break;
     default:
       break;
   }
 
 
+}
+
+void drawWaitForPlayingMenu(int trackNo, byte fps) {
+  u8g2.firstPage();
+  do {
+    u8g2.setFont(u8g2_font_helvR08_tr);
+    u8g2.setCursor(0,8);
+    u8g2.print("Bauer t610");
+    u8g2.setCursor(90,8);
+    u8g2.print("Film ");
+    if (trackNo < 10)  u8g2.print("0");
+    if (trackNo < 100) u8g2.print("0");
+    u8g2.print(trackNo);
+    u8g2.setCursor(98,62);
+    u8g2.print(fps);
+    u8g2.print(" fps");
+    u8g2.setFont(u8g2_font_helvR14_tr);
+    u8g2.drawStr(17,28,"Waiting for");    
+    u8g2.drawStr(0,46,"Projector Start");    
+    u8g2.drawXBMP(60, 54, pause_xbm_width, pause_xbm_height, pause_xbm_bits);
+    // u8g2.drawXBMP(2, 54, sync_xbm_width, sync_xbm_height, sync_xbm_bits);
+  } while ( u8g2.nextPage() );
 }
 
 void drawPlayingMenu(int trackNo, byte fps) {
