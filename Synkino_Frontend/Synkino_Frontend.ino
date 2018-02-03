@@ -247,7 +247,7 @@ void setup(void) {
  
   u8g2.begin();  
   //u8g2.begin(/*Select=*/ 7, /*Right/Next=*/ A1, /*Left/Prev=*/ A2, /*Up=*/ A0, /*Down=*/ A3, /*Home/Cancel=*/ 5);
-  u8g2.setFont(u8g2_font_helvR14_tr);
+  u8g2.setFont(u8g2_font_helvR10_tr);
 
   u8g2.firstPage();
   do {
@@ -340,7 +340,7 @@ void loop(void) {
   switch (myState) {
     case MAIN_MENU:
       prevMenuSelection = currentMenuSelection;       // store previous menu selection
-      currentMenuSelection = u8g2.userInterfaceSelectionList(NULL, currentMenuSelection, main_menu);
+      currentMenuSelection = u8g2.userInterfaceSelectionList("Main Menu", currentMenuSelection, main_menu);
       while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release 
       switch (currentMenuSelection) {
         case MENU_ITEM_PROJECTOR:
@@ -357,6 +357,23 @@ void loop(void) {
                 case MENU_ITEM_SHUTTER_BLADES:
                   break;
                 case MENU_ITEM_STARTMARK:
+                  byte v;
+                  v = 0;
+                  u8g2.setFont(u8g2_font_helvR10_tr);
+                  u8g2.userInterfaceInputValue("Start Mark Offset:", "", &v, 0, 255, 3, " Frames");
+                  
+//                  myEnc.write(48);
+//                  while (digitalRead(ENCODER_BTN) == 1) {
+//                    newEncPosition = myEnc.read();
+//                    
+//                    u8g2.firstPage();
+//                    do {
+//                      u8g2.setCursor(0,14);
+//                      u8g2.print(currentChar);
+//                    } while ( u8g2.nextPage() );
+//                  }
+//
+                  
                   break;
                 case MENU_ITEM_PID:
                   break;
@@ -428,9 +445,9 @@ void drawWaitForPlayingMenu(int trackNo, byte fps) {
     u8g2.setCursor(98,62);
     u8g2.print(fps);
     u8g2.print(" fps");
-    u8g2.setFont(u8g2_font_helvR14_tr);
-    u8g2.drawStr(17,28,"Waiting for");    
-    u8g2.drawStr(0,46,"Projector Start");    
+    u8g2.setFont(u8g2_font_helvR12_tr);
+    u8g2.drawStr(27,28,"Waiting for");    
+    u8g2.drawStr(16,46,"Projector Start");    
     u8g2.drawXBMP(60, 54, pause_xbm_width, pause_xbm_height, pause_xbm_bits);
     // u8g2.drawXBMP(2, 54, sync_xbm_width, sync_xbm_height, sync_xbm_bits);
   } while ( u8g2.nextPage() );
@@ -487,7 +504,7 @@ void drawBusyBee(byte x, byte y) {
   u8g2.firstPage();
   do {
     u8g2.drawXBMP(x, y, busybee_xbm_width, busybee_xbm_height, busybee_xbm_bits);
-    u8g2.setFont(u8g2_font_helvR14_tr);
+    u8g2.setFont(u8g2_font_helvR10_tr);
     u8g2.drawStr(8,50,"Loading...");
   } while ( u8g2.nextPage() );
 }
@@ -513,7 +530,7 @@ uint16_t selectTrackScreen() {
       u8g2.firstPage();
       if (newEncPosition == 0) {
         do {
-          u8g2.setFont(u8g2_font_helvR14_tr);
+          u8g2.setFont(u8g2_font_helvR10_tr);
           u8g2.drawStr(12,40,"< Main Menu");
         } while ( u8g2.nextPage() );
       } else {
@@ -530,7 +547,7 @@ uint16_t selectTrackScreen() {
   while (digitalRead(ENCODER_BTN) == 0) {};
   oldPosition = 0;
   myEnc.write(parentMenuEncPosition);
-  u8g2.setFont(u8g2_font_helvR14_tr);   // Only until we go to the PLAYING_MENU here
+  u8g2.setFont(u8g2_font_helvR10_tr);   // Only until we go to the PLAYING_MENU here
   return newEncPosition;
 }
 
