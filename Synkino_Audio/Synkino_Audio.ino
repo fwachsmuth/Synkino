@@ -276,10 +276,6 @@ void loop() {
       checkIfStillRunning();
     break;
     case PAUSED:
-//      if (myState != prevState) {         
-//        tellFrontend(CMD_PROJ_PAUSE, 0);
-//        prevState = myState;
-//      }
       waitForResumeToPlay(lastImpCounterHaltPos);
     break;
     case SETTINGS_MENU:
@@ -364,7 +360,7 @@ void updateFpsDependencies(uint8_t fps) {
 void sendCurrentFrameNo() {
   static unsigned long prevFrameCount;
   static unsigned long currentFrameCount;
-  currentFrameCount = totalImpCounter / segments;         // we are actually counting half frames here
+  currentFrameCount = (totalImpCounter * 100) / segments;         // we are actually counting half frames here
   if ((currentFrameCount - prevFrameCount) > sollfps) {
     tellFrontend(CMD_CURRENT_FRAME, currentFrameCount);
     prevFrameCount = currentFrameCount;

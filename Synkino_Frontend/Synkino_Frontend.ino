@@ -240,7 +240,7 @@ void loop(void) {
         fps = i2cParameter;
       break; 
       case CMD_CURRENT_FRAME:
-        totalSeconds = i2cParameter / fps / 2;
+        totalSeconds = i2cParameter / 100 / fps / 2;
         hours   = numberOfHours(totalSeconds);
         minutes = numberOfMinutes(totalSeconds);
         seconds = numberOfSeconds(totalSeconds);
