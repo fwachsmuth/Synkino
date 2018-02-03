@@ -66,7 +66,7 @@
 
 #define CMD_FOUND_FMT           10  /* ---> (fileFormat)      */
 #define CMD_FOUND_FPS           11  /* ---> (fps)             */
-#define CMD_CURRENT_FRAME       12  /* ---> (frameNo)         */
+#define CMD_CURRENT_AUDIOSEC    12  /* ---> (SecNo)           */
 #define CMD_PROJ_PAUSE          13  /* --->                   */
 #define CMD_PROJ_PLAY           14  /* --->                   */
 #define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)     */
@@ -209,7 +209,7 @@ void loop(void) {
                Serial.println(i2cParameter);
                break;
       case 12: 
-               Serial.print(F("CMD_CURRENT_FRAME: "));
+               Serial.print(F("CMD_CURRENT_AUDIOSEC: "));
                Serial.println(i2cParameter);
                break;
       case 13: Serial.println(F("CMD_PROJ_PAUSE"));
@@ -241,7 +241,7 @@ void loop(void) {
 //        Serial.println(i2cParameter);
         fps = i2cParameter;
       break; 
-      case CMD_CURRENT_FRAME:
+      case CMD_CURRENT_AUDIOSEC:
         hours   = numberOfHours(i2cParameter);
         minutes = numberOfMinutes(i2cParameter);
         seconds = numberOfSeconds(i2cParameter);

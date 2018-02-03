@@ -54,7 +54,7 @@
 
 #define CMD_FOUND_FMT           10  /* ---> (fileFormat)       */
 #define CMD_FOUND_FPS           11  /* ---> (fps)           √  */
-#define CMD_CURRENT_FRAME       12  /* ---> (frameNo)       √  */
+#define CMD_CURRENT_AUDIOSEC    12  /* ---> (SecNo)         √  */
 #define CMD_PROJ_PAUSE          13  /* --->                 √  */
 #define CMD_PROJ_PLAY           14  /* --->                 √  */
 #define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)      */
@@ -365,7 +365,7 @@ void sendCurrentFrameNo() {
   currentSecCount = totalImpCounter / impToAudioSecondsDivider; 
   
   if (currentSecCount > prevSecCount) {    
-    tellFrontend(CMD_CURRENT_FRAME, currentSecCount); 
+    tellFrontend(CMD_CURRENT_AUDIOSEC, currentSecCount); 
     prevSecCount = currentSecCount;
   }
 }
