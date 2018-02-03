@@ -208,8 +208,9 @@ void loop(void) {
       case 11: Serial.print(F("CMD_FOUND_FPS: "));
                Serial.println(i2cParameter);
                break;
-      case 12: Serial.print(F("CMD_CURRENT_FRAME: "));
-               Serial.println(i2cParameter);
+      case 12: 
+//                Serial.print(F("CMD_CURRENT_FRAME: "));
+//               Serial.println(i2cParameter);
                break;
       case 13: Serial.println(F("CMD_PROJ_PAUSE"));
                break;
@@ -345,6 +346,8 @@ void drawWaitForPlayingMenu(int trackNo, byte fps) {
 
 void drawPlayingMenu(int trackNo, byte fps) {
   u8g2.firstPage();
+
+  unsigned long currentmillis = millis();
   do {
     u8g2.setFont(u8g2_font_helvR08_tr);
     u8g2.setCursor(0,8);
@@ -378,8 +381,9 @@ void drawPlayingMenu(int trackNo, byte fps) {
     if (oosyncFrames == 0) {
       u8g2.drawXBMP(2, 54, sync_xbm_width, sync_xbm_height, sync_xbm_bits);
     } else {
-      
-      u8g2.drawXBMP(2, 54, sync_xbm_width, sync_xbm_height, sync_xbm_bits);
+      if (currentmillis % 700 > 350) {
+        u8g2.drawXBMP(2, 54, sync_xbm_width, sync_xbm_height, sync_xbm_bits);
+      }
       u8g2.setFont(u8g2_font_helvR08_tr);
       u8g2.setCursor(24,62);
       if (oosyncFrames > 0) u8g2.print("+");
