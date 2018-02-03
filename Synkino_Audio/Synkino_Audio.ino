@@ -276,10 +276,10 @@ void loop() {
       checkIfStillRunning();
     break;
     case PAUSED:
-      if (myState != prevState) {         
-        tellFrontend(CMD_PROJ_PAUSE, 0);
-        prevState = myState;
-      }
+//      if (myState != prevState) {         
+//        tellFrontend(CMD_PROJ_PAUSE, 0);
+//        prevState = myState;
+//      }
       waitForResumeToPlay(lastImpCounterHaltPos);
     break;
     case SETTINGS_MENU:
@@ -385,6 +385,7 @@ void checkIfStillRunning() {
       musicPlayer.pauseMusic();
       myPID.SetMode(MANUAL);
       lastImpCounterHaltPos = totalImpCounter;
+      tellFrontend(CMD_PROJ_PAUSE, 0);
       myState = PAUSED;
     }
   }
@@ -474,6 +475,7 @@ void waitForResumeToPlay(unsigned long impCounterStopPos) {
     myPID.SetMode(AUTOMATIC);
     restoreSampleCounter(lastSampleCounterHaltPos);
     musicPlayer.resumeMusic();
+    tellFrontend(CMD_PROJ_PLAY, 0);
     Serial.println(F("Weiter geht's!"));
     myState = PLAYING;
   }
