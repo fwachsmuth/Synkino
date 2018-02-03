@@ -83,7 +83,7 @@
 #define TRACK_LOADED            4
 #define SYNC_PLAY               5
 
-// ---- Define the busy Bee! --------------------------------------------------------
+// ---- Define some graphics -------------------------------------------------------
 //
 #define busybee_xbm_width 15
 #define busybee_xbm_height 15
@@ -110,7 +110,14 @@ static const unsigned char sync_xbm_bits[] U8X8_PROGMEM = {
    0x77, 0x4B, 0x0F, 0x6F, 0x5B, 0x0F, 0x73, 0xDB, 0x0C, 0xFF, 0xFF, 0x0F,
    0xFE, 0xFF, 0x07 };
 
-
+// ---- Define useful time constants and macros ------------------------------------
+//
+#define SECS_PER_MIN  (60UL)
+#define SECS_PER_HOUR (3600UL)
+#define SECS_PER_DAY  (SECS_PER_HOUR * 24L)
+#define numberOfSeconds(_time_) (_time_ % SECS_PER_MIN)  
+#define numberOfMinutes(_time_) ((_time_ / SECS_PER_MIN) % SECS_PER_MIN) 
+#define numberOfHours(_time_) (( _time_% SECS_PER_DAY) / SECS_PER_HOUR)
 
 // ---- Initialize Objects ---------------------------------------------------------
 //
@@ -152,6 +159,11 @@ uint8_t fps = 0;
 uint8_t fileType = 0;
 uint8_t trackLoaded = 0;
 uint8_t startMarkHit = 0;
+
+unsigned long totalSeconds = 0;
+uint8_t hours   = 0;
+uint8_t minutes = 0;
+uint8_t seconds = 0;
 
 // unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
 
@@ -227,6 +239,10 @@ void loop(void) {
         fps = i2cParameter;
       break; 
       case CMD_CURRENT_FRAME:
+        totalSeconds = i2cParameter / fps / 2;
+        hours   = numberOfHours(totalSeconds);
+        minutes = numberOfMinutes(totalSeconds);
+        seconds = numberOfSeconds(totalSeconds);
       break; 
       case CMD_PROJ_PAUSE:
       break; 
@@ -284,8 +300,6 @@ void loop(void) {
       if ((fps != 0) && (trackLoaded != 0)) {
         drawWaitForPlayingMenu(trackChosen, fps);
         myState = TRACK_LOADED;
-        //drawPlayingMenu(trackChosen, fps);
-        //Serial.println(F("Ready to play."));
       } // Todo: Timeout und Error Handler
       break;
     case TRACK_LOADED:
@@ -299,9 +313,8 @@ void loop(void) {
     default:
       break;
   }
-
-
 }
+
 
 void drawWaitForPlayingMenu(int trackNo, byte fps) {
   u8g2.firstPage();
@@ -343,11 +356,13 @@ void drawPlayingMenu(int trackNo, byte fps) {
     u8g2.drawStr(20,36,":");
     u8g2.drawStr(71,36,":");
     u8g2.setCursor(4,40);
-    u8g2.print("0");
+    u8g2.print(hours);
     u8g2.setCursor(35,40);
-    u8g2.print("08");
+    if (minutes < 10) u8g2.print("0");
+    u8g2.print(minutes);
     u8g2.setCursor(85,40);
-    u8g2.print("23");
+    if (seconds < 10) u8g2.print("0");
+    u8g2.print(seconds);
     u8g2.drawXBMP(60, 54, play_xbm_width, play_xbm_height, play_xbm_bits);
     // u8g2.drawXBMP(60, 54, pause_xbm_width, pause_xbm_height, pause_xbm_bits);
     u8g2.drawXBMP(2, 54, sync_xbm_width, sync_xbm_height, sync_xbm_bits);

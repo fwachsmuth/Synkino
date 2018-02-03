@@ -272,10 +272,15 @@ void loop() {
     case PLAYING:
 //      calculateCorrPpm();
 //      considerResync();
+      sendCurrentFrameNo();
       speedControlPID();
       checkIfStillRunning();
     break;
     case PAUSED:
+      if (myState != prevState) {         // TODO: This doesnt work yet
+        tellFrontend(CMD_PROJ_PAUSE, 0);
+        prevState = myState;
+      }
       waitForResumeToPlay(lastImpCounterHaltPos);
     break;
     case SETTINGS_MENU:
@@ -357,6 +362,15 @@ void updateFpsDependencies(uint8_t fps) {
   deltaToFramesDivider = physicalSamplingrate / fps;
 }
 
+void sendCurrentFrameNo() {
+  static unsigned long prevFrameCount;
+  static unsigned long currentFrameCount;
+  currentFrameCount = totalImpCounter / segments;         // we are actually counting half frames here
+  if ((currentFrameCount - prevFrameCount) > sollfps) {
+    tellFrontend(CMD_CURRENT_FRAME, currentFrameCount);
+    prevFrameCount = currentFrameCount;
+  }
+}
 
 void checkIfStillRunning() {
   static unsigned long prevTotalImpCounter2;
@@ -416,6 +430,7 @@ void speedControlPID(){
 
     Serial.print(average / deltaToFramesDivider);
     Serial.println(F(" Frames off"));
+    //tellFrontend(CMD_OOSYNC, average / deltaToFramesDivider);
   }
 }
 
