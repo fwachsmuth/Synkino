@@ -166,6 +166,7 @@ uint8_t hours   = 0;
 uint8_t minutes = 0;
 uint8_t seconds = 0;
 
+int oosyncFrames = 0;
 // unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
 
 // ---- Setup ---------------------------------------------------------------------
@@ -254,6 +255,7 @@ void loop(void) {
       case CMD_FOUND_TRACKLENGTH:
       break; 
       case CMD_OOSYNC:
+        oosyncFrames = i2cParameter;
       break; 
       case CMD_SHOW_ERROR:
       break; 
@@ -366,12 +368,23 @@ void drawPlayingMenu(int trackNo, byte fps) {
     u8g2.setCursor(85,40);
     if (seconds < 10) u8g2.print("0");
     u8g2.print(seconds);
+    
     if (projectorPaused == 1) {
       u8g2.drawXBMP(60, 54, pause_xbm_width, pause_xbm_height, pause_xbm_bits);
     } else {
       u8g2.drawXBMP(60, 54, play_xbm_width, play_xbm_height, play_xbm_bits);
     }
-    u8g2.drawXBMP(2, 54, sync_xbm_width, sync_xbm_height, sync_xbm_bits);
+
+    if (oosyncFrames == 0) {
+      u8g2.drawXBMP(2, 54, sync_xbm_width, sync_xbm_height, sync_xbm_bits);
+    } else {
+      
+      u8g2.drawXBMP(2, 54, sync_xbm_width, sync_xbm_height, sync_xbm_bits);
+      u8g2.setFont(u8g2_font_helvR08_tr);
+      u8g2.setCursor(24,62);
+      if (oosyncFrames > 0) u8g2.print("+");
+      u8g2.print(oosyncFrames);
+    }
   } while ( u8g2.nextPage() );
 }
 void drawBusyBee(byte x, byte y) {

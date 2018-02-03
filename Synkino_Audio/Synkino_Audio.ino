@@ -361,8 +361,8 @@ void sendCurrentFrameNo() {
   static unsigned long prevFrameCount;
   static unsigned long currentFrameCount;
   currentFrameCount = (totalImpCounter * 100) / segments;         // we are actually counting half frames here
-  if ((currentFrameCount - prevFrameCount) > sollfps) {
-    tellFrontend(CMD_CURRENT_FRAME, currentFrameCount);
+  if ((currentFrameCount - prevFrameCount) > 2000) {              // thats a pretty rare interval. More ofte
+    tellFrontend(CMD_CURRENT_FRAME, currentFrameCount);           // seems to interfer with oosync messaging though
     prevFrameCount = currentFrameCount;
   }
 }
@@ -424,9 +424,14 @@ void speedControlPID(){
 // every 2.3 imps, full CSV output is one ever ~6.3 imps.
 // Printing the long seems super pricy
 
-    Serial.print(average / deltaToFramesDivider);
-    Serial.println(F(" Frames off"));
-    //tellFrontend(CMD_OOSYNC, average / deltaToFramesDivider);
+    static unsigned int prevFrameOffset;
+    int frameOffset = average / deltaToFramesDivider;
+    if (frameOffset != prevFrameOffset) {
+      tellFrontend(CMD_OOSYNC, frameOffset);
+//      Serial.println(frameOffset);
+      prevFrameOffset = frameOffset;
+    } 
+    
   }
 }
 
