@@ -1,25 +1,18 @@
 /**
  * 
  * To Do:
+ *  [ ] Find & Load other files than m4a
  *  [ ] Aufschaukeln bei mp3 fixen
+ *  [ ] Initiales Projektoranlaufen an Frontend melden
  *  
  *  [ ] 100n an den Encoderoutputs probieren (Prellschutz)
  * 
- *  [ ] Serial.print Fehler loswerden (Timer statt ISR?) USE_MP3_Polled 
- *  https://github.com/madsci1016/Sparkfun-MP3-Player-Shield-Arduino-Library/blob/master/SFEMP3Shield/SFEMP3ShieldConfig.h*  
- *  [ ] Corr Werte sind immer zwei mal gleich?
- *  [ ] Seltener PID Samplen?  
- *  [ ] Find & Load other files than m4a
- *  [ ] Anzeigen, wie lang das Delta in ms ist
- *  
  *  [ ] KiCad all this. Soon.
  *  [ ] load patch from EEPROM
  *  [ ] Document diffs to vs1053_SdFat.h
  *  [ ] decode delta-sigma line out
  *  [ ] Try/Switch to 15 MHz xtal
- *  [ ] Dynamic Sample Rate support?
  *  [ ] Forwards/Backwards Correction (Frame-wise)
- *  [ ] complete state machine here
  *  [ ] Projektor-Frequenzanzeige
  *  [ ] remove unused variables
  *  [ ] pull-up am i2c anbringen
@@ -35,10 +28,6 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <WireData.h>
-
-// ---- Define the various Menu Screens --------------------------------------------
-//
-
 
 // ---- Define the I2C Commands ----------------------------------------------------
 //
@@ -477,7 +466,6 @@ void waitForResumeToPlay(unsigned long impCounterStopPos) {
     restoreSampleCounter(lastSampleCounterHaltPos);
     musicPlayer.resumeMusic();
     tellFrontend(CMD_PROJ_PLAY, 0);
-    Serial.println(F("Weiter geht's!"));
     myState = PLAYING;
   }
 }

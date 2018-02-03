@@ -1,9 +1,12 @@
 /*
- * 
  *  This is the frontend part of Synkino
- * 
- * [ ] Startup wählt 3
- * 
+ *  [ ] Implement Settings Menu 
+ *  [ ] Menu Zeilenabstand erhöhen
+ *  [ ] Handle 000
+ *  [ ] Implement Inc/Dec Sync Pos
+ *  [ ] Implemet Reset
+ *  [ ] Implement Projector Menu
+ *  [ ] Start Screen
  */
 
 #include <Arduino.h>
@@ -39,10 +42,18 @@
 //
 #define MENU_ITEM_PROJECTOR       1
 #define MENU_ITEM_SELECT_TRACK    2
-#define MENU_ITEM_SETTINGS        3
-#define MENU_ITEM_SHUTTER_BLADES  1
-#define MENU_ITEM_STARTMARK       2
-#define MENU_ITEM_PID             3
+#define MENU_ITEM_EXTRAS          3
+
+#define MENU_ITEM_NEW             1
+#define MENU_ITEM_CHANGE          2
+#define MENU_ITEM_EDIT            3
+#define MENU_ITEM_DELETE          4
+
+#define MENU_ITEM_NAME            1
+#define MENU_ITEM_SHUTTER_BLADES  2
+#define MENU_ITEM_STARTMARK       3
+#define MENU_ITEM_PID             4
+
 #define MENU_ITEM_ONE             1
 #define MENU_ITEM_TWO             2
 #define MENU_ITEM_THREE           3
@@ -85,20 +96,20 @@
 
 // ---- Define some graphics -------------------------------------------------------
 //
-#define busybee_xbm_width 15
+#define busybee_xbm_width  15
 #define busybee_xbm_height 15
 static const unsigned char busybee_xbm_bits[] U8X8_PROGMEM = {
    0x10, 0x00, 0x10, 0x3C, 0x00, 0x46, 0x60, 0x43, 0x63, 0x21, 0x98, 0x51,
    0xD8, 0x2A, 0x60, 0x07, 0xB8, 0x1A, 0xCC, 0x3F, 0x86, 0x06, 0x42, 0x7B,
    0x22, 0x1B, 0x52, 0x6A, 0x2C, 0x28 };
 
-#define play_xbm_width 9
+#define play_xbm_width  9
 #define play_xbm_height 9
 static const unsigned char play_xbm_bits[] U8X8_PROGMEM = {
    0x03, 0x00, 0x0F, 0x00, 0x3F, 0x00, 0xFF, 0x00, 0xFF, 0x01, 0xFF, 0x00,
    0x3F, 0x00, 0x0F, 0x00, 0x03, 0x00 };
 
-#define pause_xbm_width 8
+#define pause_xbm_width  8
 #define pause_xbm_height 8
 static const unsigned char pause_xbm_bits[] U8X8_PROGMEM = {
    0xE7, 0xE7, 0xE7, 0xE7, 0xE7, 0xE7, 0xE7, 0xE7 };
@@ -132,19 +143,26 @@ const int myAddress = 0x07;     // Our i2c address here
 const char *main_menu = 
   "Projector\n"
   "Select Track\n"
-  "Settings";
-
-const char *settings_menu =
-  "Shutter Blades\n"
-  "Start Mark\n"
-  "PID Tuning\n"
-  "Version";
+  "Extras";
 
 const char *projector_menu =
   "New\n"
   "Change\n"
   "Edit\n"
   "Delete";
+
+const char *config_menu =
+  "Name\n"
+  "Shutter Blades\n"
+  "Start Mark\n"
+  "PID";
+
+const char *shutterblade_menu =
+  "1\n"
+  "2\n"
+  "3\n"
+  "4";
+
 
 uint8_t currentMenuSelection = 2;
 uint8_t prevMenuSelection = 0;
@@ -283,11 +301,42 @@ void loop(void) {
       switch (currentMenuSelection) {
         case MENU_ITEM_PROJECTOR:
           // go to Projector
+          currentMenuSelection = u8g2.userInterfaceSelectionList(NULL, currentMenuSelection, projector_menu);
+          while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
+          switch (currentMenuSelection) {
+            case MENU_ITEM_NEW:
+              currentMenuSelection = u8g2.userInterfaceSelectionList(NULL, currentMenuSelection, config_menu);
+              while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
+              switch (currentMenuSelection) {
+                case MENU_ITEM_NAME:
+                  break;
+                case MENU_ITEM_SHUTTER_BLADES:
+                  break;
+                case MENU_ITEM_STARTMARK:
+                  break;
+                case MENU_ITEM_PID:
+                  break;
+                default:
+                  break;
+              }
+              break;
+            case MENU_ITEM_CHANGE:
+              Serial.println(F("2"));
+              break;
+            case MENU_ITEM_EDIT:
+              Serial.println(F("3"));
+              break;
+            case MENU_ITEM_DELETE:
+              Serial.println(F("4"));
+              break;
+            default:
+              break;
+          }
           break;
         case MENU_ITEM_SELECT_TRACK:
           myState = SELECT_TRACK;
           break;
-        case MENU_ITEM_SETTINGS:
+        case MENU_ITEM_EXTRAS:
           // go to Settings
           break;
         default:
