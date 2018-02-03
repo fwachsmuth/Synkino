@@ -98,7 +98,8 @@ long total = 0;                 // the running total
 long average = 0;                // the average
 
 
-uint8_t myState = IDLING;     
+uint8_t myState = IDLING;   
+uint8_t debugPrevState;   
 uint8_t prevState;
 
 volatile long ppmCorrection;
@@ -260,7 +261,6 @@ void loop() {
 
   switch (myState) {
     case IDLING:
-      
     break;
     case LOAD_TRACK:
     break;
@@ -271,13 +271,12 @@ void loop() {
     break;
     case PLAYING:
 //      calculateCorrPpm();
-//      considerResync();
       sendCurrentFrameNo();
       speedControlPID();
       checkIfStillRunning();
     break;
     case PAUSED:
-      if (myState != prevState) {         // TODO: This doesnt work yet
+      if (myState != prevState) {         
         tellFrontend(CMD_PROJ_PAUSE, 0);
         prevState = myState;
       }
@@ -289,7 +288,7 @@ void loop() {
     break;
   }
 
-  if (myState != prevState) {
+  if (myState != debugPrevState) {
     switch (myState) {   // Debug output
       case 1: Serial.println(F("--- IDLING."));
       break;
@@ -306,7 +305,7 @@ void loop() {
       case 7: Serial.println(F("--- SETTINGS_MENU"));
       break;
      }
-    prevState = myState;
+    debugPrevState = myState;
   }
     
 }

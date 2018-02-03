@@ -159,6 +159,7 @@ uint8_t fps = 0;
 uint8_t fileType = 0;
 uint8_t trackLoaded = 0;
 uint8_t startMarkHit = 0;
+uint8_t projectorPaused = 0;
 
 unsigned long totalSeconds = 0;
 uint8_t hours   = 0;
@@ -245,8 +246,10 @@ void loop(void) {
         seconds = numberOfSeconds(totalSeconds);
       break; 
       case CMD_PROJ_PAUSE:
+        projectorPaused = 1;
       break; 
       case CMD_PROJ_PLAY:
+        projectorPaused = 0;
       break; 
       case CMD_FOUND_TRACKLENGTH:
       break; 
@@ -363,8 +366,11 @@ void drawPlayingMenu(int trackNo, byte fps) {
     u8g2.setCursor(85,40);
     if (seconds < 10) u8g2.print("0");
     u8g2.print(seconds);
-    u8g2.drawXBMP(60, 54, play_xbm_width, play_xbm_height, play_xbm_bits);
-    // u8g2.drawXBMP(60, 54, pause_xbm_width, pause_xbm_height, pause_xbm_bits);
+    if (projectorPaused == 1) {
+      u8g2.drawXBMP(60, 54, pause_xbm_width, pause_xbm_height, pause_xbm_bits);
+    } else {
+      u8g2.drawXBMP(60, 54, play_xbm_width, play_xbm_height, play_xbm_bits);
+    }
     u8g2.drawXBMP(2, 54, sync_xbm_width, sync_xbm_height, sync_xbm_bits);
   } while ( u8g2.nextPage() );
 }
