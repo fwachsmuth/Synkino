@@ -90,6 +90,7 @@ const float physicalSamplingrate = 41344;   // 44100 * 15/16 – to compensate t
 int  pauseDetectedPeriod = (1000 / sollfps * 3);   // Duration of 3 single frames
 unsigned int impToSamplerateFactor = physicalSamplingrate / sollfps / segments / 2;
 int deltaToFramesDivider = physicalSamplingrate / sollfps;
+unsigned int impToAudioSecondsDivider = sollfps * segments * 2;
 
 #define numReadings   16
 long readings[numReadings];      // the readings from the analog input
@@ -355,15 +356,17 @@ void updateFpsDependencies(uint8_t fps) {
   pauseDetectedPeriod = (1000 / fps * 3);
   impToSamplerateFactor = physicalSamplingrate / fps / segments / 2;
   deltaToFramesDivider = physicalSamplingrate / fps;
+  impToAudioSecondsDivider = sollfps * segments * 2;
 }
 
 void sendCurrentFrameNo() {
-  static unsigned long prevFrameCount;
-  static unsigned long currentFrameCount;
-  currentFrameCount = (totalImpCounter * 100) / segments;         // we are actually counting half frames here
-  if ((currentFrameCount - prevFrameCount) > 2000) {              // thats a pretty rare interval. More ofte
-    tellFrontend(CMD_CURRENT_FRAME, currentFrameCount);           // seems to interfer with oosync messaging though
-    prevFrameCount = currentFrameCount;
+  static unsigned long prevSecCount;
+  static unsigned long currentSecCount;
+  currentSecCount = totalImpCounter / impToAudioSecondsDivider; 
+  
+  if (currentSecCount > prevSecCount) {    
+    tellFrontend(CMD_CURRENT_FRAME, currentSecCount); 
+    prevSecCount = currentSecCount;
   }
 }
 

@@ -209,8 +209,8 @@ void loop(void) {
                Serial.println(i2cParameter);
                break;
       case 12: 
-//                Serial.print(F("CMD_CURRENT_FRAME: "));
-//               Serial.println(i2cParameter);
+               Serial.print(F("CMD_CURRENT_FRAME: "));
+               Serial.println(i2cParameter);
                break;
       case 13: Serial.println(F("CMD_PROJ_PAUSE"));
                break;
@@ -242,10 +242,9 @@ void loop(void) {
         fps = i2cParameter;
       break; 
       case CMD_CURRENT_FRAME:
-        totalSeconds = i2cParameter / 100 / fps / 2;
-        hours   = numberOfHours(totalSeconds);
-        minutes = numberOfMinutes(totalSeconds);
-        seconds = numberOfSeconds(totalSeconds);
+        hours   = numberOfHours(i2cParameter);
+        minutes = numberOfMinutes(i2cParameter);
+        seconds = numberOfSeconds(i2cParameter);
       break; 
       case CMD_PROJ_PAUSE:
         projectorPaused = 1;
