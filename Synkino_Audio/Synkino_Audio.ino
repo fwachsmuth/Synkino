@@ -42,26 +42,26 @@
 
 // ---- Define the I2C Commands ----------------------------------------------------
 //
-#define CMD_RESET               1   /* <---                   */
-#define CMD_SET_SHUTTERBLADES   2   /* <--- (shutterBlades)   */
-#define CMD_SET_STARTMARK       3   /* <--- (StartMarkOffset) */
-#define CMD_SET_P               4   /* <--- (P-Value for PID) */
-#define CMD_SET_I               5   /* <--- (I-Value for PID) */
-#define CMD_SET_D               6   /* <--- (D-Value for PID) */
-#define CMD_INC_FRAME           7   /* <---                   */
-#define CMD_DEC_FRAME           8   /* <---                   */
-#define CMD_LOAD_TRACK          9   /* <--- (trackId)         */
+#define CMD_RESET               1   /* <---                    */
+#define CMD_SET_SHUTTERBLADES   2   /* <--- (shutterBlades)    */
+#define CMD_SET_STARTMARK       3   /* <--- (StartMarkOffset)  */
+#define CMD_SET_P               4   /* <--- (P-Value for PID)  */
+#define CMD_SET_I               5   /* <--- (I-Value for PID)  */
+#define CMD_SET_D               6   /* <--- (D-Value for PID)  */
+#define CMD_INC_FRAME           7   /* <---                    */
+#define CMD_DEC_FRAME           8   /* <---                    */
+#define CMD_LOAD_TRACK          9   /* <--- (trackId)       √  */
 
-#define CMD_FOUND_FMT           10  /* ---> (fileFormat)      */
-#define CMD_FOUND_FPS           11  /* ---> (fps)             */
-#define CMD_CURRENT_FRAME       12  /* ---> (frameNo)         */
-#define CMD_PROJ_PAUSE          13  /* --->                   */
-#define CMD_PROJ_PLAY           14  /* --->                   */
-#define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)     */
-#define CMD_OOSYNC              16  /* ---> (frameCount)      */
-#define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)       */
-#define CMD_TRACK_LOADED        18  /* --->                   */
-#define CMD_STARTMARK_HIT       19  /* --->                   */
+#define CMD_FOUND_FMT           10  /* ---> (fileFormat)       */
+#define CMD_FOUND_FPS           11  /* ---> (fps)           √  */
+#define CMD_CURRENT_FRAME       12  /* ---> (frameNo)       √  */
+#define CMD_PROJ_PAUSE          13  /* --->                 √  */
+#define CMD_PROJ_PLAY           14  /* --->                 √  */
+#define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)      */
+#define CMD_OOSYNC              16  /* ---> (frameCount)    √  */
+#define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)        */
+#define CMD_TRACK_LOADED        18  /* --->                 √  */
+#define CMD_STARTMARK_HIT       19  /* --->                 √  */
 
 // ---- Define the various States --------------------------------------------------
 //
@@ -254,9 +254,9 @@ void loop() {
   musicPlayer.available();
 #endif
 
-  if(Serial.available()) {
-    parse_menu(Serial.read()); // get command from serial input
-  }
+//  if(Serial.available()) {
+//    parse_menu(Serial.read()); // get command from serial input
+//  }
 
 
   switch (myState) {
@@ -418,17 +418,14 @@ void speedControlPID(){
     myPID.Compute();  // 9.2ms Latenz here
 
     // Serial.println(latenz); 
-
-
-// Most of the delay here is from printing. One line of printing means one measurement
-// every 2.3 imps, full CSV output is one ever ~6.3 imps.
-// Printing the long seems super pricy
+    // Most of the delay here is from printing. One line of printing means one measurement
+    // every 2.3 imps, full CSV output is one ever ~6.3 imps.
+    // Printing the long seems super pricy
 
     static unsigned int prevFrameOffset;
     int frameOffset = average / deltaToFramesDivider;
     if (frameOffset != prevFrameOffset) {
       tellFrontend(CMD_OOSYNC, frameOffset);
-//      Serial.println(frameOffset);
       prevFrameOffset = frameOffset;
     } 
     
@@ -512,9 +509,9 @@ void parse_menu(uint8_t key_command) {
 
   uint8_t result; // result code from some function as to be tested at later time.
 
-  Serial.print(F("Received Serial command: "));
-  Serial.write(key_command);
-  Serial.println(F(" "));
+//  Serial.print(F("Received Serial command: "));
+//  Serial.write(key_command);
+//  Serial.println(F(" "));
 
   //if s, stop the current track
   if(key_command == 's') {
