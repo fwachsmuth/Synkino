@@ -1,5 +1,12 @@
 /*
  *  This is the frontend part of Synkino
+ *  [ ] Clear Projector Name when New
+ *  [ ] Allow Delete in Projector Name
+ *  [ ] Hint Space and Delete "Keys"
+ *  [ ] switch to lower case after first letter
+ *  [ ] Restore Menu Pos after new Name
+ *  [ ] Make it a function
+ *  
  *  [ ] Implement Settings Menu 
  *  [ ] 404 Handlen
  *  [ ] Menu Zeilenabstand erhöhen
@@ -385,7 +392,15 @@ void loop(void) {
                       else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
                       u8g2.firstPage();
                       do {
-                        u8g2.setCursor(0,14);
+                        u8g2.setFont(u8g2_font_helvR08_tr);
+                        u8g2.setCursor(19,14);
+                        u8g2.print("Set Projector Name");
+                        
+                        u8g2.setCursor(14,55);
+                        u8g2.print("[Long Press to Finish]");
+                        
+                        u8g2.setFont(u8g2_font_helvR10_tr);
+                        u8g2.setCursor(15,35);
                         u8g2.print(newProjectorName);
                         if (localChar == 32) {
                           u8g2.print("_");
@@ -394,13 +409,14 @@ void loop(void) {
                     }
                     lastMillis = millis();
                     while (digitalRead(ENCODER_BTN) == 0 && inputFinished == 0) {
-                      if (millis() - lastMillis > 1500) {
+                      if (millis() - lastMillis > 1000) {
                         inputFinished = 1;
                        }
                     }
                     newProjectorName[charIndex] = localChar;
                     charIndex++;
                   }
+                  while (digitalRead(ENCODER_BTN) == 0) {}
                   inputFinished = 0;
                   newProjectorName[charIndex] = '\0';
                   Serial.println(newProjectorName);
