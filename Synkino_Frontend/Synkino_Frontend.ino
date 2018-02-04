@@ -1,6 +1,5 @@
 /*
  *  This is the frontend part of Synkino
- *  [ ] Allow Delete in Projector Name
  *  [ ] switch to lower case after first letter
  *  [ ] Restore Menu Pos after new Name
  *  [ ] Make it a function
@@ -370,7 +369,9 @@ void loop(void) {
                        charIndex = 0;
                   byte inputFinished;
                        inputFinished = 0;  
-                  unsigned long lastMillis;                          
+                  unsigned long lastMillis;  
+                  bool firstUse;
+                       firstUse = true;                        
                   for (byte i = 0; i < maxProjectorNameLength; i++) {
                     newProjectorName[i] = 0;
                   }
@@ -400,9 +401,13 @@ void loop(void) {
                         u8g2.setCursor(19,14);
                         u8g2.print("Set Projector Name");
                          
-                        if       (localChar == 32) u8g2.drawStr(45, 55, "[Space]");
+                        if      (localChar ==  32) u8g2.drawStr(45, 55, "[Space]");
                         else if (localChar == 127) u8g2.drawStr(34, 55, "[Delete last]");
-                        else u8g2.drawStr(14, 55, "[Long Press to Finish]");
+                        // 
+                        else {
+                          if (firstUse) u8g2.drawStr(16, 55, "[Turn and push Knob]");
+                          else          u8g2.drawStr(14, 55, "[Long Press to Finish]");
+                        }
                         
                         u8g2.setFont(u8g2_font_helvR10_tr);
                         u8g2.setCursor(15,35);
@@ -426,11 +431,12 @@ void loop(void) {
                        }
                     }
                     if (localChar == 127) {   // Delete
-                      charIndex--;
-                      newProjectorName[charIndex] = 0;
+                      charIndex--;            // Is it safe to become negative here?
+                      newProjectorName[charIndex] = 0;  
                     } else {
                       newProjectorName[charIndex] = localChar;
                       charIndex++;
+                      firstUse = false;
                     }
                   }
                   while (digitalRead(ENCODER_BTN) == 0) {}
