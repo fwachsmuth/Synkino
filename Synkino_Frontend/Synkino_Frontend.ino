@@ -1,8 +1,6 @@
 /*
  *  This is the frontend part of Synkino
- *  [ ] Long press should stop displaying current character
  *  [ ] Long pres should exit menu after timeout
- *  [ ] Long Press should not store last character
  *  [ ] Restore Menu Pos after new Name
  *  [ ] Make it a function
  *  
@@ -429,7 +427,7 @@ void loop(void) {
                     lastMillis = millis();
                     while (digitalRead(ENCODER_BTN) == 0 && inputFinished == 0) {
                       delay(50);
-                      
+                     
                       u8g2.firstPage();
                       do {
                         // undraw last character here                        
@@ -449,7 +447,7 @@ void loop(void) {
                     if (localChar == 127) {   // Delete
                       charIndex--;            // Is it safe to become negative here?
                       newProjectorName[charIndex] = 0;  
-                    } else {
+                    } else if (inputFinished == 0) {
                       newProjectorName[charIndex] = localChar;
                       charIndex++;
                       if (firstUse) myEnc.write(16052);   // switch to lower case 'a'
