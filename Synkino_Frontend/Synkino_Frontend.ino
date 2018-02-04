@@ -393,7 +393,6 @@ void loop(void) {
                       else if (newEncPosition >= 52 && newEncPosition <= 52) localChar = 32;
                       else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
                       else localChar = 127;
-                      Serial.println(newEncPosition);
                       lastMillis = millis();
                       u8g2.firstPage();
                       do {
@@ -410,7 +409,11 @@ void loop(void) {
                         u8g2.print(newProjectorName);
                         if (lastMillis % 300 > 150) {
                           if      (localChar ==  32) u8g2.print("_");
-                          else if (localChar == 127) u8g2.print("<");
+                          else if (localChar == 127) {
+                            u8g2.setFont(u8g2_font_m2icon_9_tf);
+                            u8g2.print("a"); // https://github.com/olikraus/u8g2/wiki/fntpic/u8g2_font_m2icon_9_tf.png
+                            u8g2.setFont(u8g2_font_helvR10_tr);
+                          }
                           else u8g2.print(localChar);
                         }
                       } while ( u8g2.nextPage() );
@@ -422,8 +425,13 @@ void loop(void) {
                         inputFinished = 1;
                        }
                     }
-                    newProjectorName[charIndex] = localChar;
-                    charIndex++;
+                    if (localChar == 127) {   // Delete
+                      charIndex--;
+                      newProjectorName[charIndex] = 0;
+                    } else {
+                      newProjectorName[charIndex] = localChar;
+                      charIndex++;
+                    }
                   }
                   while (digitalRead(ENCODER_BTN) == 0) {}
                   inputFinished = 0;
