@@ -362,7 +362,7 @@ void loop(void) {
               while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
               switch (currentMenuSelection) {
                 case MENU_ITEM_NAME:
-                  myEnc.write(16002);             // to start with "A" (16072 would be 'b')
+                  myEnc.write(16000);             // to start with "A" (16072 would be 'b')
                   unsigned long newEncPosition;
                   char localChar;
                   byte charIndex;
@@ -436,6 +436,7 @@ void loop(void) {
                     } else {
                       newProjectorName[charIndex] = localChar;
                       charIndex++;
+                      if (firstUse) myEnc.write(16052);   // switch to lower case
                       firstUse = false;
                     }
                   }
