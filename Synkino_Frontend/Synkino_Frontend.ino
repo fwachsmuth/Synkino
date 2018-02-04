@@ -1,11 +1,9 @@
 /*
  *  This is the frontend part of Synkino
  *  [ ] Allow Delete in Projector Name
- *  [ ] Hint Space and Delete "Keys"
  *  [ ] switch to lower case after first letter
  *  [ ] Restore Menu Pos after new Name
  *  [ ] Make it a function
- *  [ ] Blink current character?
  *  
  *  [ ] Implement Settings Menu 
  *  [ ] 404 Handlen
@@ -396,6 +394,7 @@ void loop(void) {
                       else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
                       else localChar = 127;
                       Serial.println(newEncPosition);
+                      lastMillis = millis();
                       u8g2.firstPage();
                       do {
                         u8g2.setFont(u8g2_font_helvR08_tr);
@@ -409,14 +408,16 @@ void loop(void) {
                         u8g2.setFont(u8g2_font_helvR10_tr);
                         u8g2.setCursor(15,35);
                         u8g2.print(newProjectorName);
-                        if      (localChar ==  32) u8g2.print("_");
-                        else if (localChar == 127) u8g2.print("<");
-                        else u8g2.print(localChar);
-                        
+                        if (lastMillis % 300 > 150) {
+                          if      (localChar ==  32) u8g2.print("_");
+                          else if (localChar == 127) u8g2.print("<");
+                          else u8g2.print(localChar);
+                        }
                       } while ( u8g2.nextPage() );
                     }
                     lastMillis = millis();
                     while (digitalRead(ENCODER_BTN) == 0 && inputFinished == 0) {
+                      delay(50);
                       if (millis() - lastMillis > 1000) {
                         inputFinished = 1;
                        }
