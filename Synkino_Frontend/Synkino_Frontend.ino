@@ -373,6 +373,10 @@ void loop(void) {
                   byte inputFinished;
                        inputFinished = 0;  
                   unsigned long lastMillis;                          
+                  for (byte i = 0; i < maxProjectorNameLength; i++) {
+                    newProjectorName[i] = 0;
+                  }
+                  
                   while (charIndex <= maxProjectorNameLength && inputFinished == 0) {
                     while (digitalRead(ENCODER_BTN) == 1) {
                       newEncPosition = (myEnc.read() >> 1) % 63;
