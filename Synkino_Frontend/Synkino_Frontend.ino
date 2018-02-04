@@ -353,27 +353,42 @@ void loop(void) {
               while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
               switch (currentMenuSelection) {
                 case MENU_ITEM_NAME:
+                  myEnc.write(16002);
+                  unsigned long newEncPosition;
+                  char localChar;
+                  while (digitalRead(ENCODER_BTN) == 1) {
+                    newEncPosition = (myEnc.read() >> 1) % 63;
+                    /*
+                     * Chr : Ascii Code     | newEncPos | #
+                     * ----:----------------|-----------|---
+                     * A-Z : Ascii 65 - 90  |   0 - 25  | 26
+                     * a-z : Ascii 97 - 122 |  26 - 51  | 26
+                     * Spc : Ascii 32       |       52  | 1
+                     * 0-9 : Ascii 48 - 57  |  53 - 62  | 10
+                     * Del : Ascii 127      |  63       | 1
+                     * 
+                     */
+                    if      (newEncPosition >=  0 && newEncPosition <= 25) localChar = newEncPosition + 65;
+                    else if (newEncPosition >= 26 && newEncPosition <= 51) localChar = newEncPosition + 71;
+                    else if (newEncPosition >= 52 && newEncPosition <= 52) localChar = 32;
+                    else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
+                      
+                    
+                    
+                    u8g2.firstPage();
+                    do {
+                      u8g2.setCursor(0,14);
+                      u8g2.print(localChar);
+                    } while ( u8g2.nextPage() );
+                  }
                   break;
                 case MENU_ITEM_SHUTTER_BLADES:
                   break;
                 case MENU_ITEM_STARTMARK:
-                  byte v;
-                  v = 0;
-                  u8g2.setFont(u8g2_font_helvR10_tr);
-                  u8g2.userInterfaceInputValue("Start Mark Offset:", "", &v, 0, 255, 3, " Frames");
-                  
-//                  myEnc.write(48);
-//                  while (digitalRead(ENCODER_BTN) == 1) {
-//                    newEncPosition = myEnc.read();
-//                    
-//                    u8g2.firstPage();
-//                    do {
-//                      u8g2.setCursor(0,14);
-//                      u8g2.print(currentChar);
-//                    } while ( u8g2.nextPage() );
-//                  }
-//
-                  
+                  byte newStartmarkOffset;
+                  newStartmarkOffset = 0;
+                  //u8g2.setFont(u8g2_font_helvR10_tr);
+                  u8g2.userInterfaceInputValue("Start Mark Offset:", "", &newStartmarkOffset, 0, 255, 3, " Frames");
                   break;
                 case MENU_ITEM_PID:
                   break;
@@ -445,7 +460,7 @@ void drawWaitForPlayingMenu(int trackNo, byte fps) {
     u8g2.setCursor(98,62);
     u8g2.print(fps);
     u8g2.print(" fps");
-    u8g2.setFont(u8g2_font_helvR12_tr);
+    u8g2.setFont(u8g2_font_helvR10_tr);
     u8g2.drawStr(27,28,"Waiting for");    
     u8g2.drawStr(16,46,"Projector Start");    
     u8g2.drawXBMP(60, 54, pause_xbm_width, pause_xbm_height, pause_xbm_bits);
@@ -531,12 +546,12 @@ uint16_t selectTrackScreen() {
       if (newEncPosition == 0) {
         do {
           u8g2.setFont(u8g2_font_helvR10_tr);
-          u8g2.drawStr(12,40,"< Main Menu");
+          u8g2.drawStr(18,35,"< Main Menu");
         } while ( u8g2.nextPage() );
       } else {
         do {
           u8g2.setFont(u8g2_font_inb46_mn);
-          u8g2.setCursor(8, 55);
+          u8g2.setCursor(9, 55);
           if (newEncPosition < 10)  u8g2.print("0");
           if (newEncPosition < 100) u8g2.print("0");
           u8g2.print(newEncPosition);
@@ -585,4 +600,5 @@ void i2cReceive (int howMany) {
 void i2cRequest() {
   // wireWriteData(myData);
 }
+
 
