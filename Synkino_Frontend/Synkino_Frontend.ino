@@ -1,9 +1,12 @@
 /*
  *  This is the frontend part of Synkino
- *  [ ] switch to lower case after first letter
+ *  [ ] Long press should stop displaying current character
+ *  [ ] Long pres should exit menu after timeout
+ *  [ ] Long Press should not store last character
  *  [ ] Restore Menu Pos after new Name
  *  [ ] Make it a function
  *  
+ *  [ ] Add tick sounds to Menu :)
  *  [ ] Implement Settings Menu 
  *  [ ] 404 Handlen
  *  [ ] Menu Zeilenabstand erhöhen
@@ -414,7 +417,7 @@ void loop(void) {
                         u8g2.print(newProjectorName);
                         if (lastMillis % 300 > 150) {
                           if      (localChar ==  32) u8g2.print("_");
-                          else if (localChar == 127) {
+                          else if (localChar == 127) {  // Delete
                             u8g2.setFont(u8g2_font_m2icon_9_tf);
                             u8g2.print("a"); // https://github.com/olikraus/u8g2/wiki/fntpic/u8g2_font_m2icon_9_tf.png
                             u8g2.setFont(u8g2_font_helvR10_tr);
@@ -426,6 +429,19 @@ void loop(void) {
                     lastMillis = millis();
                     while (digitalRead(ENCODER_BTN) == 0 && inputFinished == 0) {
                       delay(50);
+                      
+                      u8g2.firstPage();
+                      do {
+                        // undraw last character here                        
+                        u8g2.setFont(u8g2_font_helvR08_tr);
+                        u8g2.setCursor(19,14);
+                        u8g2.print("Set Projector Name");
+                        u8g2.drawStr(14, 55, "[Keep pressed to Save]");
+                        u8g2.setFont(u8g2_font_helvR10_tr);
+                        u8g2.setCursor(15,35);
+                        u8g2.print(newProjectorName);
+                      } while ( u8g2.nextPage() );
+                      
                       if (millis() - lastMillis > 1000) {
                         inputFinished = 1;
                        }
@@ -436,7 +452,7 @@ void loop(void) {
                     } else {
                       newProjectorName[charIndex] = localChar;
                       charIndex++;
-                      if (firstUse) myEnc.write(16052);   // switch to lower case
+                      if (firstUse) myEnc.write(16052);   // switch to lower case 'a'
                       firstUse = false;
                     }
                   }
