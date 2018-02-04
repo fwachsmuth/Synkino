@@ -223,6 +223,11 @@ uint8_t minutes = 0;
 uint8_t seconds = 0;
 
 int oosyncFrames = 0;
+
+const byte maxProjectorNameLength = 12;
+char newProjectorName[maxProjectorNameLength + 1];
+
+
 // unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
 
 // ---- Setup ---------------------------------------------------------------------
@@ -353,34 +358,55 @@ void loop(void) {
               while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
               switch (currentMenuSelection) {
                 case MENU_ITEM_NAME:
-                  myEnc.write(16002);
+                  myEnc.write(16002);             // to start with "A" (16072 would be 'b')
                   unsigned long newEncPosition;
                   char localChar;
-                  while (digitalRead(ENCODER_BTN) == 1) {
-                    newEncPosition = (myEnc.read() >> 1) % 63;
-                    /*
-                     * Chr : Ascii Code     | newEncPos | #
-                     * ----:----------------|-----------|---
-                     * A-Z : Ascii 65 - 90  |   0 - 25  | 26
-                     * a-z : Ascii 97 - 122 |  26 - 51  | 26
-                     * Spc : Ascii 32       |       52  | 1
-                     * 0-9 : Ascii 48 - 57  |  53 - 62  | 10
-                     * Del : Ascii 127      |  63       | 1
-                     * 
-                     */
-                    if      (newEncPosition >=  0 && newEncPosition <= 25) localChar = newEncPosition + 65;
-                    else if (newEncPosition >= 26 && newEncPosition <= 51) localChar = newEncPosition + 71;
-                    else if (newEncPosition >= 52 && newEncPosition <= 52) localChar = 32;
-                    else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
-                      
-                    
-                    
-                    u8g2.firstPage();
-                    do {
-                      u8g2.setCursor(0,14);
-                      u8g2.print(localChar);
-                    } while ( u8g2.nextPage() );
+                  byte charIndex;
+                       charIndex = 0;
+                  byte inputFinished;
+                       inputFinished = 0;  
+                  unsigned long lastMillis;                          
+                  while (charIndex <= maxProjectorNameLength && inputFinished == 0) {
+                    while (digitalRead(ENCODER_BTN) == 1) {
+                      newEncPosition = (myEnc.read() >> 1) % 63;
+                      /*
+                       * Chr : Ascii Code     | newEncPos | #
+                       * ----:----------------|-----------|---
+                       * A-Z : Ascii 65 - 90  |   0 - 25  | 26
+                       * a-z : Ascii 97 - 122 |  26 - 51  | 26
+                       * Spc : Ascii 32       |       52  | 1
+                       * 0-9 : Ascii 48 - 57  |  53 - 62  | 10
+                       * Del : Ascii 127      |  63       | 1
+                       * 
+                       */
+                      if      (newEncPosition >=  0 && newEncPosition <= 25) localChar = newEncPosition + 65;
+                      else if (newEncPosition >= 26 && newEncPosition <= 51) localChar = newEncPosition + 71;
+                      else if (newEncPosition >= 52 && newEncPosition <= 52) localChar = 32;
+                      else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
+                      u8g2.firstPage();
+                      do {
+                        u8g2.setCursor(0,14);
+                        u8g2.print(newProjectorName);
+                        if (localChar == 32) {
+                          u8g2.print("_");
+                        } else u8g2.print(localChar);
+                      } while ( u8g2.nextPage() );
+                    }
+                    lastMillis = millis();
+                    while (digitalRead(ENCODER_BTN) == 0 && inputFinished == 0) {
+                      if (millis() - lastMillis > 1500) {
+                        inputFinished = 1;
+                       }
+                    }
+                    newProjectorName[charIndex] = localChar;
+                    charIndex++;
                   }
+                  inputFinished = 0;
+                  newProjectorName[charIndex] = '\0';
+                  Serial.println(newProjectorName);
+
+                  
+                  
                   break;
                 case MENU_ITEM_SHUTTER_BLADES:
                   break;
