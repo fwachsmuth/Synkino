@@ -1,4 +1,4 @@
-// 20748
+// 21020
 // 753
 
 /*
@@ -25,6 +25,7 @@
 #include <Encoder.h>
 #include <Wire.h>
 #include <WireData.h>
+#include <EEPROM.h>
 
 
 // ---- Define the various Pins we use- --------------------------------------------
@@ -248,7 +249,15 @@ byte new_i = 3;
 byte new_d = 1;
 byte newStartmarkOffset = 0;
 
-// unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
+struct Projector {
+  byte  index;
+  byte  shutterBladeCount;
+  byte  startmarkOffset;
+  byte  p;
+  byte  i;
+  byte  d;
+  char  name[maxProjectorNameLength + 1];
+};
 
 // ---- Setup ---------------------------------------------------------------------
 //
@@ -261,8 +270,23 @@ void setup(void) {
   digitalWrite(SPI_DC, 0);		
   digitalWrite(ENCODER_BTN, HIGH);
 
+  Projector aProjector;
+//  EEPROM.get(0, aProjector);
+
+// RC IR = {
+//    learnedIrRcCode,
+//    learnedIrPlayKey,
+//    learnedIrOneFrameKey,
+//    learnedIrIntervalKey,
+//    learnedIrFasterKey,
+//    learnedIrSlowerKey,
+//    learnedIrDoubleSpeedKey,
+//    learnedIrHalfSpeedKey
+//  };
+//  EEPROM.put(0, IR);
+
+
   myEnc.write(16000);
-  // oldPosition = myEnc.read() >> 1;
 
   Serial.begin(115200);
 
@@ -373,10 +397,12 @@ void loop(void) {
           waitForBttnRelease();
           
           if (projectorActionMenuSelection == MENU_ITEM_NEW) { 
-            handlerojectorNameInput();
+            handleProjectorNameInput();
             handleShutterbladeInput();
             handleStartmarkInput();
             handlePIDinput();
+
+            saveNewProjector();
             
           } else if (projectorActionMenuSelection == MENU_ITEM_CHANGE) {
             // These are the wrong menus!
@@ -390,23 +416,23 @@ void loop(void) {
             waitForBttnRelease();
           }
               
-//          switch (projectorConfigMenuSelection) {
-//            case MENU_ITEM_NAME:
-//              handlerojectorNameInput();
-//              break;
-//            case MENU_ITEM_SHUTTER_BLADES:
-//              handleShutterbladeInput();
-//              break;
-//            case MENU_ITEM_STARTMARK:
-//              handleStartmarkInput();
-//              break;
-//            case MENU_ITEM_PID:
-//              handlePIDinput();
-//              break;
-//            default:
-//              break;
-//          }
-
+/*          switch (projectorConfigMenuSelection) {
+            case MENU_ITEM_NAME:
+              handlerojectorNameInput();
+              break;
+            case MENU_ITEM_SHUTTER_BLADES:
+              handleShutterbladeInput();
+              break;
+            case MENU_ITEM_STARTMARK:
+              handleStartmarkInput();
+              break;
+            case MENU_ITEM_PID:
+              handlePIDinput();
+              break;
+            default:
+              break;
+          }
+*/
           break;
         case MENU_ITEM_SELECT_TRACK:
           myState = SELECT_TRACK;
@@ -444,10 +470,31 @@ void loop(void) {
   }
 }
 
+void saveNewProjector() {
+  byte projectorCount;
+  EEPROM.get(0, projectorCount);
+  
+  Projector aProjector = {
+    projectorCount + 1,
+    shutterBladesMenuSelection,
+    newStartmarkOffset,
+    new_p,
+    new_i,
+    new_d,
+    newProjectorName[maxProjectorNameLength + 1]
+  };
+
+  EEPROM.put(0, projectorCount + 1);
+  
+  EEPROM.put((projectorCount * sizeof(aProjector) + 1), aProjector);
+  Serial.println(projectorCount * sizeof(aProjector) + 1);
+           
+}
+
 void waitForBttnRelease() {
   while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
 }
-void handlerojectorNameInput() {
+void handleProjectorNameInput() {
   char localChar;
   unsigned long newEncPosition;
   byte charIndex = 0;
@@ -514,11 +561,11 @@ void handleStartmarkInput() {
 }
 
 void handlePIDinput () {
-  u8g2.userInterfaceInputValue("Proportional:", "", &new_p, 0, 255, 2, "");
+  u8g2.userInterfaceInputValue("Proportional:", "", &new_p, 0, 99, 2, "");
   waitForBttnRelease();
-  u8g2.userInterfaceInputValue("Integral:", "", &new_i, 0, 255, 2, "");
+  u8g2.userInterfaceInputValue("Integral:", "", &new_i, 0, 99, 2, "");
   waitForBttnRelease();
-  u8g2.userInterfaceInputValue("Derivative:", "", &new_d, 0, 255, 2, "");
+  u8g2.userInterfaceInputValue("Derivative:", "", &new_d, 0, 99, 2, "");
   waitForBttnRelease();
 }
 
