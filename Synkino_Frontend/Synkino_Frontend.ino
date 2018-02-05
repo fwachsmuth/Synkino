@@ -4,11 +4,11 @@
 /*
  *  This is the frontend part of Synkino
  *  [ ] Wire up the menus with each other
- *  [ ] Make saving projectors work
  *  [ ] Make loading projectors work
  *  [ ] Make chosing a projector work
  *  [ ] Make Editing a projector work
  *  [ ] Make deleting a projector work
+ *  [ ] Respect EEPROM boundaries
  *      
  *  [ ] Add tick sounds to Menu :)
  *  [ ] Implement Extras Menu 
@@ -249,7 +249,7 @@ byte new_i = 3;
 byte new_d = 1;
 byte newStartmarkOffset = 0;
 
-struct Projector {
+struct Projector {          // 19 Bytes per Projector
   byte  index;
   byte  shutterBladeCount;
   byte  startmarkOffset;
@@ -269,22 +269,6 @@ void setup(void) {
   digitalWrite(SPI_CS, 0);
   digitalWrite(SPI_DC, 0);		
   digitalWrite(ENCODER_BTN, HIGH);
-
-  Projector aProjector;
-//  EEPROM.get(0, aProjector);
-
-// RC IR = {
-//    learnedIrRcCode,
-//    learnedIrPlayKey,
-//    learnedIrOneFrameKey,
-//    learnedIrIntervalKey,
-//    learnedIrFasterKey,
-//    learnedIrSlowerKey,
-//    learnedIrDoubleSpeedKey,
-//    learnedIrHalfSpeedKey
-//  };
-//  EEPROM.put(0, IR);
-
 
   myEnc.write(16000);
 
@@ -401,10 +385,10 @@ void loop(void) {
             handleShutterbladeInput();
             handleStartmarkInput();
             handlePIDinput();
-
             saveNewProjector();
             
           } else if (projectorActionMenuSelection == MENU_ITEM_CHANGE) {
+            makeProjectorSelectionMenu();
             // These are the wrong menus!
             projectorConfigMenuSelection = u8g2.userInterfaceSelectionList("Change Projector", MENU_ITEM_NAME, projector_config_menu);  
             waitForBttnRelease();
@@ -470,25 +454,48 @@ void loop(void) {
   }
 }
 
+void makeProjectorSelectionMenu() {
+  byte projectorCount;
+  // char aProjectorName[maxProjectorNameLength + 1];
+  EEPROM.get(0, projectorCount);
+
+  Projector aProjector;
+
+  for (byte i = 0; i < projectorCount; i++) {
+    EEPROM.get(i * sizeof(aProjector) + 1, aProjector);
+    Serial.println(i * sizeof(aProjector) + 1);
+    Serial.println(aProjector.shutterBladeCount);
+    Serial.println(aProjector.startmarkOffset);
+    Serial.println(aProjector.p);
+    Serial.println(aProjector.i);
+    Serial.println(aProjector.d);
+    Serial.println(aProjector.name);
+    Serial.println(F("------"));
+  }
+
+/* const char *shutterblade_menu =
+    "1\n"
+    "2\n"
+    "3\n"
+    "4"; */
+}
+
 void saveNewProjector() {
   byte projectorCount;
   EEPROM.get(0, projectorCount);
+
+  Projector aProjector;
   
-  Projector aProjector = {
-    projectorCount + 1,
-    shutterBladesMenuSelection,
-    newStartmarkOffset,
-    new_p,
-    new_i,
-    new_d,
-    newProjectorName[maxProjectorNameLength + 1]
-  };
+  aProjector.index = projectorCount + 1;
+  aProjector.shutterBladeCount = shutterBladesMenuSelection;
+  aProjector.startmarkOffset = newStartmarkOffset;
+  aProjector.p = new_p;
+  aProjector.i = new_i;
+  aProjector.d = new_d;
+  strncpy(aProjector.name, newProjectorName, maxProjectorNameLength + 1);
 
   EEPROM.put(0, projectorCount + 1);
-  
   EEPROM.put((projectorCount * sizeof(aProjector) + 1), aProjector);
-  Serial.println(projectorCount * sizeof(aProjector) + 1);
-           
 }
 
 void waitForBttnRelease() {
