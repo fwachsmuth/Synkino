@@ -1,13 +1,11 @@
 /*
  *  This is the frontend part of Synkino
- *  [ ] Long pres should exit menu after timeout
  *  [ ] Restore Menu Pos after new Name
  *  [ ] Make it a function
  *  
  *  [ ] Add tick sounds to Menu :)
  *  [ ] Implement Settings Menu 
  *  [ ] 404 Handlen
- *  [ ] Menu Zeilenabstand erhöhen
  *  [ ] Handle 000
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implemet Reset
@@ -434,15 +432,28 @@ void loop(void) {
                         u8g2.setFont(u8g2_font_helvR08_tr);
                         u8g2.setCursor(19,14);
                         u8g2.print("Set Projector Name");
-                        u8g2.drawStr(14, 55, "[Keep pressed to Save]");
+                        u8g2.drawStr(11, 55, "[Keep pressed to Save]");
                         u8g2.setFont(u8g2_font_helvR10_tr);
                         u8g2.setCursor(15,35);
                         u8g2.print(newProjectorName);
                       } while ( u8g2.nextPage() );
                       
-                      if (millis() - lastMillis > 1000) {
+                      if (millis() - lastMillis > 1500) {
                         inputFinished = 1;
                        }
+                    }
+                    while (digitalRead(ENCODER_BTN) == 0 && inputFinished == 1) {
+                      u8g2.firstPage();
+                      do {
+                        // undraw last character here                        
+                        u8g2.setFont(u8g2_font_helvR08_tr);
+                        u8g2.setCursor(19,14);
+                        u8g2.print("Set Projector Name");
+                        u8g2.drawStr(41, 55, "[Saved!]");
+                        u8g2.setFont(u8g2_font_helvR10_tr);
+                        u8g2.setCursor(15,35);
+                        u8g2.print(newProjectorName);
+                      } while ( u8g2.nextPage() );
                     }
                     if (localChar == 127) {   // Delete
                       charIndex--;            // Is it safe to become negative here?
