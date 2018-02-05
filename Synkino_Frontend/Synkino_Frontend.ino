@@ -360,7 +360,7 @@ void loop(void) {
           while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
           switch (currentMenuSelection) {
             case MENU_ITEM_NEW:
-              currentMenuSelection = u8g2.userInterfaceSelectionList(NULL, currentMenuSelection, config_menu);
+              currentMenuSelection = u8g2.userInterfaceSelectionList("New Projector", currentMenuSelection, config_menu);
               while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
               switch (currentMenuSelection) {
                 case MENU_ITEM_NAME:
@@ -377,7 +377,6 @@ void loop(void) {
                   for (byte i = 0; i < maxProjectorNameLength; i++) {
                     newProjectorName[i] = 0;
                   }
-                  
                   while (charIndex <= maxProjectorNameLength && !inputFinished) {
                     while (digitalRead(ENCODER_BTN) == 1) {
                       newEncPosition = (myEnc.read() >> 1) % 64;
@@ -421,17 +420,33 @@ void loop(void) {
                   inputFinished = false;
                   newProjectorName[charIndex] = '\0';
 //                Serial.println(newProjectorName);
-                
                   break;
+
                 case MENU_ITEM_SHUTTER_BLADES:
+                  currentMenuSelection = u8g2.userInterfaceSelectionList("# Shutter Blades", currentMenuSelection, shutterblade_menu);
+                  while (digitalRead(ENCODER_BTN) == 0) {}
                   break;
+                  
                 case MENU_ITEM_STARTMARK:
                   byte newStartmarkOffset;
                   newStartmarkOffset = 0;
                   //u8g2.setFont(u8g2_font_helvR10_tr);
                   u8g2.userInterfaceInputValue("Start Mark Offset:", "", &newStartmarkOffset, 0, 255, 3, " Frames");
                   break;
+                  
                 case MENU_ITEM_PID:
+                  byte new_p;
+                       new_p = 8;
+                  byte new_i;
+                       new_i = 3;
+                  byte new_d;
+                       new_d = 1;
+                  u8g2.userInterfaceInputValue("Proportional:", "", &new_p, 0, 255, 2, "");
+                  while (digitalRead(ENCODER_BTN) == 0) {}
+                  u8g2.userInterfaceInputValue("Integral:", "", &new_i, 0, 255, 2, "");
+                  while (digitalRead(ENCODER_BTN) == 0) {}
+                  u8g2.userInterfaceInputValue("Derivative:", "", &new_d, 0, 255, 2, "");
+                  while (digitalRead(ENCODER_BTN) == 0) {}
                   break;
                 default:
                   break;
