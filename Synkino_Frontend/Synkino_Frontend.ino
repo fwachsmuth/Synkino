@@ -1,17 +1,23 @@
-// 20468
-// 869
+// 20794
+// 792
 
 /*
  *  This is the frontend part of Synkino
- *  [ ] Restore Menu Pos after new Name
- *  
+ *  [ ] Wire up the menus with each other
+ *  [ ] Make "New" Projector a wizard mode
+ *  [ ] Make saving projectors work
+ *  [ ] Make loading projectors work
+ *  [ ] Make chosing a projector work
+ *  [ ] Make Editing a projector work
+ *  [ ] Make deleting a projector work
+ *      
  *  [ ] Add tick sounds to Menu :)
- *  [ ] Implement Settings Menu 
+ *  [ ] Implement Extras Menu 
  *  [ ] 404 Handlen
  *  [ ] Handle 000
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implemet Reset
- *  [ ] Implement Projector Menu
+ *  
  */
 
 #include <Arduino.h>
@@ -35,7 +41,7 @@
 // ---- Define the various Menu Screens --------------------------------------------
 //
 #define MAIN_MENU             1
-#define PROJECTOR_MENU        2
+#define PROJECTOR_ACTION_MENU 2
 #define TRACK_SELECTION_MENU  3
 #define SETTINGS_MENU         4
 #define PLAYING_MENU          5
@@ -190,13 +196,13 @@ const char *main_menu =
   "Select Track\n"
   "Extras";
 
-const char *projector_menu =
+const char *projector_action_menu =
   "New\n"
   "Change\n"
   "Edit\n"
   "Delete";
 
-const char *config_menu =
+const char *projector_config_menu =
   "Name\n"
   "Shutter Blades\n"
   "Start Mark\n"
@@ -209,8 +215,14 @@ const char *shutterblade_menu =
   "4";
 
 
-uint8_t currentMenuSelection = 2;
-uint8_t prevMenuSelection = 0;
+uint8_t mainMenuSelection               = MENU_ITEM_SELECT_TRACK;
+uint8_t projectorActionMenuSelection    = MENU_ITEM_CHANGE;
+uint8_t projectorSelectionMenuSelection = 0;
+uint8_t projectorConfigMenuSelection    = MENU_ITEM_NAME;
+uint8_t shutterBladesMenuSelection      = MENU_ITEM_TWO;
+
+
+//uint8_t prevMenuSelection = 0;
 
 volatile bool haveI2Cdata = false;
 volatile uint8_t i2cCommand;
@@ -351,18 +363,19 @@ void loop(void) {
   //
   switch (myState) {
     case MAIN_MENU:
-      prevMenuSelection = currentMenuSelection;       // store previous menu selection
-      currentMenuSelection = u8g2.userInterfaceSelectionList("Main Menu", currentMenuSelection, main_menu);
+//    prevMenuSelection = MainMenuSelection;       // store previous menu selection
+      mainMenuSelection = u8g2.userInterfaceSelectionList("Main Menu", MENU_ITEM_SELECT_TRACK, main_menu);
       while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release 
-      switch (currentMenuSelection) {
+      switch (mainMenuSelection) {
         case MENU_ITEM_PROJECTOR:
-          currentMenuSelection = u8g2.userInterfaceSelectionList(NULL, currentMenuSelection, projector_menu);
+          projectorActionMenuSelection = u8g2.userInterfaceSelectionList(NULL, MENU_ITEM_CHANGE, projector_action_menu);
           while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
-          switch (currentMenuSelection) {
+          
+          switch (projectorActionMenuSelection) {
             case MENU_ITEM_NEW:
-              currentMenuSelection = u8g2.userInterfaceSelectionList("New Projector", currentMenuSelection, config_menu);
+              projectorConfigMenuSelection = u8g2.userInterfaceSelectionList("New Projector", MENU_ITEM_NAME, projector_config_menu);
               while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
-              switch (currentMenuSelection) {
+              switch (projectorConfigMenuSelection) {
                 case MENU_ITEM_NAME:
                   myEnc.write(16000);             // to start with "A" (16072 would be 'b')
                   unsigned long newEncPosition;
@@ -423,7 +436,7 @@ void loop(void) {
                   break;
 
                 case MENU_ITEM_SHUTTER_BLADES:
-                  currentMenuSelection = u8g2.userInterfaceSelectionList("# Shutter Blades", currentMenuSelection, shutterblade_menu);
+                  shutterBladesMenuSelection = u8g2.userInterfaceSelectionList("# Shutter Blades", MENU_ITEM_TWO, shutterblade_menu);
                   while (digitalRead(ENCODER_BTN) == 0) {}
                   break;
                   
@@ -569,7 +582,6 @@ void drawWaitForPlayingMenu(int trackNo, byte fps) {
     u8g2.drawStr(27,28,"Waiting for");    
     u8g2.drawStr(16,46,"Projector Start");    
     u8g2.drawXBMP(60, 54, pause_xbm_width, pause_xbm_height, pause_xbm_bits);
-    // u8g2.drawXBMP(2, 54, sync_xbm_width, sync_xbm_height, sync_xbm_bits);
   } while ( u8g2.nextPage() );
 }
 
