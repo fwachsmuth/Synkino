@@ -4,7 +4,6 @@
 /*
  *  This is the frontend part of Synkino
  *  [ ] Wire up the menus with each other
- *  [ ] Make "New" Projector a wizard mode
  *  [ ] Make saving projectors work
  *  [ ] Make loading projectors work
  *  [ ] Make chosing a projector work
@@ -222,8 +221,6 @@ uint8_t projectorConfigMenuSelection    = MENU_ITEM_NAME;
 uint8_t shutterBladesMenuSelection      = MENU_ITEM_TWO;
 
 
-//uint8_t prevMenuSelection = 0;
-
 volatile bool haveI2Cdata = false;
 volatile uint8_t i2cCommand;
 volatile long i2cParameter;
@@ -367,14 +364,13 @@ void loop(void) {
   //
   switch (myState) {
     case MAIN_MENU:
-//    prevMenuSelection = MainMenuSelection;       // store previous menu selection
       mainMenuSelection = u8g2.userInterfaceSelectionList("Main Menu", MENU_ITEM_SELECT_TRACK, main_menu);
-      while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release 
+      waitForBttnRelease(); 
       switch (mainMenuSelection) {
         case MENU_ITEM_PROJECTOR:
 
           projectorActionMenuSelection = u8g2.userInterfaceSelectionList(NULL, MENU_ITEM_CHANGE, projector_action_menu);
-          while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
+          waitForBttnRelease();
           
           if (projectorActionMenuSelection == MENU_ITEM_NEW) { 
             handlerojectorNameInput();
@@ -383,6 +379,7 @@ void loop(void) {
             handlePIDinput();
             
           } else if (projectorActionMenuSelection == MENU_ITEM_CHANGE) {
+            // These are the wrong menus!
             projectorConfigMenuSelection = u8g2.userInterfaceSelectionList("Change Projector", MENU_ITEM_NAME, projector_config_menu);  
             waitForBttnRelease();
           } else if (projectorActionMenuSelection == MENU_ITEM_EDIT) {
