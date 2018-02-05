@@ -1,5 +1,5 @@
-// 20770
-// 787
+// 20748
+// 753
 
 /*
  *  This is the frontend part of Synkino
@@ -372,43 +372,44 @@ void loop(void) {
       while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release 
       switch (mainMenuSelection) {
         case MENU_ITEM_PROJECTOR:
+
           projectorActionMenuSelection = u8g2.userInterfaceSelectionList(NULL, MENU_ITEM_CHANGE, projector_action_menu);
           while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
           
-          switch (projectorActionMenuSelection) {     // ********  CONTEXT: What to do with the chosen Projector *******
-            case MENU_ITEM_NEW:
-
-              projectorConfigMenuSelection = u8g2.userInterfaceSelectionList("New Projector", MENU_ITEM_NAME, projector_config_menu);
-              while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
-              switch (projectorConfigMenuSelection) {
-                case MENU_ITEM_NAME:
-                  handlerojectorNameInput();
-                  break;
-                case MENU_ITEM_SHUTTER_BLADES:
-                  handleShutterbladeInput();
-                  break;
-                case MENU_ITEM_STARTMARK:
-                  handleStartmarkInput();
-                  break;
-                case MENU_ITEM_PID:
-                  handlePIDinput ();
-                  break;
-                default:
-                  break;
-              }
-              break;
-            case MENU_ITEM_CHANGE:
-              Serial.println(F("2"));
-              break;
-            case MENU_ITEM_EDIT:
-              Serial.println(F("3"));
-              break;
-            case MENU_ITEM_DELETE:
-              Serial.println(F("4"));
-              break;
-            default:
-              break;
+          if (projectorActionMenuSelection == MENU_ITEM_NEW) { 
+            handlerojectorNameInput();
+            handleShutterbladeInput();
+            handleStartmarkInput();
+            handlePIDinput();
+            
+          } else if (projectorActionMenuSelection == MENU_ITEM_CHANGE) {
+            projectorConfigMenuSelection = u8g2.userInterfaceSelectionList("Change Projector", MENU_ITEM_NAME, projector_config_menu);  
+            waitForBttnRelease();
+          } else if (projectorActionMenuSelection == MENU_ITEM_EDIT) {
+            projectorConfigMenuSelection = u8g2.userInterfaceSelectionList("Edit Projector", MENU_ITEM_NAME, projector_config_menu);
+            waitForBttnRelease();
+          } else if (projectorActionMenuSelection == MENU_ITEM_DELETE) {
+            projectorConfigMenuSelection = u8g2.userInterfaceSelectionList("Delete Projector", MENU_ITEM_NAME, projector_config_menu);
+            waitForBttnRelease();
           }
+              
+//          switch (projectorConfigMenuSelection) {
+//            case MENU_ITEM_NAME:
+//              handlerojectorNameInput();
+//              break;
+//            case MENU_ITEM_SHUTTER_BLADES:
+//              handleShutterbladeInput();
+//              break;
+//            case MENU_ITEM_STARTMARK:
+//              handleStartmarkInput();
+//              break;
+//            case MENU_ITEM_PID:
+//              handlePIDinput();
+//              break;
+//            default:
+//              break;
+//          }
+
           break;
         case MENU_ITEM_SELECT_TRACK:
           myState = SELECT_TRACK;
@@ -446,6 +447,9 @@ void loop(void) {
   }
 }
 
+void waitForBttnRelease() {
+  while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
+}
 void handlerojectorNameInput() {
   char localChar;
   unsigned long newEncPosition;
@@ -498,25 +502,27 @@ void handlerojectorNameInput() {
     }
   }
   while (digitalRead(ENCODER_BTN) == 0) {}
-  inputFinished = false;
+//  inputFinished = false;
   newProjectorName[charIndex] = '\0';
 }
 
 void handleShutterbladeInput() {
   shutterBladesMenuSelection = u8g2.userInterfaceSelectionList("# Shutter Blades", MENU_ITEM_TWO, shutterblade_menu);
-  while (digitalRead(ENCODER_BTN) == 0) {}
+  waitForBttnRelease();
 }
+
 void handleStartmarkInput() {
   u8g2.userInterfaceInputValue("Start Mark Offset:", "", &newStartmarkOffset, 0, 255, 3, " Frames");
+  waitForBttnRelease();
 }
 
 void handlePIDinput () {
   u8g2.userInterfaceInputValue("Proportional:", "", &new_p, 0, 255, 2, "");
-  while (digitalRead(ENCODER_BTN) == 0) {}
+  waitForBttnRelease();
   u8g2.userInterfaceInputValue("Integral:", "", &new_i, 0, 255, 2, "");
-  while (digitalRead(ENCODER_BTN) == 0) {}
+  waitForBttnRelease();
   u8g2.userInterfaceInputValue("Derivative:", "", &new_d, 0, 255, 2, "");
-  while (digitalRead(ENCODER_BTN) == 0) {}
+  waitForBttnRelease();
 }
 
 bool handleNameInput(byte action, char localChar, unsigned long lastMillis, bool firstUse) {
@@ -681,7 +687,7 @@ uint16_t selectTrackScreen() {
       }  
     }
   }
-  while (digitalRead(ENCODER_BTN) == 0) {};
+  waitForBttnRelease();
   oldPosition = 0;
   myEnc.write(parentMenuEncPosition);
   u8g2.setFont(u8g2_font_helvR10_tr);   // Only until we go to the PLAYING_MENU here
