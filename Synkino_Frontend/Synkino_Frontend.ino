@@ -1,7 +1,9 @@
+// 20468
+// 869
+
 /*
  *  This is the frontend part of Synkino
  *  [ ] Restore Menu Pos after new Name
- *  [ ] Make it a function
  *  
  *  [ ] Add tick sounds to Menu :)
  *  [ ] Implement Settings Menu 
@@ -367,8 +369,8 @@ void loop(void) {
                   char localChar;
                   byte charIndex;
                        charIndex = 0;
-                  byte inputFinished;
-                       inputFinished = 0;  
+                  bool inputFinished;
+                       inputFinished = false;  
                   unsigned long lastMillis;  
                   bool firstUse;
                        firstUse = true;                        
@@ -376,7 +378,7 @@ void loop(void) {
                     newProjectorName[i] = 0;
                   }
                   
-                  while (charIndex <= maxProjectorNameLength && inputFinished == 0) {
+                  while (charIndex <= maxProjectorNameLength && !inputFinished) {
                     while (digitalRead(ENCODER_BTN) == 1) {
                       newEncPosition = (myEnc.read() >> 1) % 64;
                       /*
@@ -398,31 +400,27 @@ void loop(void) {
                       handleNameInput(GET_NAME, localChar, lastMillis, firstUse);
                     }
                     lastMillis = millis();
-                    while (digitalRead(ENCODER_BTN) == 0 && inputFinished == 0) {
+                    while (digitalRead(ENCODER_BTN) == 0 && !inputFinished) {
                       delay(50);
-                      handleNameInput(JUST_PRESSED, localChar, lastMillis, firstUse);
-                      if (millis() - lastMillis > 1500) {
-                        inputFinished = 1;
-                       }
+                      inputFinished = handleNameInput(JUST_PRESSED, localChar, lastMillis, firstUse);
                     }
-                    while (digitalRead(ENCODER_BTN) == 0 && inputFinished == 1) {
+                    while (digitalRead(ENCODER_BTN) == 0 && inputFinished) {
                        handleNameInput(LONG_PRESSED, localChar, 0, firstUse);
                     }
                     if (localChar == 127) {   // Delete
                       charIndex--;            // Is it safe to become negative here?
                       newProjectorName[charIndex] = 0;  
-                    } else if (inputFinished == 0) {
+                    } else if (!inputFinished) {
                       newProjectorName[charIndex] = localChar;
                       charIndex++;
-                      //Serial.println(firstUse);
                       if (firstUse) myEnc.write(16052);   // switch to lower case 'a'
                       firstUse = false;
                     }
                   }
                   while (digitalRead(ENCODER_BTN) == 0) {}
-                  inputFinished = 0;
+                  inputFinished = false;
                   newProjectorName[charIndex] = '\0';
-                  Serial.println(newProjectorName);
+//                Serial.println(newProjectorName);
                 
                   break;
                 case MENU_ITEM_SHUTTER_BLADES:
@@ -488,7 +486,7 @@ void loop(void) {
   }
 }
 
-void handleNameInput(byte action, char localChar, unsigned long lastMillis, bool firstUse) {
+bool handleNameInput(byte action, char localChar, unsigned long lastMillis, bool firstUse) {
   u8g2.firstPage();
   do {
     u8g2.setFont(u8g2_font_helvR10_tr);
@@ -523,7 +521,11 @@ void handleNameInput(byte action, char localChar, unsigned long lastMillis, bool
 
     else if (action == JUST_PRESSED) { 
       u8g2.setFont(u8g2_font_helvR08_tr);
-      u8g2.drawStr(11, 55, "[Keep pressed to Save]"); }
+      u8g2.drawStr(11, 55, "[Keep pressed to Save]"); 
+      if (millis() - lastMillis > 1500) {
+        return true;
+      }
+    }
     
     else if (action == LONG_PRESSED) { 
       u8g2.setFont(u8g2_font_helvR08_tr);
