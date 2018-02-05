@@ -1,5 +1,5 @@
-// 20794
-// 792
+// 20770
+// 787
 
 /*
  *  This is the frontend part of Synkino
@@ -246,6 +246,10 @@ int oosyncFrames = 0;
 const byte maxProjectorNameLength = 12;
 char newProjectorName[maxProjectorNameLength + 1];
 
+byte new_p = 8;
+byte new_i = 3;
+byte new_d = 1;
+byte newStartmarkOffset = 0;
 
 // unsigned int oldPosition = 16000;   // some ugly hack to cope with 0->65535 when turning left
 
@@ -371,95 +375,23 @@ void loop(void) {
           projectorActionMenuSelection = u8g2.userInterfaceSelectionList(NULL, MENU_ITEM_CHANGE, projector_action_menu);
           while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
           
-          switch (projectorActionMenuSelection) {
+          switch (projectorActionMenuSelection) {     // ********  CONTEXT: What to do with the chosen Projector *******
             case MENU_ITEM_NEW:
+
               projectorConfigMenuSelection = u8g2.userInterfaceSelectionList("New Projector", MENU_ITEM_NAME, projector_config_menu);
               while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
               switch (projectorConfigMenuSelection) {
                 case MENU_ITEM_NAME:
-                  myEnc.write(16000);             // to start with "A" (16072 would be 'b')
-                  unsigned long newEncPosition;
-                  char localChar;
-                  byte charIndex;
-                       charIndex = 0;
-                  bool inputFinished;
-                       inputFinished = false;  
-                  unsigned long lastMillis;  
-                  bool firstUse;
-                       firstUse = true;                        
-                  for (byte i = 0; i < maxProjectorNameLength; i++) {
-                    newProjectorName[i] = 0;
-                  }
-                  while (charIndex <= maxProjectorNameLength && !inputFinished) {
-                    while (digitalRead(ENCODER_BTN) == 1) {
-                      newEncPosition = (myEnc.read() >> 1) % 64;
-                      /*
-                       * Chr : Ascii Code     | newEncPos | #
-                       * ----:----------------|-----------|---
-                       * A-Z : Ascii 65 - 90  |   0 - 25  | 26
-                       * a-z : Ascii 97 - 122 |  26 - 51  | 26
-                       * Spc : Ascii 32       |       52  | 1
-                       * 0-9 : Ascii 48 - 57  |  53 - 62  | 10
-                       * Del : Ascii 127      |  63       | 1
-                       * 
-                       */
-                      if      (newEncPosition >=  0 && newEncPosition <= 25) localChar = newEncPosition + 65;
-                      else if (newEncPosition >= 26 && newEncPosition <= 51) localChar = newEncPosition + 71;
-                      else if (newEncPosition >= 52 && newEncPosition <= 52) localChar = 32;
-                      else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
-                      else localChar = 127;
-                      lastMillis = millis();
-                      handleNameInput(GET_NAME, localChar, lastMillis, firstUse);
-                    }
-                    lastMillis = millis();
-                    while (digitalRead(ENCODER_BTN) == 0 && !inputFinished) {
-                      delay(50);
-                      inputFinished = handleNameInput(JUST_PRESSED, localChar, lastMillis, firstUse);
-                    }
-                    while (digitalRead(ENCODER_BTN) == 0 && inputFinished) {
-                       handleNameInput(LONG_PRESSED, localChar, 0, firstUse);
-                    }
-                    if (localChar == 127) {   // Delete
-                      charIndex--;            // Is it safe to become negative here?
-                      newProjectorName[charIndex] = 0;  
-                    } else if (!inputFinished) {
-                      newProjectorName[charIndex] = localChar;
-                      charIndex++;
-                      if (firstUse) myEnc.write(16052);   // switch to lower case 'a'
-                      firstUse = false;
-                    }
-                  }
-                  while (digitalRead(ENCODER_BTN) == 0) {}
-                  inputFinished = false;
-                  newProjectorName[charIndex] = '\0';
-//                Serial.println(newProjectorName);
+                  handlerojectorNameInput();
                   break;
-
                 case MENU_ITEM_SHUTTER_BLADES:
-                  shutterBladesMenuSelection = u8g2.userInterfaceSelectionList("# Shutter Blades", MENU_ITEM_TWO, shutterblade_menu);
-                  while (digitalRead(ENCODER_BTN) == 0) {}
+                  handleShutterbladeInput();
                   break;
-                  
                 case MENU_ITEM_STARTMARK:
-                  byte newStartmarkOffset;
-                  newStartmarkOffset = 0;
-                  //u8g2.setFont(u8g2_font_helvR10_tr);
-                  u8g2.userInterfaceInputValue("Start Mark Offset:", "", &newStartmarkOffset, 0, 255, 3, " Frames");
+                  handleStartmarkInput();
                   break;
-                  
                 case MENU_ITEM_PID:
-                  byte new_p;
-                       new_p = 8;
-                  byte new_i;
-                       new_i = 3;
-                  byte new_d;
-                       new_d = 1;
-                  u8g2.userInterfaceInputValue("Proportional:", "", &new_p, 0, 255, 2, "");
-                  while (digitalRead(ENCODER_BTN) == 0) {}
-                  u8g2.userInterfaceInputValue("Integral:", "", &new_i, 0, 255, 2, "");
-                  while (digitalRead(ENCODER_BTN) == 0) {}
-                  u8g2.userInterfaceInputValue("Derivative:", "", &new_d, 0, 255, 2, "");
-                  while (digitalRead(ENCODER_BTN) == 0) {}
+                  handlePIDinput ();
                   break;
                 default:
                   break;
@@ -482,7 +414,7 @@ void loop(void) {
           myState = SELECT_TRACK;
           break;
         case MENU_ITEM_EXTRAS:
-          // go to Settings
+          // go to Extras
           break;
         default:
           break;
@@ -512,6 +444,79 @@ void loop(void) {
     default:
       break;
   }
+}
+
+void handlerojectorNameInput() {
+  char localChar;
+  unsigned long newEncPosition;
+  byte charIndex = 0;
+  bool inputFinished = false;  
+  unsigned long lastMillis;  
+  bool firstUse = true;                        
+
+  myEnc.write(16000);             // to start with "A" (16072 would be 'b')
+  for (byte i = 0; i < maxProjectorNameLength; i++) {
+    newProjectorName[i] = 0;
+  }
+  while (charIndex <= maxProjectorNameLength && !inputFinished) {
+    while (digitalRead(ENCODER_BTN) == 1) {
+      newEncPosition = (myEnc.read() >> 1) % 64;
+      /*
+       * Chr : Ascii Code     | newEncPos | #
+       * ----:----------------|-----------|---
+       * A-Z : Ascii 65 - 90  |   0 - 25  | 26
+       * a-z : Ascii 97 - 122 |  26 - 51  | 26
+       * Spc : Ascii 32       |       52  | 1
+       * 0-9 : Ascii 48 - 57  |  53 - 62  | 10
+       * Del : Ascii 127      |  63       | 1
+       * 
+       */
+      if      (newEncPosition >=  0 && newEncPosition <= 25) localChar = newEncPosition + 65;
+      else if (newEncPosition >= 26 && newEncPosition <= 51) localChar = newEncPosition + 71;
+      else if (newEncPosition >= 52 && newEncPosition <= 52) localChar = 32;
+      else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
+      else localChar = 127;
+      lastMillis = millis();
+      handleNameInput(GET_NAME, localChar, lastMillis, firstUse);
+    }
+    lastMillis = millis();
+    while (digitalRead(ENCODER_BTN) == 0 && !inputFinished) {
+      delay(50);
+      inputFinished = handleNameInput(JUST_PRESSED, localChar, lastMillis, firstUse);
+    }
+    while (digitalRead(ENCODER_BTN) == 0 && inputFinished) {
+       handleNameInput(LONG_PRESSED, localChar, 0, firstUse);
+    }
+    if (localChar == 127) {   // Delete
+      charIndex--;            // Is it safe to become negative here?
+      newProjectorName[charIndex] = 0;  
+    } else if (!inputFinished) {
+      newProjectorName[charIndex] = localChar;
+      charIndex++;
+      if (firstUse) myEnc.write(16052);   // switch to lower case 'a'
+      firstUse = false;
+    }
+  }
+  while (digitalRead(ENCODER_BTN) == 0) {}
+  inputFinished = false;
+  newProjectorName[charIndex] = '\0';
+}
+
+void handleShutterbladeInput() {
+  shutterBladesMenuSelection = u8g2.userInterfaceSelectionList("# Shutter Blades", MENU_ITEM_TWO, shutterblade_menu);
+  while (digitalRead(ENCODER_BTN) == 0) {}
+}
+void handleStartmarkInput() {
+  u8g2.userInterfaceInputValue("Start Mark Offset:", "", &newStartmarkOffset, 0, 255, 3, " Frames");
+}
+
+void handlePIDinput () {
+  u8g2.userInterfaceInputValue("Proportional:", "", &new_p, 0, 255, 2, "");
+  while (digitalRead(ENCODER_BTN) == 0) {}
+  u8g2.userInterfaceInputValue("Integral:", "", &new_i, 0, 255, 2, "");
+  while (digitalRead(ENCODER_BTN) == 0) {}
+  u8g2.userInterfaceInputValue("Derivative:", "", &new_d, 0, 255, 2, "");
+  while (digitalRead(ENCODER_BTN) == 0) {}
 }
 
 bool handleNameInput(byte action, char localChar, unsigned long lastMillis, bool firstUse) {
