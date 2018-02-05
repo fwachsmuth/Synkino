@@ -489,16 +489,12 @@ void loop(void) {
 }
 
 void handleNameInput(byte action, char localChar, unsigned long lastMillis, bool firstUse) {
-  //20586
   u8g2.firstPage();
   do {
-    u8g2.setFont(u8g2_font_helvR08_tr);
-    u8g2.drawStr(19, 14, "Set Projector Name");
-
     u8g2.setFont(u8g2_font_helvR10_tr);
     u8g2.setCursor(15,35);
     u8g2.print(newProjectorName);
-    
+
     if (action == GET_NAME) {
       if (lastMillis % 300 > 150) {
         if      (localChar ==  32) u8g2.print("_");
@@ -507,31 +503,34 @@ void handleNameInput(byte action, char localChar, unsigned long lastMillis, bool
           u8g2.print("a"); // https://github.com/olikraus/u8g2/wiki/fntpic/u8g2_font_m2icon_9_tf.png
           u8g2.setFont(u8g2_font_helvR10_tr);
         }
-        else u8g2.print(localChar);
+        else {
+          u8g2.print(localChar);
+        }
       }
+
+      u8g2.setFont(u8g2_font_helvR08_tr);
       if (localChar ==  32) { 
-        u8g2.setFont(u8g2_font_helvR08_tr);
         u8g2.drawStr(45, 55, "[Space]"); }
       else if (localChar == 127) { 
-        u8g2.setFont(u8g2_font_helvR08_tr);
         u8g2.drawStr(34, 55, "[Delete last]"); }
       else {
         if (firstUse) { 
-          u8g2.setFont(u8g2_font_helvR08_tr);
           u8g2.drawStr(16, 55, "[Turn and push Knob]"); }
         else { 
-          u8g2.setFont(u8g2_font_helvR08_tr);
           u8g2.drawStr(14, 55, "[Long Press to Finish]"); }
       }
     } 
+
     else if (action == JUST_PRESSED) { 
       u8g2.setFont(u8g2_font_helvR08_tr);
       u8g2.drawStr(11, 55, "[Keep pressed to Save]"); }
+    
     else if (action == LONG_PRESSED) { 
       u8g2.setFont(u8g2_font_helvR08_tr);
       u8g2.drawStr(41, 55, "[Saved!]"); 
-      u8g2.setFont(u8g2_font_helvR10_tr);
     }
+  u8g2.drawStr(19, 14, "Set Projector Name");
+  u8g2.setFont(u8g2_font_helvR10_tr);
   } while ( u8g2.nextPage() );
 }
 
