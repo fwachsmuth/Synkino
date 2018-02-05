@@ -10,7 +10,6 @@
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implemet Reset
  *  [ ] Implement Projector Menu
- *  [ ] Start Screen
  */
 
 #include <Arduino.h>
@@ -97,6 +96,9 @@
 #define WAIT_FOR_LOADING        3
 #define TRACK_LOADED            4
 #define SYNC_PLAY               5
+#define GET_NAME                1
+#define JUST_PRESSED            2
+#define LONG_PRESSED            3
 
 // ---- Define some graphics -------------------------------------------------------
 //
@@ -352,7 +354,6 @@ void loop(void) {
       while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release 
       switch (currentMenuSelection) {
         case MENU_ITEM_PROJECTOR:
-          // go to Projector
           currentMenuSelection = u8g2.userInterfaceSelectionList(NULL, currentMenuSelection, projector_menu);
           while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
           switch (currentMenuSelection) {
@@ -394,66 +395,18 @@ void loop(void) {
                       else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
                       else localChar = 127;
                       lastMillis = millis();
-                      u8g2.firstPage();
-                      do {
-                        u8g2.setFont(u8g2_font_helvR08_tr);
-                        u8g2.setCursor(19,14);
-                        u8g2.print("Set Projector Name");
-                         
-                        if      (localChar ==  32) u8g2.drawStr(45, 55, "[Space]");
-                        else if (localChar == 127) u8g2.drawStr(34, 55, "[Delete last]");
-                        // 
-                        else {
-                          if (firstUse) u8g2.drawStr(16, 55, "[Turn and push Knob]");
-                          else          u8g2.drawStr(14, 55, "[Long Press to Finish]");
-                        }
-                        
-                        u8g2.setFont(u8g2_font_helvR10_tr);
-                        u8g2.setCursor(15,35);
-                        u8g2.print(newProjectorName);
-                        if (lastMillis % 300 > 150) {
-                          if      (localChar ==  32) u8g2.print("_");
-                          else if (localChar == 127) {  // Delete
-                            u8g2.setFont(u8g2_font_m2icon_9_tf);
-                            u8g2.print("a"); // https://github.com/olikraus/u8g2/wiki/fntpic/u8g2_font_m2icon_9_tf.png
-                            u8g2.setFont(u8g2_font_helvR10_tr);
-                          }
-                          else u8g2.print(localChar);
-                        }
-                      } while ( u8g2.nextPage() );
+                      handleNameInput(GET_NAME, localChar, lastMillis, firstUse);
                     }
                     lastMillis = millis();
                     while (digitalRead(ENCODER_BTN) == 0 && inputFinished == 0) {
                       delay(50);
-                     
-                      u8g2.firstPage();
-                      do {
-                        // undraw last character here                        
-                        u8g2.setFont(u8g2_font_helvR08_tr);
-                        u8g2.setCursor(19,14);
-                        u8g2.print("Set Projector Name");
-                        u8g2.drawStr(11, 55, "[Keep pressed to Save]");
-                        u8g2.setFont(u8g2_font_helvR10_tr);
-                        u8g2.setCursor(15,35);
-                        u8g2.print(newProjectorName);
-                      } while ( u8g2.nextPage() );
-                      
+                      handleNameInput(JUST_PRESSED, localChar, lastMillis, firstUse);
                       if (millis() - lastMillis > 1500) {
                         inputFinished = 1;
                        }
                     }
                     while (digitalRead(ENCODER_BTN) == 0 && inputFinished == 1) {
-                      u8g2.firstPage();
-                      do {
-                        // undraw last character here                        
-                        u8g2.setFont(u8g2_font_helvR08_tr);
-                        u8g2.setCursor(19,14);
-                        u8g2.print("Set Projector Name");
-                        u8g2.drawStr(41, 55, "[Saved!]");
-                        u8g2.setFont(u8g2_font_helvR10_tr);
-                        u8g2.setCursor(15,35);
-                        u8g2.print(newProjectorName);
-                      } while ( u8g2.nextPage() );
+                       handleNameInput(LONG_PRESSED, localChar, 0, firstUse);
                     }
                     if (localChar == 127) {   // Delete
                       charIndex--;            // Is it safe to become negative here?
@@ -461,6 +414,7 @@ void loop(void) {
                     } else if (inputFinished == 0) {
                       newProjectorName[charIndex] = localChar;
                       charIndex++;
+                      //Serial.println(firstUse);
                       if (firstUse) myEnc.write(16052);   // switch to lower case 'a'
                       firstUse = false;
                     }
@@ -469,9 +423,7 @@ void loop(void) {
                   inputFinished = 0;
                   newProjectorName[charIndex] = '\0';
                   Serial.println(newProjectorName);
-
-                  
-                  
+                
                   break;
                 case MENU_ITEM_SHUTTER_BLADES:
                   break;
@@ -536,6 +488,52 @@ void loop(void) {
   }
 }
 
+void handleNameInput(byte action, char localChar, unsigned long lastMillis, bool firstUse) {
+  //20586
+  u8g2.firstPage();
+  do {
+    u8g2.setFont(u8g2_font_helvR08_tr);
+    u8g2.drawStr(19, 14, "Set Projector Name");
+
+    u8g2.setFont(u8g2_font_helvR10_tr);
+    u8g2.setCursor(15,35);
+    u8g2.print(newProjectorName);
+    
+    if (action == GET_NAME) {
+      if (lastMillis % 300 > 150) {
+        if      (localChar ==  32) u8g2.print("_");
+        else if (localChar == 127) {  // Delete
+          u8g2.setFont(u8g2_font_m2icon_9_tf);
+          u8g2.print("a"); // https://github.com/olikraus/u8g2/wiki/fntpic/u8g2_font_m2icon_9_tf.png
+          u8g2.setFont(u8g2_font_helvR10_tr);
+        }
+        else u8g2.print(localChar);
+      }
+      if (localChar ==  32) { 
+        u8g2.setFont(u8g2_font_helvR08_tr);
+        u8g2.drawStr(45, 55, "[Space]"); }
+      else if (localChar == 127) { 
+        u8g2.setFont(u8g2_font_helvR08_tr);
+        u8g2.drawStr(34, 55, "[Delete last]"); }
+      else {
+        if (firstUse) { 
+          u8g2.setFont(u8g2_font_helvR08_tr);
+          u8g2.drawStr(16, 55, "[Turn and push Knob]"); }
+        else { 
+          u8g2.setFont(u8g2_font_helvR08_tr);
+          u8g2.drawStr(14, 55, "[Long Press to Finish]"); }
+      }
+    } 
+    else if (action == JUST_PRESSED) { 
+      u8g2.setFont(u8g2_font_helvR08_tr);
+      u8g2.drawStr(11, 55, "[Keep pressed to Save]"); }
+    else if (action == LONG_PRESSED) { 
+      u8g2.setFont(u8g2_font_helvR08_tr);
+      u8g2.drawStr(41, 55, "[Saved!]"); 
+      u8g2.setFont(u8g2_font_helvR10_tr);
+    }
+  } while ( u8g2.nextPage() );
+}
 
 void drawWaitForPlayingMenu(int trackNo, byte fps) {
   u8g2.firstPage();
