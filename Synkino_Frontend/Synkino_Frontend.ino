@@ -6,8 +6,6 @@
  *  [ ] Make Editing a projector work
  *  [ ] Wire up projector parameters with i2c commands
  *  [ ] Make deleting a projector work
- *  [ ] Respect EEPROM boundaries
- *  [ ] Test too long projectornames
  *  [ ] Move Strings to PROGMEM
  *  [ ] Handle empty Projector List
  *      
