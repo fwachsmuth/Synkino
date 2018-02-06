@@ -2,9 +2,7 @@
 // 649
 /*
  *  This is the frontend part of Synkino
- *  [ ] Wire up the menus with each other
- *  [ ] Make loading projectors work
- *  [ ] Make chosing a projector work
+ *  [ ] Make selecting a projector work
  *  [ ] Make Editing a projector work
  *  [ ] Wire up projector parameters with i2c commands
  *  [ ] Make deleting a projector work
@@ -59,7 +57,7 @@
 #define MENU_ITEM_EXTRAS          3
 
 #define MENU_ITEM_NEW             1
-#define MENU_ITEM_CHANGE          2
+#define MENU_ITEM_SELECT          2
 #define MENU_ITEM_EDIT            3
 #define MENU_ITEM_DELETE          4
 
@@ -201,7 +199,7 @@ const char *main_menu =
 
 const char *projector_action_menu =
   "New\n"
-  "Change\n"
+  "Select\n"
   "Edit\n"
   "Delete";
 
@@ -223,7 +221,7 @@ char newProjectorName[maxProjectorNameLength + 1];
 char projectorSelection_menu[maxProjectorNameLength * maxProjectorCount + maxProjectorCount]; 
 
 uint8_t mainMenuSelection               = MENU_ITEM_SELECT_TRACK;
-uint8_t projectorActionMenuSelection    = MENU_ITEM_CHANGE;
+uint8_t projectorActionMenuSelection    = MENU_ITEM_SELECT;
 uint8_t projectorSelectionMenuSelection = 0;
 uint8_t projectorConfigMenuSelection    = MENU_ITEM_NAME;
 uint8_t shutterBladesMenuSelection      = MENU_ITEM_TWO;
@@ -382,7 +380,7 @@ void loop(void) {
       switch (mainMenuSelection) {
         case MENU_ITEM_PROJECTOR:
 
-          projectorActionMenuSelection = u8g2.userInterfaceSelectionList(NULL, MENU_ITEM_CHANGE, projector_action_menu);
+          projectorActionMenuSelection = u8g2.userInterfaceSelectionList(NULL, MENU_ITEM_SELECT, projector_action_menu);
           waitForBttnRelease();
           
           if (projectorActionMenuSelection == MENU_ITEM_NEW) { 
@@ -392,9 +390,9 @@ void loop(void) {
             handlePIDinput();
             saveNewProjector();
             
-          } else if (projectorActionMenuSelection == MENU_ITEM_CHANGE) {
+          } else if (projectorActionMenuSelection == MENU_ITEM_SELECT) {
             makeProjectorSelectionMenu();
-            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Change Projector", MENU_ITEM_NAME, projectorSelection_menu);  
+            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Select Projector", MENU_ITEM_NAME, projectorSelection_menu);  
             waitForBttnRelease();
             loadProjectorConfig(projectorSelectionMenuSelection);
             
@@ -479,13 +477,17 @@ void loop(void) {
 void loadProjectorConfig(uint8_t projNo) {
   Projector aProjector;
   EEPROM.get((projNo - 1) * sizeof(aProjector) + 1, aProjector);
-    Serial.println(aProjector.shutterBladeCount);
-    Serial.println(aProjector.startmarkOffset);
-    Serial.println(aProjector.p);
-    Serial.println(aProjector.i);
-    Serial.println(aProjector.d);
-    Serial.println(aProjector.name);
-    Serial.println(F("------"));
+  shutterBladesMenuSelection = aProjector.shutterBladeCount;
+  newStartmarkOffset = aProjector.startmarkOffset;
+  new_p = aProjector.p;
+  new_i = aProjector.i;
+  new_d = aProjector.d;
+
+  tellAudioPlayer(CMD_SET_SHUTTERBLADES, aProjector.shutterBladeCount);
+  tellAudioPlayer(CMD_SET_STARTMARK, aProjector.startmarkOffset);
+  tellAudioPlayer(CMD_SET_P, aProjector.p);   
+  tellAudioPlayer(CMD_SET_I, aProjector.i);
+  tellAudioPlayer(CMD_SET_D, aProjector.d);
 
 }
 
@@ -498,16 +500,6 @@ void makeProjectorSelectionMenu() {
   Projector aProjector;
   for (byte i = 0; i < projectorCount; i++) {
     EEPROM.get(i * sizeof(aProjector) + 1, aProjector);
-/*
-    Serial.println(i * sizeof(aProjector) + 1);
-    Serial.println(aProjector.shutterBladeCount);
-    Serial.println(aProjector.startmarkOffset);
-    Serial.println(aProjector.p);
-    Serial.println(aProjector.i);
-    Serial.println(aProjector.d);
-    Serial.println(aProjector.name);
-    Serial.println(F("------"));
-*/
     strcat(projectorSelection_menu, aProjector.name);
     if (i < (projectorCount - 1)) {           // no \n for the last menu entry
       strcat(projectorSelection_menu, "\n");
