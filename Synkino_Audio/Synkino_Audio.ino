@@ -67,7 +67,7 @@
 const int myAddress = 0x08;   // Listen on the I2C Bus
 
 uint8_t sollfps = 18;        
-uint8_t segments = 2;              // Wieviele Segmente hat die Umlaufblende?
+uint8_t shutterBlades = 2;              // Wieviele Segmente hat die Umlaufblende?
 //uint8_t startMarkOffset = 15;      // Noris
 uint8_t startMarkOffset = 53;      // Bauer t610
   
@@ -77,9 +77,9 @@ const float physicalSamplingrate = 41344;   // 44100 * 15/16 – to compensate t
 #define impDetectorPin 3
 #define startMarkDetectorPin 5
 int  pauseDetectedPeriod = (1000 / sollfps * 3);   // Duration of 3 single frames
-unsigned int impToSamplerateFactor = physicalSamplingrate / sollfps / segments / 2;
+unsigned int impToSamplerateFactor = physicalSamplingrate / sollfps / shutterBlades / 2;
 int deltaToFramesDivider = physicalSamplingrate / sollfps;
-unsigned int impToAudioSecondsDivider = sollfps * segments * 2;
+unsigned int impToAudioSecondsDivider = sollfps * shutterBlades * 2;
 
 #define numReadings   16
 long readings[numReadings];      // the readings from the analog input
@@ -210,14 +210,20 @@ void loop() {
       case CMD_RESET: 
       break;
       case CMD_SET_SHUTTERBLADES: 
+        shutterBlades = i2cParameter;
       break;
       case CMD_SET_STARTMARK: 
+        startMarkOffset = i2cParameter;
       break;
       case CMD_SET_P: 
+        Kp = i2cParameter;
       break;
       case CMD_SET_I: 
+        Ki = i2cParameter;
       break;
       case CMD_SET_D: 
+        Kd = i2cParameter;
+        myPID.SetTunings(Kp, Ki, Kd);
       break;
       case CMD_INC_FRAME: 
       break;
@@ -342,9 +348,9 @@ uint8_t loadTrackByNo(int trackNo) {
 void updateFpsDependencies(uint8_t fps) {
   sollfps = fps;                                // redundant?
   pauseDetectedPeriod = (1000 / fps * 3);
-  impToSamplerateFactor = physicalSamplingrate / fps / segments / 2;
+  impToSamplerateFactor = physicalSamplingrate / fps / shutterBlades / 2;
   deltaToFramesDivider = physicalSamplingrate / fps;
-  impToAudioSecondsDivider = sollfps * segments * 2;
+  impToAudioSecondsDivider = sollfps * shutterBlades * 2;
 }
 
 void sendCurrentFrameNo() {
@@ -440,7 +446,7 @@ void waitForStartMark() {
     previousImpDetectorState = impDetectorPinNow;
   }
   
-  if (impCountToStartMark >= segments * 2 * startMarkOffset) {
+  if (impCountToStartMark >= shutterBlades * 2 * startMarkOffset) {
     totalImpCounter = 0;
     myPID.SetMode(AUTOMATIC);
     myPID.SetOutputLimits(-77000, 77000);
