@@ -2,7 +2,7 @@
 // 649
 /*
  *  This is the frontend part of Synkino
- *  [ ] Make selecting a projector work
+ *  [ ] Remember last selected Projector and load it on start
  *  [ ] Make Editing a projector work
  *  [ ] Wire up projector parameters with i2c commands
  *  [ ] Make deleting a projector work
@@ -481,18 +481,19 @@ void loadProjectorConfig(uint8_t projNo) {
   new_i = aProjector.i;
   new_d = aProjector.d;
 
+  strcpy(newProjectorName, aProjector.name);
+
   tellAudioPlayer(CMD_SET_SHUTTERBLADES, aProjector.shutterBladeCount);
   tellAudioPlayer(CMD_SET_STARTMARK, aProjector.startmarkOffset);
   tellAudioPlayer(CMD_SET_P, aProjector.p);   
   tellAudioPlayer(CMD_SET_I, aProjector.i);
   tellAudioPlayer(CMD_SET_D, aProjector.d);
-
+  // Set Current Projector Name
 }
 
 void makeProjectorSelectionMenu() {
   projectorSelection_menu[0] = 0;   // Empty this out and be prepared for an empty list
   byte projectorCount;
-  // char aProjectorName[maxProjectorNameLength + 1];
   EEPROM.get(0, projectorCount);
 
   Projector aProjector;
@@ -656,7 +657,7 @@ void drawWaitForPlayingMenu(int trackNo, byte fps) {
   do {
     u8g2.setFont(u8g2_font_helvR08_tr);
     u8g2.setCursor(0,8);
-    u8g2.print("Bauer t610");
+    u8g2.print(newProjectorName);
     u8g2.setCursor(90,8);
     u8g2.print("Film ");
     if (trackNo < 10)  u8g2.print("0");
@@ -679,7 +680,7 @@ void drawPlayingMenu(int trackNo, byte fps) {
   do {
     u8g2.setFont(u8g2_font_helvR08_tr);
     u8g2.setCursor(0,8);
-    u8g2.print("Bauer t610");
+    u8g2.print(newProjectorName);
     u8g2.setCursor(90,8);
     u8g2.print("Film ");
     if (trackNo < 10)  u8g2.print("0");
