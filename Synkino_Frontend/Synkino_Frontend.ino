@@ -430,7 +430,21 @@ void loop(void) {
           myState = SELECT_TRACK;
           break;
         case MENU_ITEM_EXTRAS:
-          // go to Extras
+
+          u8g2.setFont(u8g2_font_helvR08_tr);
+          u8g2.setFontRefHeightAll();    /* this will add some extra space for the text inside the buttons */
+          byte choice;
+          choice = u8g2.userInterfaceMessage("Delete EEPROM", "Are you sure?", "", " Cancel \n Ok ");
+          waitForBttnRelease();
+          
+          if (choice == 2) {
+            for (int i = 0 ; i < EEPROM.length() ; i++) {
+              EEPROM.write(i, 0);
+            }
+          }
+          u8g2.setFont(u8g2_font_helvR10_tr);
+          u8g2.setFontRefHeightText();    
+          
           break;
         default:
           break;
