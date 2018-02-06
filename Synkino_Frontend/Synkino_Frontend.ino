@@ -378,7 +378,7 @@ void loop(void) {
       switch (mainMenuSelection) {
         case MENU_ITEM_PROJECTOR:
 
-          projectorActionMenuSelection = u8g2.userInterfaceSelectionList(NULL, MENU_ITEM_SELECT, projector_action_menu);
+          projectorActionMenuSelection = u8g2.userInterfaceSelectionList("Projector", MENU_ITEM_SELECT, projector_action_menu);
           waitForBttnRelease();
           
           if (projectorActionMenuSelection == MENU_ITEM_NEW) { 
