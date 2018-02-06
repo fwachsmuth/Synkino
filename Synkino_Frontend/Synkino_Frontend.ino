@@ -11,6 +11,7 @@
  *  [ ] Respect EEPROM boundaries
  *  [ ] Test too long projectornames
  *  [ ] Move Strings to PROGMEM
+ *  [ ] Handle empty Projector List
  *      
  *  [ ] Add tick sounds to Menu :)
  *  [ ] Implement Extras Menu 
@@ -393,15 +394,17 @@ void loop(void) {
             
           } else if (projectorActionMenuSelection == MENU_ITEM_CHANGE) {
             makeProjectorSelectionMenu();
-            projectorConfigMenuSelection = u8g2.userInterfaceSelectionList("Change Projector", MENU_ITEM_NAME, projectorSelection_menu);  
+            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Change Projector", MENU_ITEM_NAME, projectorSelection_menu);  
             waitForBttnRelease();
+            loadProjectorConfig(projectorSelectionMenuSelection);
+            
           } else if (projectorActionMenuSelection == MENU_ITEM_EDIT) {
             makeProjectorSelectionMenu();
-            projectorConfigMenuSelection = u8g2.userInterfaceSelectionList("Edit Projector", MENU_ITEM_NAME, projectorSelection_menu);
+            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Edit Projector", MENU_ITEM_NAME, projectorSelection_menu);
             waitForBttnRelease();
           } else if (projectorActionMenuSelection == MENU_ITEM_DELETE) {
             makeProjectorSelectionMenu();
-            projectorConfigMenuSelection = u8g2.userInterfaceSelectionList("Delete Projector", MENU_ITEM_NAME, projectorSelection_menu);
+            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Delete Projector", MENU_ITEM_NAME, projectorSelection_menu);
             waitForBttnRelease();
           }
               
@@ -457,6 +460,19 @@ void loop(void) {
     default:
       break;
   }
+}
+
+void loadProjectorConfig(uint8_t projNo) {
+  Projector aProjector;
+  EEPROM.get((projNo - 1) * sizeof(aProjector) + 1, aProjector);
+    Serial.println(aProjector.shutterBladeCount);
+    Serial.println(aProjector.startmarkOffset);
+    Serial.println(aProjector.p);
+    Serial.println(aProjector.i);
+    Serial.println(aProjector.d);
+    Serial.println(aProjector.name);
+    Serial.println(F("------"));
+
 }
 
 void makeProjectorSelectionMenu() {
@@ -518,7 +534,7 @@ void handleProjectorNameInput() {
   for (byte i = 0; i < maxProjectorNameLength; i++) {
     newProjectorName[i] = 0;
   }
-  while (charIndex <= maxProjectorNameLength && !inputFinished) {
+  while (charIndex < maxProjectorNameLength && !inputFinished) {
     while (digitalRead(ENCODER_BTN) == 1) {
       newEncPosition = (myEnc.read() >> 1) % 64;
       /*
