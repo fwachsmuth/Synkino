@@ -194,7 +194,6 @@ void loop() {
       break;
       case 6: Serial.print(F("CMD_SET_D: "));
               Serial.println(i2cParameter);
-              Serial.println(i2cParameter);
       break;
       case 7: Serial.println(F("CMD_INC_FRAME"));
       break;
