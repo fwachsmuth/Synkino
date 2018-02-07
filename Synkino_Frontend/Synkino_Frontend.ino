@@ -1,9 +1,10 @@
-// 22414
+// 22470
 // 649
 
 /*
  *  This is the frontend part of Synkino
  *  [ ] Preload old values when editing a projector
+ *  [ ] strncopy?
  *  [ ] Make deleting a projector work
  *  [ ] Move Strings to PROGMEM
  *  [ ] Handle empty Projector List
@@ -564,15 +565,17 @@ void handleProjectorNameInput() {
   unsigned long lastMillis;  
   bool firstUse = true;                        
 
-  if (projectorActionMenuSelection != MENU_ITEM_EDIT) {
+  if (projectorActionMenuSelection == MENU_ITEM_EDIT) {
+    charIndex = strlen(newProjectorName);
+    Serial.println(charIndex);
+    firstUse = false;
+    myEnc.write(16126);           // to start with "Delete" 
+  } else {
     for (byte i = 0; i < maxProjectorNameLength; i++) {
       newProjectorName[i] = 0;
     }
     myEnc.write(16000);           // to start with "A" 
-  } else {
-    myEnc.write(16126);           // to start with "Delete" 
   }
-
   
   while (charIndex < maxProjectorNameLength && !inputFinished) {
     while (digitalRead(ENCODER_BTN) == 1) {
@@ -593,15 +596,15 @@ void handleProjectorNameInput() {
       else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
       else localChar = 127;
       lastMillis = millis();
-      handleNameInput(GET_NAME, localChar, lastMillis, firstUse);
+      handleStringInput(GET_NAME, localChar, lastMillis, firstUse);
     }
     lastMillis = millis();
     while (digitalRead(ENCODER_BTN) == 0 && !inputFinished) {
       delay(50);
-      inputFinished = handleNameInput(JUST_PRESSED, localChar, lastMillis, firstUse);
+      inputFinished = handleStringInput(JUST_PRESSED, localChar, lastMillis, firstUse);
     }
     while (digitalRead(ENCODER_BTN) == 0 && inputFinished) {
-       handleNameInput(LONG_PRESSED, localChar, 0, firstUse);
+       handleStringInput(LONG_PRESSED, localChar, 0, firstUse);
     }
     if (localChar == 127) {   // Delete
       charIndex--;            // Is it safe to become negative here?
@@ -614,7 +617,7 @@ void handleProjectorNameInput() {
     }
   }
   while (digitalRead(ENCODER_BTN) == 0) {}
-//  inputFinished = false;
+  //inputFinished = false;
   newProjectorName[charIndex] = '\0';
 }
 
@@ -637,7 +640,7 @@ void handlePIDinput () {
   waitForBttnRelease();
 }
 
-bool handleNameInput(byte action, char localChar, unsigned long lastMillis, bool firstUse) {
+bool handleStringInput(byte action, char localChar, unsigned long lastMillis, bool firstUse) {
   u8g2.firstPage();
   do {
     u8g2.setFont(u8g2_font_helvR10_tr);
