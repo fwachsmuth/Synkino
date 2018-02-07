@@ -1,10 +1,8 @@
-// 21966
-// 650
+// 22198
+// 649
 /*
  *  This is the frontend part of Synkino
- *  [ ] Remember last selected Projector and load it on start
  *  [ ] Make Editing a projector work
- *  [ ] Wire up projector parameters with i2c commands
  *  [ ] Make deleting a projector work
  *  [ ] Move Strings to PROGMEM
  *  [ ] Handle empty Projector List
@@ -301,7 +299,6 @@ void setup(void) {
   myState = MAIN_MENU;
 
   EEPROM.get(1, lastProjectorUsed);
-  Serial.println(lastProjectorUsed);
   loadProjectorConfig(lastProjectorUsed);
 }
 
