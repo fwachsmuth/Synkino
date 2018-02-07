@@ -211,6 +211,7 @@ void loop() {
       break;
       case CMD_SET_SHUTTERBLADES: 
         shutterBlades = i2cParameter;
+        updateFpsDependencies(sollfps);
       break;
       case CMD_SET_STARTMARK: 
         startMarkOffset = i2cParameter;
@@ -350,7 +351,7 @@ void updateFpsDependencies(uint8_t fps) {
   pauseDetectedPeriod = (1000 / fps * 3);
   impToSamplerateFactor = physicalSamplingrate / fps / shutterBlades / 2;
   deltaToFramesDivider = physicalSamplingrate / fps;
-  impToAudioSecondsDivider = sollfps * shutterBlades * 2;
+  impToAudioSecondsDivider = sollfps * shutterBlades * 2;  
 }
 
 void sendCurrentFrameNo() {
