@@ -1,10 +1,9 @@
-// 22470
+// 22448
 // 649
 
 /*
  *  This is the frontend part of Synkino
- *  [ ] Preload old values when editing a projector
- *  [ ] strncopy?
+ *  [ ] Edit some Cancel Items
  *  [ ] Make deleting a projector work
  *  [ ] Move Strings to PROGMEM
  *  [ ] Handle empty Projector List
@@ -499,7 +498,7 @@ void saveProjector(byte thisProjector) {
   aProjector.p = new_p;
   aProjector.i = new_i;
   aProjector.d = new_d;
-  strncpy(aProjector.name, newProjectorName, maxProjectorNameLength + 1);     //strcopy?
+  strcpy(aProjector.name, newProjectorName);
 
   if (thisProjector == NEW) {             // We have a NEW projector here
     EEPROM.put(0, projectorCount + 1);
