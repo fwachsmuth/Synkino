@@ -4,8 +4,11 @@
 /*
  *  This is the frontend part of Synkino
  *  [ ] Make deleting a projector work:
- *  [ ] Do not delete the +1 projector
- *  [ ] Find out why INdex of first proj goes to 0
+ *  [ ] Delete the last copied projector (not neccessary if all works fine)
+ *  [ ] Allow deletion of the last projector (not neccessary if all works fine)
+ *  [ ] Make 12-char projectors editable
+ *  [ ] Find out why INdex of first proj goes to 0 (after select?)
+ *  [ ] Verify wat gets sent to AUDIO
  *  
  *  [ ] Edit some Cancel Items
  *  [ ] Handle empty Projector List
