@@ -400,17 +400,18 @@ void loop(void) {
             
           } else if (projectorActionMenuSelection == MENU_ITEM_SELECT) {
             makeProjectorSelectionMenu();
-            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Select Projector", MENU_ITEM_NAME, projectorSelection_menu);  
+            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Select Projector", lastProjectorUsed, projectorSelection_menu);  
             waitForBttnRelease();
             loadProjectorConfig(projectorSelectionMenuSelection);
             
           } else if (projectorActionMenuSelection == MENU_ITEM_EDIT) {
             makeProjectorSelectionMenu();
-            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Edit Projector", MENU_ITEM_NAME, projectorSelection_menu);
+            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Edit Projector", lastProjectorUsed, projectorSelection_menu);
             waitForBttnRelease();
+            
           } else if (projectorActionMenuSelection == MENU_ITEM_DELETE) {
             makeProjectorSelectionMenu();
-            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Delete Projector", MENU_ITEM_NAME, projectorSelection_menu);
+            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Delete Projector", lastProjectorUsed, projectorSelection_menu);
             waitForBttnRelease();
           }
               
