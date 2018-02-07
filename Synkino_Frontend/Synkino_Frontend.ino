@@ -3,7 +3,10 @@
 
 /*
  *  This is the frontend part of Synkino
- *  [ ] Make deleting a projector work
+ *  [ ] Make deleting a projector work:
+ *  [ ] Do not delete the +1 projector
+ *  [ ] Find out why INdex of first proj goes to 0
+ *  
  *  [ ] Edit some Cancel Items
  *  [ ] Handle empty Projector List
  *  [ ] Limit to 8 Projectors
@@ -418,6 +421,8 @@ void loop(void) {
             byte currentProjectorCount = makeProjectorSelectionMenu();
             projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Delete Projector", currentProjectorCount, projectorSelection_menu);
             waitForBttnRelease();
+            Serial.print("DelMenu-Ausw: ");
+            Serial.println(projectorSelectionMenuSelection);
             deleteProjector(projectorSelectionMenuSelection);
           }
               
@@ -494,7 +499,7 @@ void deleteProjector(byte thisProjector) {
   EEPROM.get(0, projectorCount);
   Projector aProjector;
   if (thisProjector == projectorCount) {
-    Serial.print("Zeroing out #");
+    Serial.print("Zeroing out (in theory): #");
     Serial.println(thisProjector);
   } else {
     for (byte i = thisProjector; i < projectorCount; i++) {
@@ -502,11 +507,11 @@ void deleteProjector(byte thisProjector) {
       Serial.print(i + 1);
       Serial.print(" to #");
       Serial.println(i);
-      // EEPROM.get((i + 1) * sizeof(aProjector) + 2, aProjector);
-      // EEPROM.put(i * sizeof(aProjector) + 2, aProjector);
+      EEPROM.get(i * sizeof(aProjector) + 2, aProjector);
+      EEPROM.put((i - 1) * sizeof(aProjector) + 2, aProjector);
     }
   }
-  // EEPROM.put(0, projectorCount - 1);
+  EEPROM.put(0, projectorCount - 1);
 
   Serial.println(lastProjectorUsed);
   if (thisProjector == lastProjectorUsed) {
