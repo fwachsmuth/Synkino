@@ -530,14 +530,13 @@ void saveProjector(byte thisProjector) {
   if (thisProjector == NEW) {             // We have a NEW projector here
     aProjector.index = projectorCount + 1;
     EEPROM.put(0, projectorCount + 1);
+    EEPROM.put(1, projectorCount + 1);
     EEPROM.put((projectorCount * sizeof(aProjector) + 2), aProjector);
   } else {
     aProjector.index = thisProjector;
+    EEPROM.put(1, thisProjector);
     EEPROM.put(((thisProjector - 1) * sizeof(aProjector) + 2), aProjector);
   }
-  EEPROM.put(1, thisProjector);
-  Serial.print("Active after Saving: ");
-  Serial.println(thisProjector);
 }
 
 void gatherProjectorData() {
@@ -565,8 +564,6 @@ void loadProjectorConfig(uint8_t projNo) {
   tellAudioPlayer(CMD_SET_D, aProjector.d);
 
   EEPROM.put(1, aProjector.index);
-  Serial.print("Active after Loading: ");
-  Serial.println(aProjector.index);
 }
 
 byte makeProjectorSelectionMenu() {
