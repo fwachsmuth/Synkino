@@ -1,9 +1,7 @@
-// 21170
-// 649
+// 21966
+// 650
 /*
  *  This is the frontend part of Synkino
- *  [ ] Make sure new ProjParams are all et in AUDIO
- *  
  *  [ ] Remember last selected Projector and load it on start
  *  [ ] Make Editing a projector work
  *  [ ] Wire up projector parameters with i2c commands
@@ -253,6 +251,13 @@ byte new_i = 3;
 byte new_d = 1;
 byte newStartmarkOffset = 0;
 
+uint8_t lastProjectorUsed;
+
+/* Belowis the EEPROM struct to save Projector Configs.
+ *  Before the structs start, there are two header bytes:
+ *  EEPROM.get(0, projectorCount);
+ *  EEPROM.get(1, lastProjectorUsed);
+ */
 struct Projector {          // 19 Bytes per Projector
   byte  index;
   byte  shutterBladeCount;
@@ -477,7 +482,7 @@ void loop(void) {
 
 void loadProjectorConfig(uint8_t projNo) {
   Projector aProjector;
-  EEPROM.get((projNo - 1) * sizeof(aProjector) + 1, aProjector);
+  EEPROM.get((projNo - 1) * sizeof(aProjector) + 2, aProjector);
   shutterBladesMenuSelection = aProjector.shutterBladeCount;
   newStartmarkOffset = aProjector.startmarkOffset;
   new_p = aProjector.p;
@@ -498,10 +503,11 @@ void makeProjectorSelectionMenu() {
   projectorSelection_menu[0] = 0;   // Empty this out and be prepared for an empty list
   byte projectorCount;
   EEPROM.get(0, projectorCount);
-
+  EEPROM.get(1, lastProjectorUsed);
+  
   Projector aProjector;
   for (byte i = 0; i < projectorCount; i++) {
-    EEPROM.get(i * sizeof(aProjector) + 1, aProjector);
+    EEPROM.get(i * sizeof(aProjector) + 2, aProjector);
     strcat(projectorSelection_menu, aProjector.name);
     if (i < (projectorCount - 1)) {           // no \n for the last menu entry
       strcat(projectorSelection_menu, "\n");
@@ -512,6 +518,7 @@ void makeProjectorSelectionMenu() {
 void saveNewProjector() {
   byte projectorCount;
   EEPROM.get(0, projectorCount);
+  // EEPROM.get(1) contains lastProjectorUsed
 
   Projector aProjector;
   
@@ -524,7 +531,7 @@ void saveNewProjector() {
   strncpy(aProjector.name, newProjectorName, maxProjectorNameLength + 1);
 
   EEPROM.put(0, projectorCount + 1);
-  EEPROM.put((projectorCount * sizeof(aProjector) + 1), aProjector);
+  EEPROM.put((projectorCount * sizeof(aProjector) + 2), aProjector);
 }
 
 void waitForBttnRelease() {
