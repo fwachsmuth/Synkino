@@ -2,6 +2,8 @@
 // 649
 /*
  *  This is the frontend part of Synkino
+ *  [ ] Make sure new ProjParams are all et in AUDIO
+ *  
  *  [ ] Remember last selected Projector and load it on start
  *  [ ] Make Editing a projector work
  *  [ ] Wire up projector parameters with i2c commands
@@ -10,6 +12,7 @@
  *  [ ] Handle empty Projector List
  *      
  *  [ ] Add tick sounds to Menu :)
+ *  [ ] Add Proportional On Measurement Option
  *  [ ] Implement Extras Menu 
  *  [ ] 404 Handlen
  *  [ ] Handle 000
