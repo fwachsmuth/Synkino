@@ -3,10 +3,11 @@
 
 /*
  *  This is the frontend part of Synkino
- *  [ ] Edit some Cancel Items
  *  [ ] Make deleting a projector work
- *  [ ] Move Strings to PROGMEM
+ *  [ ] Edit some Cancel Items
  *  [ ] Handle empty Projector List
+ *  [ ] Limit to 8 Projectors
+ *  [ ] Move Strings to PROGMEM
  *  [ ] Langsame numerische AUswahl?    
  *      
  *  [ ] Add tick sounds to Menu :)
