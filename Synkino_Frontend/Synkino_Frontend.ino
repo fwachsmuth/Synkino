@@ -108,6 +108,8 @@
 #define JUST_PRESSED            2
 #define LONG_PRESSED            3
 
+#define NEW                     0
+
 // ---- Define some graphics -------------------------------------------------------
 //
 #define busybee_xbm_width  15
@@ -394,7 +396,7 @@ void loop(void) {
           
           if (projectorActionMenuSelection == MENU_ITEM_NEW) { 
             gatherProjectorData();
-            saveProjector(0);
+            saveProjector(NEW);
             
           } else if (projectorActionMenuSelection == MENU_ITEM_SELECT) {
             makeProjectorSelectionMenu();
@@ -498,7 +500,7 @@ void saveProjector(byte thisProjector) {
   aProjector.d = new_d;
   strncpy(aProjector.name, newProjectorName, maxProjectorNameLength + 1);     //strcopy?
 
-  if (thisProjector == 0) {             // We have a NEW projector here
+  if (thisProjector == NEW) {             // We have a NEW projector here
     EEPROM.put(0, projectorCount + 1);
     EEPROM.put((projectorCount * sizeof(aProjector) + 2), aProjector);
   } else {
@@ -562,10 +564,16 @@ void handleProjectorNameInput() {
   unsigned long lastMillis;  
   bool firstUse = true;                        
 
-  myEnc.write(16000);             // to start with "A" (16072 would be 'b')
-  for (byte i = 0; i < maxProjectorNameLength; i++) {
-    newProjectorName[i] = 0;
+  if (projectorActionMenuSelection != MENU_ITEM_EDIT) {
+    for (byte i = 0; i < maxProjectorNameLength; i++) {
+      newProjectorName[i] = 0;
+    }
+    myEnc.write(16000);           // to start with "A" 
+  } else {
+    myEnc.write(16126);           // to start with "Delete" 
   }
+
+  
   while (charIndex < maxProjectorNameLength && !inputFinished) {
     while (digitalRead(ENCODER_BTN) == 1) {
       newEncPosition = (myEnc.read() >> 1) % 64;
