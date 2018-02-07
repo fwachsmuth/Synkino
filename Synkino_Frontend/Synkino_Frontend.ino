@@ -520,7 +520,6 @@ void saveProjector(byte thisProjector) {
   EEPROM.get(0, projectorCount);
   
   Projector aProjector;
-  aProjector.index = projectorCount + 1;
   aProjector.shutterBladeCount = shutterBladesMenuSelection;
   aProjector.startmarkOffset = newStartmarkOffset;
   aProjector.p = new_p;
@@ -529,9 +528,11 @@ void saveProjector(byte thisProjector) {
   strcpy(aProjector.name, newProjectorName);
 
   if (thisProjector == NEW) {             // We have a NEW projector here
+    aProjector.index = projectorCount + 1;
     EEPROM.put(0, projectorCount + 1);
     EEPROM.put((projectorCount * sizeof(aProjector) + 2), aProjector);
   } else {
+    aProjector.index = thisProjector;
     EEPROM.put(((thisProjector - 1) * sizeof(aProjector) + 2), aProjector);
   }
   EEPROM.put(1, thisProjector);
