@@ -1,5 +1,5 @@
-// 22448
-// 649
+// 22688
+// 587
 
 /*
  *  This is the frontend part of Synkino
@@ -8,7 +8,8 @@
  *  [ ] Handle empty Projector List
  *  [ ] Limit to 8 Projectors
  *  [ ] Move Strings to PROGMEM
- *  [ ] Langsame numerische AUswahl?    
+ *  [ ] Langsame numerische Auswahl?    
+ *  [ ] waitForBttnRelease in die Menu-Function?
  *      
  *  [ ] Add tick sounds to Menu :)
  *  [ ] Add Proportional On Measurement Option
@@ -254,7 +255,7 @@ byte new_i = 3;
 byte new_d = 1;
 byte newStartmarkOffset = 0;
 
-uint8_t lastProjectorUsed;
+uint8_t lastProjectorUsed = 1;
 
 /* Belowis the EEPROM struct to save Projector Configs.
  *  Before the structs start, there are two header bytes:
@@ -413,11 +414,11 @@ void loop(void) {
             gatherProjectorData();
             saveProjector(projectorSelectionMenuSelection);
             
-            
           } else if (projectorActionMenuSelection == MENU_ITEM_DELETE) {
-            makeProjectorSelectionMenu();
-            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Delete Projector", lastProjectorUsed, projectorSelection_menu);
+            byte currentProjectorCount = makeProjectorSelectionMenu();
+            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Delete Projector", currentProjectorCount, projectorSelection_menu);
             waitForBttnRelease();
+            deleteProjector(projectorSelectionMenuSelection);
           }
               
 /*          switch (projectorConfigMenuSelection) {
@@ -488,6 +489,32 @@ void loop(void) {
   }
 }
 
+void deleteProjector(byte thisProjector) {
+  byte projectorCount;
+  EEPROM.get(0, projectorCount);
+  Projector aProjector;
+  if (thisProjector == projectorCount) {
+    Serial.print("Zeroing out #");
+    Serial.println(thisProjector);
+  } else {
+    for (byte i = thisProjector; i < projectorCount; i++) {
+      Serial.print("Moving #");
+      Serial.print(i + 1);
+      Serial.print(" to #");
+      Serial.println(i);
+      // EEPROM.get((i + 1) * sizeof(aProjector) + 2, aProjector);
+      // EEPROM.put(i * sizeof(aProjector) + 2, aProjector);
+    }
+  }
+  // EEPROM.put(0, projectorCount - 1);
+
+  Serial.println(lastProjectorUsed);
+  if (thisProjector == lastProjectorUsed) {
+    loadProjectorConfig(1);   // config 1
+    Serial.println("Switching active Projector to #1.");
+  }
+}
+
 void saveProjector(byte thisProjector) {
   byte projectorCount;
   EEPROM.get(0, projectorCount);
@@ -508,6 +535,8 @@ void saveProjector(byte thisProjector) {
     EEPROM.put(((thisProjector - 1) * sizeof(aProjector) + 2), aProjector);
   }
   EEPROM.put(1, thisProjector);
+  Serial.print("Active after Saving: ");
+  Serial.println(thisProjector);
 }
 
 void gatherProjectorData() {
@@ -535,10 +564,11 @@ void loadProjectorConfig(uint8_t projNo) {
   tellAudioPlayer(CMD_SET_D, aProjector.d);
 
   EEPROM.put(1, aProjector.index);
-  // Set Current Projector Name
+  Serial.print("Active after Loading: ");
+  Serial.println(aProjector.index);
 }
 
-void makeProjectorSelectionMenu() {
+byte makeProjectorSelectionMenu() {
   projectorSelection_menu[0] = 0;   // Empty this out and be prepared for an empty list
   byte projectorCount;
   EEPROM.get(0, projectorCount);
@@ -552,6 +582,7 @@ void makeProjectorSelectionMenu() {
       strcat(projectorSelection_menu, "\n");
     }
   }
+  return projectorCount;
 }
 
 void waitForBttnRelease() {
