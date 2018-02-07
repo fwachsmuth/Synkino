@@ -3,7 +3,7 @@
 
 /*
  *  This is the frontend part of Synkino
- *  [ ] Make Editing a projector work
+ *  [ ] Preload old values when editing a projector
  *  [ ] Make deleting a projector work
  *  [ ] Move Strings to PROGMEM
  *  [ ] Handle empty Projector List
@@ -407,7 +407,6 @@ void loop(void) {
             projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Edit Projector", lastProjectorUsed, projectorSelection_menu);
             waitForBttnRelease();
             loadProjectorConfig(projectorSelectionMenuSelection);
-            
             gatherProjectorData();
             saveProjector(projectorSelectionMenuSelection);
             
@@ -507,7 +506,6 @@ void saveProjector(byte thisProjector) {
   }
   EEPROM.put(1, thisProjector);
 }
-
 
 void gatherProjectorData() {
   handleProjectorNameInput();
@@ -613,7 +611,7 @@ void handleProjectorNameInput() {
 }
 
 void handleShutterbladeInput() {
-  shutterBladesMenuSelection = u8g2.userInterfaceSelectionList("# Shutter Blades", MENU_ITEM_TWO, shutterblade_menu);
+  shutterBladesMenuSelection = u8g2.userInterfaceSelectionList("# Shutter Blades", shutterBladesMenuSelection, shutterblade_menu);
   waitForBttnRelease();
 }
 
