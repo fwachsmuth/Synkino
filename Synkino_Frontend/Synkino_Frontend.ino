@@ -1,5 +1,6 @@
-// 22198
+// 22414
 // 649
+
 /*
  *  This is the frontend part of Synkino
  *  [ ] Make Editing a projector work
@@ -392,11 +393,8 @@ void loop(void) {
           waitForBttnRelease();
           
           if (projectorActionMenuSelection == MENU_ITEM_NEW) { 
-            handleProjectorNameInput();
-            handleShutterbladeInput();
-            handleStartmarkInput();
-            handlePIDinput();
-            saveNewProjector();
+            gatherProjectorData();
+            saveProjector(0);
             
           } else if (projectorActionMenuSelection == MENU_ITEM_SELECT) {
             makeProjectorSelectionMenu();
@@ -408,6 +406,11 @@ void loop(void) {
             makeProjectorSelectionMenu();
             projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Edit Projector", lastProjectorUsed, projectorSelection_menu);
             waitForBttnRelease();
+            loadProjectorConfig(projectorSelectionMenuSelection);
+            
+            gatherProjectorData();
+            saveProjector(projectorSelectionMenuSelection);
+            
             
           } else if (projectorActionMenuSelection == MENU_ITEM_DELETE) {
             makeProjectorSelectionMenu();
@@ -483,6 +486,36 @@ void loop(void) {
   }
 }
 
+void saveProjector(byte thisProjector) {
+  byte projectorCount;
+  EEPROM.get(0, projectorCount);
+  
+  Projector aProjector;
+  aProjector.index = projectorCount + 1;
+  aProjector.shutterBladeCount = shutterBladesMenuSelection;
+  aProjector.startmarkOffset = newStartmarkOffset;
+  aProjector.p = new_p;
+  aProjector.i = new_i;
+  aProjector.d = new_d;
+  strncpy(aProjector.name, newProjectorName, maxProjectorNameLength + 1);     //strcopy?
+
+  if (thisProjector == 0) {             // We have a NEW projector here
+    EEPROM.put(0, projectorCount + 1);
+    EEPROM.put((projectorCount * sizeof(aProjector) + 2), aProjector);
+  } else {
+    EEPROM.put(((thisProjector - 1) * sizeof(aProjector) + 2), aProjector);
+  }
+  EEPROM.put(1, thisProjector);
+}
+
+
+void gatherProjectorData() {
+  handleProjectorNameInput();
+  handleShutterbladeInput();
+  handleStartmarkInput();
+  handlePIDinput();
+}
+
 void loadProjectorConfig(uint8_t projNo) {
   Projector aProjector;
   EEPROM.get((projNo - 1) * sizeof(aProjector) + 2, aProjector);
@@ -518,25 +551,6 @@ void makeProjectorSelectionMenu() {
       strcat(projectorSelection_menu, "\n");
     }
   }
-}
-
-void saveNewProjector() {
-  byte projectorCount;
-  EEPROM.get(0, projectorCount);
-
-  Projector aProjector;
-  
-  aProjector.index = projectorCount + 1;
-  aProjector.shutterBladeCount = shutterBladesMenuSelection;
-  aProjector.startmarkOffset = newStartmarkOffset;
-  aProjector.p = new_p;
-  aProjector.i = new_i;
-  aProjector.d = new_d;
-  strncpy(aProjector.name, newProjectorName, maxProjectorNameLength + 1);
-
-  EEPROM.put(0, projectorCount + 1);
-  EEPROM.put(1, projectorCount + 1);
-  EEPROM.put((projectorCount * sizeof(aProjector) + 2), aProjector);
 }
 
 void waitForBttnRelease() {
