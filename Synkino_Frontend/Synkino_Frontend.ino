@@ -8,6 +8,7 @@
  *  [ ] Make deleting a projector work
  *  [ ] Move Strings to PROGMEM
  *  [ ] Handle empty Projector List
+ *  [ ] Langsame numerische AUswahl?    
  *      
  *  [ ] Add tick sounds to Menu :)
  *  [ ] Add Proportional On Measurement Option
@@ -298,6 +299,10 @@ void setup(void) {
   delay(1000);
 
   myState = MAIN_MENU;
+
+  EEPROM.get(1, lastProjectorUsed);
+  Serial.println(lastProjectorUsed);
+  loadProjectorConfig(lastProjectorUsed);
 }
 
 
@@ -496,6 +501,8 @@ void loadProjectorConfig(uint8_t projNo) {
   tellAudioPlayer(CMD_SET_P, aProjector.p);   
   tellAudioPlayer(CMD_SET_I, aProjector.i);
   tellAudioPlayer(CMD_SET_D, aProjector.d);
+
+  EEPROM.put(1, aProjector.index);
   // Set Current Projector Name
 }
 
@@ -518,7 +525,6 @@ void makeProjectorSelectionMenu() {
 void saveNewProjector() {
   byte projectorCount;
   EEPROM.get(0, projectorCount);
-  // EEPROM.get(1) contains lastProjectorUsed
 
   Projector aProjector;
   
@@ -531,6 +537,7 @@ void saveNewProjector() {
   strncpy(aProjector.name, newProjectorName, maxProjectorNameLength + 1);
 
   EEPROM.put(0, projectorCount + 1);
+  EEPROM.put(1, projectorCount + 1);
   EEPROM.put((projectorCount * sizeof(aProjector) + 2), aProjector);
 }
 
