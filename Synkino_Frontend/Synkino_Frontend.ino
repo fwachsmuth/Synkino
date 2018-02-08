@@ -7,7 +7,8 @@
  *  [ ] Delete the last copied projector (not neccessary if all works fine)
  *  [ ] Allow deletion of the last projector (not neccessary if all works fine)
  *  [ ] Make 12-char projectors editable
- *  [ ] Find out why INdex of first proj goes to 0 (after select?)
+ *  [ ] Find out why Index of first proj goes to 0 (after select?)
+ *  [ ] Find out why active proj sometimes goes to 0 
  *  [ ] Verify wat gets sent to AUDIO
  *  
  *  [ ] Edit some Cancel Items
@@ -224,6 +225,10 @@ const char *shutterblade_menu =
   "3\n"
   "4";
 
+const char *extras_menu =
+  "Del\n"
+  "Dump";
+
 const byte maxProjectorNameLength = 12;
 const byte maxProjectorCount = 8;
 char newProjectorName[maxProjectorNameLength + 1];
@@ -234,6 +239,7 @@ uint8_t projectorActionMenuSelection    = MENU_ITEM_SELECT;
 uint8_t projectorSelectionMenuSelection = 0;
 uint8_t projectorConfigMenuSelection    = MENU_ITEM_NAME;
 uint8_t shutterBladesMenuSelection      = MENU_ITEM_TWO;
+uint8_t extrasMenuSelection             = 2;
 
 
 volatile bool haveI2Cdata = false;
@@ -451,20 +457,31 @@ void loop(void) {
           myState = SELECT_TRACK;
           break;
         case MENU_ITEM_EXTRAS:
-
-          u8g2.setFont(u8g2_font_helvR08_tr);
-          u8g2.setFontRefHeightAll();    /* this will add some extra space for the text inside the buttons */
-          byte choice;
-          choice = u8g2.userInterfaceMessage("Delete EEPROM", "Are you sure?", "", " Cancel \n Ok ");
+          extrasMenuSelection = u8g2.userInterfaceSelectionList(NULL, MENU_ITEM_SELECT_TRACK, extras_menu);
           waitForBttnRelease();
-          
-          if (choice == 2) {
-            for (int i = 0 ; i < EEPROM.length() ; i++) {
-              EEPROM.write(i, 0);
-            }
+          switch (extrasMenuSelection) {
+            case 1:
+              u8g2.setFont(u8g2_font_helvR08_tr);
+              u8g2.setFontRefHeightAll();    /* this will add some extra space for the text inside the buttons */
+              byte choice;
+              choice = u8g2.userInterfaceMessage("Delete EEPROM", "Are you sure?", "", " Cancel \n Ok ");
+              waitForBttnRelease();
+              
+              if (choice == 2) {
+                for (int i = 0 ; i < EEPROM.length() ; i++) {
+                  EEPROM.write(i, 0);
+                }
+              }
+              u8g2.setFont(u8g2_font_helvR10_tr);
+              u8g2.setFontRefHeightText();    
+            break;
+            case 2:
+              e2reader();
+            break;
+            default:
+            break;
           }
-          u8g2.setFont(u8g2_font_helvR10_tr);
-          u8g2.setFontRefHeightText();    
+          
           
           break;
         default:
@@ -882,3 +899,66 @@ void i2cRequest() {
 }
 
 
+void e2reader(){
+  char buffer[16];
+  char valuePrint[4];
+  byte value;
+  unsigned int address;
+  uint8_t trailingSpace = 2;     
+  
+  for(address = 0; address <= 127; address++){
+    // read a byte from the current address of the EEPROM
+    value = EEPROM.read(address);
+ 
+    // add space between two sets of 8 bytes
+    if(address % 8 == 0)
+      Serial.print(F("  "));
+ 
+    // newline and address for every 16 bytes
+    if(address % 16 == 0){
+      //print the buffer
+      if(address > 0 && address % 16 == 0)
+        printASCII(buffer);
+ 
+      sprintf(buffer, "\n 0x%05X: ", address);
+      Serial.print(buffer);
+ 
+      //clear the buffer for the next data block
+      memset (buffer, 32, 16);
+    }
+ 
+    // save the value in temporary storage
+    buffer[address%16] = value;
+ 
+    // print the formatted value
+    sprintf(valuePrint, " %02X", value);
+    Serial.print(valuePrint);
+  }
+ 
+  if(address % 16 > 0){
+    if(address % 16 < 9)
+      trailingSpace += 2;
+ 
+    trailingSpace += (16 - address % 16) * 3;
+  }
+ 
+  for(int i = trailingSpace; i > 0; i--)
+    Serial.print(F(" "));
+ 
+  //last line of data and a new line
+  printASCII(buffer);
+  Serial.println();
+}
+ 
+void printASCII(char * buffer){
+  for(int i = 0; i < 16; i++){
+    if(i == 8)
+      Serial.print(" ");
+ 
+    if(buffer[i] > 31 and buffer[i] < 127){
+      Serial.print(buffer[i]);
+    }else{
+      Serial.print(F("."));
+    }
+  }
+}
