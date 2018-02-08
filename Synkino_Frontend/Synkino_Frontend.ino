@@ -1,5 +1,5 @@
-// 22688
-// 587
+// 24458
+// 580
 
 /*
  *  This is the frontend part of Synkino
@@ -480,8 +480,6 @@ void loop(void) {
             default:
             break;
           }
-          
-          
           break;
         default:
           break;
@@ -528,12 +526,12 @@ void deleteProjector(byte thisProjector) {
 //      Serial.println(i);
       EEPROM.get(i * sizeof(aProjector) + 2, aProjector);
       EEPROM.put((i - 1) * sizeof(aProjector) + 2, aProjector);
-  // e2reader();
+      e2reader();
 
     }
   }
   EEPROM.write(0, projectorCount - 1);
-  // e2reader();
+   e2reader();
   
 //  Serial.println(lastProjectorUsed);
   if (thisProjector == lastProjectorUsed) {
@@ -560,15 +558,13 @@ void saveProjector(byte thisProjector) {
     EEPROM.write(1, projectorCount + 1);
     aProjector.index = projectorCount + 1;
     EEPROM.put((projectorCount * sizeof(aProjector) + 2), aProjector);
-//    Serial.println("L568");
-//    e2reader();
+    e2reader();
 
   } else {
     aProjector.index = thisProjector;
     EEPROM.write(1, thisProjector);
     EEPROM.put(((thisProjector - 1) * sizeof(aProjector) + 2), aProjector);
-//      Serial.println("L576");
-//  e2reader();
+  e2reader();
 
   }
 }
@@ -581,10 +577,6 @@ void gatherProjectorData() {
 }
 
 void loadProjectorConfig(uint8_t projNo) {
-  // Eine reingeriechte 1 ergibt eine 0 als a.index. Why???
-  // Weil vorher schon an 2 eine 0 als index stand?
-  // 
- 
   Projector aProjector;
   EEPROM.get((projNo - 1) * sizeof(aProjector) + 2, aProjector);
   
@@ -603,7 +595,7 @@ void loadProjectorConfig(uint8_t projNo) {
   tellAudioPlayer(CMD_SET_D, aProjector.d);
 
   EEPROM.write(1, aProjector.index);
-//  e2reader();
+  e2reader();
 
 }
 
