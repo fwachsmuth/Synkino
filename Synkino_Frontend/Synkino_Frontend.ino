@@ -3,14 +3,14 @@
 
 /*
  *  This is the frontend part of Synkino
+ *  
  *  [ ] Make deleting a projector work:
  *  [ ] Delete the last copied projector (not neccessary if all works fine)
  *  [ ] Allow deletion of the last projector (not neccessary if all works fine)
  *  [ ] Make 12-char projectors editable
- *  [ ] Find out why Index of first proj goes to 0 (after select?)
- *  [ ] Find out why active proj sometimes goes to 0 
  *  [ ] Verify wat gets sent to AUDIO
  *  
+ *  [ ] Try http://arduino.land/Code/SmallSetup/
  *  [ ] Edit some Cancel Items
  *  [ ] Handle empty Projector List
  *  [ ] Limit to 8 Projectors
@@ -25,7 +25,6 @@
  *  [ ] Handle 000
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implemet Reset
- *  
  */
 
 #include <Arduino.h>
@@ -267,12 +266,12 @@ byte new_i = 3;
 byte new_d = 1;
 byte newStartmarkOffset = 0;
 
-uint8_t lastProjectorUsed = 1;
+byte lastProjectorUsed = 1;
 
 /* Belowis the EEPROM struct to save Projector Configs.
  *  Before the structs start, there are two header bytes:
- *  EEPROM.get(0, projectorCount);
- *  EEPROM.get(1, lastProjectorUsed);
+ *  EEPROM.read(0, projectorCount);
+ *  EEPROM.read(1, lastProjectorUsed);
  */
 struct Projector {          // 19 Bytes per Projector
   byte  index;
@@ -315,7 +314,7 @@ void setup(void) {
 
   myState = MAIN_MENU;
 
-  EEPROM.get(1, lastProjectorUsed);
+  lastProjectorUsed = EEPROM.read(1);
   loadProjectorConfig(lastProjectorUsed);
 }
 
@@ -414,7 +413,7 @@ void loop(void) {
             
           } else if (projectorActionMenuSelection == MENU_ITEM_SELECT) {
             makeProjectorSelectionMenu();
-            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Select Projector", lastProjectorUsed, projectorSelection_menu);  
+            projectorSelectionMenuSelection = u8g2.userInterfaceSelectionList("Select Projector", lastProjectorUsed, projectorSelection_menu); 
             waitForBttnRelease();
             loadProjectorConfig(projectorSelectionMenuSelection);
             
@@ -516,33 +515,37 @@ void loop(void) {
 
 void deleteProjector(byte thisProjector) {
   byte projectorCount;
-  EEPROM.get(0, projectorCount);
+  projectorCount = EEPROM.read(0);
   Projector aProjector;
   if (thisProjector == projectorCount) {
     Serial.print("Zeroing out (in theory): #");
     Serial.println(thisProjector);
   } else {
     for (byte i = thisProjector; i < projectorCount; i++) {
-      Serial.print("Moving #");
-      Serial.print(i + 1);
-      Serial.print(" to #");
-      Serial.println(i);
+//      Serial.print("Moving #");
+//      Serial.print(i + 1);
+//      Serial.print(" to #");
+//      Serial.println(i);
       EEPROM.get(i * sizeof(aProjector) + 2, aProjector);
       EEPROM.put((i - 1) * sizeof(aProjector) + 2, aProjector);
+  // e2reader();
+
     }
   }
-  EEPROM.put(0, projectorCount - 1);
-
-  Serial.println(lastProjectorUsed);
+  EEPROM.write(0, projectorCount - 1);
+  // e2reader();
+  
+//  Serial.println(lastProjectorUsed);
   if (thisProjector == lastProjectorUsed) {
     loadProjectorConfig(1);   // config 1
-    Serial.println("Switching active Projector to #1.");
+//    Serial.println("Switching active Projector to #1.");
   }
 }
 
 void saveProjector(byte thisProjector) {
   byte projectorCount;
-  EEPROM.get(0, projectorCount);
+  projectorCount = EEPROM.read(0);
+//  Serial.println(projectorCount);
   
   Projector aProjector;
   aProjector.shutterBladeCount = shutterBladesMenuSelection;
@@ -553,14 +556,20 @@ void saveProjector(byte thisProjector) {
   strcpy(aProjector.name, newProjectorName);
 
   if (thisProjector == NEW) {             // We have a NEW projector here
+    EEPROM.write(0, projectorCount + 1);
+    EEPROM.write(1, projectorCount + 1);
     aProjector.index = projectorCount + 1;
-    EEPROM.put(0, projectorCount + 1);
-    EEPROM.put(1, projectorCount + 1);
     EEPROM.put((projectorCount * sizeof(aProjector) + 2), aProjector);
+//    Serial.println("L568");
+//    e2reader();
+
   } else {
     aProjector.index = thisProjector;
-    EEPROM.put(1, thisProjector);
+    EEPROM.write(1, thisProjector);
     EEPROM.put(((thisProjector - 1) * sizeof(aProjector) + 2), aProjector);
+//      Serial.println("L576");
+//  e2reader();
+
   }
 }
 
@@ -572,14 +581,19 @@ void gatherProjectorData() {
 }
 
 void loadProjectorConfig(uint8_t projNo) {
+  // Eine reingeriechte 1 ergibt eine 0 als a.index. Why???
+  // Weil vorher schon an 2 eine 0 als index stand?
+  // 
+ 
   Projector aProjector;
   EEPROM.get((projNo - 1) * sizeof(aProjector) + 2, aProjector);
+  
   shutterBladesMenuSelection = aProjector.shutterBladeCount;
   newStartmarkOffset = aProjector.startmarkOffset;
   new_p = aProjector.p;
   new_i = aProjector.i;
   new_d = aProjector.d;
-
+  
   strcpy(newProjectorName, aProjector.name);
 
   tellAudioPlayer(CMD_SET_SHUTTERBLADES, aProjector.shutterBladeCount);
@@ -588,14 +602,16 @@ void loadProjectorConfig(uint8_t projNo) {
   tellAudioPlayer(CMD_SET_I, aProjector.i);
   tellAudioPlayer(CMD_SET_D, aProjector.d);
 
-  EEPROM.put(1, aProjector.index);
+  EEPROM.write(1, aProjector.index);
+//  e2reader();
+
 }
 
 byte makeProjectorSelectionMenu() {
   projectorSelection_menu[0] = 0;   // Empty this out and be prepared for an empty list
   byte projectorCount;
-  EEPROM.get(0, projectorCount);
-  EEPROM.get(1, lastProjectorUsed);
+  projectorCount = EEPROM.read(0);
+  lastProjectorUsed = EEPROM.read(1);
   
   Projector aProjector;
   for (byte i = 0; i < projectorCount; i++) {
@@ -621,7 +637,6 @@ void handleProjectorNameInput() {
 
   if (projectorActionMenuSelection == MENU_ITEM_EDIT) {
     charIndex = strlen(newProjectorName);
-    Serial.println(charIndex);
     firstUse = false;
     myEnc.write(16126);           // to start with "Delete" 
   } else {
