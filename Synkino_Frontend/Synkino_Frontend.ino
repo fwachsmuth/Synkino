@@ -631,6 +631,9 @@ void handleProjectorNameInput() {
     charIndex = strlen(newProjectorName);
     firstUse = false;
     myEnc.write(16126);           // to start with "Delete" 
+    for (byte i = charIndex + 1; i < maxProjectorNameLength; i++) {
+      newProjectorName[i] = 0;
+    }
   } else {
     for (byte i = 0; i < maxProjectorNameLength; i++) {
       newProjectorName[i] = 0;
