@@ -1,320 +1,220 @@
 /* TODOs
- * 
- * √ Auto Start und Stop
- * √ Überläufe merken und abbauen
- * √ Watermarking LED
- * √ Display unterstützen
- * √ Lowpass hinzufügen
- * 
- * State Machine umbaune und Reset erlauben
- * Vorwärts/Rückwärtskorrektur (0.1 Sek) 
- * Umstellen von RS232 auf RS485
- * I-Komponente bauen
- * Mute outrun on pause
- * Nicht pausieren bei dunklem Start (Bauer)
- * Startmarke
- * ppm constrains dynamisch machen
- * Track Selection umziehen zum Bedienteil
- * wait for confirmation from audio module
- * 
- * Tastverhältnis messen
- * Bessren OpAmp einbauen
- * Lichtleiter
- * Frequenzmessung mit drei Arduino machen
- * 
+ *  This is the versionmanaged version!
+ *   
+ *  [ ] Detect projector stops and stop the audio
+ *  [ ] add out of sync LED
+ *  [ ] SPI vs i2c?
  *  
  *  
  */
 
-
-
-
-/* FreqMeasure - Example with serial output
- * http://www.pjrc.com/teensy/td_libs_FreqMeasure.html
- *
- * This example code is in the public domain.
- */
-#include "RS485_protocol.h"
 #include <FreqMeasure.h>
+#include <Wire.h>
+#include <WireData.h>
 
-void fWrite (const byte what) { Serial.write (what); }
-int fAvailable () { return Serial.available (); }
-int fRead () { return Serial.read (); } 
+#define CMD_LOAD_TRACK    1
+#define CMD_CORRECT_PPM   2
+#define CMD_PLAY          3
+#define CMD_PAUSE         4
+#define CMD_STOP          5
+#define CMD_SYNC_TO_FRAME 6
 
+#define IDLING            1
+#define LOAD_TRACK        2
+#define TRACK_LOADED      3
+#define RESET             4
+#define PLAYING           5
+#define PAUSED            6
+#define SETTINGS_MENU     7
 
+// define OVERFLOWLED  
 
 byte sollfps = 18;
-byte segments = 3;          // Wieviele Segmente hat die Umlaufblende?
-byte flickrate = sollfps * segments;
-unsigned int projectorStopTimeoutMs = 250;
-unsigned int projectorRunoutMs = 1000;
+byte segments = 2;          // Wieviele Segmente hat die Umlaufblende?
+byte startMarkOffset = 15;
 
+byte flickrate = sollfps * segments;
+
+const byte startMarkDetectorPin = 9;
+const byte impDetectorPin = 8;
+const byte impDetectorISRPIN = 2;
+
+unsigned int projectorStopTimeoutMs = 250;
+unsigned int projectorRunoutMs = 1000;      // ???
 
 long ppmLo = -100000;
 long ppmHi = 77000;
 
-double impSum=0;
-int impCount=0;
+double freqMeasureSum=0;
+int freqMeasureCount=0;
 
 float frequency = 0;
 float ppm = 0;
-long ppmConstrained = 0;
+long ppmConstrained = 0;            // these should be local
 long ppmRounded = 0;
 long carryOverCorrection = 0;
 long ppmRoundedPlusCarryOver = 0;
 
-boolean newData = false;
-const byte numChars = 64;
-char receivedChars[numChars];   // an array to store the received data
-char tempChars[numChars];       // temporary array for use when parsing
-
-// variables to hold the parsed data from serial
-//char receivedChar;
-char commandFromRemote[numChars] = {0};
-char parameterFromRemote[numChars] = {0};
-
-byte myState;
+byte myState = 3;     // For now, let's assume (and make sure) the track is loaded 
 byte prevState;
-
-// States
-#define IDLING            1
-#define REQUEST_AUDIO     2
-#define WAIT_FOR_RUN      3
-#define RUNNING           4
-#define PAUSE             5
-
-#define RS232LED          12
-#define OVERFLOWLED       11
-
 
 const byte ISRPIN = 2;
 volatile boolean projectorRunning = false;
 boolean freqMeasurementStarted = false;
 
+
 unsigned long lastMeasurementMillis = 0;
 unsigned long currentMillis = 0;
 unsigned long lastPausedMillis = 0;
+unsigned long playHeadStartMillis = 0;
 
+volatile unsigned long totalImpCounter = 0;
 
 void setup() {
-  pinMode(RS232LED, OUTPUT);
-  pinMode(OVERFLOWLED, OUTPUT);
-  Serial1.begin(2400);
-
-  digitalWrite( 1, LOW );
-  pinMode( 1, INPUT ); // now we're tri-stated
-
+//  pinMode(RS232LED, OUTPUT);
+//  pinMode(OVERFLOWLED, OUTPUT);
+  pinMode(impDetectorISRPIN, INPUT);
+  Serial.begin(115200);
+  Wire.begin(); // join i2c bus (address optional for master)
+  //delay(500);  // Virtual coffee break.
   
-  digitalWrite (ISRPIN, LOW);
-
-  myState = IDLING;
-  //Serial.begin(9600);
-  //while (! Serial);
 }
 
 void loop() {
+
+  switch (myState) {
+    case IDLING:
+    break;
+    case LOAD_TRACK:
+    break;
+    case TRACK_LOADED:
+      waitForStartMark();
+    break;
+    case RESET:
+    break;
+    case PLAYING:
+      calculateCorrPpm();
+      considerResync();
+    break;
+    case PAUSED:
+    break;
+    case SETTINGS_MENU:
+    break;
+    default:
+    break;
+  }
+
   if (myState != prevState) {
-    Serial1.print("    --- State: ");
-    Serial1.println(myState);
+    Serial.print("    --- State: ");
+    Serial.println(myState);
     prevState = myState;
   }
-
   
-  switch(myState) {
-    case IDLING:
-      checkDebugKey();
-    break;
-    case REQUEST_AUDIO:
-    break;
-    case WAIT_FOR_RUN:
-      if (projectorRunning && freqMeasurementStarted == false) {
-        startSyncedPlayback();
-      }
-    break;
-    case RUNNING:
-      run();
-    break;
-    case PAUSE:
-      pauseSyncedPlayback();
-    break;
+}
+
+void waitForStartMark() {
+  if (digitalRead(startMarkDetectorPin) == HIGH) return;  // There is still leader
+  static int freqMeasureCountToStartMark = 0;
+  static byte previousImpDetectorState = LOW;
+  static byte impDetectorPinNow = 0;
+  impDetectorPinNow = digitalRead(impDetectorPin);
+  if (impDetectorPinNow != previousImpDetectorState) {
+    freqMeasureCountToStartMark++;
+    // Serial.println(freqMeasureCountToStartMark);
+    previousImpDetectorState = impDetectorPinNow;
+  }
+  if (freqMeasureCountToStartMark >= segments * 2 * startMarkOffset) {
+    byte cmd = CMD_PLAY;
+    long param = 0;
+    Wire.beginTransmission(8); // transmit to device #8
+    wireWriteData(cmd);  
+    wireWriteData(param);  
+    Wire.endTransmission();    // stop transmitting
+
+    totalImpCounter = 0;
+   // attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
+    
+    FreqMeasure.begin();
+    freqMeasureCountToStartMark = 0;
+    playHeadStartMillis = millis();
+    myState = PLAYING;
   }
 }
 
-void runDetected() {  // ISR
-  projectorRunning = true;
+void countISR() {
+  totalImpCounter++;
 }
 
-void prepareSyncedPlayback() {
-  sendWithStartEndMarkers("VOL", "15");
-  attachInterrupt (digitalPinToInterrupt (ISRPIN), runDetected, CHANGE);  // attach interrupt handler
-  // load selected track:
-  //sendWithStartEndMarkers("PREP", "03 Giorgio by Moroder.m4a");
-  // wait for confirmation from audio module
-  myState = WAIT_FOR_RUN;
+void considerResync() {
+  static unsigned long lastSyncedImpCounter = 0;
+  unsigned long totalImpCounterNow;
+  totalImpCounterNow = totalImpCounter;
+
+  if (lastSyncedImpCounter != totalImpCounterNow) {
+    if (totalImpCounterNow % (sollfps * segments * 2) == 0) {    // every 2 seconds: 18 * 2 * 2
+      byte cmd = CMD_SYNC_TO_FRAME;
+      long param = totalImpCounterNow / segments / 2;
+      Wire.beginTransmission(8); // transmit to device #8
+      wireWriteData(cmd);  
+      wireWriteData(param);  
+      Wire.endTransmission();    // stop transmitting
+      lastSyncedImpCounter = totalImpCounterNow;
+      Serial.println("Resync should happen now.");
+    }
+  }
 }
 
-void startSyncedPlayback() {
 
-
-
-  
-// if (currentMillis - lastMeasurementMillis >= projectorStopTimeoutMs) {
-
-
-
-  
-  detachInterrupt(digitalPinToInterrupt (ISRPIN));
-  FreqMeasure.begin();
-  freqMeasurementStarted = true;
-  sendWithStartEndMarkers("VOL", "15");
-  sendWithStartEndMarkers("PAUSE", "OFF");
-  myState = RUNNING;
-}
-
-void pauseSyncedPlayback() {
-  sendWithStartEndMarkers("PAUSE", "ON");
-  sendWithStartEndMarkers("VOL", "0");
-  sendWithStartEndMarkers("D16", "Stop");
-  projectorRunning = false;
-
-//  currentMillis = millis();  
-//  lastPausedMillis = currentMillis();
-  
-  FreqMeasure.end();
-  freqMeasurementStarted = false;
-  attachInterrupt (digitalPinToInterrupt (ISRPIN), runDetected, CHANGE);  // attach interrupt handler
-  impSum = 0;
-  impCount = 0;
-  myState = WAIT_FOR_RUN;
-//  myState = IDLING;
-}
-
-void run() {
+void calculateCorrPpm() {
   currentMillis = millis();
   if (FreqMeasure.available()) {
     lastMeasurementMillis = currentMillis;
- 
-    // average several reading together
-    impSum = impSum + FreqMeasure.read();
-    impCount = impCount + 1;
-    if (impCount > 30) {
-      frequency = FreqMeasure.countToFrequency(impSum / impCount);
-      ppm = (1 - frequency / flickrate) * -480000;
+    freqMeasureSum = freqMeasureSum + FreqMeasure.read();     // average several reading together
+    freqMeasureCount++;
+    if (freqMeasureCount > 30) {                              // correct about every second
+      frequency = FreqMeasure.countToFrequency(freqMeasureSum / freqMeasureCount);
+      ppm = (1 - frequency / flickrate) * -480000;            // 512,000 * 15/16
       ppmRounded = ppm >= 0 ? (long)(ppm+0.5) : (long)(ppm-0.5);
       ppmRoundedPlusCarryOver = ppmRounded + carryOverCorrection;
       ppmConstrained = constrain(ppmRoundedPlusCarryOver, ppmLo, ppmHi);
-//      Serial.print(frequency,5);
-//      Serial.print(" Hz -> CorrVal = ");
-//      Serial.print(ppmConstrained);
       if (ppmRoundedPlusCarryOver >= ppmHi) {
-        digitalWrite(OVERFLOWLED, HIGH);
+        Serial.print(F("Projektor zu schnell, "));
+//        digitalWrite(OVERFLOWLED, HIGH);
         carryOverCorrection -= ppmHi - ppmRounded;
       } else if (ppmRoundedPlusCarryOver <= ppmLo) {
-        digitalWrite(OVERFLOWLED, HIGH);
+        Serial.print(F("Projektor zu langsam, "));
+//        digitalWrite(OVERFLOWLED, HIGH);
         carryOverCorrection -= ppmLo - ppmRounded;       
       } else {
-        digitalWrite(OVERFLOWLED, LOW);
-        carryOverCorrection = 0;
+//        digitalWrite(OVERFLOWLED, LOW);
+        carryOverCorrection = 0;               
       }
-      Serial.print("Übertrag ");
+      /*
+       * The problem here that leads to drift is the carry-over routine. This doesn't work this way. 
+       * Spliting a 15% increase into a 10% increase and a 5% increase (on the result of the previous 
+       * calculation!), we end up with too much.
+       * Go, read about PID controllers, dude.
+       * http://brettbeauregard.com/blog/2011/04/improving-the-beginners-pid-introduction/
+       * http://playground.arduino.cc/Code/PIDLibrary
+       * 
+       */
+      Serial.print(F("Korrektrur-Übertrag: "));
       Serial.println(carryOverCorrection);
-      digitalWrite(RS232LED, HIGH);
-      sendWithStartEndMarkers("ADJ", "");
-      sendWithStartEndMarkers("D30", String(frequency / segments,4));
-      digitalWrite(RS232LED, LOW);
-      impSum = 0;
-      impCount = 0;
+      
+//      Wire.beginTransmission(8); // transmit to device #8
+//      byte cmd = CMD_CORRECT_PPM;
+//      wireWriteData(cmd);  
+//      wireWriteData(ppmConstrained);  
+//      Serial.println(ppmConstrained);
+//      Wire.endTransmission();    // stop transmitting
+      freqMeasureSum = 0;
+      freqMeasureCount = 0;
     }
   } else {
     if (currentMillis - lastMeasurementMillis >= projectorStopTimeoutMs) {
-      myState = PAUSE;
+//      myState = PAUSED;
     }
   }
 }
 
-void sendWithStartEndMarkers(const String& command, const String& parameter) {
-  Serial1.print("<");
-  Serial1.print(command);
-  Serial1.print("|");
-
-  if (command == "ADJ") {
-    Serial1.print(ppmConstrained);
-  } else {
-    Serial1.print(parameter);
-  }
-
-  Serial1.println(">");
-  delay(1);
-}
-
-void checkDebugKey() {
-  if (Serial.available()) {
-    char c = Serial.read();
-   
-    if (c == 'w') {
-      sendWithStartEndMarkers("PLAY", "");
-    }
-    if (c == '3') {
-      sendWithStartEndMarkers("PREP", "004-18-Giorgio by Moroder.m4a");
-      prepareSyncedPlayback();
-    }
-    if (c == '4') {
-      sendWithStartEndMarkers("PREP", "009-18-Synkino Testfilm.m4a");
-      prepareSyncedPlayback();
-    }
-    if (c == '5') {
-      sendWithStartEndMarkers("PREP", "002-24-Mortel.m4a");
-      prepareSyncedPlayback();
-    }
-    if (c == 'p') {
-      sendWithStartEndMarkers("PAUSE", "ON");
-    }
-    if (c == 'P') {
-      sendWithStartEndMarkers("PAUSE", "OFF");
-    }
-    if (c == 's') {
-      sendWithStartEndMarkers("STOP", "");
-    }
-    if (c == 'n') {
-      sendWithStartEndMarkers("NAME", "");
-    }
-    if (c == 'r') {
-      sendWithStartEndMarkers("STOP", "");
-      sendWithStartEndMarkers("VOL", "15");
-      sendWithStartEndMarkers("PREP", "009-18-Synkino Testfilm.m4a");
-    }
-  }
-}
-
-void recvWithStartEndMarkers() {
-    static boolean recvInProgress = false;
-    static byte ndx = 0;
-    char startMarker = '<';
-    char endMarker = '>';
-    char rc;
- 
-    while (Serial1.available() > 0 && newData == false) {
-        rc = Serial1.read();
-
-        if (recvInProgress == true) {
-            if (rc != endMarker) {
-                receivedChars[ndx] = rc;
-                ndx++;
-                if (ndx >= numChars) {
-                    ndx = numChars - 1;
-                }
-            }
-            else {
-                receivedChars[ndx] = '\0'; // terminate the string
-                recvInProgress = false;
-                ndx = 0;
-                newData = true;
-            }
-        }
-
-        else if (rc == startMarker) {
-            recvInProgress = true;
-        }
-    }
-}
 
