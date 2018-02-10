@@ -5,6 +5,7 @@
  *  This is the frontend part of Synkino
  *  
  *  [ ] Make 12-char projectors editable
+ *  [ ] On Edit, Shutter Blade Position is wrong
  *  [ ] Verify wat gets sent to AUDIO
  *  
  *  [ ] Try http://arduino.land/Code/SmallSetup/
@@ -431,23 +432,6 @@ void loop(void) {
             deleteProjector(projectorSelectionMenuSelection);
           }
               
-/*          switch (projectorConfigMenuSelection) {
-            case MENU_ITEM_NAME:
-              handlerojectorNameInput();
-              break;
-            case MENU_ITEM_SHUTTER_BLADES:
-              handleShutterbladeInput();
-              break;
-            case MENU_ITEM_STARTMARK:
-              handleStartmarkInput();
-              break;
-            case MENU_ITEM_PID:
-              handlePIDinput();
-              break;
-            default:
-              break;
-          }
-*/
           break;
         case MENU_ITEM_SELECT_TRACK:
           myState = SELECT_TRACK;
