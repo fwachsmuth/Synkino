@@ -641,15 +641,15 @@ void handleProjectorNameInput() {
       else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
       else localChar = 127;
       lastMillis = millis();
-      handleStringInput(GET_NAME, localChar, lastMillis, firstUse);
+      handleStringInputGraphically(GET_NAME, localChar, lastMillis, firstUse);
     }
     lastMillis = millis();
     while (digitalRead(ENCODER_BTN) == 0 && !inputFinished) {
       delay(50);
-      inputFinished = handleStringInput(JUST_PRESSED, localChar, lastMillis, firstUse);
+      inputFinished = handleStringInputGraphically(JUST_PRESSED, localChar, lastMillis, firstUse);
     }
     while (digitalRead(ENCODER_BTN) == 0 && inputFinished) {
-       handleStringInput(LONG_PRESSED, localChar, 0, firstUse);
+       handleStringInputGraphically(LONG_PRESSED, localChar, 0, firstUse);
     }
     if (localChar == 127) {   // Delete
       charIndex--;            // Is it safe to become negative here?
@@ -685,7 +685,7 @@ void handlePIDinput () {
   waitForBttnRelease();
 }
 
-bool handleStringInput(byte action, char localChar, unsigned long lastMillis, bool firstUse) {
+bool handleStringInputGraphically(byte action, char localChar, unsigned long lastMillis, bool firstUse) {
   u8g2.firstPage();
   do {
     u8g2.setFont(u8g2_font_helvR10_tr);
