@@ -1,0 +1,322 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Synkino"
+Date "2018-02-11"
+Rev ""
+Comp "filmkorn.org"
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L 74HC14 U?
+U 1 1 5A7F4FE5
+P 2600 1650
+F 0 "U?" H 2750 1750 50  0000 C CNN
+F 1 "74HC14" H 2800 1550 50  0000 C CNN
+F 2 "" H 2600 1650 50  0001 C CNN
+F 3 "" H 2600 1650 50  0001 C CNN
+	1    2600 1650
+	1    0    0    -1  
+$EndComp
+$Comp
+L 74HC14 U?
+U 2 1 5A7F5048
+P 3950 1650
+F 0 "U?" H 4100 1750 50  0000 C CNN
+F 1 "74HC14" H 4150 1550 50  0000 C CNN
+F 2 "" H 3950 1650 50  0001 C CNN
+F 3 "" H 3950 1650 50  0001 C CNN
+	2    3950 1650
+	1    0    0    -1  
+$EndComp
+$Comp
+L BC548 Q?
+U 1 1 5A7F50D7
+P 2050 1950
+F 0 "Q?" H 2250 2025 50  0000 L CNN
+F 1 "BC548" H 2250 1950 50  0000 L CNN
+F 2 "TO_SOT_Packages_THT:TO-92_Molded_Narrow" H 2250 1875 50  0001 L CIN
+F 3 "" H 2050 1950 50  0001 L CNN
+	1    2050 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C?
+U 1 1 5A7F5112
+P 3450 2050
+F 0 "C?" H 3460 2120 50  0000 L CNN
+F 1 "100n" H 3460 1970 50  0000 L CNN
+F 2 "" H 3450 2050 50  0001 C CNN
+F 3 "" H 3450 2050 50  0001 C CNN
+	1    3450 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C?
+U 1 1 5A7F5152
+P 2950 1200
+F 0 "C?" H 2960 1270 50  0000 L CNN
+F 1 "100n" H 2960 1120 50  0000 L CNN
+F 2 "" H 2950 1200 50  0001 C CNN
+F 3 "" H 2950 1200 50  0001 C CNN
+	1    2950 1200
+	0    1    1    0   
+$EndComp
+$Comp
+L R R?
+U 1 1 5A7F5192
+P 2000 1550
+F 0 "R?" V 2080 1550 50  0000 C CNN
+F 1 "470k" V 2000 1550 50  0000 C CNN
+F 2 "" V 1930 1550 50  0001 C CNN
+F 3 "" H 2000 1550 50  0001 C CNN
+	1    2000 1550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L R R?
+U 1 1 5A7F51CE
+P 2500 1350
+F 0 "R?" V 2580 1350 50  0000 C CNN
+F 1 "3k3" V 2500 1350 50  0000 C CNN
+F 2 "" V 2430 1350 50  0001 C CNN
+F 3 "" H 2500 1350 50  0001 C CNN
+	1    2500 1350
+	0    1    1    0   
+$EndComp
+$Comp
+L R R?
+U 1 1 5A7F520B
+P 3250 1650
+F 0 "R?" V 3330 1650 50  0000 C CNN
+F 1 "3k3" V 3250 1650 50  0000 C CNN
+F 2 "" V 3180 1650 50  0001 C CNN
+F 3 "" H 3250 1650 50  0001 C CNN
+	1    3250 1650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GNDD #PWR01
+U 1 1 5A7F5945
+P 2150 2200
+F 0 "#PWR01" H 2150 1950 50  0001 C CNN
+F 1 "GNDD" H 2150 2075 50  0000 C CNN
+F 2 "" H 2150 2200 50  0001 C CNN
+F 3 "" H 2150 2200 50  0001 C CNN
+	1    2150 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDD #PWR02
+U 1 1 5A7F597F
+P 3450 2200
+F 0 "#PWR02" H 3450 1950 50  0001 C CNN
+F 1 "GNDD" H 3450 2075 50  0000 C CNN
+F 2 "" H 3450 2200 50  0001 C CNN
+F 3 "" H 3450 2200 50  0001 C CNN
+	1    3450 2200
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR04
+U 1 1 5A7F5B26
+P 2700 950
+F 0 "#PWR04" H 2700 800 50  0001 C CNN
+F 1 "+5V" H 2700 1090 50  0000 C CNN
+F 2 "" H 2700 950 50  0001 C CNN
+F 3 "" H 2700 950 50  0001 C CNN
+	1    2700 950 
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R?
+U 1 1 5A7F5E91
+P 4700 1650
+F 0 "R?" V 4780 1650 50  0000 C CNN
+F 1 "270" V 4700 1650 50  0000 C CNN
+F 2 "" V 4630 1650 50  0001 C CNN
+F 3 "" H 4700 1650 50  0001 C CNN
+	1    4700 1650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LED_ALT D?
+U 1 1 5A7F5EDF
+P 4900 2000
+F 0 "D?" H 4900 2100 50  0000 C CNN
+F 1 "LED_ALT" H 4900 1900 50  0000 C CNN
+F 2 "" H 4900 2000 50  0001 C CNN
+F 3 "" H 4900 2000 50  0001 C CNN
+	1    4900 2000
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GNDD #PWR05
+U 1 1 5A7F5F4F
+P 4900 2200
+F 0 "#PWR05" H 4900 1950 50  0001 C CNN
+F 1 "GNDD" H 4900 2075 50  0000 C CNN
+F 2 "" H 4900 2200 50  0001 C CNN
+F 3 "" H 4900 2200 50  0001 C CNN
+	1    4900 2200
+	1    0    0    -1  
+$EndComp
+Text HLabel 4600 1200 2    60   Output ~ 0
+FlickImp
+$Comp
+L Screw_Terminal_01x04 J?
+U 1 1 5A8068A9
+P 1400 1300
+F 0 "J?" H 1400 1500 50  0000 C CNN
+F 1 "Screw_Terminal_01x04" H 1400 1000 50  0000 C CNN
+F 2 "" H 1400 1300 50  0001 C CNN
+F 3 "" H 1400 1300 50  0001 C CNN
+	1    1400 1300
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2150 1350 2150 1750
+Connection ~ 2150 1550
+Connection ~ 2150 1650
+Wire Wire Line
+	1850 1550 1750 1550
+Wire Wire Line
+	1750 1300 1750 1950
+Wire Wire Line
+	1750 1950 1850 1950
+Wire Wire Line
+	3050 1650 3100 1650
+Wire Wire Line
+	3400 1650 3500 1650
+Wire Wire Line
+	3450 1950 3450 1650
+Connection ~ 3450 1650
+Wire Wire Line
+	2150 2150 2150 2200
+Wire Wire Line
+	3450 2150 3450 2200
+Wire Wire Line
+	2700 950  2700 1350
+Wire Wire Line
+	4900 2150 4900 2200
+Wire Wire Line
+	4400 1650 4550 1650
+Wire Wire Line
+	4850 1650 4900 1650
+Wire Wire Line
+	4900 1650 4900 1850
+Wire Wire Line
+	4600 1200 4500 1200
+Wire Wire Line
+	4500 1200 4500 1650
+Connection ~ 4500 1650
+$Comp
+L +5V #PWR?
+U 1 1 5A806ABB
+P 1700 950
+F 0 "#PWR?" H 1700 800 50  0001 C CNN
+F 1 "+5V" H 1700 1090 50  0000 C CNN
+F 2 "" H 1700 950 50  0001 C CNN
+F 3 "" H 1700 950 50  0001 C CNN
+	1    1700 950 
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDD #PWR?
+U 1 1 5A806AE7
+P 1600 1500
+F 0 "#PWR?" H 1600 1250 50  0001 C CNN
+F 1 "GNDD" H 1600 1375 50  0000 C CNN
+F 2 "" H 1600 1500 50  0001 C CNN
+F 3 "" H 1600 1500 50  0001 C CNN
+	1    1600 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1600 1400 1600 1500
+Wire Wire Line
+	1600 1100 1700 1100
+Wire Wire Line
+	1700 1100 1700 950 
+Wire Wire Line
+	1600 1300 1750 1300
+Connection ~ 1750 1550
+$Comp
+L 74HC14 U?
+U 3 1 5A806D50
+P 3950 1050
+F 0 "U?" H 4100 1150 50  0000 C CNN
+F 1 "74HC14" H 4150 950 50  0000 C CNN
+F 2 "" H 3950 1050 50  0001 C CNN
+F 3 "" H 3950 1050 50  0001 C CNN
+	3    3950 1050
+	1    0    0    -1  
+$EndComp
+Text HLabel 4600 1050 2    60   Output ~ 0
+Startmark
+Wire Wire Line
+	4400 1050 4600 1050
+$Comp
+L GNDD #PWR03
+U 1 1 5A7F5A25
+P 3150 1250
+F 0 "#PWR03" H 3150 1000 50  0001 C CNN
+F 1 "GNDD" H 3150 1125 50  0000 C CNN
+F 2 "" H 3150 1250 50  0001 C CNN
+F 3 "" H 3150 1250 50  0001 C CNN
+	1    3150 1250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2150 1350 2350 1350
+Wire Wire Line
+	2700 1350 2650 1350
+Wire Wire Line
+	1600 1200 2450 1200
+Wire Wire Line
+	2450 1200 2450 1050
+Wire Wire Line
+	2450 1050 3500 1050
+Wire Wire Line
+	2850 1200 2700 1200
+Connection ~ 2700 1200
+Wire Wire Line
+	3050 1200 3150 1200
+Wire Wire Line
+	3150 1200 3150 1250
+$EndSCHEMATC
