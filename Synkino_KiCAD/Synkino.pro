@@ -1,4 +1,4 @@
-update=2018 February 11, Sunday 22:38:23
+update=2018 February 12, Monday 21:11:58
 version=1
 last_client=kicad
 [pcbnew]
@@ -27,7 +27,7 @@ NetIExt=net
 version=1
 [eeschema]
 version=1
-LibDir=/Library/Application Support/kicad/converted_from_eagle
+LibDir=../Synkino_KiCAD
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -58,3 +58,4 @@ LibName26=opto
 LibName27=atmel
 LibName28=contrib
 LibName29=valves
+LibName30=Synkino
