@@ -505,7 +505,7 @@ $EndComp
 Wire Wire Line
 	10100 2450 10100 2500
 Wire Wire Line
-	9450 2550 9550 2550
+	9550 2550 9450 2550
 Wire Wire Line
 	9550 1850 9550 2850
 Wire Wire Line
@@ -731,14 +731,12 @@ DGND
 Wire Wire Line
 	6750 2200 6900 2200
 Connection ~ 6900 2200
-Text Label 7400 4150 2    60   ~ 0
+Text Label 7400 4200 2    60   ~ 0
 CVDD
 Text Label 9750 3550 0    60   ~ 0
 CVDD
 Wire Wire Line
 	9450 3550 9750 3550
-Wire Wire Line
-	7650 4150 7400 4150
 Text Label 7450 2350 2    60   ~ 0
 CVDD
 Connection ~ 7550 2350
@@ -746,4 +744,96 @@ Text HLabel 7500 3050 0    60   Input ~ 0
 XDCS
 Wire Wire Line
 	7500 3050 7650 3050
+$Comp
+L Crystal Y?
+U 1 1 5A8248BB
+P 6750 3750
+F 0 "Y?" H 6750 3900 50  0000 C CNN
+F 1 "Crystal" H 6750 3600 50  0000 C CNN
+F 2 "" H 6750 3750 50  0001 C CNN
+F 3 "" H 6750 3750 50  0001 C CNN
+	1    6750 3750
+	-1   0    0    1   
+$EndComp
+$Comp
+L R R?
+U 1 1 5A82494C
+P 6750 4000
+F 0 "R?" V 6830 4000 50  0000 C CNN
+F 1 "1M" V 6750 4000 50  0000 C CNN
+F 2 "" V 6680 4000 50  0001 C CNN
+F 3 "" H 6750 4000 50  0001 C CNN
+	1    6750 4000
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7650 3450 6600 3450
+Wire Wire Line
+	6600 3450 6600 4100
+Wire Wire Line
+	7650 3550 6900 3550
+Wire Wire Line
+	6900 3550 6900 4100
+Connection ~ 6600 3750
+Connection ~ 6900 3750
+$Comp
+L C_Small C?
+U 1 1 5A824C83
+P 6600 4200
+F 0 "C?" H 6610 4270 50  0000 L CNN
+F 1 "33p" H 6610 4120 50  0000 L CNN
+F 2 "" H 6600 4200 50  0001 C CNN
+F 3 "" H 6600 4200 50  0001 C CNN
+	1    6600 4200
+	1    0    0    -1  
+$EndComp
+$Comp
+L C_Small C?
+U 1 1 5A824D0C
+P 6900 4200
+F 0 "C?" H 6910 4270 50  0000 L CNN
+F 1 "33p" H 6910 4120 50  0000 L CNN
+F 2 "" H 6900 4200 50  0001 C CNN
+F 3 "" H 6900 4200 50  0001 C CNN
+	1    6900 4200
+	1    0    0    -1  
+$EndComp
+Connection ~ 6600 4000
+Connection ~ 6900 4000
+$Comp
+L GNDD #PWR?
+U 1 1 5A824EED
+P 6600 4400
+F 0 "#PWR?" H 6600 4150 50  0001 C CNN
+F 1 "GNDD" H 6600 4275 50  0000 C CNN
+F 2 "" H 6600 4400 50  0001 C CNN
+F 3 "" H 6600 4400 50  0001 C CNN
+	1    6600 4400
+	1    0    0    -1  
+$EndComp
+$Comp
+L GNDD #PWR?
+U 1 1 5A824F43
+P 6900 4400
+F 0 "#PWR?" H 6900 4150 50  0001 C CNN
+F 1 "GNDD" H 6900 4275 50  0000 C CNN
+F 2 "" H 6900 4400 50  0001 C CNN
+F 3 "" H 6900 4400 50  0001 C CNN
+	1    6900 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6600 4300 6600 4400
+Wire Wire Line
+	6900 4300 6900 4400
+Text HLabel 7500 4050 0    60   Input ~ 0
+~XCS
+Wire Wire Line
+	7500 4050 7650 4050
+Wire Wire Line
+	7650 4150 7550 4150
+Wire Wire Line
+	7550 4150 7550 4200
+Wire Wire Line
+	7550 4200 7400 4200
 $EndSCHEMATC
