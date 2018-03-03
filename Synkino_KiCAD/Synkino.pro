@@ -1,4 +1,4 @@
-update=2018 March 03, Saturday 14:11:59
+update=2018 March 03, Saturday 18:16:42
 version=1
 last_client=kicad
 [pcbnew]
@@ -60,3 +60,4 @@ LibName28=contrib
 LibName29=valves
 LibName30=Synkino
 LibName31=max4741
+LibName32=74hc4050
