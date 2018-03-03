@@ -1,4 +1,4 @@
-update=2018 February 12, Monday 21:11:58
+update=2018 March 03, Saturday 14:11:59
 version=1
 last_client=kicad
 [pcbnew]
@@ -59,3 +59,4 @@ LibName27=atmel
 LibName28=contrib
 LibName29=valves
 LibName30=Synkino
+LibName31=max4741
