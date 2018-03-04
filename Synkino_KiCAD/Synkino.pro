@@ -1,4 +1,4 @@
-update=2018 March 03, Saturday 18:16:42
+update=2018 March 04, Sunday 17:14:18
 version=1
 last_client=kicad
 [pcbnew]
@@ -61,3 +61,4 @@ LibName29=valves
 LibName30=Synkino
 LibName31=max4741
 LibName32=74hc4050
+LibName33=spioled128x64
