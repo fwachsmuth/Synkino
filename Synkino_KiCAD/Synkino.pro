@@ -1,4 +1,4 @@
-update=2018 March 04, Sunday 17:14:18
+update=2018 March 04, Sunday 18:03:02
 version=1
 last_client=kicad
 [pcbnew]
@@ -62,3 +62,13 @@ LibName30=Synkino
 LibName31=max4741
 LibName32=74hc4050
 LibName33=spioled128x64
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60

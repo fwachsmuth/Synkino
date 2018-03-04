@@ -2548,4 +2548,8 @@ Text Notes 11200 600  0    60   ~ 0
 Level Shifter, VS1053 likes 3v3 only, Mega328 needs 5V though for 16 MHz
 Text Notes 11250 2600 0    60   ~ 0
 Mega328 providing PID and feeding DSP with uSD data
+Text Label 3400 8500 0    60   ~ 0
+AUD_EN
+Wire Wire Line
+	3300 8500 3400 8500
 $EndSCHEMATC
