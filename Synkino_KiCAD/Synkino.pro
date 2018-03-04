@@ -1,4 +1,4 @@
-update=2018 March 04, Sunday 20:42:42
+update=2018 March 04, Sunday 23:31:22
 version=1
 last_client=kicad
 [pcbnew]
@@ -73,3 +73,4 @@ LibName31=max4741
 LibName32=74hc4050
 LibName33=spioled128x64
 LibName34=icsp
+LibName35=ftdi
