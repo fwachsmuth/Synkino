@@ -7,6 +7,8 @@
  *  [ ] Make 12-char projectors editable
  *  [ ] On Edit, Shutter Blade Position is wrong
  *  [ ] Verify wat gets sent to AUDIO
+ *  [ ] Use Audio_enable to turn on Audio
+ *  [ ] Test ICSP
  *  
  *  [ ] Try http://arduino.land/Code/SmallSetup/
  *  [ ] Edit some Cancel Items
