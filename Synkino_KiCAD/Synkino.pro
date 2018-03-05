@@ -1,4 +1,4 @@
-update=2018 March 04, Sunday 23:31:22
+update=2018 March 05, Monday 22:54:54
 version=1
 last_client=kicad
 [pcbnew]
@@ -25,16 +25,6 @@ version=1
 NetIExt=net
 [general]
 version=1
-[schematic_editor]
-version=1
-PageLayoutDescrFile=
-PlotDirectoryName=
-SubpartIdSeparator=0
-SubpartFirstId=65
-NetFmtName=
-SpiceForceRefPrefix=0
-SpiceUseNetNumbers=0
-LabSize=60
 [eeschema]
 version=1
 LibDir=../Synkino_KiCAD
@@ -74,3 +64,14 @@ LibName32=74hc4050
 LibName33=spioled128x64
 LibName34=icsp
 LibName35=ftdi
+LibName36=qre1113
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60
