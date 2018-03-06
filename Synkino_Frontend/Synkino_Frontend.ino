@@ -9,6 +9,7 @@
  *  [ ] Verify wat gets sent to AUDIO
  *  [ ] Use Audio_enable on Pin 6 to turn on Audio
  *  [ ] Test ICSP
+ *  [ ] Power Off at D7
  *  
  *  [ ] Try http://arduino.land/Code/SmallSetup/
  *  [ ] Edit some Cancel Items
