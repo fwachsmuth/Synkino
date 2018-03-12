@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /Users/wachsmut/Code/Synkino/Synkino_KiCAD/Synkino.sch)
-    (date "2018 March 12, Monday 23:29:44")
+    (date "2018 March 12, Monday 23:36:58")
     (tool "Eeschema 4.0.7")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -1190,7 +1190,7 @@
     (net (code 3) (name "Net-(C21-Pad2)")
       (node (ref R17) (pin 1))
       (node (ref C21) (pin 2)))
-    (net (code 4) (name /GBUf)
+    (net (code 4) (name /GBUF)
       (node (ref R14) (pin 2))
       (node (ref U7) (pin 42)))
     (net (code 5) (name /LOUT)
