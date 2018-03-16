@@ -3,10 +3,10 @@
   (general
     (links 368)
     (no_connects 0)
-    (area 62.682429 32.843999 168.838572 172.283002)
+    (area 62.682429 32.843999 168.838572 132.270286)
     (thickness 1.6)
     (drawings 80)
-    (tracks 2003)
+    (tracks 2002)
     (zones 0)
     (modules 180)
     (nets 135)
@@ -61,7 +61,8 @@
     (pad_size 1.524 1.524)
     (pad_drill 0.762)
     (pad_to_mask_clearance 0.2)
-    (aux_axis_origin 0 0)
+    (aux_axis_origin 71.12 121.92)
+    (grid_origin 71.12 121.92)
     (visible_elements FFFFEF7F)
     (pcbplotparams
       (layerselection 0x010f0_80000001)
@@ -6455,7 +6456,6 @@
   (gr_line (start 127.254 39.37) (end 131.318 39.37) (layer Edge.Cuts) (width 0.15))
   (gr_line (start 127.254 38.1) (end 127.254 39.37) (layer Edge.Cuts) (width 0.15))
 
-  (segment (start 86.36 171.958) (end 86.558999 171.759001) (width 0.25) (layer F.Cu) (net 0))
   (segment (start 88.190005 60.575002) (end 88.490004 60.275003) (width 0.25) (layer B.Cu) (net 1))
   (via (at 88.490004 60.275003) (size 0.6) (drill 0.4) (layers F.Cu B.Cu) (net 1))
   (segment (start 87.19 61.068) (end 88.24 61.068) (width 0.25) (layer F.Cu) (net 1))
