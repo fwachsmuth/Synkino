@@ -2893,7 +2893,7 @@
     (tags "resistor 0805")
     (path /5A7F5192)
     (attr smd)
-    (fp_text reference R18 (at 0 -1.778) (layer F.SilkS)
+    (fp_text reference R18 (at 2.286 -1.778) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text value 470k (at 0 2.1) (layer F.Fab)
