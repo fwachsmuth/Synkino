@@ -1,10 +1,10 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,4.0.7*%
-%TF.CreationDate,2018-03-17T18:56:23+01:00*%
+%TF.CreationDate,2018-03-17T21:38:40+01:00*%
 %TF.ProjectId,Synkino,53796E6B696E6F2E6B696361645F7063,rev?*%
 %TF.FileFunction,Profile,NP*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 4.0.7) date 2018 March 17, Saturday 18:56:23*
+G04 Created by KiCad (PCBNEW 4.0.7) date 2018 March 17, Saturday 21:38:40*
 %MOMM*%
 %LPD*%
 G01*
