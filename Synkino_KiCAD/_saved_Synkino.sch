@@ -2774,7 +2774,7 @@ Wire Wire Line
 Wire Wire Line
 	4050 8050 5000 8050
 Wire Wire Line
-	5000 7300 4800 7300
+	4800 7300 5050 7300
 Wire Wire Line
 	2850 9000 2950 9000
 Wire Wire Line
@@ -3906,4 +3906,30 @@ Wire Wire Line
 	8050 4800 8050 4850
 Wire Wire Line
 	8250 4800 8250 4850
+$Comp
+L TEST P.On2
+U 1 1 5AAD7AE9
+P 5050 7300
+F 0 "P.On2" H 5050 7600 50  0000 C BNN
+F 1 "P.On" H 5050 7550 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Square-SMD-Pad_Small" H 5050 7300 50  0001 C CNN
+F 3 "" H 5050 7300 50  0001 C CNN
+	1    5050 7300
+	0    1    1    0   
+$EndComp
+$Comp
+L TEST P.On1
+U 1 1 5AAD7D0F
+P 2100 1600
+F 0 "P.On1" H 2100 1900 50  0000 C BNN
+F 1 "P.On" H 2100 1850 50  0000 C CNN
+F 2 "Measurement_Points:Measurement_Point_Square-SMD-Pad_Small" H 2100 1600 50  0001 C CNN
+F 3 "" H 2100 1600 50  0001 C CNN
+	1    2100 1600
+	1    0    0    -1  
+$EndComp
+Connection ~ 5000 7300
+Wire Wire Line
+	2100 1600 2100 1650
+Connection ~ 2100 1650
 $EndSCHEMATC
