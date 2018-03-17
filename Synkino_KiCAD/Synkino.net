@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /Users/peaceman/code/Arduino/Synkino/Synkino_KiCAD/Synkino.sch)
-    (date "2018 March 16, Friday 17:12:37")
+    (date "2018 March 17, Saturday 13:11:06")
     (tool "Eeschema 4.0.7")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -593,7 +593,7 @@
       (tstamp 5A9E859D))
     (comp (ref U1)
       (value MCP1702T-5002E/MB)
-      (footprint TO_SOT_Packages_SMD:SOT-23)
+      (footprint TO_SOT_Packages_SMD:SOT-89-3_Handsoldering)
       (libsource (lib Synkino) (part MCP1700-5002E_SOT89))
       (sheetpath (names /) (tstamps /))
       (tstamp 5A9F27C4))
