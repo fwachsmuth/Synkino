@@ -4,9 +4,9 @@
 /*
  *  This is the frontend part of Synkino
  *  
- *  [ ] Make 12-char projectors editable
+ *  [x] Make 12-char projectors editable
  *  [ ] On Edit, Shutter Blade Position is wrong
- *  [ ] Verify wat gets sent to AUDIO
+ *  [ ] Verify what gets sent to AUDIO
  *  [ ] Use Audio_enable on Pin 6 to turn on Audio
  *  [ ] Test ICSP
  *  [ ] Power Off at D7
@@ -16,13 +16,13 @@
  *  [ ] Handle empty Projector List
  *  [ ] Limit to 8 Projectors
  *  [ ] Move Strings to PROGMEM
- *  [ ] Langsame numerische Auswahl?    
- *  [ ] waitForBttnRelease in die Menu-Function?
+ *  [ ] Slow numeric selection?    
+ *  [ ] waitForBttnRelease into the menu function?
  *      
  *  [ ] Add tick sounds to Menu :)
  *  [ ] Add Proportional On Measurement Option
  *  [ ] Implement Extras Menu 
- *  [ ] 404 Handlen
+ *  [ ] Handle 404
  *  [ ] Handle 000
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implemet Reset
@@ -82,6 +82,9 @@
 #define MENU_ITEM_P               1  
 #define MENU_ITEM_I               2
 #define MENU_ITEM_D               3
+
+#define MENU_ITEM_DEL_EEPROM      1
+#define MENU_ITEM_DUMP            2
 
 // ---- Define the I2C Commands ----------------------------------------------------
 //
@@ -269,7 +272,7 @@ byte newStartmarkOffset = 0;
 
 byte lastProjectorUsed = 1;
 
-/* Belowis the EEPROM struct to save Projector Configs.
+/* Below is the EEPROM struct to save Projector Configs.
  *  Before the structs start, there are two header bytes:
  *  EEPROM.read(0, projectorCount);
  *  EEPROM.read(1, lastProjectorUsed);
@@ -311,7 +314,7 @@ void setup(void) {
   do {
     u8g2.drawXBMP(logo_xbm_x, logo_xbm_y, logo_xbm_width, logo_xbm_height, logo_xbm_bits);
   } while ( u8g2.nextPage() );
-  delay(1000);
+  delay(2000);
 
   myState = MAIN_MENU;
 
@@ -440,14 +443,14 @@ void loop(void) {
           myState = SELECT_TRACK;
           break;
         case MENU_ITEM_EXTRAS:
-          extrasMenuSelection = u8g2.userInterfaceSelectionList(NULL, MENU_ITEM_SELECT_TRACK, extras_menu);
+          extrasMenuSelection = u8g2.userInterfaceSelectionList("Extras", MENU_ITEM_DEL_EEPROM, extras_menu);
           waitForBttnRelease();
           switch (extrasMenuSelection) {
-            case 1:
+            case MENU_ITEM_DEL_EEPROM:
               u8g2.setFont(u8g2_font_helvR08_tr);
               u8g2.setFontRefHeightAll();    /* this will add some extra space for the text inside the buttons */
               byte choice;
-              choice = u8g2.userInterfaceMessage("Delete EEPROM", "Are you sure?", "", " Cancel \n Ok ");
+              choice = u8g2.userInterfaceMessage("Delete EEPROM", "Are you sure?", "", " Cancel \n Yes ");
               waitForBttnRelease();
               
               if (choice == 2) {
@@ -458,7 +461,7 @@ void loop(void) {
               u8g2.setFont(u8g2_font_helvR10_tr);
               u8g2.setFontRefHeightText();    
             break;
-            case 2:
+            case MENU_ITEM_DUMP:
               e2reader();
             break;
             default:
@@ -612,9 +615,19 @@ void handleProjectorNameInput() {
   bool firstUse = true;                        
 
   if (projectorActionMenuSelection == MENU_ITEM_EDIT) {
+    if (strlen(newProjectorName) == maxProjectorNameLength) {
+      const char lastChar = newProjectorName[maxProjectorNameLength - 1];
+
+      newProjectorName[maxProjectorNameLength - 1] = '\0';
+           if (lastChar >= 65 && lastChar <=  90) myEnc.write((lastChar - 65) * 2 + 16000);
+      else if (lastChar >= 97 && lastChar <= 122) myEnc.write((lastChar - 97) * 2 + 16052);
+      else if (lastChar >= 48 && lastChar <=  57) myEnc.write((lastChar - 48) * 2 + 16106);
+      else    myEnc.write(16104);
+    } else {
+      myEnc.write(16126);         // to start with "Delete"
+    }
     charIndex = strlen(newProjectorName);
     firstUse = false;
-    myEnc.write(16126);           // to start with "Delete" 
     for (byte i = charIndex + 1; i < maxProjectorNameLength; i++) {
       newProjectorName[i] = 0;
     }
@@ -629,20 +642,20 @@ void handleProjectorNameInput() {
     while (digitalRead(ENCODER_BTN) == 1) {
       newEncPosition = (myEnc.read() >> 1) % 64;
       /*
-       * Chr : Ascii Code     | newEncPos | #
-       * ----:----------------|-----------|---
-       * A-Z : Ascii 65 - 90  |   0 - 25  | 26
-       * a-z : Ascii 97 - 122 |  26 - 51  | 26
-       * Spc : Ascii 32       |       52  | 1
-       * 0-9 : Ascii 48 - 57  |  53 - 62  | 10
-       * Del : Ascii 127      |  63       | 1
+       * Chr : Ascii Code      | newEncPos | myEnc.write | #
+       * ----:-----------------|-----------|-------------|---
+       * A-Z : Ascii  65 -  90 |   0 - 25  |    0 -  50  | 26
+       * a-z : Ascii  97 - 122 |  26 - 51  |   52 - 102  | 26
+       * Spc : Ascii  32       |  52       |  104        |  1
+       * 0-9 : Ascii  48 -  57 |  53 - 62  |  106 - 124  | 10
+       * Del : Ascii 127       |  63       |  126        |  1
        * 
        */
-      if      (newEncPosition >=  0 && newEncPosition <= 25) localChar = newEncPosition + 65;
+           if (                        newEncPosition <= 25) localChar = newEncPosition + 65;
       else if (newEncPosition >= 26 && newEncPosition <= 51) localChar = newEncPosition + 71;
-      else if (newEncPosition >= 52 && newEncPosition <= 52) localChar = 32;
+      else if (newEncPosition == 52                        ) localChar = 32;
       else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
-      else localChar = 127;
+      else    localChar = 127;
       lastMillis = millis();
       handleStringInputGraphically(GET_NAME, localChar, lastMillis, firstUse);
     }
