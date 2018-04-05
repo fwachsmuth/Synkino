@@ -1802,8 +1802,6 @@ Text Label 3800 5800 2    60   ~ 0
 OLED_CLK
 Text Label 2950 8250 0    60   ~ 0
 ~RST
-Text Label 3800 5900 2    60   ~ 0
-CTRL_RST
 $Comp
 L R R12
 U 1 1 5A9CE1EA
@@ -1891,8 +1889,6 @@ F 3 "" H 2100 6250 50  0001 C CNN
 	1    2100 6250
 	0    1    1    0   
 $EndComp
-Text Label 2250 6250 0    60   ~ 0
-CTRL_RST
 Text Label 2950 8500 0    60   ~ 0
 CTRL_TXD
 Text Label 2950 8400 0    60   ~ 0
@@ -3917,4 +3913,8 @@ Wire Wire Line
 	3900 1300 3900 1250
 Wire Wire Line
 	1850 1250 3000 1250
+Text Label 3800 5900 2    60   ~ 0
+~RST
+Text Label 2250 6250 0    60   ~ 0
+~RST
 $EndSCHEMATC
