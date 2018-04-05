@@ -1,6 +1,3 @@
-// 24458
-// 580
-
 /*
  *  This is the frontend part of Synkino
  *  
@@ -36,14 +33,13 @@
 #include <WireData.h>
 #include <EEPROM.h>
 
-
 // ---- Define the various Pins we use- --------------------------------------------
 //
 #define SPI_CS        10
 #define SPI_DC        9
 #define SPI_RESET     8
-#define ENCODER_A     2
-#define ENCODER_B     3
+#define ENCODER_A     3
+#define ENCODER_B     2
 #define ENCODER_BTN   4
 #define BUZZER        6
 
@@ -640,7 +636,8 @@ void handleProjectorNameInput() {
   
   while (charIndex < maxProjectorNameLength && !inputFinished) {
     while (digitalRead(ENCODER_BTN) == 1) {
-      newEncPosition = (myEnc.read() >> 1) % 64;
+//      newEncPosition = (myEnc.read() >> 1) % 64;
+      newEncPosition = (myEnc.read() >> 2) % 64;
       /*
        * Chr : Ascii Code      | newEncPos | myEnc.write | #
        * ----:-----------------|-----------|-------------|---
@@ -842,7 +839,8 @@ uint16_t selectTrackScreen() {
   myEnc.write(16002);
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
     newEncPosition = myEnc.read();
-    newEncPosition = (newEncPosition >> 1) % 1000;
+//    newEncPosition = (newEncPosition >> 1) % 1000;
+    newEncPosition = (newEncPosition >> 2) % 1000;
     if (newEncPosition != oldPosition) {
       oldPosition = newEncPosition;
       
@@ -872,7 +870,8 @@ uint16_t selectTrackScreen() {
 
 // This overwrites the weak function in u8x8_debounce.c
 uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
-  int newEncPosition = myEnc.read() >> 1;
+//  int newEncPosition = myEnc.read() >> 1;
+  int newEncPosition = myEnc.read() >> 2;
   static int oldEncPosition = 8000;
   int encoderBttn = digitalRead(ENCODER_BTN);
 
