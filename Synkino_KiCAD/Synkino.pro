@@ -1,4 +1,4 @@
-update=2018 March 08, Thursday 21:11:18
+update=2018 April 09, Monday 23:19:45
 version=1
 last_client=kicad
 [pcbnew]
@@ -78,3 +78,4 @@ LibName36=ftdi
 LibName37=qre1113
 LibName38=irf7319
 LibName39=switches
+LibName40=lib_sch/IRLML2244
