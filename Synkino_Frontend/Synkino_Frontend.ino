@@ -836,7 +836,7 @@ uint16_t selectTrackScreen() {
   parentMenuEncPosition = myEnc.read();
   int newEncPosition;
   int oldPosition;
-  myEnc.write(16002);
+// myEnc.write(16001);
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
     newEncPosition = myEnc.read();
 //    newEncPosition = (newEncPosition >> 1) % 1000;
