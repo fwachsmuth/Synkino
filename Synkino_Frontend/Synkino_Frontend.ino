@@ -1,13 +1,14 @@
 /*
  *  This is the frontend part of Synkino
  *  
- *  [ ] Soft POwer off
- *  [ ] Audio Enabler
+ *  [x] Soft Power off
+ *  [ ] Power off after n minutes of inactivity
+ *  [x] Audio Enabler
  *  [ ] Handle File not Found
  *  [ ] Handle no SD card
  *  [ ] Handle no plugin found
  *  [ ] Mit FFFFF im EEPROM umgehen
- *  [ ] Exit im Menü einbauen
+ *  [x] Exit im Menü einbauen
  *  
  *  [x] Make 12-char projectors editable
  *  [ ] Track number after editing Proj
@@ -459,8 +460,9 @@ void loop(void) {
             Serial.print("DelMenu-Ausw: ");
             Serial.println(projectorSelectionMenuSelection);
             deleteProjector(projectorSelectionMenuSelection);
+
           } else if (projectorActionMenuSelection == MENU_ITEM_EXIT) {
-            
+            // nothing to do here            
           }
               
           break;
@@ -468,14 +470,7 @@ void loop(void) {
           myState = SELECT_TRACK;
           break;
         case MENU_ITEM_POWER_OFF:
-          digitalWrite(POWER_OFF, LOW); 
-          u8g2.firstPage();
-          do {
-            u8g2.setFont(u8g2_font_helvR10_tr);
-            u8g2.setCursor(25,35);
-            u8g2.print("Good Bye.");
-          } while ( u8g2.nextPage() );
-          do {} while(true);
+          shutdownSelf();
           break;  
         case MENU_ITEM_EXTRAS:
           extrasMenuSelection = u8g2.userInterfaceSelectionList("Extras", MENU_ITEM_DEL_EEPROM, extras_menu);
@@ -996,7 +991,7 @@ void e2reader(){
   Serial.println();
 }
  
-void printASCII(char * buffer){
+void printASCII(char * buffer) {
   for(int i = 0; i < 16; i++){
     if(i == 8)
       Serial.print(" ");
@@ -1008,3 +1003,15 @@ void printASCII(char * buffer){
     }
   }
 }
+
+void shutdownSelf() {
+  digitalWrite(POWER_OFF, LOW); 
+  u8g2.firstPage();
+  do {
+    u8g2.setFont(u8g2_font_helvR10_tr);
+    u8g2.setCursor(25,35);
+    u8g2.print("Good Bye.");
+  } while ( u8g2.nextPage() );
+  do {} while(true);
+}
+
