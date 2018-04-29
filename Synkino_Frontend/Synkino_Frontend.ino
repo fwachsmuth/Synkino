@@ -23,6 +23,15 @@
  *  [ ] Handle 000
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implemet Reset
+ *  
+ *  PCB:
+ *  - Offset ICSP Pins
+ *  - Offset fTDI Pins
+ *  - + mark on the backside
+ *  - Display-Löcher minimal tiefer (1mm?)
+ *  - Power On weiter nach rechts
+ *  
+ *  Change avrdude.conf in cd /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
  */
 
 #include <Arduino.h>
