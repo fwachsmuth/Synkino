@@ -1,12 +1,22 @@
 /*
  *  This is the frontend part of Synkino
  *  
+ *  [ ] Soft POwer off
+ *  [ ] Audio Enabler
+ *  [ ] Handle File not Found
+ *  [ ] Handle no SD card
+ *  [ ] Handle no plugin found
+ *  [ ] Mit FFFFF im EEPROM umgehen
+ *  [ ] Exit im Menü einbauen
+ *  
  *  [x] Make 12-char projectors editable
+ *  [ ] Track number after editing Proj
  *  [ ] On Edit, Shutter Blade Position is wrong
  *  [ ] Verify what gets sent to AUDIO
  *  [ ] Use Audio_enable on Pin 6 to turn on Audio
  *  [ ] Test ICSP
  *  [ ] Power Off at D7
+ *  [ ] 8-3-1 default
  *  
  *  [ ] Try http://arduino.land/Code/SmallSetup/
  *  [ ] Edit some Cancel Items
@@ -30,6 +40,7 @@
  *  - + mark on the backside
  *  - Display-Löcher minimal tiefer (1mm?)
  *  - Power On weiter nach rechts
+ *  - Batteriefach
  *  
  *  Change avrdude.conf in cd /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
  */
@@ -50,7 +61,7 @@
 #define ENCODER_A     3
 #define ENCODER_B     2
 #define ENCODER_BTN   4
-#define BUZZER        6
+#define AUDIO_EN      6
 
 // ---- Define the various Menu Screens --------------------------------------------
 //
@@ -297,12 +308,12 @@ struct Projector {          // 19 Bytes per Projector
 void setup(void) {
   pinMode(SPI_CS, OUTPUT);
   pinMode(SPI_DC, OUTPUT);
-  pinMode(BUZZER, OUTPUT);
+  pinMode(AUDIO_EN, OUTPUT);
   pinMode(ENCODER_BTN, INPUT);
   digitalWrite(SPI_CS, 0);
   digitalWrite(SPI_DC, 0);		
   digitalWrite(ENCODER_BTN, HIGH);
-
+ 
   myEnc.write(16000);
 
   Serial.begin(115200);
@@ -488,6 +499,7 @@ void loop(void) {
       if ((fps != 0) && (trackLoaded != 0)) {
         drawWaitForPlayingMenu(trackChosen, fps);
         myState = TRACK_LOADED;
+        digitalWrite(AUDIO_EN, HIGH);
       } // Todo: Timeout und Error Handler
       break;
     case TRACK_LOADED:
