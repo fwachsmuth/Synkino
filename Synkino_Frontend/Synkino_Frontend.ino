@@ -62,6 +62,7 @@
 #define ENCODER_B     2
 #define ENCODER_BTN   4
 #define AUDIO_EN      6
+#define POWER_OFF     7
 
 // ---- Define the various Menu Screens --------------------------------------------
 //
@@ -78,12 +79,14 @@
 //
 #define MENU_ITEM_PROJECTOR       1
 #define MENU_ITEM_SELECT_TRACK    2
-#define MENU_ITEM_EXTRAS          3
+#define MENU_ITEM_POWER_OFF       3
+#define MENU_ITEM_EXTRAS          4
 
 #define MENU_ITEM_NEW             1
 #define MENU_ITEM_SELECT          2
 #define MENU_ITEM_EDIT            3
 #define MENU_ITEM_DELETE          4
+#define MENU_ITEM_EXIT            5
 
 #define MENU_ITEM_NAME            1
 #define MENU_ITEM_SHUTTER_BLADES  2
@@ -224,13 +227,15 @@ const int myAddress = 0x07;     // Our i2c address here
 const char *main_menu = 
   "Projector\n"
   "Select Track\n"
+  "Power Off\n"
   "Extras";
 
 const char *projector_action_menu =
   "New\n"
   "Select\n"
   "Edit\n"
-  "Delete";
+  "Delete\n"
+  "Exit";
 
 const char *projector_config_menu =
   "Name\n"
@@ -309,10 +314,12 @@ void setup(void) {
   pinMode(SPI_CS, OUTPUT);
   pinMode(SPI_DC, OUTPUT);
   pinMode(AUDIO_EN, OUTPUT);
+  pinMode(POWER_OFF, OUTPUT);
   pinMode(ENCODER_BTN, INPUT);
   digitalWrite(SPI_CS, 0);
   digitalWrite(SPI_DC, 0);		
   digitalWrite(ENCODER_BTN, HIGH);
+  digitalWrite(POWER_OFF, HIGH);
  
   myEnc.write(16000);
 
@@ -452,12 +459,24 @@ void loop(void) {
             Serial.print("DelMenu-Ausw: ");
             Serial.println(projectorSelectionMenuSelection);
             deleteProjector(projectorSelectionMenuSelection);
+          } else if (projectorActionMenuSelection == MENU_ITEM_EXIT) {
+            
           }
               
           break;
         case MENU_ITEM_SELECT_TRACK:
           myState = SELECT_TRACK;
           break;
+        case MENU_ITEM_POWER_OFF:
+          digitalWrite(POWER_OFF, LOW); 
+          u8g2.firstPage();
+          do {
+            u8g2.setFont(u8g2_font_helvR10_tr);
+            u8g2.setCursor(25,35);
+            u8g2.print("Good Bye.");
+          } while ( u8g2.nextPage() );
+          do {} while(true);
+          break;  
         case MENU_ITEM_EXTRAS:
           extrasMenuSelection = u8g2.userInterfaceSelectionList("Extras", MENU_ITEM_DEL_EEPROM, extras_menu);
           waitForBttnRelease();
