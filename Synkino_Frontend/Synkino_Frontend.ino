@@ -2,16 +2,16 @@
  *  This is the frontend part of Synkino
  *  
  *  [ ] Power off after n minutes of inactivity
- *  [ ] Handle File not Found
- *  [ ] Handle no SD card
- *  [ ] Handle no plugin found
+ *  [x] Handle File not Found
+ *  [x] Handle no SD card
+ *  [x] Handle no plugin found
  *  [ ] Mit FFFFF im EEPROM umgehen
- *  [ ]  Make Display darker during Playback
+ *  [ ] Make Display darker during Playback
  *  
  *  [ ] Track number after editing Proj
  *  [ ] On Edit, Shutter Blade Position is wrong
  *  [ ] Verify what gets sent to AUDIO
- *  [ ] Test ICSP
+ *  [x] Test ICSP
  *  [ ] 8-3-1 default
  *  
  *  [ ] Try http://arduino.land/Code/SmallSetup/
@@ -410,6 +410,9 @@ void loop(void) {
             break;
           case 16:
             showError("DSP Patch could","not be loaded.");
+          case 20:
+            showError("No SD Card found.","");
+            break;
           default:
             showError("Oops:", i2cParameter);
             //  1: Already playing track

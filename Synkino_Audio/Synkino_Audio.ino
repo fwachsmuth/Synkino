@@ -142,7 +142,7 @@ void setup() {
 
   Setpoint = 0;
   
-  uint8_t result; //result code for initialization function
+  uint8_t result; //result code for initialization functions
 
   Serial.begin(115200);
 
@@ -154,9 +154,20 @@ void setup() {
   Wire.onRequest(i2cRequest);
 
   // Initialize the SdCard
-  if(!sd.begin(SD_SEL, SPI_FULL_SPEED)) sd.initErrorHalt();
-  // depending upon your SdCard environment, SPI_HAVE_SPEED may work better.
-  if(!sd.chdir("/")) sd.errorHalt("sd.chdir");
+  result = sd.begin(SD_SEL, SPI_FULL_SPEED);
+  if(result != 1) {
+    tellFrontend(CMD_SHOW_ERROR, result + 20);
+    Serial.print(F("In SD.Begin: "));
+    Serial.println(result);
+    sd.initErrorHalt();
+  }
+  result = sd.chdir("/");
+  if(result != 1) {
+    tellFrontend(CMD_SHOW_ERROR, result + 30);
+    Serial.print(F("In SD.chdir: "));
+    Serial.println(result);
+    sd.errorHalt("sd.chdir");
+  }
 
   //Initialize the MP3 Player Shield
 
@@ -164,9 +175,8 @@ void setup() {
   //check result, see readme for error codes.
   if(result != 0) { 
     tellFrontend(CMD_SHOW_ERROR, result + 10);
-    Serial.print(F("Error code: "));
+    Serial.print(F("In player.begin: "));
     Serial.print(result);
-    Serial.println(F(" (when trying to start MP3 player)"));
     if( result == 6 ) {
       Serial.println(F("ERROR: DSP patch file not found!")); 
     }
