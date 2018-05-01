@@ -2,16 +2,12 @@
  *  This is the frontend part of Synkino
  *  
  *  [ ] Power off after n minutes of inactivity
- *  [x] Handle File not Found
- *  [x] Handle no SD card
- *  [x] Handle no plugin found
  *  [ ] Mit FFFFF im EEPROM umgehen
  *  [ ] Make Display darker during Playback
  *  
  *  [ ] Track number after editing Proj
  *  [ ] On Edit, Shutter Blade Position is wrong
  *  [ ] Verify what gets sent to AUDIO
- *  [x] Test ICSP
  *  [ ] 8-3-1 default
  *  [ ] Compile and test patch 2.6 for wider upsampling trick
  *  
@@ -37,7 +33,9 @@
  *  - Display-Löcher minimal tiefer (1mm?)
  *  - Power On weiter nach rechts
  *  - Batteriefach
+ *  - LEDs nicht ganz s nah an die Buchsen
  *  - Save Power: Disable Start mark Sensor after start...
+ *  - Prep for EEPROM :)
  *    
  *  Change avrdude.conf in cd /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
  */
@@ -408,6 +406,8 @@ void loop(void) {
         switch (i2cParameter) { // see https://mpflaga.github.io/Arduino_Library-vs1053_for_SdFat/
           case 2:
             showError("File not found.","");
+            waitForBttnRelease();
+            myState = MENU_ITEM_SELECT_TRACK;
             break;
           case 16:
             showError("DSP Patch could","not be loaded.");

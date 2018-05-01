@@ -7,17 +7,13 @@
  *  
  *  [ ] 100n an den Encoderoutputs probieren (Prellschutz)
  * 
- *  [x] KiCad all this. Soon.
  *  [ ] load patch from EEPROM (https://mpflaga.github.io/Arduino_Library-vs1053_for_SdFat/vs1053___sd_fat_8cpp_source.html#l00327)
  *  [ ] Document diffs to vs1053_SdFat.h
- *  [x] decode delta-sigma line out
  *  [ ] Try/Switch to 15 MHz xtal
  *  [ ] Forwards/Backwards Correction (Frame-wise)
  *  [ ] Projektor-Frequenzanzeige
  *  [ ] remove unused variables
- *  [x] pull-up am i2c anbringen
  *  [ ] Update https://github.com/nickgammon/I2C_Anything
- *  [x] Error Codes verdrahten
  *  
  * 
  */
@@ -48,7 +44,7 @@
 #define CMD_PROJ_PLAY           14  /* --->                 √  */
 #define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)      */
 #define CMD_OOSYNC              16  /* ---> (frameCount)    √  */
-#define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)        */
+#define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)     √  */
 #define CMD_TRACK_LOADED        18  /* --->                 √  */
 #define CMD_STARTMARK_HIT       19  /* --->                 √  */
 
@@ -341,19 +337,18 @@ uint8_t loadTrackByNo(int trackNo) {
   result = musicPlayer.playMP3(trackNameFound);
   if (result != 0) {
     tellFrontend(CMD_SHOW_ERROR, result);
-    Serial.print(F("Error code: "));
-    Serial.print(result);
-    Serial.println(F(" when trying to play track"));
+    Serial.print(F("Playback-Error: "));
+    Serial.println(result);
   } else {
     Serial.println(F("Waiting for start mark..."));
+    musicPlayer.setVolume(3,3);
+    musicPlayer.pauseMusic();
+    enableResampler();
+    while (musicPlayer.getState() != paused_playback) {}
+    clearSampleCounter();
+    myState = TRACK_LOADED;
+    tellFrontend(CMD_TRACK_LOADED, 0);
   }
-  musicPlayer.setVolume(3,3);
-  musicPlayer.pauseMusic();
-  enableResampler();
-  while (musicPlayer.getState() != paused_playback) {}
-  clearSampleCounter();
-  myState = TRACK_LOADED;
-  tellFrontend(CMD_TRACK_LOADED, 0);
   return result;
 }
 
