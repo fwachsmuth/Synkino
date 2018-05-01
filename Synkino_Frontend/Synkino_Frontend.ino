@@ -1,22 +1,17 @@
 /*
  *  This is the frontend part of Synkino
  *  
- *  [x] Soft Power off
  *  [ ] Power off after n minutes of inactivity
- *  [x] Audio Enabler
  *  [ ] Handle File not Found
  *  [ ] Handle no SD card
  *  [ ] Handle no plugin found
  *  [ ] Mit FFFFF im EEPROM umgehen
- *  [x] Exit im Menü einbauen
+ *  [ ]  Make Display darker during Playback
  *  
- *  [x] Make 12-char projectors editable
  *  [ ] Track number after editing Proj
  *  [ ] On Edit, Shutter Blade Position is wrong
  *  [ ] Verify what gets sent to AUDIO
- *  [ ] Use Audio_enable on Pin 6 to turn on Audio
  *  [ ] Test ICSP
- *  [ ] Power Off at D7
  *  [ ] 8-3-1 default
  *  
  *  [ ] Try http://arduino.land/Code/SmallSetup/
@@ -30,7 +25,6 @@
  *  [ ] Add tick sounds to Menu :)
  *  [ ] Add Proportional On Measurement Option
  *  [ ] Implement Extras Menu 
- *  [ ] Handle 404
  *  [ ] Handle 000
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implemet Reset
@@ -42,7 +36,8 @@
  *  - Display-Löcher minimal tiefer (1mm?)
  *  - Power On weiter nach rechts
  *  - Batteriefach
- *  
+ *  - Save Power: Disable Start mark Sensor after start...
+ *    
  *  Change avrdude.conf in cd /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
  */
 
@@ -258,6 +253,7 @@ const byte maxProjectorNameLength = 12;
 const byte maxProjectorCount = 8;
 char newProjectorName[maxProjectorNameLength + 1];
 char projectorSelection_menu[maxProjectorNameLength * maxProjectorCount + maxProjectorCount]; 
+//char errorMsg[24];
 
 uint8_t mainMenuSelection               = MENU_ITEM_SELECT_TRACK;
 uint8_t projectorActionMenuSelection    = MENU_ITEM_SELECT;
@@ -408,6 +404,23 @@ void loop(void) {
         oosyncFrames = i2cParameter;
       break; 
       case CMD_SHOW_ERROR:
+        switch (i2cParameter) { // see https://mpflaga.github.io/Arduino_Library-vs1053_for_SdFat/
+          case 2:
+            showError("File not found.","");
+            break;
+          case 16:
+            showError("DSP Patch could","not be loaded.");
+          default:
+            showError("Oops:", i2cParameter);
+            //  1: Already playing track
+            //  3: indicates that the VSdsp is in reset
+            // 11: Failure of SdFat to initialize physical contact with the SdCard
+            // 12: Failure of SdFat to start the SdCard's volume
+            // 13: Failure of SdFat to mount the root directory on the volume of the SdCard
+            // 14: Other than default values were found in the SCI_MODE register
+            // 15: SCI_CLOCKF did not read back and verify the configured value
+            break;
+        }
       break; 
       case CMD_TRACK_LOADED:
         trackLoaded = 1;
@@ -1013,5 +1026,31 @@ void shutdownSelf() {
     u8g2.print("Good Bye.");
   } while ( u8g2.nextPage() );
   do {} while(true);
+}
+
+void showError(char * errorMsg1, char * errorMsg2) {
+  u8g2.setFont(u8g2_font_helvR08_tr);
+  u8g2.setFontRefHeightAll();    /* this will add some extra space for the text inside the buttons */
+  byte choice;
+  choice = u8g2.userInterfaceMessage("ERROR", errorMsg1, errorMsg2, " Okay ");
+  waitForBttnRelease();
+  
+  if (choice == 2) {
+  }
+  u8g2.setFont(u8g2_font_helvR10_tr);
+  u8g2.setFontRefHeightText();    
+
+  
+//  u8g2.firstPage();
+//  do {
+//    u8g2.setFont(u8g2_font_helvR10_tr);
+//    u8g2.setCursor(1,1);
+//    for (int i = 0; i < 24; i++) {
+//      if (i == 12) {
+//        u8g2.setCursor(1,15);
+//      }
+//      u8g2.print(errorMsg[i]);
+//    }
+//  } while ( u8g2.nextPage() );
 }
 

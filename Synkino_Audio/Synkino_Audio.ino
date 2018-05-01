@@ -148,7 +148,11 @@ void setup() {
 
   Serial.print(F("Free RAM = ")); 
   Serial.println(FreeStack(), DEC);  // FreeStack() is provided by SdFat
-  
+
+  Wire.begin(myAddress);
+  Wire.onReceive(i2cReceive);
+  Wire.onRequest(i2cRequest);
+
   // Initialize the SdCard
   if(!sd.begin(SD_SEL, SPI_FULL_SPEED)) sd.initErrorHalt();
   // depending upon your SdCard environment, SPI_HAVE_SPEED may work better.
@@ -159,17 +163,14 @@ void setup() {
   result = musicPlayer.begin();
   //check result, see readme for error codes.
   if(result != 0) { 
+    tellFrontend(CMD_SHOW_ERROR, result + 10);
     Serial.print(F("Error code: "));
     Serial.print(result);
-    Serial.println(F(" when trying to start MP3 player"));
+    Serial.println(F(" (when trying to start MP3 player)"));
     if( result == 6 ) {
-      Serial.println(F("Warning: patch file not found, skipping.")); // can be removed for space, if needed.
+      Serial.println(F("ERROR: DSP patch file not found!")); 
     }
   }
-
-  Wire.begin(myAddress);
-  Wire.onReceive(i2cReceive);
-  Wire.onRequest(i2cRequest);
 
 }
 
@@ -320,7 +321,6 @@ uint8_t loadTrackByNo(int trackNo) {
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
       tellFrontend(CMD_FOUND_FPS, fpsGuess);
-
 //      Serial.print(F("File exists and has ")); 
 //      Serial.print(fpsGuess);
 //      Serial.print(F(" fps:"));
@@ -330,6 +330,7 @@ uint8_t loadTrackByNo(int trackNo) {
   uint8_t result;
   result = musicPlayer.playMP3(trackNameFound);
   if (result != 0) {
+    tellFrontend(CMD_SHOW_ERROR, result);
     Serial.print(F("Error code: "));
     Serial.print(result);
     Serial.println(F(" when trying to play track"));
