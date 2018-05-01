@@ -13,6 +13,7 @@
  *  [ ] Verify what gets sent to AUDIO
  *  [x] Test ICSP
  *  [ ] 8-3-1 default
+ *  [ ] Compile and test patch 2.6 for wider upsampling trick
  *  
  *  [ ] Try http://arduino.land/Code/SmallSetup/
  *  [ ] Edit some Cancel Items

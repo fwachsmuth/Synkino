@@ -7,17 +7,17 @@
  *  
  *  [ ] 100n an den Encoderoutputs probieren (Prellschutz)
  * 
- *  [ ] KiCad all this. Soon.
- *  [ ] load patch from EEPROM
+ *  [x] KiCad all this. Soon.
+ *  [ ] load patch from EEPROM (https://mpflaga.github.io/Arduino_Library-vs1053_for_SdFat/vs1053___sd_fat_8cpp_source.html#l00327)
  *  [ ] Document diffs to vs1053_SdFat.h
- *  [ ] decode delta-sigma line out
+ *  [x] decode delta-sigma line out
  *  [ ] Try/Switch to 15 MHz xtal
  *  [ ] Forwards/Backwards Correction (Frame-wise)
  *  [ ] Projektor-Frequenzanzeige
  *  [ ] remove unused variables
- *  [ ] pull-up am i2c anbringen
+ *  [x] pull-up am i2c anbringen
  *  [ ] Update https://github.com/nickgammon/I2C_Anything
- *  [ ] Error Codes verdrahten
+ *  [x] Error Codes verdrahten
  *  
  * 
  */
