@@ -410,7 +410,7 @@ void loop(void) {
             myState = MENU_ITEM_SELECT_TRACK;
             break;
           case 16:
-            showError("DSP Patch could","not be loaded.");
+            showError("DSP Patch could","not be loaded."); 
           case 20:
             showError("No SD Card found.","");
             break;
@@ -522,8 +522,12 @@ void loop(void) {
     case SELECT_TRACK:
       static int trackChosen;
       trackChosen = selectTrackScreen();
-      tellAudioPlayer(CMD_LOAD_TRACK, trackChosen);
-      myState = WAIT_FOR_LOADING;
+      if (trackChosen != 0) {
+        tellAudioPlayer(CMD_LOAD_TRACK, trackChosen);
+        myState = WAIT_FOR_LOADING;
+      } else {
+        myState = MAIN_MENU;
+      }
       break;
     case WAIT_FOR_LOADING:
       drawBusyBee(90,10);
