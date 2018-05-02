@@ -12,7 +12,6 @@
  *  [ ] Compile and test patch 2.6 for wider upsampling trick
  *  
  *  [ ] Try http://arduino.land/Code/SmallSetup/
- *  [ ] Edit some Cancel Items
  *  [ ] Handle empty Projector List
  *  [ ] Limit to 8 Projectors
  *  [ ] Move Strings to PROGMEM
@@ -22,7 +21,6 @@
  *  [ ] Add tick sounds to Menu :)
  *  [ ] Add Proportional On Measurement Option
  *  [ ] Implement Extras Menu 
- *  [ ] Handle 000
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implemet Reset
  *  
@@ -36,6 +34,7 @@
  *  - LEDs nicht ganz s nah an die Buchsen
  *  - Save Power: Disable Start mark Sensor after start...
  *  - Prep for EEPROM :)
+ *  - Add Buzzer? 8.5x8.5 AAC801J-13 
  *    
  *  Change avrdude.conf in cd /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
  */
@@ -382,8 +381,6 @@ void loop(void) {
       case CMD_FOUND_FMT:
       break; 
       case CMD_FOUND_FPS:
-//        Serial.print(F("FPS sind "));
-//        Serial.println(i2cParameter);
         fps = i2cParameter;
       break; 
       case CMD_CURRENT_AUDIOSEC:
@@ -417,7 +414,7 @@ void loop(void) {
           default:
             showError("Oops:", i2cParameter);
             //  1: Already playing track
-            //  3: indicates that the VSdsp is in reset
+            //  3: indicates that the DSP is in reset
             // 11: Failure of SdFat to initialize physical contact with the SdCard
             // 12: Failure of SdFat to start the SdCard's volume
             // 13: Failure of SdFat to mount the root directory on the volume of the SdCard
@@ -451,6 +448,7 @@ void loop(void) {
 
           projectorActionMenuSelection = u8g2.userInterfaceSelectionList("Projector", MENU_ITEM_SELECT, projector_action_menu);
           waitForBttnRelease();
+          myEnc.write(15994);
           
           if (projectorActionMenuSelection == MENU_ITEM_NEW) { 
             gatherProjectorData();
@@ -1047,18 +1045,5 @@ void showError(char * errorMsg1, char * errorMsg2) {
   }
   u8g2.setFont(u8g2_font_helvR10_tr);
   u8g2.setFontRefHeightText();    
-
-  
-//  u8g2.firstPage();
-//  do {
-//    u8g2.setFont(u8g2_font_helvR10_tr);
-//    u8g2.setCursor(1,1);
-//    for (int i = 0; i < 24; i++) {
-//      if (i == 12) {
-//        u8g2.setCursor(1,15);
-//      }
-//      u8g2.print(errorMsg[i]);
-//    }
-//  } while ( u8g2.nextPage() );
 }
 
