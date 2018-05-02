@@ -1067,13 +1067,17 @@ void showError(char * errorMsg1, char * errorMsg2) {
   u8g2.setFontRefHeightText();    
 }
 
-ISR(TIMER1_COMPA_vect) {                // This gets called once every second
-  if (myEnc.read() != lastEncRead) {    // See if there was any user activity
+ISR(TIMER1_COMPA_vect) {                  // This gets called once every second
+  if (myEnc.read() != lastEncRead) {  // See if there was any user activity
     lastActivityMillies = millis();
     lastEncRead = myEnc.read();
   }
-  if (millis() - lastActivityMillies > 300000) {
-    shutdownSelf();
+  if (myState != SYNC_PLAY) {
+    if (myState != TRACK_LOADED) {
+      if (millis() - lastActivityMillies > 10000) {
+        shutdownSelf();
+      }
+    }
   }
 }
 
