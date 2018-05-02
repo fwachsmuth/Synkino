@@ -1,9 +1,9 @@
 /*
  *  This is the frontend part of Synkino
  *  
- *  [ ] Power off after n minutes of inactivity
  *  [ ] Mit FFFFF im EEPROM umgehen
  *  [ ] Make Display darker during Playback
+ *  [ ] Get out of unsync-status
  *  
  *  [ ] Track number after editing Proj
  *  [ ] On Edit, Shutter Blade Position is wrong
@@ -19,9 +19,13 @@
  *  [ ] waitForBttnRelease into the menu function?
  *      
  *  [ ] Add tick sounds to Menu :)
- *  [ ] Add Proportional On Measurement Option
- *  [ ] Implement Extras Menu 
+ *  [ ] Implement Extras Menu:
+ *      [ ] Add Proportional On Measurement Option
+ *      [ ] Configure Auto Power-Off Timeout
+ *      [ ] Display Brightness
+ *      [ ] Configure base Volume
  *  [ ] Implement Inc/Dec Sync Pos
+ *  [ ] Implement end of track detection
  *  [ ] Implemet Reset
  *  
  *  PCB:
@@ -1074,7 +1078,7 @@ ISR(TIMER1_COMPA_vect) {                  // This gets called once every second
   }
   if (myState != SYNC_PLAY) {
     if (myState != TRACK_LOADED) {
-      if (millis() - lastActivityMillies > 10000) {
+      if (millis() - lastActivityMillies > 300000) {
         shutdownSelf();
       }
     }
