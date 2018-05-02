@@ -35,6 +35,7 @@
  *  - Save Power: Disable Start mark Sensor after start...
  *  - Prep for EEPROM :)
  *  - Add Buzzer? 8.5x8.5 AAC801J-13 
+ *  - C5 etwas kleiner?
  *    
  *  Change avrdude.conf in cd /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
  */
@@ -278,9 +279,10 @@ uint8_t hours   = 0;
 uint8_t minutes = 0;
 uint8_t seconds = 0;
 
-unsigned long lastActivityMillies = millis();
+volatile unsigned long lastActivityMillies = millis();
 
 int oosyncFrames = 0;
+int lastEncRead;
 
 
 byte new_p = 8;
@@ -340,6 +342,18 @@ void setup(void) {
 
   lastProjectorUsed = EEPROM.read(1);
   loadProjectorConfig(lastProjectorUsed);
+
+  noInterrupts();
+  // Setup Timer1 to periodically (every second) check if a Power-Off is due 
+  TCCR1A = 0;                             // Clear registers
+  TCCR1B = 0;
+  TCNT1  = 0;
+  OCR1A = 15624;                          // 1 Hz (16000000/((15624+1)*1024))
+  TCCR1B |= (1 << WGM12);                 // CTC
+  TCCR1B |= (1 << CS12) | (1 << CS10);    // Prescaler 1024
+  TIMSK1 |= (1 << OCIE1A);                // Output Compare Match A Interrupt Enable
+  interrupts();
+  
 }
 
 
@@ -1051,5 +1065,15 @@ void showError(char * errorMsg1, char * errorMsg2) {
   }
   u8g2.setFont(u8g2_font_helvR10_tr);
   u8g2.setFontRefHeightText();    
+}
+
+ISR(TIMER1_COMPA_vect) {                // This gets called once every second
+  if (myEnc.read() != lastEncRead) {    // See if there was any user activity
+    lastActivityMillies = millis();
+    lastEncRead = myEnc.read();
+  }
+  if (millis() - lastActivityMillies > 300000) {
+    shutdownSelf();
+  }
 }
 
