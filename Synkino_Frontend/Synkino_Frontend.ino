@@ -1,22 +1,20 @@
 /*
  *  This is the frontend part of Synkino
  *  
- *  [x] Mit FFFFF im EEPROM umgehen
- *  [ ] Make Display darker during Playback
  *  [ ] Get out of unsync-status
- *  
- *  [ ] Track number after editing Proj
- *  [ ] On Edit, Shutter Blade Position is wrong
- *  [ ] Verify what gets sent to AUDIO
- *  [ ] 8-3-1 default
- *  [ ] Compile and test patch 2.6 for wider upsampling trick
- *  
- *  [ ] Try http://arduino.land/Code/SmallSetup/
+ *  [ ] make 8-3-1  the default values for new pids
+ *  [ ] Make Display darker during Playback
  *  [ ] Handle empty Projector List
- *  [ ] Limit to 8 Projectors
- *  [ ] Move Strings to PROGMEM
- *  [ ] Slow numeric selection?    
- *  [ ] waitForBttnRelease into the menu function?
+ *  [x] Limit to 8 Projectors
+ *  [ ] Implement Inc/Dec Sync Pos
+ *  [ ] Implement end of track detection
+ *  
+ *  [ ] Track number after editing Proj is off
+ *  [ ] On Edit, Shutter Blade Position is wrong
+ *  
+ *  [ ] Compile and test patch 2.6 for wider upsampling trick
+ *  [ ] Try http://arduino.land/Code/SmallSetup/
+ *  [ ] Move Strings to PROGMEM?
  *      
  *  [ ] Add tick sounds to Menu :)
  *  [ ] Implement Extras Menu:
@@ -24,8 +22,6 @@
  *      [ ] Configure Auto Power-Off Timeout
  *      [ ] Display Brightness
  *      [ ] Configure base Volume
- *  [ ] Implement Inc/Dec Sync Pos
- *  [ ] Implement end of track detection
  *  [ ] Implemet Reset
  *  
  *  PCB:
@@ -465,8 +461,6 @@ void loop(void) {
   }
   haveI2Cdata = false;  
 
-  Serial.println(millis() - lastActivityMillies);
-
   // State Machine ----------------------------------------------------------------
   //
   switch (myState) {
@@ -481,8 +475,14 @@ void loop(void) {
           waitForBttnRelease();
         
           if (projectorActionMenuSelection == MENU_ITEM_NEW) { 
-            gatherProjectorData();
-            saveProjector(NEW);
+            byte projectorCount;
+            projectorCount = EEPROM.read(0);
+            if (projectorCount < 8) {
+              gatherProjectorData();
+              saveProjector(NEW);
+            } else {
+              showError("Too many Projectors.","Only 8 allowed.");
+            }
             
           } else if (projectorActionMenuSelection == MENU_ITEM_SELECT) {
             makeProjectorSelectionMenu();
