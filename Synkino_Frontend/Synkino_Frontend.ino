@@ -1,7 +1,7 @@
 /*
  *  This is the frontend part of Synkino
  *  
- *  [ ] Mit FFFFF im EEPROM umgehen
+ *  [x] Mit FFFFF im EEPROM umgehen
  *  [ ] Make Display darker during Playback
  *  [ ] Get out of unsync-status
  *  
@@ -345,7 +345,13 @@ void setup(void) {
   myState = MAIN_MENU;
 
   lastProjectorUsed = EEPROM.read(1);
-  loadProjectorConfig(lastProjectorUsed);
+  if (lastProjectorUsed > 8) {
+    for (int i = 0 ; i < EEPROM.length() ; i++) {
+      EEPROM.write(i, 0);
+    }    
+  } else {
+    loadProjectorConfig(lastProjectorUsed);
+  }
 
   noInterrupts();
   // Setup Timer1 to periodically (every second) check if a Power-Off is due 
