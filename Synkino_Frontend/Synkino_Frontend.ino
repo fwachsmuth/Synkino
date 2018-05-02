@@ -278,6 +278,8 @@ uint8_t hours   = 0;
 uint8_t minutes = 0;
 uint8_t seconds = 0;
 
+unsigned long lastActivityMillies = millis();
+
 int oosyncFrames = 0;
 
 
@@ -345,6 +347,8 @@ void setup(void) {
 //
 void loop(void) {
   if (haveI2Cdata) {
+    lastActivityMillies = millis(); 
+    
     switch (i2cCommand) {   // Debug output
       case 10: Serial.println(F("CMD_FOUND_FMT"));
                Serial.println(i2cParameter);
@@ -377,7 +381,7 @@ void loop(void) {
                Serial.println(i2cParameter);
     }
   
-    switch (i2cCommand) {
+    switch (i2cCommand) {   // Feed the FSM
       case CMD_FOUND_FMT:
       break; 
       case CMD_FOUND_FPS:
@@ -437,19 +441,21 @@ void loop(void) {
   }
   haveI2Cdata = false;  
 
+  Serial.println(millis() - lastActivityMillies);
+
   // State Machine ----------------------------------------------------------------
   //
   switch (myState) {
     case MAIN_MENU:
       mainMenuSelection = u8g2.userInterfaceSelectionList("Main Menu", MENU_ITEM_SELECT_TRACK, main_menu);
       waitForBttnRelease(); 
+      
       switch (mainMenuSelection) {
         case MENU_ITEM_PROJECTOR:
 
           projectorActionMenuSelection = u8g2.userInterfaceSelectionList("Projector", MENU_ITEM_SELECT, projector_action_menu);
           waitForBttnRelease();
-          myEnc.write(15994);
-          
+        
           if (projectorActionMenuSelection == MENU_ITEM_NEW) { 
             gatherProjectorData();
             saveProjector(NEW);
