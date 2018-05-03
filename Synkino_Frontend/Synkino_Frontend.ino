@@ -2,8 +2,6 @@
  *  This is the frontend part of Synkino
  *  
  *  *** Features ****
- *  [x] Allow Manual Start
- *  [x] Allow Changing loaded Track
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implement end of track detection
  *  [ ] Make Display darker during Playback? 
@@ -14,10 +12,10 @@
  *      [ ] Configure base Volume
  *      [ ] Encoder Type
  *      [ ] Update DSP Firmware
- *  [x] Implemet Reset
  *  [ ] Add audible tick sounds to Menu :)
  *  
  *  *** Bugs ***
+ *  [ ] Find & Load other files than just m4a
  *  [ ] Do not accept an aempty projector list. So erratic!
  *  [ ] Stop displaying unsync-status if actually in sync
  *  [ ] make 8-3-1 the default values for new pids
@@ -601,6 +599,9 @@ void loop(void) {
             myState = MAIN_MENU;
            break;
           case MENU_ITEM_EXIT:
+            drawWaitForPlayingMenu(trackChosen, fps);
+            myState= TRACK_LOADED;
+            
             break;
           default:
             break;
@@ -884,8 +885,8 @@ void drawWaitForPlayingMenu(int trackNo, byte fps) {
     u8g2.print(fps);
     u8g2.print(" fps");
     u8g2.setFont(u8g2_font_helvR10_tr);
-    u8g2.drawStr(27,28,"Waiting for");    
-    u8g2.drawStr(22,46,"Film to Start");    //x= 16
+    u8g2.drawStr(30,28,"Waiting for");    
+    u8g2.drawStr(25,46,"Film to Start");   
     u8g2.drawXBMP(60, 54, pause_xbm_width, pause_xbm_height, pause_xbm_bits);
   } while ( u8g2.nextPage() );
 }
