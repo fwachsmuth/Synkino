@@ -27,7 +27,7 @@
 
 // ---- Define the I2C Commands ----------------------------------------------------
 //
-#define CMD_RESET               1   /* <---                    */
+#define CMD_RESET               1   /* <---                 √  */
 #define CMD_SET_SHUTTERBLADES   2   /* <--- (shutterBlades)    */
 #define CMD_SET_STARTMARK       3   /* <--- (StartMarkOffset)  */
 #define CMD_SET_P               4   /* <--- (P-Value for PID)  */
@@ -215,6 +215,10 @@ void loop() {
 
     switch (i2cCommand) {
       case CMD_RESET: 
+        musicPlayer.stopTrack();
+        myState = IDLING;
+        //musicPlayer.vs_init();
+
       break;
       case CMD_SET_SHUTTERBLADES: 
         shutterBlades = i2cParameter;
@@ -261,7 +265,8 @@ void loop() {
 //    parse_menu(Serial.read()); // get command from serial input
 //  }
 
-
+// State Machine ----------------------------------------------------------------
+//
   switch (myState) {
     case IDLING:
     break;
