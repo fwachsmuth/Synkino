@@ -5,6 +5,7 @@
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implement end of track detection
  *  [ ] Make Display darker during Playback? 
+ *  [ ] Plugin in PROGMEM? Could fit...
  *  [ ] Implement Extras Menu:
  *      [ ] Add Proportional On Measurement Option
  *      [ ] Configure Auto Power-Off Timeout
@@ -307,10 +308,11 @@ int oosyncFrames = 0;
 int lastEncRead;
 
 
-byte new_p = 8;
-byte new_i = 3;
-byte new_d = 1;
-byte newStartmarkOffset = 0;
+byte   new_p = 8;
+byte   new_i = 3;
+byte   new_d = 1;
+byte   newStartmarkOffset = 0;
+int8_t newFrameCorrectionOffset = 0;
 
 byte lastProjectorUsed = 1;
 
@@ -610,6 +612,14 @@ void loop(void) {
       break;
     case SYNC_PLAY:
       drawPlayingMenu(trackChosen, fps);
+      if (digitalRead(ENCODER_BTN) == 0) {
+        waitForBttnRelease();
+        handleFrameCorrectionOffsetInput(); // Take Correction Input
+        waitForBttnRelease();
+        // When Button pressed, send to Audio
+        // Display new Correction Value
+        
+      }
       break;
     default:
       break;
@@ -953,6 +963,59 @@ void tellAudioPlayer(byte command, long parameter) {
   Wire.endTransmission();    // stop transmitting
 }
 
+int8_t handleFrameCorrectionOffsetInput() {
+  int16_t parentMenuEncPosition;
+  parentMenuEncPosition = myEnc.read();
+  int16_t newEncPosition;
+  int16_t oldPosition;
+
+  myEnc.write(16000 - 128 - 2);  // this becomes 0 further down after shifting and modulo 
+  while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
+    newEncPosition = myEnc.read();
+    newEncPosition = ((newEncPosition >> 1) % 256) - 128;
+//  newEncPosition = ((newEncPosition >> 2) % 256) - 128;
+
+    u8g2.setFont(u8g2_font_helvR08_tr);
+  
+    if (newEncPosition != oldPosition) {
+      u8g2.firstPage();
+      oldPosition = newEncPosition;
+      Serial.println(newEncPosition);
+      // Draw Header
+      if (newEncPosition == 0) {
+        do {
+          u8g2.drawStr(1,10,"Adjust Offset of");
+          u8g2.drawStr(1,20,"Sound to Film");
+        } while ( u8g2.nextPage() ); 
+      } else if (newEncPosition < 0) {
+        do {
+          u8g2.drawStr(1,10,"Delay Sound by");
+        } while ( u8g2.nextPage() ); 
+      } else if (newEncPosition > 0) {
+        do {
+          u8g2.drawStr(1,10,"Advance Sound by");
+        } while ( u8g2.nextPage() ); 
+      }
+
+      u8g2.setFont(u8g2_font_inb24_mn);
+      
+      u8g2.setCursor(30, 55);
+      if (newEncPosition < 0) {
+        u8g2.print("< ");
+        u8g2.print(newEncPosition);
+      } else if (newEncPosition > 0) {
+        u8g2.print(newEncPosition);
+        u8g2.print(">");
+      }
+    }
+  }
+  waitForBttnRelease();
+  oldPosition = 0;
+  myEnc.write(parentMenuEncPosition);
+  u8g2.setFont(u8g2_font_helvR10_tr);   // Only until we go to the PLAYING_MENU here
+  return newEncPosition;
+}
+
 uint16_t selectTrackScreen() {
   int parentMenuEncPosition;
   parentMenuEncPosition = myEnc.read();
@@ -968,6 +1031,7 @@ uint16_t selectTrackScreen() {
       oldPosition = newEncPosition;
       
       u8g2.firstPage();
+      
       if (newEncPosition == 0) {
         do {
           u8g2.setFont(u8g2_font_helvR10_tr);
