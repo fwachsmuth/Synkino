@@ -364,15 +364,8 @@ void setup(void) {
 
   myState = MAIN_MENU;
 
-  lastProjectorUsed = EEPROM.read(1);
-  if (lastProjectorUsed > 8) {
-    for (int i = 0 ; i < EEPROM.length() ; i++) {
-      EEPROM.write(i, 0);
-    }    
-  } else {
-    loadProjectorConfig(lastProjectorUsed);
-  }
-
+  restoreLastProjectorUsed();
+  
   noInterrupts();
   // Setup Timer1 to periodically (every second) check if a Power-Off is due 
   TCCR1A = 0;                             // Clear registers
@@ -599,7 +592,8 @@ void loop(void) {
         waitForBttnRelease();
         switch (trackLoadedMenuSelection) {
           case MENU_ITEM_MANUALSTART:
-            startMarkHit = 0;
+            startMarkHit = 1;
+            tellAudioPlayer(CMD_SET_STARTMARK, 0);
             myState = SYNC_PLAY;
             break;
           case MENU_ITEM_STOP:
@@ -889,7 +883,7 @@ void drawWaitForPlayingMenu(int trackNo, byte fps) {
     u8g2.print(" fps");
     u8g2.setFont(u8g2_font_helvR10_tr);
     u8g2.drawStr(27,28,"Waiting for");    
-    u8g2.drawStr(16,46,"Projector Start");    
+    u8g2.drawStr(16,46,"Film to Start");    
     u8g2.drawXBMP(60, 54, pause_xbm_width, pause_xbm_height, pause_xbm_bits);
   } while ( u8g2.nextPage() );
 }
@@ -1119,6 +1113,18 @@ void showError(char * errorMsg1, char * errorMsg2) {
   u8g2.setFontRefHeightText();    
 }
 
+void restoreLastProjectorUsed() {
+  lastProjectorUsed = EEPROM.read(1);
+  if (lastProjectorUsed > 8) {
+    for (int i = 0 ; i < EEPROM.length() ; i++) {
+      EEPROM.write(i, 0);
+    }    
+  } else {
+    loadProjectorConfig(lastProjectorUsed);
+  }
+}
+
+
 ISR(TIMER1_COMPA_vect) {                  // This gets called once every second
   if (myEnc.read() != lastEncRead) {  // See if there was any user activity
     lastActivityMillies = millis();
@@ -1132,4 +1138,5 @@ ISR(TIMER1_COMPA_vect) {                  // This gets called once every second
     }
   }
 }
+
 
