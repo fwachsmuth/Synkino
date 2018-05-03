@@ -5,7 +5,6 @@
  *  [ ] make 8-3-1  the default values for new pids
  *  [ ] Make Display darker during Playback
  *  [ ] Handle empty Projector List
- *  [x] Limit to 8 Projectors
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implement end of track detection
  *  
@@ -22,11 +21,13 @@
  *      [ ] Configure Auto Power-Off Timeout
  *      [ ] Display Brightness
  *      [ ] Configure base Volume
+ *      [ ] Encoder Type
  *  [ ] Implemet Reset
  *  
  *  PCB:
  *  - Offset ICSP Pins
- *  - Offset fTDI Pins
+ *  - Offset FTDI Pins
+ *  - Make FTDI work
  *  - + mark on the backside
  *  - Display-Löcher minimal tiefer (1mm?)
  *  - Power On weiter nach rechts
@@ -36,6 +37,8 @@
  *  - Prep for EEPROM :)
  *  - Add Buzzer? 8.5x8.5 AAC801J-13 
  *  - C5 etwas kleiner?
+ *  - 5. Stütze
+ *  - Power On auch an Pin?
  *    
  *  Change avrdude.conf in cd /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
  */
@@ -53,8 +56,8 @@
 #define SPI_CS        10
 #define SPI_DC        9
 #define SPI_RESET     8
-#define ENCODER_A     3
-#define ENCODER_B     2
+#define ENCODER_A     2
+#define ENCODER_B     3
 #define ENCODER_BTN   4
 #define AUDIO_EN      6
 #define POWER_OFF     7
@@ -720,8 +723,8 @@ void handleProjectorNameInput() {
   
   while (charIndex < maxProjectorNameLength && !inputFinished) {
     while (digitalRead(ENCODER_BTN) == 1) {
-//      newEncPosition = (myEnc.read() >> 1) % 64;
-      newEncPosition = (myEnc.read() >> 2) % 64;
+      newEncPosition = (myEnc.read() >> 1) % 64;
+//      newEncPosition = (myEnc.read() >> 2) % 64;
       /*
        * Chr : Ascii Code      | newEncPos | myEnc.write | #
        * ----:-----------------|-----------|-------------|---
@@ -921,10 +924,11 @@ uint16_t selectTrackScreen() {
   int newEncPosition;
   int oldPosition;
 // myEnc.write(16001);
+  myEnc.write(16002);
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
     newEncPosition = myEnc.read();
-//    newEncPosition = (newEncPosition >> 1) % 1000;
-    newEncPosition = (newEncPosition >> 2) % 1000;
+    newEncPosition = (newEncPosition >> 1) % 1000;
+//    newEncPosition = (newEncPosition >> 2) % 1000;
     if (newEncPosition != oldPosition) {
       oldPosition = newEncPosition;
       
@@ -954,8 +958,8 @@ uint16_t selectTrackScreen() {
 
 // This overwrites the weak function in u8x8_debounce.c
 uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
-//  int newEncPosition = myEnc.read() >> 1;
-  int newEncPosition = myEnc.read() >> 2;
+  int newEncPosition = myEnc.read() >> 1;
+//  int newEncPosition = myEnc.read() >> 2;
   static int oldEncPosition = 8000;
   int encoderBttn = digitalRead(ENCODER_BTN);
 
