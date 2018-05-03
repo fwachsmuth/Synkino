@@ -1,21 +1,12 @@
 /*
  *  This is the frontend part of Synkino
  *  
- *  [ ] Get out of unsync-status
- *  [ ] make 8-3-1  the default values for new pids
- *  [ ] Make Display darker during Playback
- *  [ ] Handle empty Projector List
+ *  *** Features ****
+ *  [ ] Allow Manual Start
+ *  [ ] Allow Changing loaded Track
  *  [ ] Implement Inc/Dec Sync Pos
  *  [ ] Implement end of track detection
- *  
- *  [ ] Track number after editing Proj is off
- *  [ ] On Edit, Shutter Blade Position is wrong
- *  
- *  [ ] Compile and test patch 2.6 for wider upsampling trick
- *  [ ] Try http://arduino.land/Code/SmallSetup/
- *  [ ] Move Strings to PROGMEM?
- *      
- *  [ ] Add tick sounds to Menu :)
+ *  [ ] Make Display darker during Playback? 
  *  [ ] Implement Extras Menu:
  *      [ ] Add Proportional On Measurement Option
  *      [ ] Configure Auto Power-Off Timeout
@@ -23,24 +14,41 @@
  *      [ ] Configure base Volume
  *      [ ] Encoder Type
  *  [ ] Implemet Reset
+ *  [ ] Add audible tick sounds to Menu :)
  *  
- *  PCB:
- *  - Offset ICSP Pins
- *  - Offset FTDI Pins
- *  - Make FTDI work
- *  - + mark on the backside
- *  - Display-Löcher minimal tiefer (1mm?)
- *  - Power On weiter nach rechts
- *  - Batteriefach
- *  - LEDs nicht ganz s nah an die Buchsen
- *  - Save Power: Disable Start mark Sensor after start...
- *  - Prep for EEPROM :)
- *  - Add Buzzer? 8.5x8.5 AAC801J-13 
- *  - C5 etwas kleiner?
- *  - 5. Stütze
- *  - Power On auch an Pin?
+ *  *** Bugs ***
+ *  [ ] Stop displaying unsync-status if actually in sync
+ *  [ ] make 8-3-1 the default values for new pids
+ *  [ ] Handle empty Projector List
+ *  [ ] Track number is off after editing a Projector
+ *  [ ] When editing a Projector, Shutter Blade Position is wrong
+ *  
+ *  *** Explorations ***
+ *  [ ] Measure and optimize Power
+ *  [ ] Compile and test patch 2.6 for wider upsampling trick
+ *  [ ] Try http://arduino.land/Code/SmallSetup/
+ *  [ ] Move Strings to PROGMEM?
+ *      
+ *  
+ *  *** PCB ***
+ *  [ ] Offset ICSP Pins
+ *  [ ] Offset FTDI Pins
+ *  [ ] Make FTDI work
+ *  [ ] Make ICSP work with Display connected
+ *  [ ] + mark on the backside
+ *  [ ] Display-Löcher minimal tiefer (1mm?)
+ *  [ ] Power On weiter nach rechts
+ *  [ ] Batteriefach
+ *  [ ] LEDs nicht ganz s nah an die Buchsen
+ *  [ ] Save Power: Disable Start mark Sensor after start...
+ *  [ ] Prep for EEPROM :)
+ *  [ ] Add Buzzer? 8.5x8.5 AAC801J-13 
+ *  [ ] C5 etwas kleiner?
+ *  [ ] 5. Stütze mittig unten
+ *  [ ] Power On auch an Pin legen? (Why?)
  *    
- *  Change avrdude.conf in cd /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
+ *  *** Notes ***  
+ *  Change avrdude.conf in cd ~/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
  */
 
 #include <Arduino.h>
