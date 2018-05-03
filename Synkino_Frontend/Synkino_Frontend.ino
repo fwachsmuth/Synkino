@@ -975,40 +975,39 @@ int8_t handleFrameCorrectionOffsetInput() {
     newEncPosition = ((newEncPosition >> 1) % 256) - 128;
 //  newEncPosition = ((newEncPosition >> 2) % 256) - 128;
 
-    u8g2.setFont(u8g2_font_helvR08_tr);
+    
   
     if (newEncPosition != oldPosition) {
-      u8g2.firstPage();
       oldPosition = newEncPosition;
-      Serial.println(newEncPosition);
-      // Draw Header
-      if (newEncPosition == 0) {
-        do {
-          u8g2.drawStr(1,10,"Adjust Offset of");
-          u8g2.drawStr(1,20,"Sound to Film");
-        } while ( u8g2.nextPage() ); 
-      } else if (newEncPosition < 0) {
-        do {
-          u8g2.drawStr(1,10,"Delay Sound by");
-        } while ( u8g2.nextPage() ); 
-      } else if (newEncPosition > 0) {
-        do {
-          u8g2.drawStr(1,10,"Advance Sound by");
-        } while ( u8g2.nextPage() ); 
-      }
+//      Serial.println(newEncPosition);
+      u8g2.firstPage();
+      do {
+        u8g2.setFont(u8g2_font_helvR10_tr);
+        // Draw Header
+        if (newEncPosition == 0) {
+          u8g2.drawStr(1,12,"Adjust Offset of");
+          u8g2.drawStr(1,24,"Sound to Film");
+        } else if (newEncPosition < 0) {
+          u8g2.drawStr(1,12,"Delay Sound by");
+        } else if (newEncPosition > 0) {
+          u8g2.drawStr(1,12,"Advance Sound by");
+        }
 
-      u8g2.setFont(u8g2_font_inb24_mn);
-      
-      u8g2.setCursor(30, 55);
-      if (newEncPosition < 0) {
-        u8g2.print("< ");
-        u8g2.print(newEncPosition);
-      } else if (newEncPosition > 0) {
-        u8g2.print(newEncPosition);
-        u8g2.print(">");
-      }
+        u8g2.setFont(u8g2_font_inb24_mn);
+        u8g2.drawStr(20,46,":");
+//        u8g2.setCursor(30, 55);
+//        u8g2.setFont(u8g2_font_inb24_mn);
+//        if (newEncPosition < 0) {
+//          //u8g2.print("< ");
+//          u8g2.print(newEncPosition);
+//        } else if (newEncPosition > 0) {
+//          u8g2.print(newEncPosition);
+//          //u8g2.print(">");
+//        }
+      } while ( u8g2.nextPage() );
     }
-  }
+  } 
+  
   waitForBttnRelease();
   oldPosition = 0;
   myEnc.write(parentMenuEncPosition);
