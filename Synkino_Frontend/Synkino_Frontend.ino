@@ -13,10 +13,12 @@
  *      [ ] Display Brightness
  *      [ ] Configure base Volume
  *      [ ] Encoder Type
+ *      [ ] Update DSP Firmware
  *  [ ] Implemet Reset
  *  [ ] Add audible tick sounds to Menu :)
  *  
  *  *** Bugs ***
+ *  [ ] Do not accept an aempty projector list. So erratic!
  *  [ ] Stop displaying unsync-status if actually in sync
  *  [ ] make 8-3-1 the default values for new pids
  *  [ ] Handle empty Projector List
@@ -107,6 +109,11 @@
 #define MENU_ITEM_P               1  
 #define MENU_ITEM_I               2
 #define MENU_ITEM_D               3
+
+#define MENU_ITEM_MANUALSTART     1
+#define MENU_ITEM_STOP            2
+#define MENU_ITEM_EXIT            3
+
 
 #define MENU_ITEM_DEL_EEPROM      1
 #define MENU_ITEM_DUMP            2
@@ -255,6 +262,11 @@ const char *shutterblade_menu =
   "3\n"
   "4";
 
+const char *trackLoaded_menu =
+  "Manual Start\n"
+  "Stop\n"
+  "Exit";
+
 const char *extras_menu =
   "Del\n"
   "Dump";
@@ -271,6 +283,7 @@ uint8_t projectorSelectionMenuSelection = 0;
 uint8_t projectorConfigMenuSelection    = MENU_ITEM_NAME;
 uint8_t shutterBladesMenuSelection      = MENU_ITEM_TWO;
 uint8_t extrasMenuSelection             = 2;
+uint8_t trackLoadedMenuSelection        = MENU_ITEM_EXIT;
 
 
 volatile bool haveI2Cdata = false;
@@ -574,11 +587,28 @@ void loop(void) {
         drawWaitForPlayingMenu(trackChosen, fps);
         myState = TRACK_LOADED;
         digitalWrite(AUDIO_EN, HIGH);
-      } // Todo: Timeout und Error Handler
+      } // Todo: Timeout Handler?
       break;
     case TRACK_LOADED:
       if (startMarkHit != 0) {
         myState = SYNC_PLAY;
+      }
+      if (digitalRead(ENCODER_BTN) == 0) {
+        waitForBttnRelease();
+        trackLoadedMenuSelection = u8g2.userInterfaceSelectionList("Playback", MENU_ITEM_EXIT, trackLoaded_menu);
+        waitForBttnRelease();
+        switch (trackLoadedMenuSelection) {
+          case MENU_ITEM_MANUALSTART:
+            startMarkHit = 0;
+            myState = SYNC_PLAY;
+            break;
+          case MENU_ITEM_STOP:
+            break;
+          case MENU_ITEM_EXIT:
+            break;
+          default:
+            break;
+        }
       }
       break;
     case SYNC_PLAY:
