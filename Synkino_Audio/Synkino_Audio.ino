@@ -96,6 +96,7 @@ volatile uint8_t i2cCommand;
 volatile long i2cParameter;
 
 volatile unsigned long lastISRTime;
+unsigned long lastInSyncMillis;
 
 double Setpoint, Input, Output;
 
@@ -202,7 +203,7 @@ void loop() {
       case 6: Serial.print(F("CMD_SET_D: "));
               Serial.println(i2cParameter);
       break;
-      case 7: Serial.print(F("CMD_SYNC_OFFSET"));
+      case 7: Serial.print(F("CMD_SYNC_OFFSET: "));
               Serial.println(i2cParameter);
       break;
       case 8: Serial.print(F("CMD_LOAD_TRACK: "));
@@ -433,7 +434,12 @@ void speedControlPID(){
       tellFrontend(CMD_OOSYNC, frameOffset);
       prevFrameOffset = frameOffset;
     } 
-    
+    // Below is a hack to send a 0 every so often if everything is in sync – since occasionally signal gets lost on i2c due 
+    // to too busy AVRs. Otherwise, the sync icon might not stop blinking in some cases.
+    if ((frameOffset == 0) && (millis() > (lastInSyncMillis + 3000))) {
+      tellFrontend(CMD_OOSYNC, 0);
+      lastInSyncMillis = millis();
+    }
   }
 }
 

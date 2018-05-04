@@ -15,7 +15,7 @@
  *  [ ] Add audible tick sounds to Menu :)
  *  
  *  *** Bugs ***
- *  [ ] Stop displaying unsync-status if actually in sync
+ *  [x] Stop displaying unsync-status if actually in sync
  *  [ ] Projector Name is truncated after editing values
  *  [ ] Small Offset adds up after multiple projector stops
  *  [ ] Find & Load other files than just m4a
@@ -735,6 +735,7 @@ byte makeProjectorSelectionMenu() {
 void waitForBttnRelease() {
   while (digitalRead(ENCODER_BTN) == 0) {};       // wait for button release
 }
+
 void handleProjectorNameInput() {
   char localChar;
   unsigned long newEncPosition;
@@ -949,6 +950,7 @@ void drawPlayingMenu(int trackNo, byte fps) {
     }
   } while ( u8g2.nextPage() );
 }
+
 void drawBusyBee(byte x, byte y) {
   u8g2.firstPage();
   do {
@@ -957,6 +959,7 @@ void drawBusyBee(byte x, byte y) {
     u8g2.drawStr(8,50,"Loading...");
   } while ( u8g2.nextPage() );
 }
+
 void tellAudioPlayer(byte command, long parameter) {
   Wire.beginTransmission(8); // This is the Audio Player
   wireWriteData(command);  
