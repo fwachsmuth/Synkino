@@ -125,9 +125,8 @@
 #define CMD_SET_P               4   /* <--- (P-Value for PID) */
 #define CMD_SET_I               5   /* <--- (I-Value for PID) */
 #define CMD_SET_D               6   /* <--- (D-Value for PID) */
-#define CMD_INC_FRAME           7   /* <---                   */
-#define CMD_DEC_FRAME           8   /* <---                   */
-#define CMD_LOAD_TRACK          9   /* <--- (trackId)         */
+#define CMD_SYNC_OFFSET         7   /* <--- (# of Frames)     */
+#define CMD_LOAD_TRACK          8   /* <--- (trackId)         */
 
 #define CMD_FOUND_FMT           10  /* ---> (fileFormat)      */
 #define CMD_FOUND_FPS           11  /* ---> (fps)             */

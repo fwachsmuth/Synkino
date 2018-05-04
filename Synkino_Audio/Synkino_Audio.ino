@@ -33,9 +33,8 @@
 #define CMD_SET_P               4   /* <--- (P-Value for PID)  */
 #define CMD_SET_I               5   /* <--- (I-Value for PID)  */
 #define CMD_SET_D               6   /* <--- (D-Value for PID)  */
-#define CMD_INC_FRAME           7   /* <---                    */
-#define CMD_DEC_FRAME           8   /* <---                    */
-#define CMD_LOAD_TRACK          9   /* <--- (trackId)       √  */
+#define CMD_SYNC_OFFSET         7   /* <--- (# of Frames)      */
+#define CMD_LOAD_TRACK          8   /* <--- (trackId)       √  */
 
 #define CMD_FOUND_FMT           10  /* ---> (fileFormat)       */
 #define CMD_FOUND_FPS           11  /* ---> (fps)           √  */
@@ -202,11 +201,10 @@ void loop() {
       case 6: Serial.print(F("CMD_SET_D: "));
               Serial.println(i2cParameter);
       break;
-      case 7: Serial.println(F("CMD_INC_FRAME"));
+      case 7: Serial.println(F("CMD_SYNC_OFFSET"));
+              Serial.println(i2cParameter);
       break;
-      case 8: Serial.println(F("CMD_DEC_FRAME"));
-      break;
-      case 9: Serial.print(F("CMD_LOAD_TRACK: "));
+      case 8: Serial.print(F("CMD_LOAD_TRACK: "));
               Serial.println(i2cParameter);
       break;
       default:Serial.println(i2cCommand);
@@ -237,9 +235,7 @@ void loop() {
         Kd = i2cParameter;
         myPID.SetTunings(Kp, Ki, Kd);
       break;
-      case CMD_INC_FRAME: 
-      break;
-      case CMD_DEC_FRAME: 
+      case CMD_SYNC_OFFSET: 
       break;
       case CMD_LOAD_TRACK: 
         loadTrackByNo(i2cParameter);
