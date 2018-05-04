@@ -27,25 +27,25 @@
 
 // ---- Define the I2C Commands ----------------------------------------------------
 //
-#define CMD_RESET               1   /* <---                 √  */
-#define CMD_SET_SHUTTERBLADES   2   /* <--- (shutterBlades)    */
-#define CMD_SET_STARTMARK       3   /* <--- (StartMarkOffset)  */
-#define CMD_SET_P               4   /* <--- (P-Value for PID)  */
-#define CMD_SET_I               5   /* <--- (I-Value for PID)  */
-#define CMD_SET_D               6   /* <--- (D-Value for PID)  */
-#define CMD_SYNC_OFFSET         7   /* <--- (# of Frames)      */
-#define CMD_LOAD_TRACK          8   /* <--- (trackId)       √  */
+#define CMD_RESET               1   /* <---                  √  */
+#define CMD_SET_SHUTTERBLADES   2   /* <--- (shutterBlades)  √  */
+#define CMD_SET_STARTMARK       3   /* <--- (StartMarkOffset)   */
+#define CMD_SET_P               4   /* <--- (P-Value for PID)   */
+#define CMD_SET_I               5   /* <--- (I-Value for PID)   */
+#define CMD_SET_D               6   /* <--- (D-Value for PID)   */
+#define CMD_SYNC_OFFSET         7   /* <--- (# of Frames)       */
+#define CMD_LOAD_TRACK          8   /* <--- (trackId)        √  */
 
-#define CMD_FOUND_FMT           10  /* ---> (fileFormat)       */
-#define CMD_FOUND_FPS           11  /* ---> (fps)           √  */
-#define CMD_CURRENT_AUDIOSEC    12  /* ---> (SecNo)         √  */
-#define CMD_PROJ_PAUSE          13  /* --->                 √  */
-#define CMD_PROJ_PLAY           14  /* --->                 √  */
-#define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)      */
-#define CMD_OOSYNC              16  /* ---> (frameCount)    √  */
-#define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)     √  */
-#define CMD_TRACK_LOADED        18  /* --->                 √  */
-#define CMD_STARTMARK_HIT       19  /* --->                 √  */
+#define CMD_FOUND_FMT           10  /* ---> (fileFormat)        */
+#define CMD_FOUND_FPS           11  /* ---> (fps)            √  */
+#define CMD_CURRENT_AUDIOSEC    12  /* ---> (SecNo)          √  */
+#define CMD_PROJ_PAUSE          13  /* --->                  √  */
+#define CMD_PROJ_PLAY           14  /* --->                  √  */
+#define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)       */
+#define CMD_OOSYNC              16  /* ---> (frameCount)     √  */
+#define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)      √  */
+#define CMD_TRACK_LOADED        18  /* --->                  √  */
+#define CMD_STARTMARK_HIT       19  /* --->                  √  */
 
 // ---- Define the various States --------------------------------------------------
 //
@@ -62,9 +62,10 @@
 const int myAddress = 0x08;   // Listen on the I2C Bus
 
 uint8_t sollfps = 18;        
-uint8_t shutterBlades = 2;              // Wieviele Segmente hat die Umlaufblende?
-//uint8_t startMarkOffset = 15;      // Noris
+uint8_t shutterBlades = 2;         // Wieviele Segmente hat die Umlaufblende?
+//uint8_t startMarkOffset = 15;    // Noris
 uint8_t startMarkOffset = 53;      // Bauer t610
+int16_t syncOffsetImps = 0;        
   
 const float physicalSamplingrate = 41344;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
 
@@ -235,6 +236,7 @@ void loop() {
         myPID.SetTunings(Kp, Ki, Kd);
       break;
       case CMD_SYNC_OFFSET: 
+        syncOffsetImps = i2cParameter * shutterBlades * 2;
         // adjust frame counter
       break;
       case CMD_LOAD_TRACK: 
@@ -438,7 +440,6 @@ void speedControlPID(){
 
 void countISR() {
   totalImpCounter++;
-//  lastISRTime = millis();
 }
 
 void waitForStartMark() {
