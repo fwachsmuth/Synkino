@@ -2,7 +2,6 @@
  *  This is the frontend part of Synkino
  *  
  *  *** Features ****
- *  [x] Implement Inc/Dec Sync Pos
  *  [ ] Implement end of track detection
  *  [ ] Make Display darker during Playback? 
  *  [ ] Plugin in PROGMEM? Could fit...
@@ -16,11 +15,11 @@
  *  [ ] Add audible tick sounds to Menu :)
  *  
  *  *** Bugs ***
+ *  [ ] Stop displaying unsync-status if actually in sync
  *  [ ] Projector Name is truncated after editing values
  *  [ ] Small Offset adds up after multiple projector stops
  *  [ ] Find & Load other files than just m4a
- *  [ ] Do not accept an aempty projector list. So erratic!
- *  [ ] Stop displaying unsync-status if actually in sync
+ *  [ ] Do not accept an empty projector list. So erratic!
  *  [ ] make 8-3-1 the default values for new pids
  *  [ ] Handle empty Projector List
  *  [ ] Track number is off after editing a Projector
