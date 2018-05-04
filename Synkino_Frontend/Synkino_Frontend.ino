@@ -968,15 +968,12 @@ int8_t handleFrameCorrectionOffsetInput() {
   parentMenuEncPosition = myEnc.read();
   int16_t newEncPosition;
   int16_t oldPosition;
-  int16_t newSyncOffset;
+  static int16_t newSyncOffset;
 
   myEnc.write(16000);  // this becomes 0 further down after shifting and modulo 
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
     newEncPosition = myEnc.read();
     newSyncOffset = ((newEncPosition >> 1) - 8000);
-    
-//  newEncPosition = ((newEncPosition >> 1);
-//  newEncPosition = ((newEncPosition >> 2) % 256) - 128;
   
     if (newEncPosition != oldPosition) {
       oldPosition = newEncPosition;
@@ -984,7 +981,7 @@ int8_t handleFrameCorrectionOffsetInput() {
       u8g2.firstPage();
       do {
 
-        // Draw Header
+        // Draw Header & Footer
         u8g2.setFont(u8g2_font_helvR10_tr);
         if (newSyncOffset == 0) {
           u8g2.drawStr(6,12,"Adjust Sync Offset");
@@ -994,7 +991,6 @@ int8_t handleFrameCorrectionOffsetInput() {
           u8g2.drawStr(6,12,"Advance Sound by");
         }
         u8g2.drawStr(40,64,"Frames");
-        
 
         u8g2.setFont(u8g2_font_inb24_mn);
         if (newSyncOffset >= 0 && newSyncOffset <= 9) {
@@ -1012,17 +1008,6 @@ int8_t handleFrameCorrectionOffsetInput() {
         }
         
         u8g2.print(newSyncOffset);
-
-        
-//        u8g2.setCursor(30, 55);
-//        u8g2.setFont(u8g2_font_inb24_mn);
-//        if (newEncPosition < 0) {
-//          //u8g2.print("< ");
-//          u8g2.print(newEncPosition);
-//        } else if (newEncPosition > 0) {
-//          u8g2.print(newEncPosition);
-//          //u8g2.print(">");
-//        }
       } while ( u8g2.nextPage() );
     }
   } 
@@ -1031,7 +1016,7 @@ int8_t handleFrameCorrectionOffsetInput() {
   oldPosition = 0;
   myEnc.write(parentMenuEncPosition);
   u8g2.setFont(u8g2_font_helvR10_tr);   // Only until we go to the PLAYING_MENU here
-  return newEncPosition;
+  return newSyncOffset;
 }
 
 uint16_t selectTrackScreen() {
