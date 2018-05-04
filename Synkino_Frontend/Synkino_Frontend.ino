@@ -2,7 +2,7 @@
  *  This is the frontend part of Synkino
  *  
  *  *** Features ****
- *  [ ] Implement end of track detection
+ *  [x] Implement end of track detection
  *  [ ] Make Display darker during Playback? 
  *  [ ] Plugin in PROGMEM? Could fit...
  *  [ ] Implement Extras Menu:
