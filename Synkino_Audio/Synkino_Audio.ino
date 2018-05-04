@@ -201,7 +201,7 @@ void loop() {
       case 6: Serial.print(F("CMD_SET_D: "));
               Serial.println(i2cParameter);
       break;
-      case 7: Serial.println(F("CMD_SYNC_OFFSET"));
+      case 7: Serial.print(F("CMD_SYNC_OFFSET"));
               Serial.println(i2cParameter);
       break;
       case 8: Serial.print(F("CMD_LOAD_TRACK: "));
@@ -216,7 +216,6 @@ void loop() {
         musicPlayer.stopTrack();
         myState = IDLING;
         //musicPlayer.vs_init();
-
       break;
       case CMD_SET_SHUTTERBLADES: 
         shutterBlades = i2cParameter;
@@ -236,6 +235,7 @@ void loop() {
         myPID.SetTunings(Kp, Ki, Kd);
       break;
       case CMD_SYNC_OFFSET: 
+        // adjust frame counter
       break;
       case CMD_LOAD_TRACK: 
         loadTrackByNo(i2cParameter);
@@ -275,7 +275,7 @@ void loop() {
     break;
     case PLAYING:
 //      calculateCorrPpm();
-      sendCurrentFrameNo();
+      sendCurrentAudioSec();
       speedControlPID();
       checkIfStillRunning();
     break;
@@ -316,8 +316,6 @@ void tellFrontend(byte command, long parameter) {
   wireWriteData(parameter);  
   Wire.endTransmission();    // stop transmitting
 }
-
-
 
 uint8_t loadTrackByNo(int trackNo) {
   char trackName[11];
@@ -361,7 +359,7 @@ void updateFpsDependencies(uint8_t fps) {
   impToAudioSecondsDivider = sollfps * shutterBlades * 2;  
 }
 
-void sendCurrentFrameNo() {
+void sendCurrentAudioSec() {
   static unsigned long prevSecCount;
   static unsigned long currentSecCount;
   currentSecCount = totalImpCounter / impToAudioSecondsDivider; 
