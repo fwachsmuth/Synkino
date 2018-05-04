@@ -312,6 +312,7 @@ byte   new_i = 3;
 byte   new_d = 1;
 byte   newStartmarkOffset = 0;
 int8_t newFrameCorrectionOffset = 0;
+int16_t newSyncOffset;
 
 byte lastProjectorUsed = 1;
 
@@ -602,7 +603,6 @@ void loop(void) {
           case MENU_ITEM_EXIT:
             drawWaitForPlayingMenu(trackChosen, fps);
             myState= TRACK_LOADED;
-            
             break;
           default:
             break;
@@ -615,7 +615,7 @@ void loop(void) {
         waitForBttnRelease();
         handleFrameCorrectionOffsetInput(); // Take Correction Input
         waitForBttnRelease();
-        // When Button pressed, send to Audio
+        tellAudioPlayer(CMD_SYNC_OFFSET, newSyncOffset);
         // Display new Correction Value
         
       }
@@ -962,14 +962,13 @@ void tellAudioPlayer(byte command, long parameter) {
   Wire.endTransmission();    // stop transmitting
 }
 
-int8_t handleFrameCorrectionOffsetInput() {
+void handleFrameCorrectionOffsetInput() {
   int16_t parentMenuEncPosition;
   parentMenuEncPosition = myEnc.read();
   int16_t newEncPosition;
   int16_t oldPosition;
-  static int16_t newSyncOffset;
 
-  myEnc.write(16000);  // this becomes 0 further down after shifting and modulo 
+  myEnc.write(16000 + (newSyncOffset << 1));  // this becomes 0 further down after shifting and modulo 
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
     newEncPosition = myEnc.read();
     newSyncOffset = ((newEncPosition >> 1) - 8000);
@@ -1015,7 +1014,6 @@ int8_t handleFrameCorrectionOffsetInput() {
   oldPosition = 0;
   myEnc.write(parentMenuEncPosition);
   u8g2.setFont(u8g2_font_helvR10_tr);   // Only until we go to the PLAYING_MENU here
-  return newSyncOffset;
 }
 
 uint16_t selectTrackScreen() {
