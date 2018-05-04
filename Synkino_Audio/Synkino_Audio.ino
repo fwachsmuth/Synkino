@@ -46,6 +46,7 @@
 #define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)      √  */
 #define CMD_TRACK_LOADED        18  /* --->                  √  */
 #define CMD_STARTMARK_HIT       19  /* --->                  √  */
+#define CMD_DONE_PLAYING        20  /* --->                     */
 
 // ---- Define the various States --------------------------------------------------
 //
@@ -439,6 +440,10 @@ void speedControlPID(){
     if ((frameOffset == 0) && (millis() > (lastInSyncMillis + 3000))) {
       tellFrontend(CMD_OOSYNC, 0);
       lastInSyncMillis = millis();
+    }
+
+    if (musicPlayer.isPlaying() == 0) { // and/or musicPlayer.getState() == 4
+      tellFrontend(CMD_DONE_PLAYING, 0);
     }
   }
 }

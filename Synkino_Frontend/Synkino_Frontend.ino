@@ -15,7 +15,6 @@
  *  [ ] Add audible tick sounds to Menu :)
  *  
  *  *** Bugs ***
- *  [x] Stop displaying unsync-status if actually in sync
  *  [ ] Projector Name is truncated after editing values
  *  [ ] Small Offset adds up after multiple projector stops
  *  [ ] Find & Load other files than just m4a
@@ -48,6 +47,7 @@
  *  [ ] C5 etwas kleiner?
  *  [ ] 5. Stütze mittig unten
  *  [ ] Power On auch an Pin legen? (Why?)
+ *  [ ] Tastenkappen?
  *    
  *  *** Notes ***  
  *  Change avrdude.conf in cd ~/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
@@ -139,6 +139,8 @@
 #define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)       */
 #define CMD_TRACK_LOADED        18  /* --->                   */
 #define CMD_STARTMARK_HIT       19  /* --->                   */
+#define CMD_DONE_PLAYING        20  /* --->                   */
+
 
 // ---- Define the various States --------------------------------------------------
 //
@@ -415,6 +417,8 @@ void loop(void) {
                break;
       case 19: Serial.println(F("CMD_STARTMARK_HIT"));
                break;
+      case 20: Serial.println(F("CMD_DONE_PLAYING"));
+               break;
       default: Serial.println(i2cCommand);
                Serial.println(i2cParameter);
     }
@@ -471,6 +475,11 @@ void loop(void) {
       case  CMD_STARTMARK_HIT:
         startMarkHit = 1;
       break;
+      case  CMD_DONE_PLAYING:
+        tellAudioPlayer(CMD_RESET, 0);
+        myState = MAIN_MENU;
+      break;
+
       default:
         Serial.println(i2cCommand);
         Serial.println(i2cParameter);
@@ -1091,11 +1100,9 @@ void i2cReceive (int howMany) {
    }  // end if have enough data
  }  // end of receive-ISR
 
-
 void i2cRequest() {
   // wireWriteData(myData);
 }
-
 
 void e2reader(){
   char buffer[16];
