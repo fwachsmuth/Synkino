@@ -476,10 +476,8 @@ void loop(void) {
         startMarkHit = 1;
       break;
       case  CMD_DONE_PLAYING:
-        tellAudioPlayer(CMD_RESET, 0);
-        myState = MAIN_MENU;
+        shutdownSelf();
       break;
-
       default:
         Serial.println(i2cCommand);
         Serial.println(i2cParameter);
@@ -627,8 +625,6 @@ void loop(void) {
         handleFrameCorrectionOffsetInput(); // Take Correction Input
         waitForBttnRelease();
         tellAudioPlayer(CMD_SYNC_OFFSET, newSyncOffset);
-        // Display new Correction Value
-        
       }
       break;
     default:
