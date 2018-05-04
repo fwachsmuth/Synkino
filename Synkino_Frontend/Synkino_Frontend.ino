@@ -586,6 +586,7 @@ void loop(void) {
       if (startMarkHit != 0) {
         myState = SYNC_PLAY;
       }
+      // Now check for Sync Pos Adjustments
       if (digitalRead(ENCODER_BTN) == 0) {
         waitForBttnRelease();
         trackLoadedMenuSelection = u8g2.userInterfaceSelectionList("Playback", MENU_ITEM_EXIT, trackLoaded_menu);

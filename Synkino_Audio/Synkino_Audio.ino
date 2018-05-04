@@ -364,7 +364,7 @@ void updateFpsDependencies(uint8_t fps) {
 void sendCurrentAudioSec() {
   static unsigned long prevSecCount;
   static unsigned long currentSecCount;
-  currentSecCount = totalImpCounter / impToAudioSecondsDivider; 
+  currentSecCount = (totalImpCounter + syncOffsetImps) / impToAudioSecondsDivider; 
   
   if (currentSecCount > prevSecCount) {    
     tellFrontend(CMD_CURRENT_AUDIOSEC, currentSecCount); 
@@ -376,8 +376,8 @@ void checkIfStillRunning() {
   static unsigned long prevTotalImpCounter2;
   static unsigned long lastImpMillis;
  
-  if (totalImpCounter != prevTotalImpCounter2) {
-    prevTotalImpCounter2 = totalImpCounter;
+  if ((totalImpCounter + syncOffsetImps) != prevTotalImpCounter2) {
+    prevTotalImpCounter2 = totalImpCounter + syncOffsetImps;
     lastImpMillis = millis();
   } else {
    // start countdown pauseDetectedPeriod
@@ -385,7 +385,7 @@ void checkIfStillRunning() {
       lastSampleCounterHaltPos = Read32BitsFromSCI(0x1800);
       musicPlayer.pauseMusic();
       myPID.SetMode(MANUAL);
-      lastImpCounterHaltPos = totalImpCounter;
+      lastImpCounterHaltPos = totalImpCounter + syncOffsetImps;
       tellFrontend(CMD_PROJ_PAUSE, 0);
       myState = PAUSED;
     }
@@ -396,9 +396,9 @@ void checkIfStillRunning() {
 
 void speedControlPID(){
   static unsigned long prevTotalImpCounter;
-  if (totalImpCounter != prevTotalImpCounter) {
+  if (totalImpCounter + syncOffsetImps != prevTotalImpCounter) {
     long actualSampleCount = Read32BitsFromSCI(0x1800);                 // 8.6ms Latenz here
-    long desiredSampleCount = totalImpCounter * impToSamplerateFactor;
+    long desiredSampleCount = (totalImpCounter + syncOffsetImps) * impToSamplerateFactor;
 //    unsigned long latenz = millis() - lastISRTime;               // This had less positive imapct than expected
 //    actualSampleCount = actualSampleCount + (latenz * 41);       // 41.344 samples per ms
     long delta = (actualSampleCount - desiredSampleCount);
@@ -418,7 +418,7 @@ void speedControlPID(){
     Input = average;
     adjustSamplerate((long) Output);
   
-    prevTotalImpCounter = totalImpCounter;        
+    prevTotalImpCounter = totalImpCounter + syncOffsetImps;        
 
     myPID.Compute();  // 9.2ms Latenz here
 
@@ -471,7 +471,7 @@ void waitForStartMark() {
 }
 
 void waitForResumeToPlay(unsigned long impCounterStopPos) {
-  if (totalImpCounter == impCounterStopPos) {
+  if ((totalImpCounter + syncOffsetImps) == impCounterStopPos) {
     return;
   } else {
     myPID.SetMode(AUTOMATIC);
