@@ -968,33 +968,52 @@ int8_t handleFrameCorrectionOffsetInput() {
   parentMenuEncPosition = myEnc.read();
   int16_t newEncPosition;
   int16_t oldPosition;
+  int16_t newSyncOffset;
 
-  myEnc.write(16000 - 128 - 2);  // this becomes 0 further down after shifting and modulo 
+  myEnc.write(16000);  // this becomes 0 further down after shifting and modulo 
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
     newEncPosition = myEnc.read();
-    newEncPosition = ((newEncPosition >> 1) % 256) - 128;
-//  newEncPosition = ((newEncPosition >> 2) % 256) - 128;
-
+    newSyncOffset = ((newEncPosition >> 1) - 8000);
     
+//  newEncPosition = ((newEncPosition >> 1);
+//  newEncPosition = ((newEncPosition >> 2) % 256) - 128;
   
     if (newEncPosition != oldPosition) {
       oldPosition = newEncPosition;
-//      Serial.println(newEncPosition);
+      Serial.println(newSyncOffset);
       u8g2.firstPage();
       do {
-        u8g2.setFont(u8g2_font_helvR10_tr);
+
         // Draw Header
-        if (newEncPosition == 0) {
-          u8g2.drawStr(1,12,"Adjust Offset of");
-          u8g2.drawStr(1,24,"Sound to Film");
-        } else if (newEncPosition < 0) {
-          u8g2.drawStr(1,12,"Delay Sound by");
-        } else if (newEncPosition > 0) {
-          u8g2.drawStr(1,12,"Advance Sound by");
+        u8g2.setFont(u8g2_font_helvR10_tr);
+        if (newSyncOffset == 0) {
+          u8g2.drawStr(6,12,"Adjust Sync Offset");
+        } else if (newSyncOffset < 0) {
+          u8g2.drawStr(11,12,"Delay Sound by");
+        } else if (newSyncOffset > 0) {
+          u8g2.drawStr(6,12,"Advance Sound by");
         }
+        u8g2.drawStr(40,64,"Frames");
+        
 
         u8g2.setFont(u8g2_font_inb24_mn);
-        u8g2.drawStr(20,46,":");
+        if (newSyncOffset >= 0 && newSyncOffset <= 9) {
+          u8g2.setCursor(55, 46);
+        } else if (newSyncOffset >= -9 && newSyncOffset <= -1) {
+          u8g2.setCursor(45, 46);
+        } else if (newSyncOffset >= 10 && newSyncOffset <= 99) {
+          u8g2.setCursor(45, 46);
+        } else if (newSyncOffset >= -99 && newSyncOffset <= -10) {
+          u8g2.setCursor(35, 46);
+        } else if (newSyncOffset >= 100 && newSyncOffset <= 999) {
+          u8g2.setCursor(35, 46);
+        } else if (newSyncOffset >= -999 && newSyncOffset <= -100) {
+          u8g2.setCursor(25, 46);
+        }
+        
+        u8g2.print(newSyncOffset);
+
+        
 //        u8g2.setCursor(30, 55);
 //        u8g2.setFont(u8g2_font_inb24_mn);
 //        if (newEncPosition < 0) {
