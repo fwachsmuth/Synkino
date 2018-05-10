@@ -32,15 +32,15 @@
  *      
  *  
  *  *** PCB ***
- *  [ ] Offset ICSP Pins
- *  [ ] Offset FTDI Pins
+ *  [x] Offset ICSP Pins
+ *  [x] Offset FTDI Pins
  *  [ ] Make FTDI work
  *  [ ] Make ICSP work with Display connected
- *  [ ] + mark on the backside
- *  [ ] Display-Löcher minimal tiefer (1mm?)
+ *  [x] + mark on the backside
+ *  [x] Display-Löcher minimal tiefer (1mm?)
  *  [ ] Power On weiter nach rechts
  *  [ ] Batteriefach
- *  [ ] LEDs nicht ganz s nah an die Buchsen
+ *  [x] LEDs nicht ganz s nah an die Buchsen
  *  [ ] Save Power: Disable Start mark Sensor after start...
  *  [ ] Prep for EEPROM :)
  *  [ ] Add Buzzer? 8.5x8.5 AAC801J-13 
