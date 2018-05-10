@@ -36,17 +36,16 @@
  *  [x] Offset FTDI Pins
  *  [ ] Make FTDI work
  *  [ ] Make ICSP work with Display connected
- *  [x] + mark on the backside
+ *  [x] + Mark on the backside
  *  [x] Display-Löcher minimal tiefer (1mm?)
  *  [ ] Power On weiter nach rechts
  *  [ ] Batteriefach
- *  [x] LEDs nicht ganz s nah an die Buchsen
- *  [ ] Save Power: Disable Start mark Sensor after start...
+ *  [x] LEDs nicht ganz so nah an die Buchsen
+ *  [ ] Save Power: Disable Start mark Sensor after start... (A-PD4)
  *  [ ] Prep for EEPROM :)
- *  [ ] Add Buzzer? 8.5x8.5 AAC801J-13 
- *  [ ] C5 etwas kleiner?
- *  [ ] 5. Stütze mittig unten
- *  [ ] Power On auch an Pin legen? (Why?)
+ *  [ ] Add Buzzer? 8.5x8.5 AAC801J-13 (C-PD5)
+ *  [ ] Power um 90° Drehen
+ *  [x] 5. Stütze mittig unten
  *  [ ] Tastenkappen?
  *    
  *  *** Notes ***  
