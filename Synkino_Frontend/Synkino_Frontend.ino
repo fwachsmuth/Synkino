@@ -34,6 +34,7 @@
  *  *** PCB ***
  *  [x] Offset ICSP Pins
  *  [x] Offset FTDI Pins
+ *  [ ] Align FTDI to same GND-Position
  *  [ ] Make FTDI work
  *  [ ] Make ICSP work with Display connected
  *  [x] + Mark on the backside
@@ -41,7 +42,6 @@
  *  [ ] Power On weiter nach rechts
  *  [ ] Batteriefach
  *  [x] LEDs nicht ganz so nah an die Buchsen
- *  [ ] Save Power: Disable Start mark Sensor after start... (A-PD4)
  *  [ ] Prep for EEPROM :)
  *  [ ] Add Buzzer? 8.5x8.5 AAC801J-13 (C-PD5)
  *  [ ] Power um 90° Drehen
