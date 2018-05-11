@@ -35,7 +35,7 @@
  *  [x] Offset ICSP Pins
  *  [x] Offset FTDI Pins
  *  [x] Align FTDI to same GND-Position
- *  [ ] Make FTDI work
+ *  [x] Make FTDI work
  *  [ ] Make ICSP work with Display connected
  *  [x] + Mark on the backside
  *  [x] Display-Löcher minimal tiefer (1mm?)
