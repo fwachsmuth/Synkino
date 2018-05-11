@@ -20,9 +20,9 @@
  *  [ ] Find & Load other files than just m4a
  *  [ ] Do not accept an empty projector list. So erratic!
  *  [ ] make 8-3-1 the default values for new pids
- *  [ ] Handle empty Projector List
  *  [ ] Track number is off after editing a Projector
  *  [ ] When editing a Projector, Shutter Blade Position is wrong
+ *  [ ] After Bootloader-Burn and creating a 1st Projector, first two letters are missing in name. Name starts with E3?
  *  
  *  *** Explorations ***
  *  [ ] Measure and optimize Power
@@ -1191,7 +1191,8 @@ void restoreLastProjectorUsed() {
   if (lastProjectorUsed > 8) {
     for (int i = 0 ; i < EEPROM.length() ; i++) {
       EEPROM.write(i, 0);
-    }    
+    }  
+    lastProjectorUsed = EEPROM.read(1);  
   } else {
     loadProjectorConfig(lastProjectorUsed);
   }
