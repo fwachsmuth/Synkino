@@ -1,6 +1,9 @@
 /*
  *  This is the frontend part of Synkino
  *  
+ *  Sketch uses 26366 bytes (81%) of program storage space. Maximum is 32256 bytes.
+ *  Global variables use 1704 bytes (83%) of dynamic memory, leaving 344 bytes for local variables. Maximum is 2048 bytes.
+ *  
  *  *** Features ****
  *  [x] Implement end of track detection
  *  [ ] Make Display darker during Playback? 
@@ -25,29 +28,17 @@
  *  [ ] After Bootloader-Burn and creating a 1st Projector, first two letters are missing in name. Name starts with E3?
  *  
  *  *** Explorations ***
- *  [ ] Measure and optimize Power
+ *  [x] Measure and optimize Power
  *  [ ] Compile and test patch 2.6 for wider upsampling trick
- *  [ ] Try http://arduino.land/Code/SmallSetup/
  *  [ ] Move Strings to PROGMEM?
  *      
  *  
  *  *** PCB ***
- *  [x] Offset ICSP Pins
- *  [x] Offset FTDI Pins
- *  [x] Align FTDI to same GND-Position
- *  [x] Make FTDI work
  *  [ ] Make ICSP work with Display connected:
  *  - Be sure to have a pullup resistor on the slave chip select pins to keep them off the SPI bus 
  *  while the processor's reset line is low and the IO pins are not driven (they default to INPUT 
  *  state when Reset is low). If the slaves use active high chip select, then a pulldown resistor is needed.
  *  - I have an OLED display that also misbehaves during ICSP programming unless I pull up not only CS but also its RESET pin.
- *  [x] + Mark on the backside
- *  [x] Display-Löcher minimal tiefer (1mm?)
- *  [x] Power On weiter nach rechts
- *  [x] LEDs nicht ganz so nah an die Buchsen
- *  [x] Prep for EEPROM :)
- *  [x] Add Buzzer? 8.5x8.5 AAC801J-13 (C-PD5)
- *  [x] 5. Stütze mittig unten
  *    
  *  *** Notes ***  
  *  Change avrdude.conf in cd ~/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
@@ -60,6 +51,7 @@
 #include <Wire.h>
 #include <WireData.h>
 #include <EEPROM.h>
+// #include <SmallSetup.h>
 
 // ---- Define the various Pins we use- --------------------------------------------
 //
