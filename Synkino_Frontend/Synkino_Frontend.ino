@@ -36,16 +36,18 @@
  *  [x] Offset FTDI Pins
  *  [x] Align FTDI to same GND-Position
  *  [x] Make FTDI work
- *  [ ] Make ICSP work with Display connected
+ *  [ ] Make ICSP work with Display connected:
+ *  - Be sure to have a pullup resistor on the slave chip select pins to keep them off the SPI bus 
+ *  while the processor's reset line is low and the IO pins are not driven (they default to INPUT 
+ *  state when Reset is low). If the slaves use active high chip select, then a pulldown resistor is needed.
+ *  - I have an OLED display that also misbehaves during ICSP programming unless I pull up not only CS but also its RESET pin.
  *  [x] + Mark on the backside
  *  [x] Display-Löcher minimal tiefer (1mm?)
  *  [x] Power On weiter nach rechts
- *  [ ] Batteriefach
  *  [x] LEDs nicht ganz so nah an die Buchsen
  *  [x] Prep for EEPROM :)
  *  [x] Add Buzzer? 8.5x8.5 AAC801J-13 (C-PD5)
  *  [x] 5. Stütze mittig unten
- *  [ ] Tastenkappen?
  *    
  *  *** Notes ***  
  *  Change avrdude.conf in cd ~/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
