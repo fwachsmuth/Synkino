@@ -34,17 +34,16 @@
  *  *** PCB ***
  *  [x] Offset ICSP Pins
  *  [x] Offset FTDI Pins
- *  [ ] Align FTDI to same GND-Position
+ *  [x] Align FTDI to same GND-Position
  *  [ ] Make FTDI work
  *  [ ] Make ICSP work with Display connected
  *  [x] + Mark on the backside
  *  [x] Display-Löcher minimal tiefer (1mm?)
- *  [ ] Power On weiter nach rechts
+ *  [x] Power On weiter nach rechts
  *  [ ] Batteriefach
  *  [x] LEDs nicht ganz so nah an die Buchsen
- *  [ ] Prep for EEPROM :)
- *  [ ] Add Buzzer? 8.5x8.5 AAC801J-13 (C-PD5)
- *  [ ] Power um 90° Drehen
+ *  [x] Prep for EEPROM :)
+ *  [x] Add Buzzer? 8.5x8.5 AAC801J-13 (C-PD5)
  *  [x] 5. Stütze mittig unten
  *  [ ] Tastenkappen?
  *    
