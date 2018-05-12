@@ -36,11 +36,8 @@
  *      
  *  
  *  *** PCB ***
- *  [ ] Make ICSP work with Display connected:
- *  - Be sure to have a pullup resistor on the slave chip select pins to keep them off the SPI bus 
- *  while the processor's reset line is low and the IO pins are not driven (they default to INPUT 
- *  state when Reset is low). If the slaves use active high chip select, then a pulldown resistor is needed.
- *  - I have an OLED display that also misbehaves during ICSP programming unless I pull up not only CS but also its RESET pin.
+ *  [ ] VCC Out
+ *  [x] Make ICSP work with Display connected:
  *    
  *  *** Notes ***  
  *  Change avrdude.conf in cd ~/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
