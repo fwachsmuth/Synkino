@@ -36,7 +36,7 @@
  *      
  *  
  *  *** PCB ***
- *  [ ] VCC Out
+ *  [x] VCC Out
  *  [x] Make ICSP work with Display connected:
  *    
  *  *** Notes ***  
