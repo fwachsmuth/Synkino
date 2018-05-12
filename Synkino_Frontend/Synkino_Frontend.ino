@@ -19,6 +19,7 @@
  *  
  *  *** Bugs ***
  *  [ ] Projector Name is truncated after editing values
+ *  [ ] Numeric imput in PID config is sloooooow
  *  [ ] Small Offset adds up after multiple projector stops
  *  [ ] Find & Load other files than just m4a
  *  [ ] Do not accept an empty projector list. So erratic!
@@ -229,6 +230,9 @@ Encoder myEnc(ENCODER_A, ENCODER_B);
 //
 
 const int myAddress = 0x07;     // Our i2c address here
+
+const byte encType = 15;    // 15 dents
+// const byte encType = 30; // 30 dents
 
 const char *main_menu = 
   "Projector\n"
@@ -767,8 +771,11 @@ void handleProjectorNameInput() {
   
   while (charIndex < maxProjectorNameLength && !inputFinished) {
     while (digitalRead(ENCODER_BTN) == 1) {
-      newEncPosition = (myEnc.read() >> 1) % 64;
-//      newEncPosition = (myEnc.read() >> 2) % 64;
+      if (encType == 30) {
+        newEncPosition = (myEnc.read() >> 1) % 64;
+      } else {
+        newEncPosition = (myEnc.read() >> 2) % 64;
+      }
       /*
        * Chr : Ascii Code      | newEncPos | myEnc.write | #
        * ----:-----------------|-----------|-------------|---
@@ -973,8 +980,11 @@ void handleFrameCorrectionOffsetInput() {
   myEnc.write(16000 + (newSyncOffset << 1));  // this becomes 0 further down after shifting and modulo 
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
     newEncPosition = myEnc.read();
-    newSyncOffset = ((newEncPosition >> 1) - 8000);
-  
+    if (encType == 30) {
+      newSyncOffset = ((newEncPosition >> 1) - 8000);
+    } else {
+      newSyncOffset = ((newEncPosition >> 2) - 4000);
+    }
     if (newEncPosition != oldPosition) {
       oldPosition = newEncPosition;
       Serial.println(newSyncOffset);
@@ -1023,12 +1033,19 @@ uint16_t selectTrackScreen() {
   parentMenuEncPosition = myEnc.read();
   int newEncPosition;
   int oldPosition;
-// myEnc.write(16001);
-  myEnc.write(16002);
+  if (encType == 30) {
+    myEnc.write(16002);
+  } else {
+    myEnc.write(16001);
+  }
+  
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
     newEncPosition = myEnc.read();
-    newEncPosition = (newEncPosition >> 1) % 1000;
-//    newEncPosition = (newEncPosition >> 2) % 1000;
+    if (encType == 30) {
+      newEncPosition = (newEncPosition >> 1) % 1000;
+    } else {
+      newEncPosition = (newEncPosition >> 2) % 1000;
+    }
     if (newEncPosition != oldPosition) {
       oldPosition = newEncPosition;
       
@@ -1059,8 +1076,12 @@ uint16_t selectTrackScreen() {
 
 // This overwrites the weak function in u8x8_debounce.c
 uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
-  int newEncPosition = myEnc.read() >> 1;
-//  int newEncPosition = myEnc.read() >> 2;
+  int newEncPosition;
+  if (encType == 30) {
+     newEncPosition = myEnc.read() >> 1;
+  } else {
+    newEncPosition = myEnc.read() >> 2;
+  }
   static int oldEncPosition = 8000;
   int encoderBttn = digitalRead(ENCODER_BTN);
 
