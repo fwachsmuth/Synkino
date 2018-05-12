@@ -20,6 +20,7 @@
  *  *** Bugs ***
  *  [ ] Projector Name is truncated after editing values
  *  [ ] Numeric imput in PID config is sloooooow
+ *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  [ ] Small Offset adds up after multiple projector stops
  *  [ ] Find & Load other files than just m4a
  *  [ ] Do not accept an empty projector list. So erratic!
