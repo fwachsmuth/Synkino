@@ -24,6 +24,7 @@
 #include <Arduino.h>
 #include <Wire.h>
 #include <WireData.h>
+#include <extEEPROM.h>
 
 // ---- Define the I2C Commands ----------------------------------------------------
 //
@@ -99,6 +100,11 @@ volatile long i2cParameter;
 volatile unsigned long lastISRTime;
 unsigned long lastInSyncMillis;
 
+
+extEEPROM myEEPROM(kbits_256, 1, 64);
+
+
+
 double Setpoint, Input, Output;
 
 double Kp=8, Ki=3, Kd=1;  // PonM WINNER für 16 Readings, but with fixed int overflow
@@ -148,6 +154,7 @@ void setup() {
   Serial.println(FreeStack(), DEC);  // FreeStack() is provided by SdFat
 
   Wire.begin(myAddress);
+  Wire.setClock(400000L);
   Wire.onReceive(i2cReceive);
   Wire.onRequest(i2cRequest);
 

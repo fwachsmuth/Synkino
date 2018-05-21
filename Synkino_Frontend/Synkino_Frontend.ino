@@ -30,14 +30,18 @@
  *  [ ] After Bootloader-Burn and creating a 1st Projector, first two letters are missing in name. Name starts with E3?
  *  
  *  *** Explorations ***
- *  [x] Measure and optimize Power
+ *  [x] Measure and optimize Power:
+ *  CPUs      45 mA
+ *  OLED      12-25 mA
+ *  IR-LED    10 mA
+ *  Red LED   3 mA
+ *  DSP/Play: 7 mA
  *  [ ] Compile and test patch 2.6 for wider upsampling trick
  *  [ ] Move Strings to PROGMEM?
  *      
  *  
  *  *** PCB ***
- *  [x] VCC Out
- *  [x] Make ICSP work with Display connected:
+ *  [ ] Add Testpins for Sensor In (and Audio Out?)  
  *    
  *  *** Notes ***  
  *  Change avrdude.conf in cd ~/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
@@ -346,6 +350,7 @@ void setup(void) {
   Serial.begin(115200);
 
   Wire.begin(myAddress);
+  Wire.setClock(400000L);
   Wire.onReceive(i2cReceive);
   Wire.onRequest(i2cRequest);
  
