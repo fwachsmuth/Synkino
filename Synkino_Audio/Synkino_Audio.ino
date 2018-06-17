@@ -155,6 +155,14 @@ void setup() {
 
   Wire.begin(myAddress);
   Wire.setClock(400000L);
+  
+  byte i2cStat = myEEPROM.begin(myEEPROM.twiClock400kHz);
+  if ( i2cStat != 0 ) {
+    Serial.println(F("I2C Problem"));
+  }
+  
+  
+  
   Wire.onReceive(i2cReceive);
   Wire.onRequest(i2cRequest);
 
