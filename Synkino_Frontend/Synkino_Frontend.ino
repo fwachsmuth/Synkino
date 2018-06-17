@@ -233,8 +233,8 @@ Encoder myEnc(ENCODER_A, ENCODER_B);
 
 const int myAddress = 0x07;     // Our i2c address here
 
-const byte encType = 15;    // 15 dents
-// const byte encType = 30; // 30 dents
+// const byte encType = 15;    // 15 dents
+const byte encType = 30; // 30 dents
 
 const char *main_menu = 
   "Projector\n"
