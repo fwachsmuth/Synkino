@@ -16,7 +16,7 @@ const char *dspVersion = "DSP v1.0";
  *  
  *  *** Bugs ***
  *  [ ] Projector Name is truncated after editing values
- *  [ ] Do not blink while characters change
+ *  [x] Do not blink while characters change
  *  [ ] Beep on String Edit Exit
  *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  [ ] Small Offset adds up after multiple projector stops
@@ -753,6 +753,7 @@ void handleProjectorNameInput() {
   bool inputFinished = false;  
   unsigned long lastMillis;  
   bool firstUse = true;                        
+  bool stopCursorBlinking = false;
 
   if (projectorActionMenuSelection == MENU_ITEM_EDIT) {
     if (strlen(newProjectorName) == maxProjectorNameLength) {
@@ -787,9 +788,10 @@ void handleProjectorNameInput() {
         newEncPosition = (myEnc.read() >> 2) % 64;
       }
 
-      if (newEncPosition != oldEncPosition) {
+      if (newEncPosition != oldEncPosition) { // New Character selected
         playClick();
         oldEncPosition = newEncPosition;
+        stopCursorBlinking = true;
       }
       /*
        * Chr : Ascii Code      | newEncPos | myEnc.write | #
@@ -807,19 +809,16 @@ void handleProjectorNameInput() {
       else if (newEncPosition >= 53 && newEncPosition <= 62) localChar = newEncPosition -  5;
       else    localChar = 127;
       lastMillis = millis();
-      handleStringInputGraphically(GET_NAME, localChar, lastMillis, firstUse);
-//      if (localChar != oldLocalChar) {
-//        playClick();  
-//        oldLocalChar = localChar;
-//      }
+      handleStringInputGraphically(GET_NAME, localChar, lastMillis, firstUse, stopCursorBlinking);
+      stopCursorBlinking = false;
     }
     lastMillis = millis();
     while (digitalRead(ENCODER_BTN) == 0 && !inputFinished) {
       delay(50);
-      inputFinished = handleStringInputGraphically(JUST_PRESSED, localChar, lastMillis, firstUse);
+      inputFinished = handleStringInputGraphically(JUST_PRESSED, localChar, lastMillis, firstUse, false);
     }
     while (digitalRead(ENCODER_BTN) == 0 && inputFinished) {
-       handleStringInputGraphically(LONG_PRESSED, localChar, 0, firstUse);
+       handleStringInputGraphically(LONG_PRESSED, localChar, 0, firstUse, false);
     }
     if (localChar == 127) {   // Delete
       charIndex--;            // Is it safe to become negative here?
@@ -855,7 +854,7 @@ void handlePIDinput () {
   waitForBttnRelease();
 }
 
-bool handleStringInputGraphically(byte action, char localChar, unsigned long lastMillis, bool firstUse) {
+bool handleStringInputGraphically(byte action, char localChar, unsigned long lastMillis, bool firstUse, bool charChanged) {
   u8g2.firstPage();
   do {
     u8g2.setFont(u8g2_font_helvR10_tr);
@@ -863,7 +862,7 @@ bool handleStringInputGraphically(byte action, char localChar, unsigned long las
     u8g2.print(newProjectorName);
 
     if (action == GET_NAME) {
-      if (lastMillis % 300 > 150) {
+      if ((lastMillis % 600 < 300) || charChanged) {
         if      (localChar ==  32) u8g2.print("_");
         else if (localChar == 127) {  // Delete
           u8g2.setFont(u8g2_font_m2icon_9_tf);
