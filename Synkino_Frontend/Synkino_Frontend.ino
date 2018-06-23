@@ -8,18 +8,11 @@ const char *dspVersion = "DSP v1.0";
  *  Global variables use 1704 bytes (83%) of dynamic memory, leaving 344 bytes for local variables. Maximum is 2048 bytes.
  *  
  *  *** Features ****
- *  [x] Implement end of track detection
- *  [ ] Make Display darker during Playback? 
  *  [ ] Plugin in PROGMEM? Could fit...
  *  [ ] Implement Extras Menu:
- *      [x] Version Display
- *      [ ] Add Proportional On Measurement Option
  *      [ ] Configure Auto Power-Off Timeout
- *      [ ] Display Brightness
- *      [ ] Configure base Volume
- *      [ ] Encoder Type
  *      [ ] Update DSP Firmware
- *  [ ] Add audible tick sounds to Menu :)
+ *  [x] Add audible tick sounds to Menu :)
  *  
  *  *** Bugs ***
  *  [ ] Projector Name is truncated after editing values
@@ -68,6 +61,7 @@ const char *dspVersion = "DSP v1.0";
 #define ENCODER_A     2
 #define ENCODER_B     3
 #define ENCODER_BTN   4
+#define BUZZER        5
 #define AUDIO_EN      6
 #define POWER_OFF     7
 
@@ -345,6 +339,7 @@ void setup(void) {
   pinMode(SPI_DC, OUTPUT);
   pinMode(AUDIO_EN, OUTPUT);
   pinMode(POWER_OFF, OUTPUT);
+  pinMode(BUZZER, OUTPUT);
   pinMode(ENCODER_BTN, INPUT);
   digitalWrite(SPI_CS, 0);
   digitalWrite(SPI_DC, 0);		
@@ -384,7 +379,8 @@ void setup(void) {
   TCCR1B |= (1 << CS12) | (1 << CS10);    // Prescaler 1024
   TIMSK1 |= (1 << OCIE1A);                // Output Compare Match A Interrupt Enable
   interrupts();
-  
+
+  tone(BUZZER, 6000, 30);
 }
 
 
@@ -1097,14 +1093,17 @@ uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
   int encoderBttn = digitalRead(ENCODER_BTN);
 
   if (newEncPosition < oldEncPosition) {
+    tone(BUZZER, 2200, 3);
     oldEncPosition = newEncPosition;
-    delay(50);
+    // delay(50);
     return U8X8_MSG_GPIO_MENU_UP;
   } else if (newEncPosition > oldEncPosition) {
+    tone(BUZZER, 2200, 3);
     oldEncPosition = newEncPosition;
-    delay(50);
+    // delay(50);
     return U8X8_MSG_GPIO_MENU_DOWN;
   } else if (encoderBttn == 0) {
+    tone(BUZZER, 4000, 5);
     delay(50);
     return U8X8_MSG_GPIO_MENU_SELECT;
   } else {
