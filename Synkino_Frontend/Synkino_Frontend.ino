@@ -17,6 +17,7 @@ const char *dspVersion = "DSP v1.0";
  *  *** Bugs ***
  *  [ ] Projector Name is truncated after editing values
  *  [ ] Do not blink while characters change
+ *  [ ] Beep on String Edit Exit
  *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  [ ] Small Offset adds up after multiple projector stops
  *  [ ] Find & Load other files than just m4a
