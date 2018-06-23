@@ -1,3 +1,6 @@
+const char *uCVersion = "uC v0.9";
+const char *dspVersion = "DSP v1.0";
+
 /*
  *  This is the frontend part of Synkino
  *  
@@ -9,6 +12,7 @@
  *  [ ] Make Display darker during Playback? 
  *  [ ] Plugin in PROGMEM? Could fit...
  *  [ ] Implement Extras Menu:
+ *      [x] Version Display
  *      [ ] Add Proportional On Measurement Option
  *      [ ] Configure Auto Power-Off Timeout
  *      [ ] Display Brightness
@@ -110,8 +114,9 @@
 #define MENU_ITEM_EXIT            3
 
 
-#define MENU_ITEM_DEL_EEPROM      1
-#define MENU_ITEM_DUMP            2
+#define MENU_ITEM_VERSION         1
+#define MENU_ITEM_DEL_EEPROM      2
+#define MENU_ITEM_DUMP            3
 
 // ---- Define the I2C Commands ----------------------------------------------------
 //
@@ -267,6 +272,7 @@ const char *trackLoaded_menu =
   "Exit";
 
 const char *extras_menu =
+  "Version\n"
   "Del\n"
   "Dump";
 
@@ -281,7 +287,7 @@ uint8_t projectorActionMenuSelection    = MENU_ITEM_SELECT;
 uint8_t projectorSelectionMenuSelection = 0;
 uint8_t projectorConfigMenuSelection    = MENU_ITEM_NAME;
 uint8_t shutterBladesMenuSelection      = MENU_ITEM_TWO;
-uint8_t extrasMenuSelection             = 2;
+uint8_t extrasMenuSelection             = 1;
 uint8_t trackLoadedMenuSelection        = MENU_ITEM_EXIT;
 
 
@@ -447,17 +453,17 @@ void loop(void) {
       case CMD_SHOW_ERROR:
         switch (i2cParameter) { // see https://mpflaga.github.io/Arduino_Library-vs1053_for_SdFat/
           case 2:
-            showError("File not found.","");
+            showError("ERROR", "File not found.","");
             waitForBttnRelease();
             myState = MENU_ITEM_SELECT_TRACK;
             break;
           case 16:
-            showError("DSP Patch could","not be loaded."); 
+            showError("ERROR", "DSP Patch could","not be loaded."); 
           case 20:
-            showError("No SD Card found.","");
+            showError("ERROR", "No SD Card found.","");
             break;
           default:
-            showError("Oops:", i2cParameter);
+            showError("ERROR", "Oops:", i2cParameter);
             //  1: Already playing track
             //  3: indicates that the DSP is in reset
             // 11: Failure of SdFat to initialize physical contact with the SdCard
@@ -505,7 +511,7 @@ void loop(void) {
               gatherProjectorData();
               saveProjector(NEW);
             } else {
-              showError("Too many Projectors.","Only 8 allowed.");
+              showError("ERROR", "Too many Projectors.","Only 8 allowed.");
             }
             
           } else if (projectorActionMenuSelection == MENU_ITEM_SELECT) {
@@ -551,7 +557,6 @@ void loop(void) {
               byte choice;
               choice = u8g2.userInterfaceMessage("Delete EEPROM", "Are you sure?", "", " Cancel \n Yes ");
               waitForBttnRelease();
-              
               if (choice == 2) {
                 for (int i = 0 ; i < EEPROM.length() ; i++) {
                   EEPROM.write(i, 0);
@@ -562,6 +567,9 @@ void loop(void) {
             break;
             case MENU_ITEM_DUMP:
               e2reader();
+            break;
+            case MENU_ITEM_VERSION:
+              showError("About Synkino", uCVersion, dspVersion); 
             break;
             default:
             break;
@@ -1191,11 +1199,11 @@ void shutdownSelf() {
   do {} while(true);
 }
 
-void showError(char * errorMsg1, char * errorMsg2) {
+void showError(char * errorHeader, char * errorMsg1, char * errorMsg2) {
   u8g2.setFont(u8g2_font_helvR08_tr);
   u8g2.setFontRefHeightAll();    /* this will add some extra space for the text inside the buttons */
   byte choice;
-  choice = u8g2.userInterfaceMessage("ERROR", errorMsg1, errorMsg2, " Okay ");
+  choice = u8g2.userInterfaceMessage(errorHeader, errorMsg1, errorMsg2, " Okay ");
   waitForBttnRelease();
   
   if (choice == 2) {
