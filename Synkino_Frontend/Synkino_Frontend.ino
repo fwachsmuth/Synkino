@@ -16,7 +16,7 @@ const char *dspVersion = "DSP v1.0";
  *  
  *  *** Bugs ***
  *  [ ] Projector Name is truncated after editing values
- *  [ ] Numeric imput in PID config is sloooooow
+ *  [x] Numeric imput in PID config is sloooooow
  *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  [ ] Small Offset adds up after multiple projector stops
  *  [ ] Find & Load other files than just m4a
@@ -747,6 +747,7 @@ void waitForBttnRelease() {
 void handleProjectorNameInput() {
   char localChar;
   unsigned long newEncPosition;
+  unsigned long oldEncPosition;
   byte charIndex = 0;
   bool inputFinished = false;  
   unsigned long lastMillis;  
@@ -778,10 +779,16 @@ void handleProjectorNameInput() {
   
   while (charIndex < maxProjectorNameLength && !inputFinished) {
     while (digitalRead(ENCODER_BTN) == 1) {
+      
       if (encType == 30) {
         newEncPosition = (myEnc.read() >> 1) % 64;
       } else {
         newEncPosition = (myEnc.read() >> 2) % 64;
+      }
+
+      if (newEncPosition != oldEncPosition) {
+        playClick();
+        oldEncPosition = newEncPosition;
       }
       /*
        * Chr : Ascii Code      | newEncPos | myEnc.write | #
@@ -800,6 +807,10 @@ void handleProjectorNameInput() {
       else    localChar = 127;
       lastMillis = millis();
       handleStringInputGraphically(GET_NAME, localChar, lastMillis, firstUse);
+//      if (localChar != oldLocalChar) {
+//        playClick();  
+//        oldLocalChar = localChar;
+//      }
     }
     lastMillis = millis();
     while (digitalRead(ENCODER_BTN) == 0 && !inputFinished) {
@@ -1055,6 +1066,7 @@ uint16_t selectTrackScreen() {
     }
     if (newEncPosition != oldPosition) {
       oldPosition = newEncPosition;
+      playClick();
       
       u8g2.firstPage();
       
@@ -1093,14 +1105,12 @@ uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
   int encoderBttn = digitalRead(ENCODER_BTN);
 
   if (newEncPosition < oldEncPosition) {
-    tone(BUZZER, 2200, 3);
+    playClick();
     oldEncPosition = newEncPosition;
-    // delay(50);
     return U8X8_MSG_GPIO_MENU_UP;
   } else if (newEncPosition > oldEncPosition) {
-    tone(BUZZER, 2200, 3);
+    playClick();
     oldEncPosition = newEncPosition;
-    // delay(50);
     return U8X8_MSG_GPIO_MENU_DOWN;
   } else if (encoderBttn == 0) {
     tone(BUZZER, 4000, 5);
@@ -1223,6 +1233,9 @@ void restoreLastProjectorUsed() {
   }
 }
 
+void playClick() {
+  tone(BUZZER, 2200, 3);
+}
 
 ISR(TIMER1_COMPA_vect) {                  // This gets called once every second
   if (myEnc.read() != lastEncRead) {  // See if there was any user activity
