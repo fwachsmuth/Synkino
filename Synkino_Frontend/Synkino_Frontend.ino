@@ -8,22 +8,22 @@ const char *dspVersion = "DSP v1.0";
  *  Global variables use 1704 bytes (83%) of dynamic memory, leaving 344 bytes for local variables. Maximum is 2048 bytes.
  *  
  *  *** Features ****
+ *  [ ] Use EEPROM for Plugin
  *  [ ] Plugin in PROGMEM? Could fit...
+ *  [ ] Beep before auto-power-off
  *  [ ] Implement Extras Menu:
  *      [ ] Configure Auto Power-Off Timeout
  *      [ ] Update DSP Firmware
- *  [x] Add audible tick sounds to Menu :)
  *  
  *  *** Bugs ***
+ *  [ ] Do not accept an empty projector list. So erratic!
+ *  [ ] make 8-3-1 the default values for new pids
+ *  [ ] When editing a Projector, Shutter Blade Position is wrong
+ *  [ ] Track number is off after editing a Projector
  *  [ ] Projector Name is truncated after editing values
- *  [ ] Beep on String Edit Exit
  *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  [ ] Small Offset adds up after multiple projector stops
  *  [ ] Find & Load other files than just m4a
- *  [ ] Do not accept an empty projector list. So erratic!
- *  [ ] make 8-3-1 the default values for new pids
- *  [ ] Track number is off after editing a Projector
- *  [ ] When editing a Projector, Shutter Blade Position is wrong
  *  [ ] After Bootloader-Burn and creating a 1st Projector, first two letters are missing in name. Name starts with E3?
  *  
  *  *** Explorations ***
@@ -36,10 +36,6 @@ const char *dspVersion = "DSP v1.0";
  *  [ ] Compile and test patch 2.6 for wider upsampling trick
  *  [ ] Move Strings to PROGMEM?
  *      
- *  
- *  *** PCB ***
- *  [ ] Add Testpins for Sensor In (and Audio Out?)  
- *    
  *  *** Notes ***  
  *  Change avrdude.conf in cd ~/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
  */
@@ -751,7 +747,8 @@ void handleProjectorNameInput() {
   byte charIndex = 0;
   bool inputFinished = false;  
   unsigned long lastMillis;  
-  bool firstUse = true;                        
+  bool firstUse = true;        
+  bool tonePlayedYet = false;                
   bool stopCursorBlinking = false;
 
   if (projectorActionMenuSelection == MENU_ITEM_EDIT) {
@@ -791,6 +788,7 @@ void handleProjectorNameInput() {
         playClick();
         oldEncPosition = newEncPosition;
         stopCursorBlinking = true;
+        tonePlayedYet = false;
       }
       /*
        * Chr : Ascii Code      | newEncPos | myEnc.write | #
@@ -813,6 +811,10 @@ void handleProjectorNameInput() {
     }
     lastMillis = millis();
     while (digitalRead(ENCODER_BTN) == 0 && !inputFinished) {
+      if (!tonePlayedYet) {
+        tone(BUZZER, 4000, 5);
+        tonePlayedYet = true;
+      }
       delay(50);
       inputFinished = handleStringInputGraphically(JUST_PRESSED, localChar, lastMillis, firstUse, false);
     }
@@ -861,7 +863,7 @@ bool handleStringInputGraphically(byte action, char localChar, unsigned long las
     u8g2.print(newProjectorName);
 
     if (action == GET_NAME) {
-      if ((lastMillis % 600 < 300) || charChanged) {
+      if ((lastMillis % 600 < 400) || charChanged) {
         if      (localChar ==  32) u8g2.print("_");
         else if (localChar == 127) {  // Delete
           u8g2.setFont(u8g2_font_m2icon_9_tf);
@@ -896,9 +898,6 @@ bool handleStringInputGraphically(byte action, char localChar, unsigned long las
     }
     
     else if (action == LONG_PRESSED) { 
-//      if (!tonePlayed) {
-//        tonePlayed = true;
-//      }
       u8g2.setFont(u8g2_font_helvR08_tr);
       u8g2.drawStr(41, 55, "[Saved!]"); 
     }
