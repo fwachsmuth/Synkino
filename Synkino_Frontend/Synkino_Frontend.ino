@@ -376,7 +376,7 @@ void setup(void) {
   TIMSK1 |= (1 << OCIE1A);                // Output Compare Match A Interrupt Enable
   interrupts();
 
-  tone(BUZZER, 6000, 30);
+  tone(BUZZER, 6000, 30); // Hello!
 }
 
 
@@ -1227,11 +1227,14 @@ void showError(char * errorHeader, char * errorMsg1, char * errorMsg2) {
 
 void restoreLastProjectorUsed() {
   lastProjectorUsed = EEPROM.read(1);
-  if (lastProjectorUsed > 8) {
+  if ((lastProjectorUsed > 8) || lastProjectorUsed == 0) {
     for (int i = 0 ; i < EEPROM.length() ; i++) {
       EEPROM.write(i, 0);
     }  
     lastProjectorUsed = EEPROM.read(1);  
+    gatherProjectorData();
+    saveProjector(NEW);
+
   } else {
     loadProjectorConfig(lastProjectorUsed);
   }
