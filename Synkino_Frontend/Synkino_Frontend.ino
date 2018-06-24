@@ -16,7 +16,6 @@ const char *dspVersion = "DSP v1.0";
  *  
  *  *** Bugs ***
  *  [ ] Projector Name is truncated after editing values
- *  [x] Do not blink while characters change
  *  [ ] Beep on String Edit Exit
  *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  [ ] Small Offset adds up after multiple projector stops
@@ -818,7 +817,7 @@ void handleProjectorNameInput() {
       inputFinished = handleStringInputGraphically(JUST_PRESSED, localChar, lastMillis, firstUse, false);
     }
     while (digitalRead(ENCODER_BTN) == 0 && inputFinished) {
-       handleStringInputGraphically(LONG_PRESSED, localChar, 0, firstUse, false);
+      handleStringInputGraphically(LONG_PRESSED, localChar, 0, firstUse, false);
     }
     if (localChar == 127) {   // Delete
       charIndex--;            // Is it safe to become negative here?
@@ -891,11 +890,15 @@ bool handleStringInputGraphically(byte action, char localChar, unsigned long las
       u8g2.setFont(u8g2_font_helvR08_tr);
       u8g2.drawStr(11, 55, "[Keep pressed to Save]"); 
       if (millis() - lastMillis > 1500) {
+        playConfirm();
         return true;
       }
     }
     
     else if (action == LONG_PRESSED) { 
+//      if (!tonePlayed) {
+//        tonePlayed = true;
+//      }
       u8g2.setFont(u8g2_font_helvR08_tr);
       u8g2.drawStr(41, 55, "[Saved!]"); 
     }
@@ -1199,12 +1202,14 @@ void printASCII(char * buffer) {
 
 void shutdownSelf() {
   digitalWrite(POWER_OFF, LOW); 
+  //playGoodBye();
   u8g2.firstPage();
   do {
     u8g2.setFont(u8g2_font_helvR10_tr);
     u8g2.setCursor(25,35);
     u8g2.print("Good Bye.");
   } while ( u8g2.nextPage() );
+  playGoodBye();
   do {} while(true);
 }
 
@@ -1235,6 +1240,23 @@ void restoreLastProjectorUsed() {
 
 void playClick() {
   tone(BUZZER, 2200, 3);
+}
+
+void playConfirm() {
+  tone(BUZZER, 2093, 50); // C7
+  delay(50);
+  tone(BUZZER, 3136, 50); // G7
+  delay(50);
+  tone(BUZZER, 4186, 50); // C8
+}
+
+void playGoodBye() {
+  delay(250);
+  tone(BUZZER, 4186, 200); // C8
+  delay(200);
+  tone(BUZZER, 3136, 200); // G7
+  delay(200);
+  tone(BUZZER, 2093, 500); // C7
 }
 
 ISR(TIMER1_COMPA_vect) {                  // This gets called once every second
