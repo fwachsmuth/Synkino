@@ -16,8 +16,6 @@ const char *dspVersion = "DSP v1.0";
  *      [ ] Update DSP Firmware
  *  
  *  *** Bugs ***
- *  [ ] Do not accept an empty projector list. So erratic!
- *  [ ] make 8-3-1 the default values for new pids
  *  [ ] When editing a Projector, Shutter Blade Position is wrong
  *  [ ] Track number is off after editing a Projector
  *  [ ] Projector Name is truncated after editing values
@@ -743,7 +741,7 @@ void waitForBttnRelease() {
 void handleProjectorNameInput() {
   char localChar;
   unsigned long newEncPosition;
-  unsigned long oldEncPosition;
+  unsigned long oldCharEncPosition;
   byte charIndex = 0;
   bool inputFinished = false;  
   unsigned long lastMillis;  
@@ -784,9 +782,9 @@ void handleProjectorNameInput() {
         newEncPosition = (myEnc.read() >> 2) % 64;
       }
 
-      if (newEncPosition != oldEncPosition) { // New Character selected
+      if (newEncPosition != oldCharEncPosition) { // New Character selected
         playClick();
-        oldEncPosition = newEncPosition;
+        oldCharEncPosition = newEncPosition;
         stopCursorBlinking = true;
         tonePlayedYet = false;
       }
@@ -837,6 +835,7 @@ void handleProjectorNameInput() {
 }
 
 void handleShutterbladeInput() {
+//myEnc.write(16000);
   shutterBladesMenuSelection = u8g2.userInterfaceSelectionList("# Shutter Blades", shutterBladesMenuSelection, shutterblade_menu);
   waitForBttnRelease();
 }
@@ -1106,6 +1105,12 @@ uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
   static int oldEncPosition = 8000;
   int encoderBttn = digitalRead(ENCODER_BTN);
 
+//Serial.print(F("oldEnc "));
+//Serial.println(oldEncPosition);
+//Serial.print(F("newEnc "));
+//Serial.println(newEncPosition);
+
+
   if (newEncPosition < oldEncPosition) {
     playClick();
     oldEncPosition = newEncPosition;
@@ -1227,7 +1232,7 @@ void showError(char * errorHeader, char * errorMsg1, char * errorMsg2) {
 
 void restoreLastProjectorUsed() {
   lastProjectorUsed = EEPROM.read(1);
-  if ((lastProjectorUsed > 8) || lastProjectorUsed == 0) {
+  if ((lastProjectorUsed > 8) || lastProjectorUsed == 0) {    // If EEPROM contains 00 or FF here, contents doesn't look legit
     for (int i = 0 ; i < EEPROM.length() ; i++) {
       EEPROM.write(i, 0);
     }  
