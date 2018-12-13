@@ -21,7 +21,7 @@ const char *dspVersion = "DSP v1.0";
  *  [ ] Projector Name is truncated after editing values
  *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  [ ] Small Offset adds up after multiple projector stops
- *  [ ] Find & Load other files than just m4a
+ *  [x] Find & Load other files than just m4a
  *  [ ] After Bootloader-Burn and creating a 1st Projector, first two letters are missing in name. Name starts with E3?
  *  
  *  *** Explorations ***
