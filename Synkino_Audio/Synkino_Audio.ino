@@ -337,10 +337,25 @@ void tellFrontend(byte command, long parameter) {
 }
 
 uint8_t loadTrackByNo(int trackNo) {
-  char trackName[11];
+  char trackName[11]; 
   char trackNameFound[11];
-  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
+  
+  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) { 
+    // look for m4a first
     sprintf(trackName, "%03d-%d.m4a", trackNo, fpsGuess);  
+    if (sd.exists(trackName)) {
+      updateFpsDependencies(fpsGuess);
+      strcpy(trackNameFound, trackName);
+      tellFrontend(CMD_FOUND_FPS, fpsGuess);
+//      Serial.print(F("File exists and has ")); 
+//      Serial.print(fpsGuess);
+//      Serial.print(F(" fps:"));
+//      Serial.println(trackName);
+    }
+  }
+  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
+    // look for mp3 then
+    sprintf(trackName, "%03d-%d.mp3", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
