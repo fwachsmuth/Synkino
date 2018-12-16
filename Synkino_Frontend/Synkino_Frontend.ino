@@ -87,6 +87,14 @@ const char *dspVersion = "DSP v1.0";
  *    -Uflash:w:/var/folders/8z/w0g8hjrn5rsdth2krpxf4xp00000gn/T/arduino_build_605159/Synkino_Frontend.ino.hex:i
  */
 
+
+ /* Resources about Plugin Handling
+  *  - https://forums.adafruit.com/viewtopic.php?f=31&t=63377&start=15 (bottom, search for 'progmem')
+  *  - Uses musicPlayer.applyPatch(plugin, PLUGIN_SIZE); from Adafruit_VS1053.h
+  *  
+  *  - https://mpflaga.github.io/Arduino_Library-vs1053_for_SdFat/classvs1053.html#ac37ea5f88aed61c93c832575ca188eda
+  */
+
 #include <Arduino.h>
 #include <U8g2lib.h>
 #include <SPI.h>

@@ -664,6 +664,7 @@ void adjustSamplerate(signed long ppm2) {
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
   musicPlayer.Mp3WriteRegister(SCI_AUDATA, musicPlayer.Mp3ReadRegister(SCI_AUDATA));
 }
+
 void enableResampler() {
   // Enable 15-16 Resampler
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1e09);
