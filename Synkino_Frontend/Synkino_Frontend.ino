@@ -35,7 +35,54 @@ const char *dspVersion = "DSP v1.0";
  *  [ ] Move Strings to PROGMEM?
  *      
  *  *** Notes ***  
- *  Change avrdude.conf in cd ~/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips!
+ *  Change avrdude.conf in cd ~/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips! (without the P)
+ *  
+ *  Usage: avrdude [options]
+  -p <partno>                Required. Specify AVR device.
+  -b <baudrate>              Override RS-232 baud rate.
+  -B <bitclock>              Specify JTAG/STK500v2 bit clock period (us).
+  -C <config-file>           Specify location of configuration file.
+  -c <programmer>            Specify programmer type.
+  -D                         Disable auto erase for flash memory
+  -i <delay>                 ISP Clock Delay [in microseconds]
+  -P <port>                  Specify connection port.
+  -F                         Override invalid signature check.
+  -e                         Perform a chip erase.
+  -O                         Perform RC oscillator calibration (see AVR053). 
+  -U <memtype>:r|w|v:<filename>[:format]
+                             Memory operation specification.
+                             Multiple -U options are allowed, each request
+                             is performed in the order specified.
+  -n                         Do not write anything to the device.
+  -V                         Do not verify.
+  -u                         Disable safemode, default when running from a script.
+  -s                         Silent safemode operation, will not ask you if
+                             fuses should be changed back.
+  -t                         Enter terminal mode.
+  -E <exitspec>[,<exitspec>] List programmer exit specifications.
+  -x <extended_param>        Pass <extended_param> to programmer.
+  -y                         Count # erase cycles in EEPROM.
+  -Y <number>                Initialize erase cycle # in EEPROM.
+  -v                         Verbose output. -v -v for more.
+  -q                         Quell progress output. -q -q for less.
+  -l logfile                 Use logfile rather than stderr for diagnostics.
+  -?                         Display this usage.
+
+
+ *  Set Fuses:
+ *  - enable EESAVE 
+ *  - 4.3V Brownout (for the EEPROM)
+ *  - 16 ext Osc, no Div8
+ *  /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/bin/avrdude 
+ *    -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/avrdude.conf 
+ *    -v -patmega328p -cstk500v2 -Pusb -e 
+ *    -Ulock:w:0x3F:m -Uefuse:w:0xFC:m -Uhfuse:w:0xD2:m -Ulfuse:w:0xFF:m
+ *    
+ *  Burn .hex:
+ *  /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/bin/avrdude 
+ *    -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/avrdude.conf 
+ *    -v -patmega328p -cstk500v2 -Pusb 
+ *    -Uflash:w:/var/folders/8z/w0g8hjrn5rsdth2krpxf4xp00000gn/T/arduino_build_605159/Synkino_Frontend.ino.hex:i
  */
 
 #include <Arduino.h>
