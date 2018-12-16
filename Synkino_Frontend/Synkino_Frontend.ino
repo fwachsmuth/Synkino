@@ -14,6 +14,7 @@ const char *dspVersion = "DSP v1.0";
  *  [ ] Implement Extras Menu:
  *      [ ] Configure Auto Power-Off Timeout
  *      [ ] Update DSP Firmware
+ *      [ ] Show FW versions
  *  
  *  *** Bugs ***
  *  [ ] When editing a Projector, Shutter Blade Position is wrong
@@ -21,8 +22,9 @@ const char *dspVersion = "DSP v1.0";
  *  [ ] Projector Name is truncated after editing values
  *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  [ ] Small Offset adds up after multiple projector stops
- *  [x] Find & Load other files than just m4a
  *  [ ] After Bootloader-Burn and creating a 1st Projector, first two letters are missing in name. Name starts with E3?
+ *  [ ] mp3 files seem to require some buffer offset (~11 Frames when tested with 192 kbps)
+ *  
  *  
  *  *** Explorations ***
  *  [x] Measure and optimize Power:
