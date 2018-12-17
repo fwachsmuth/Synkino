@@ -1,5 +1,5 @@
-const char *uCVersion = "uC v0.9";
-const char *dspVersion = "DSP v1.0";
+const char *uCVersion = "uC v1.0";
+const char *dspVersion = "DSP v2.60";
 
 /*
  *  This is the frontend part of Synkino
@@ -311,8 +311,8 @@ const char *trackLoaded_menu =
 
 const char *extras_menu =
   "Version\n"
-  "Del\n"
-  "Dump";
+  "Del EEPROM\n"
+  "Dump EEPROM";
 
 const byte maxProjectorNameLength = 12;
 const byte maxProjectorCount = 8;
@@ -1191,54 +1191,54 @@ void i2cRequest() {
 }
 
 void e2reader(){
-  char buffer[16];
-  char valuePrint[4];
-  byte value;
-  unsigned int address;
-  uint8_t trailingSpace = 2;     
-  
-  for(address = 0; address <= 127; address++){
-    // read a byte from the current address of the EEPROM
-    value = EEPROM.read(address);
- 
-    // add space between two sets of 8 bytes
-    if(address % 8 == 0)
-      Serial.print(F("  "));
- 
-    // newline and address for every 16 bytes
-    if(address % 16 == 0){
-      //print the buffer
-      if(address > 0 && address % 16 == 0)
-        printASCII(buffer);
- 
-      sprintf(buffer, "\n 0x%05X: ", address);
-      Serial.print(buffer);
- 
-      //clear the buffer for the next data block
-      memset (buffer, 32, 16);
-    }
- 
-    // save the value in temporary storage
-    buffer[address%16] = value;
- 
-    // print the formatted value
-    sprintf(valuePrint, " %02X", value);
-    Serial.print(valuePrint);
-  }
- 
-  if(address % 16 > 0){
-    if(address % 16 < 9)
-      trailingSpace += 2;
- 
-    trailingSpace += (16 - address % 16) * 3;
-  }
- 
-  for(int i = trailingSpace; i > 0; i--)
-    Serial.print(F(" "));
- 
-  //last line of data and a new line
-  printASCII(buffer);
-  Serial.println();
+//  char buffer[16];
+//  char valuePrint[4];
+//  byte value;
+//  unsigned int address;
+//  uint8_t trailingSpace = 2;     
+//  
+//  for(address = 0; address <= 127; address++){
+//    // read a byte from the current address of the EEPROM
+//    value = EEPROM.read(address);
+// 
+//    // add space between two sets of 8 bytes
+//    if(address % 8 == 0)
+//      Serial.print(F("  "));
+// 
+//    // newline and address for every 16 bytes
+//    if(address % 16 == 0){
+//      //print the buffer
+//      if(address > 0 && address % 16 == 0)
+//        printASCII(buffer);
+// 
+//      sprintf(buffer, "\n 0x%05X: ", address);
+//      Serial.print(buffer);
+// 
+//      //clear the buffer for the next data block
+//      memset (buffer, 32, 16);
+//    }
+// 
+//    // save the value in temporary storage
+//    buffer[address%16] = value;
+// 
+//    // print the formatted value
+//    sprintf(valuePrint, " %02X", value);
+//    Serial.print(valuePrint);
+//  }
+// 
+//  if(address % 16 > 0){
+//    if(address % 16 < 9)
+//      trailingSpace += 2;
+// 
+//    trailingSpace += (16 - address % 16) * 3;
+//  }
+// 
+//  for(int i = trailingSpace; i > 0; i--)
+//    Serial.print(F(" "));
+// 
+//  //last line of data and a new line
+//  printASCII(buffer);
+//  Serial.println();
 }
  
 void printASCII(char * buffer) {
