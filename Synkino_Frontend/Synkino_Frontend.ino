@@ -13,12 +13,12 @@ const char *dspVersion = "DSP v2.60";
  *  
  *  *** Bugs ***
  *  [x] Track number is off after editing a Projector
- *  [ ] Projector Name is truncated after editing values
+ *  [x] Projector Name is truncated after editing values
  *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  [ ] Small Offset adds up after multiple projector stops
  *  [ ] After Bootloader-Burn and creating a 1st Projector, first two letters are missing in name. Name starts with E3?
  *  [ ] mp3 files seem to require some buffer offset (~11 Frames when tested with 192 kbps)
- *  
+ *  [ ] Hissing in Buzzer when idling?
  *  
  *  *** Explorations ***
  *  [x] Measure and optimize Power:
