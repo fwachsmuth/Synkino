@@ -12,8 +12,7 @@ const char *dspVersion = "DSP v2.60";
  *      [ ] Format SD Card
  *  
  *  *** Bugs ***
- *  [x] When editing a Projector, Shutter Blade Position is wrong
- *  [ ] Track number is off after editing a Projector
+ *  [x] Track number is off after editing a Projector
  *  [ ] Projector Name is truncated after editing values
  *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  [ ] Small Offset adds up after multiple projector stops
@@ -870,9 +869,14 @@ void handleProjectorNameInput() {
     while (digitalRead(ENCODER_BTN) == 0 && inputFinished) {
       handleStringInputGraphically(LONG_PRESSED, localChar, 0, firstUse, false);
     }
+
     if (localChar == 127) {   // Delete
-      charIndex--;            // Is it safe to become negative here?
+      if (charIndex > 0) {
+        charIndex--;
+      }
+      Serial.println(charIndex);
       newProjectorName[charIndex] = 0;  
+    
     } else if (!inputFinished) {
       newProjectorName[charIndex] = localChar;
       charIndex++;
