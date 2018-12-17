@@ -4,15 +4,10 @@ const char *dspVersion = "DSP v1.0";
 /*
  *  This is the frontend part of Synkino
  *  
- *  Sketch uses 26366 bytes (81%) of program storage space. Maximum is 32256 bytes.
- *  Global variables use 1704 bytes (83%) of dynamic memory, leaving 344 bytes for local variables. Maximum is 2048 bytes.
- *  
  *  *** Features ****
- *  [x] Use EEPROM for Plugin
  *  [ ] Beep before auto-power-off
  *  [ ] Implement Extras Menu:
  *      [ ] Configure Auto Power-Off Timeout
- *      [x] Update DSP Firmware (sutomatisch)
  *      [ ] Show FW versions
  *      [ ] Format SD Card
  *  
@@ -33,8 +28,6 @@ const char *dspVersion = "DSP v1.0";
  *  IR-LED    10 mA
  *  Red LED   3 mA
  *  DSP/Play: 7 mA
- *  [ ] Compile and test patch 2.6 for wider upsampling trick
- *  [ ] Move Strings to PROGMEM?
  *      
  *  *** Notes ***  
  *  Change avrdude.conf in cd ~/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips! (without the P)
