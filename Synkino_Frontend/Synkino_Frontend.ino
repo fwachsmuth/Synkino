@@ -8,13 +8,13 @@ const char *dspVersion = "DSP v1.0";
  *  Global variables use 1704 bytes (83%) of dynamic memory, leaving 344 bytes for local variables. Maximum is 2048 bytes.
  *  
  *  *** Features ****
- *  [ ] Use EEPROM for Plugin
- *  [ ] Plugin in PROGMEM? Could fit...
+ *  [x] Use EEPROM for Plugin
  *  [ ] Beep before auto-power-off
  *  [ ] Implement Extras Menu:
  *      [ ] Configure Auto Power-Off Timeout
- *      [ ] Update DSP Firmware
+ *      [x] Update DSP Firmware (sutomatisch)
  *      [ ] Show FW versions
+ *      [ ] Format SD Card
  *  
  *  *** Bugs ***
  *  [ ] When editing a Projector, Shutter Blade Position is wrong

@@ -103,8 +103,6 @@ unsigned long lastInSyncMillis;
 
 extEEPROM myEEPROM(kbits_256, 1, 64);
 
-
-
 double Setpoint, Input, Output;
 
 double Kp=8, Ki=3, Kd=1;  // PonM WINNER für 16 Readings, but with fixed int overflow
@@ -132,6 +130,12 @@ unsigned long lastSampleCounterHaltPos = 0;
 
 volatile unsigned long totalImpCounter = 0;
 
+File pluginFile;
+uint32_t eeAddress = 0; 
+byte eeData[64] = {};
+unsigned int pluginSize;
+
+
 
 
 //------------------------------------------------------------------------------
@@ -155,18 +159,12 @@ void setup() {
 
   Wire.begin(myAddress);
   Wire.setClock(400000L);
-  
-  byte i2cStat = myEEPROM.begin(myEEPROM.twiClock400kHz);
-  if ( i2cStat != 0 ) {
-    Serial.println(F("I2C Problem"));
-  }
-  
-  
-  
+
   Wire.onReceive(i2cReceive);
   Wire.onRequest(i2cRequest);
 
   // Initialize the SdCard
+  //
   result = sd.begin(SD_SEL, SPI_FULL_SPEED);
   if(result != 1) {
     tellFrontend(CMD_SHOW_ERROR, result + 20);
@@ -181,6 +179,73 @@ void setup() {
     Serial.println(result);
     sd.errorHalt("sd.chdir");
   }
+
+  // Initialize the external EEPROM 
+  //
+  byte i2cStat = myEEPROM.begin(myEEPROM.twiClock400kHz);
+  if ( i2cStat != 0 ) {
+    Serial.println(F("Could not talk to I2C EEPROM."));
+  }
+
+
+  // Check for DSP Firmware availability
+  //
+  pluginFile = sd.open("synkino.fir");
+  if (pluginFile) {
+    Serial.println(F("Found new DSP Patch Package."));
+    pluginSize = pluginFile.size();
+    myEEPROM.write(eeAddress, pluginSize & 0xFF);     // LSB
+    myEEPROM.write(eeAddress + 1, pluginSize >> 8);   // MSB
+    eeAddress = 64; // to write full banks
+    
+    while (pluginFile.available()) {
+      pluginFile.read(eeData, 64);
+
+      byte i2cStat = myEEPROM.write(eeAddress, eeData, 64);
+      
+      if ( i2cStat != 0 ) {
+        //there was a problem
+        Serial.print(F("I2C Problem: "));
+        if ( i2cStat == EEPROM_ADDR_ERR) {
+          Serial.println(F("Wrong eeAddress"));
+        } else {
+          Serial.print(F("I2C error: "));
+          Serial.print(i2cStat);
+          Serial.println(F(""));
+        }
+      } else {
+        eeAddress += 64;
+      }
+    }
+    // rename DSP patches package
+    if (!sd.exists("super.ctl")) {  // If this file exists, keep the synkino.fir file. Used to init all the PCBs.
+      pluginFile.rename(sd.vwd(), "patches.053");
+    }
+  }   
+  pluginFile.close();
+
+
+  // Check for DSP Plugin availability
+  //
+  pluginFile = sd.open("patches.053");
+  if (!pluginFile) {  // Let's re-create the file from EEPROM 
+    eeAddress = 0; // Here are two bytes with the plugin size
+    pluginSize = myEEPROM.read(eeAddress) + ((myEEPROM.read(eeAddress + 1) << 8) & 0xFF00);
+    eeAddress = 64;
+    pluginFile = sd.open("patches.053", FILE_WRITE);
+    if (pluginFile) {
+      for (eeAddress; eeAddress < (pluginSize + 64); eeAddress++) {
+        pluginFile.write(myEEPROM.read(eeAddress));  
+      }
+    } else {
+      // if the file didn't open, print an error:
+      Serial.println(F("Could not write file patches.053"));
+    }
+  }
+  pluginFile.close();
+
+  
+
 
   //Initialize the MP3 Player Shield
 
