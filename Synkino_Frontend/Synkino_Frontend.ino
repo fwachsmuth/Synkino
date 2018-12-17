@@ -870,13 +870,13 @@ void handleProjectorNameInput() {
       handleStringInputGraphically(LONG_PRESSED, localChar, 0, firstUse, false);
     }
 
-    if (localChar == 127) {   // Delete
+    if (localChar == 127 && !inputFinished) {   // Delete
       if (charIndex > 0) {
         charIndex--;
       }
       Serial.println(charIndex);
       newProjectorName[charIndex] = 0;  
-    
+      
     } else if (!inputFinished) {
       newProjectorName[charIndex] = localChar;
       charIndex++;
