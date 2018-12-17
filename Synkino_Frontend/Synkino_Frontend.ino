@@ -12,7 +12,7 @@ const char *dspVersion = "DSP v2.60";
  *      [ ] Format SD Card
  *  
  *  *** Bugs ***
- *  [ ] When editing a Projector, Shutter Blade Position is wrong
+ *  [x] When editing a Projector, Shutter Blade Position is wrong
  *  [ ] Track number is off after editing a Projector
  *  [ ] Projector Name is truncated after editing values
  *  [ ] Fix literals in myEnc.write for 15-dent encoder
@@ -738,7 +738,9 @@ void saveProjector(byte thisProjector) {
 }
 
 void gatherProjectorData() {
+  unsigned int prevEncPos = myEnc.read();
   handleProjectorNameInput();
+  myEnc.write(prevEncPos);
   handleShutterbladeInput();
   handleStartmarkInput();
   handlePIDinput();
@@ -747,7 +749,6 @@ void gatherProjectorData() {
 void loadProjectorConfig(uint8_t projNo) {
   Projector aProjector;
   EEPROM.get((projNo - 1) * sizeof(aProjector) + 2, aProjector);
-  
   shutterBladesMenuSelection = aProjector.shutterBladeCount;
   newStartmarkOffset = aProjector.startmarkOffset;
   new_p = aProjector.p;
@@ -1191,54 +1192,54 @@ void i2cRequest() {
 }
 
 void e2reader(){
-//  char buffer[16];
-//  char valuePrint[4];
-//  byte value;
-//  unsigned int address;
-//  uint8_t trailingSpace = 2;     
-//  
-//  for(address = 0; address <= 127; address++){
-//    // read a byte from the current address of the EEPROM
-//    value = EEPROM.read(address);
-// 
-//    // add space between two sets of 8 bytes
-//    if(address % 8 == 0)
-//      Serial.print(F("  "));
-// 
-//    // newline and address for every 16 bytes
-//    if(address % 16 == 0){
-//      //print the buffer
-//      if(address > 0 && address % 16 == 0)
-//        printASCII(buffer);
-// 
-//      sprintf(buffer, "\n 0x%05X: ", address);
-//      Serial.print(buffer);
-// 
-//      //clear the buffer for the next data block
-//      memset (buffer, 32, 16);
-//    }
-// 
-//    // save the value in temporary storage
-//    buffer[address%16] = value;
-// 
-//    // print the formatted value
-//    sprintf(valuePrint, " %02X", value);
-//    Serial.print(valuePrint);
-//  }
-// 
-//  if(address % 16 > 0){
-//    if(address % 16 < 9)
-//      trailingSpace += 2;
-// 
-//    trailingSpace += (16 - address % 16) * 3;
-//  }
-// 
-//  for(int i = trailingSpace; i > 0; i--)
-//    Serial.print(F(" "));
-// 
-//  //last line of data and a new line
-//  printASCII(buffer);
-//  Serial.println();
+  char buffer[16];
+  char valuePrint[4];
+  byte value;
+  unsigned int address;
+  uint8_t trailingSpace = 2;     
+  
+  for(address = 0; address <= 127; address++){
+    // read a byte from the current address of the EEPROM
+    value = EEPROM.read(address);
+ 
+    // add space between two sets of 8 bytes
+    if(address % 8 == 0)
+      Serial.print(F("  "));
+ 
+    // newline and address for every 16 bytes
+    if(address % 16 == 0){
+      //print the buffer
+      if(address > 0 && address % 16 == 0)
+        printASCII(buffer);
+ 
+      sprintf(buffer, "\n 0x%05X: ", address);
+      Serial.print(buffer);
+ 
+      //clear the buffer for the next data block
+      memset (buffer, 32, 16);
+    }
+ 
+    // save the value in temporary storage
+    buffer[address%16] = value;
+ 
+    // print the formatted value
+    sprintf(valuePrint, " %02X", value);
+    Serial.print(valuePrint);
+  }
+ 
+  if(address % 16 > 0){
+    if(address % 16 < 9)
+      trailingSpace += 2;
+ 
+    trailingSpace += (16 - address % 16) * 3;
+  }
+ 
+  for(int i = trailingSpace; i > 0; i--)
+    Serial.print(F(" "));
+ 
+  //last line of data and a new line
+  printASCII(buffer);
+  Serial.println();
 }
  
 void printASCII(char * buffer) {
