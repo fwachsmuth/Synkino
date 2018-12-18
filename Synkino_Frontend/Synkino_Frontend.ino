@@ -1,24 +1,15 @@
-const char *uCVersion = "uC v1.0";
-const char *dspVersion = "DSP v2.60";
+
+
+const char *uCVersion = "Synkino v1.0\n";
 
 /*
  *  This is the frontend part of Synkino
  *  
- *  *** Features ****
- *  [ ] Beep before auto-power-off
- *  [ ] Implement Extras Menu:
- *      [ ] Configure Auto Power-Off Timeout
- *      [ ] Show FW versions
- *      [ ] Format SD Card
- *  
- *  *** Bugs ***
- *  [x] Track number is off after editing a Projector
- *  [x] Projector Name is truncated after editing values
- *  [ ] Fix literals in myEnc.write for 15-dent encoder
+ *  *** Remaining Bugs ***
  *  [ ] Small Offset adds up after multiple projector stops
  *  [ ] After Bootloader-Burn and creating a 1st Projector, first two letters are missing in name. Name starts with E3?
  *  [ ] mp3 files seem to require some buffer offset (~11 Frames when tested with 192 kbps)
- *  [ ] Hissing in Buzzer when idling?
+ *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  
  *  *** Explorations ***
  *  [x] Measure and optimize Power:
@@ -27,6 +18,7 @@ const char *dspVersion = "DSP v2.60";
  *  IR-LED    10 mA
  *  Red LED   3 mA
  *  DSP/Play: 7 mA
+ *  
  *      
  *  *** Notes ***  
  *  Change avrdude.conf in cd ~/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/ to burn 328 chips! (without the P)
@@ -608,7 +600,7 @@ void loop(void) {
               e2reader();
             break;
             case MENU_ITEM_VERSION:
-              showError("About Synkino", uCVersion, dspVersion); 
+              showError("About Synkino", uCVersion, ""); 
             break;
             default:
             break;
