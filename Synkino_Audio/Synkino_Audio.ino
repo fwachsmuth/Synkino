@@ -1,18 +1,15 @@
 /**
  * 
- * To Do:
+ * To Do / Ideas:
  *  [ ] Find & Load other files than m4a
  *  [ ] Aufschaukeln bei mp3 fixen
  *  [ ] Initiales Projektoranlaufen an Frontend melden
  *  
  *  [ ] 100n an den Encoderoutputs probieren (Prellschutz)
  * 
- *  [ ] load patch from EEPROM (https://mpflaga.github.io/Arduino_Library-vs1053_for_SdFat/vs1053___sd_fat_8cpp_source.html#l00327)
  *  [ ] Document diffs to vs1053_SdFat.h
  *  [ ] Try/Switch to 15 MHz xtal
- *  [ ] Forwards/Backwards Correction (Frame-wise)
  *  [ ] Projektor-Frequenzanzeige
- *  [ ] remove unused variables
  *  [ ] Update https://github.com/nickgammon/I2C_Anything
  *  
  * 
