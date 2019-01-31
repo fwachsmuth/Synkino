@@ -173,6 +173,7 @@ void setup() {
     sd.initErrorHalt();
   }
   result = sd.chdir("/");
+
   if(result != 1) {
     tellFrontend(CMD_SHOW_ERROR, result + 30);
     Serial.print(F("In SD.chdir: "));
@@ -248,8 +249,9 @@ void setup() {
 
 
   //Initialize the MP3 Player Shield
-
+  Serial.println("Initing DSP...");
   result = musicPlayer.begin();
+  Serial.println("Done.");
   //check result, see readme for error codes.
   if(result != 0) { 
     tellFrontend(CMD_SHOW_ERROR, result + 10);
