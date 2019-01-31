@@ -11,6 +11,7 @@ const char *uCVersion = "Synkino v1.1\n";
  *  [ ] mp3 files seem to require some buffer offset (~11 Frames when tested with 192 kbps)
  *  [ ] Fix literals in myEnc.write for 15-dent encoder
  *  
+ *  
  *  *** Explorations ***
  *  [x] Measure and optimize Power:
  *  CPUs      45 mA
@@ -724,6 +725,12 @@ void saveProjector(byte thisProjector) {
     EEPROM.write(1, thisProjector);
     EEPROM.put(((thisProjector - 1) * sizeof(aProjector) + 2), aProjector);
   e2reader();
+
+  tellAudioPlayer(CMD_SET_SHUTTERBLADES, aProjector.shutterBladeCount);
+  tellAudioPlayer(CMD_SET_STARTMARK, aProjector.startmarkOffset);
+  tellAudioPlayer(CMD_SET_P, aProjector.p);   
+  tellAudioPlayer(CMD_SET_I, aProjector.i);
+  tellAudioPlayer(CMD_SET_D, aProjector.d);
 
   }
 }
