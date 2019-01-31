@@ -1,6 +1,6 @@
 
 
-const char *uCVersion = "Synkino v1.0\n";
+const char *uCVersion = "Synkino v1.1\n";
 
 /*
  *  This is the frontend part of Synkino
@@ -1035,6 +1035,7 @@ void tellAudioPlayer(byte command, long parameter) {
   wireWriteData(command);  
   wireWriteData(parameter);  
   Wire.endTransmission();    // stop transmitting
+  delay(20);                 // Avoid hick-ups on the other side
 }
 
 void handleFrameCorrectionOffsetInput() {
