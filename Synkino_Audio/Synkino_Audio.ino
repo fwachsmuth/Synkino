@@ -12,6 +12,7 @@
  *  [ ] Projektor-Frequenzanzeige
  *  [ ] Update https://github.com/nickgammon/I2C_Anything
  *  
+ *  Bei Ogg haben wir 14 Frames verzörtes Audio. Buffer?
  * 
  */
 #include <PID_v1.h>
@@ -65,8 +66,11 @@ uint8_t shutterBlades = 2;         // Wieviele Segmente hat die Umlaufblende?
 //uint8_t startMarkOffset = 15;    // Noris
 uint8_t startMarkOffset = 53;      // Bauer t610
 int16_t syncOffsetImps = 0;        
+
+uint8_t applyOggRules = false;     // For Ogg files, the sample count register behaves different
+                                   // This flag allows us to take of that
   
-const float physicalSamplingrate = 41344;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
+float physicalSamplingrate = 41343.75;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
 
 #define impDetectorISRPIN  3
 #define impDetectorPin 3
@@ -422,6 +426,9 @@ uint8_t loadTrackByNo(int trackNo) {
     // look for ogg then
     sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
+      applyOggRules = true;
+      startMarkOffset = startMarkOffset - 13; // WHY??
+      
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
       tellFrontend(CMD_FOUND_FPS, fpsGuess);
@@ -432,6 +439,7 @@ uint8_t loadTrackByNo(int trackNo) {
     // look for mp3 then
     sprintf(trackName, "%03d-%d.mp3", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
+      applyOggRules = false;
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
       tellFrontend(CMD_FOUND_FPS, fpsGuess);
@@ -442,6 +450,7 @@ uint8_t loadTrackByNo(int trackNo) {
     // look for mp4 then
     sprintf(trackName, "%03d-%d.mp4", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
+      applyOggRules = false;
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
       tellFrontend(CMD_FOUND_FPS, fpsGuess);
@@ -453,6 +462,7 @@ uint8_t loadTrackByNo(int trackNo) {
     // look for wav then
     sprintf(trackName, "%03d-%d.wma", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
+      applyOggRules = false;
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
       tellFrontend(CMD_FOUND_FPS, fpsGuess);
@@ -483,9 +493,22 @@ uint8_t loadTrackByNo(int trackNo) {
 void updateFpsDependencies(uint8_t fps) {
   sollfps = fps;                                // redundant?
   pauseDetectedPeriod = (1000 / fps * 3);
+  if (applyOggRules) {
+    physicalSamplingrate = 44100.00;
+  } else {
+    physicalSamplingrate = 41343.75;
+  }
   impToSamplerateFactor = physicalSamplingrate / fps / shutterBlades / 2;
   deltaToFramesDivider = physicalSamplingrate / fps;
   impToAudioSecondsDivider = sollfps * shutterBlades * 2;  
+  Serial.print(F("FPS: "));
+  Serial.println(sollfps);
+  Serial.print(F("Phys. SR: "));
+  Serial.println(physicalSamplingrate);
+  Serial.print(F("Blades: "));
+  Serial.println(shutterBlades);
+  Serial.print(F("Offset: "));
+  Serial.println(startMarkOffset);
 }
 
 void sendCurrentAudioSec() {
