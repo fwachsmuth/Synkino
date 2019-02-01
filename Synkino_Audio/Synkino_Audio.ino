@@ -417,6 +417,17 @@ uint8_t loadTrackByNo(int trackNo) {
 //      Serial.println(trackName);
     }
   }
+
+  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
+    // look for ogg then
+    sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);  
+    if (sd.exists(trackName)) {
+      updateFpsDependencies(fpsGuess);
+      strcpy(trackNameFound, trackName);
+      tellFrontend(CMD_FOUND_FPS, fpsGuess);
+    }
+  }
+  
   for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
     // look for mp3 then
     sprintf(trackName, "%03d-%d.mp3", trackNo, fpsGuess);  
@@ -424,12 +435,32 @@ uint8_t loadTrackByNo(int trackNo) {
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
       tellFrontend(CMD_FOUND_FPS, fpsGuess);
-//      Serial.print(F("File exists and has ")); 
-//      Serial.print(fpsGuess);
-//      Serial.print(F(" fps:"));
-//      Serial.println(trackName);
     }
   }
+
+  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
+    // look for mp4 then
+    sprintf(trackName, "%03d-%d.mp4", trackNo, fpsGuess);  
+    if (sd.exists(trackName)) {
+      updateFpsDependencies(fpsGuess);
+      strcpy(trackNameFound, trackName);
+      tellFrontend(CMD_FOUND_FPS, fpsGuess);
+    }
+  }
+
+
+   for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
+    // look for wav then
+    sprintf(trackName, "%03d-%d.wma", trackNo, fpsGuess);  
+    if (sd.exists(trackName)) {
+      updateFpsDependencies(fpsGuess);
+      strcpy(trackNameFound, trackName);
+      tellFrontend(CMD_FOUND_FPS, fpsGuess);
+    }
+  }
+ 
+  
+  
   uint8_t result;
   result = musicPlayer.playMP3(trackNameFound);
   if (result != 0) {
