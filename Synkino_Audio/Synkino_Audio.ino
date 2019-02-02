@@ -8,7 +8,9 @@
  *  [ ] Update https://github.com/nickgammon/I2C_Anything
  *  [ ] Actually read Sampling Rate from SCI_AUDATA (Bit 15:1) and allow eg 32kHz files
  *  [ ] Try out bigger PID range (downwards)
- * 
+ *  [ ] Cleanup state machine
+ *  [ ] Remove PID options
+ *  
  */
  
 #include <PID_v1.h>
@@ -77,7 +79,7 @@ unsigned int impToSamplerateFactor = physicalSamplingrate / sollfps / shutterBla
 int deltaToFramesDivider = physicalSamplingrate / sollfps;
 unsigned int impToAudioSecondsDivider = sollfps * shutterBlades * 2;
 
-#define numReadings   8
+#define numReadings   6
 long readings[numReadings];      // the readings from the analog input
 int readIndex = 0;               // the index of the current reading
 long total = 0;                  // the running total
@@ -593,7 +595,7 @@ void waitForStartMark() {
   if (impCountToStartMark >= shutterBlades * 2 * startMarkOffset) {
     totalImpCounter = 0;
     myPID.SetMode(AUTOMATIC);
-    myPID.SetOutputLimits(-77000, 77000);
+    myPID.SetOutputLimits(-400000, 80000);
 
     attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
     
