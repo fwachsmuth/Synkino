@@ -63,12 +63,13 @@ const int myAddress = 0x08;   // Listen on the I2C Bus
 
 uint8_t sollfps = 18;        
 uint8_t shutterBlades = 2;         // Wieviele Segmente hat die Umlaufblende?
-//uint8_t startMarkOffset = 15;    // Noris
-uint8_t startMarkOffset = 53;      // Bauer t610
+uint8_t startMarkOffset = 53;      // Bauer t610, example value
 int16_t syncOffsetImps = 0;        
 
-uint8_t applyOggRules = false;     // For Ogg files, the sample count register behaves different
-                                   // This flag allows us to take of that
+uint8_t applyOggRules = false;            // For Ogg files, the sample count register behaves different
+                                          // This flag allows us to take of that
+uint8_t sampleCountRegisterValid = true;  // It takes >8 KiB of data until the Ogg Samplecount Register
+                                          // is valid. Disable the PID until then
   
 float physicalSamplingrate = 41343.75;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
 
@@ -495,20 +496,21 @@ void updateFpsDependencies(uint8_t fps) {
   pauseDetectedPeriod = (1000 / fps * 3);
   if (applyOggRules) {
     physicalSamplingrate = 44100.00;
+    sampleCountRegisterValid = false;           // It takes 8 KiB until the Ogg Sample Counter is valid for sure
   } else {
     physicalSamplingrate = 41343.75;
   }
   impToSamplerateFactor = physicalSamplingrate / fps / shutterBlades / 2;
   deltaToFramesDivider = physicalSamplingrate / fps;
   impToAudioSecondsDivider = sollfps * shutterBlades * 2;  
-  Serial.print(F("FPS: "));
-  Serial.println(sollfps);
-  Serial.print(F("Phys. SR: "));
-  Serial.println(physicalSamplingrate);
-  Serial.print(F("Blades: "));
-  Serial.println(shutterBlades);
-  Serial.print(F("Offset: "));
-  Serial.println(startMarkOffset);
+//  Serial.print(F("FPS: "));
+//  Serial.println(sollfps);
+//  Serial.print(F("Phys. SR: "));
+//  Serial.println(physicalSamplingrate);
+//  Serial.print(F("Blades: "));
+//  Serial.println(shutterBlades);
+//  Serial.print(F("Offset: "));
+//  Serial.println(startMarkOffset);
 }
 
 void sendCurrentAudioSec() {
@@ -519,6 +521,11 @@ void sendCurrentAudioSec() {
   if (currentSecCount > prevSecCount) {    
     tellFrontend(CMD_CURRENT_AUDIOSEC, currentSecCount); 
     prevSecCount = currentSecCount;
+  }
+
+  if (currentSecCount >= 1 && !sampleCountRegisterValid) {
+    sampleCountRegisterValid = true;
+    Serial.println(F("1 sec is over."));
   }
 }
 
@@ -544,52 +551,64 @@ void checkIfStillRunning() {
 
 
 
-void speedControlPID(){
+void speedControlPID() {
   static unsigned long prevTotalImpCounter;
   if (totalImpCounter + syncOffsetImps != prevTotalImpCounter) {
-    long actualSampleCount = Read32BitsFromSCI(0x1800);                 // 8.6ms Latenz here
-    long desiredSampleCount = (totalImpCounter + syncOffsetImps) * impToSamplerateFactor;
-//    unsigned long latenz = millis() - lastISRTime;               // This had less positive imapct than expected
-//    actualSampleCount = actualSampleCount + (latenz * 41);       // 41.344 samples per ms
-    long delta = (actualSampleCount - desiredSampleCount);
-
-    total = total - readings[readIndex];  // subtract the last reading
-    readings[readIndex] = delta;          // read from the sensor:
-    total = total + readings[readIndex];  // add the reading to the total:
-    readIndex = readIndex + 1;            // advance to the next position in the array:
+ 
+    if (sampleCountRegisterValid) {
+      long actualSampleCount = Read32BitsFromSCI(0x1800);                 // 8.6ms Latenz here
+      long desiredSampleCount = (totalImpCounter + syncOffsetImps) * impToSamplerateFactor;
+  //    unsigned long latenz = millis() - lastISRTime;               // This had less positive imapct than expected
+  //    actualSampleCount = actualSampleCount + (latenz * 41);       // 41.344 samples per ms
+      long delta = (actualSampleCount - desiredSampleCount);
   
-    if (readIndex >= numReadings) {       // if we're at the end of the array...
-      readIndex = 0;                      // ...wrap around to the beginning:
+//      Serial.print(F("Current Sample: "));
+//      Serial.print(actualSampleCount);
+//      Serial.print(F(" Desired: "));
+//      Serial.print(desiredSampleCount);
+//      Serial.print(F(" Delta: "));
+//      Serial.println(delta);
+//      Serial.print(F(" Bitrate: "));
+//      Serial.println(getBitrate());
+  
+  
+      total = total - readings[readIndex];  // subtract the last reading
+      readings[readIndex] = delta;          // read from the sensor:
+      total = total + readings[readIndex];  // add the reading to the total:
+      readIndex = readIndex + 1;            // advance to the next position in the array:
+    
+      if (readIndex >= numReadings) {       // if we're at the end of the array...
+        readIndex = 0;                      // ...wrap around to the beginning:
+      }
+    
+      average = total / numReadings;        // calculate the average
+  //    average = (total >> 4);
+  
+      Input = average;
+      adjustSamplerate((long) Output);
+    
+      prevTotalImpCounter = totalImpCounter + syncOffsetImps;        
+  
+      myPID.Compute();  // 9.2ms Latenz here
+  
+      // Serial.println(latenz); 
+      // Most of the delay here is from printing. One line of printing means one measurement
+      // every 2.3 imps, full CSV output is one ever ~6.3 imps.
+      // Printing the long seems super pricy
+  
+      static unsigned int prevFrameOffset;
+      int frameOffset = average / deltaToFramesDivider;
+      if (frameOffset != prevFrameOffset) {
+        tellFrontend(CMD_OOSYNC, frameOffset);
+        prevFrameOffset = frameOffset;
+      } 
+      // Below is a hack to send a 0 every so often if everything is in sync – since occasionally signal gets lost on i2c due 
+      // to too busy AVRs. Otherwise, the sync icon might not stop blinking in some cases.
+      if ((frameOffset == 0) && (millis() > (lastInSyncMillis + 3000))) {
+        tellFrontend(CMD_OOSYNC, 0);
+        lastInSyncMillis = millis();
+      }
     }
-  
-    average = total / numReadings;        // calculate the average
-//    average = (total >> 4);
-
-    Input = average;
-    adjustSamplerate((long) Output);
-  
-    prevTotalImpCounter = totalImpCounter + syncOffsetImps;        
-
-    myPID.Compute();  // 9.2ms Latenz here
-
-    // Serial.println(latenz); 
-    // Most of the delay here is from printing. One line of printing means one measurement
-    // every 2.3 imps, full CSV output is one ever ~6.3 imps.
-    // Printing the long seems super pricy
-
-    static unsigned int prevFrameOffset;
-    int frameOffset = average / deltaToFramesDivider;
-    if (frameOffset != prevFrameOffset) {
-      tellFrontend(CMD_OOSYNC, frameOffset);
-      prevFrameOffset = frameOffset;
-    } 
-    // Below is a hack to send a 0 every so often if everything is in sync – since occasionally signal gets lost on i2c due 
-    // to too busy AVRs. Otherwise, the sync icon might not stop blinking in some cases.
-    if ((frameOffset == 0) && (millis() > (lastInSyncMillis + 3000))) {
-      tellFrontend(CMD_OOSYNC, 0);
-      lastInSyncMillis = millis();
-    }
-
     if (musicPlayer.isPlaying() == 0) { // and/or musicPlayer.getState() == 4
       tellFrontend(CMD_DONE_PLAYING, 0);
     }
@@ -620,7 +639,14 @@ void waitForStartMark() {
     attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
     
     musicPlayer.resumeMusic();
+    
     clearSampleCounter();
+    long actualSampleCount = Read32BitsFromSCI(0x1800);        
+
+    Serial.print(F("Current Sample: "));
+    Serial.println(actualSampleCount);
+    Serial.println(F("--------"));
+    
     tellFrontend(CMD_STARTMARK_HIT, 0);
     Serial.println(F("Los geht's!"));
 
@@ -820,7 +846,9 @@ void restoreSampleCounter(unsigned long samplecounter) {
   musicPlayer.Mp3WriteRegister(SCI_WRAM, samplecounter >> 16);
 }
 
-
+uint16_t getBitrate() {
+  return (musicPlayer.Mp3ReadWRAM(para_byteRate));
+}
 
 //------------------------------------------------------------------------------
 
