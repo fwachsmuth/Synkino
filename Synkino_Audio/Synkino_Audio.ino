@@ -8,7 +8,6 @@
  *  [ ] Update https://github.com/nickgammon/I2C_Anything
  *  [ ] Actually read Sampling Rate from SCI_AUDATA (Bit 15:1) and allow eg 32kHz files
  *  [ ] Try out bigger PID range (downwards)
- *  [ ] Try less numReadings
  * 
  */
  
@@ -104,13 +103,6 @@ double Setpoint, Input, Output;
 double Kp=8, Ki=3, Kd=1;  // PonM WINNER für 16 Readings, but with fixed int overflow
 
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, P_ON_M, DIRECT);
-
-// Below is not needed if interrupt driven. Safe to remove if not using.
-//#if defined(USE_MP3_REFILL_MEANS) && USE_MP3_REFILL_MEANS == USE_MP3_Timer1
-//  #include <TimerOne.h>
-//#elif defined(USE_MP3_REFILL_MEANS) && USE_MP3_REFILL_MEANS == USE_MP3_SimpleTimer
-//  #include <SimpleTimer.h>
-//#endif
 
 // Instantiate SD and Player objects
 SdFat sd;
@@ -319,14 +311,6 @@ void loop() {
     }
     haveI2Cdata = false;  
   }
-
-// Below is only needed if not interrupt driven. Safe to remove if not using.
-//#if defined(USE_MP3_REFILL_MEANS) \
-//    && ( (USE_MP3_REFILL_MEANS == USE_MP3_SimpleTimer) \
-//    ||   (USE_MP3_REFILL_MEANS == USE_MP3_Polled)      )
-//
-//  musicPlayer.available();
-//#endif
 
 
 // State Machine ----------------------------------------------------------------
@@ -537,22 +521,19 @@ void speedControlPID() {
     if (sampleCountRegisterValid) {
       long actualSampleCount = Read32BitsFromSCI(0x1800) - sampleCountBaseLine;                 // 8.6ms Latenz here
       long desiredSampleCount = (totalImpCounter + syncOffsetImps) * impToSamplerateFactor;
-  //    unsigned long latenz = millis() - lastISRTime;               // This had less positive imapct than expected
-  //    actualSampleCount = actualSampleCount + (latenz * 41);       // 41.344 samples per ms
       long delta = (actualSampleCount - desiredSampleCount);
-  
+
+//   This puts nifty CSV to the Console, to graph PID results.  
 //      Serial.print(F("Current Sample: "));
-      Serial.print(actualSampleCount);
+//      Serial.print(actualSampleCount);
 //      Serial.print(F(" Desired: "));
 //      Serial.print(desiredSampleCount);
 //      Serial.print(F(" Delta: "));
-      Serial.print(F(","));
-      Serial.println(delta);
 //      Serial.print(F(","));
-      
+//      Serial.print(delta);
+//      Serial.print(F(","));
 //      Serial.print(F(" Bitrate: "));
 //      Serial.println(getBitrate());
-  
   
       total = total - readings[readIndex];  // subtract the last reading
       readings[readIndex] = delta;          // read from the sensor:
@@ -723,8 +704,4 @@ void restoreSampleCounter(unsigned long samplecounter) {
 uint16_t getBitrate() {
   return (musicPlayer.Mp3ReadWRAM(para_byteRate)>>7);
 }
-
-
-
-
 
