@@ -78,7 +78,7 @@ unsigned int impToSamplerateFactor = physicalSamplingrate / sollfps / shutterBla
 int deltaToFramesDivider = physicalSamplingrate / sollfps;
 unsigned int impToAudioSecondsDivider = sollfps * shutterBlades * 2;
 
-#define numReadings   16
+#define numReadings   8
 long readings[numReadings];      // the readings from the analog input
 int readIndex = 0;               // the index of the current reading
 long total = 0;                  // the running total
