@@ -1,18 +1,13 @@
 /**
  * 
  * To Do / Ideas:
- *  [ ] Find & Load other files than m4a
- *  [ ] Aufschaukeln bei mp3 fixen
- *  [ ] Initiales Projektoranlaufen an Frontend melden
  *  
- *  [ ] 100n an den Encoderoutputs probieren (Prellschutz)
- * 
  *  [ ] Document diffs to vs1053_SdFat.h
  *  [ ] Try/Switch to 15 MHz xtal
  *  [ ] Projektor-Frequenzanzeige
  *  [ ] Update https://github.com/nickgammon/I2C_Anything
- *  
- *  Bei Ogg haben wir 14 Frames verzörtes Audio. Buffer?
+ *  [ ] Actually read Sampling Rate from SCI_AUDATA (Bit 15:1) and allow eg 32kHz files
+ *  [ ] Try out bigger PID range (downwards)
  * 
  */
 #include <PID_v1.h>
