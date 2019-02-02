@@ -63,7 +63,7 @@ const int myAddress = 0x08;   // Listen on the I2C Bus
 
 uint8_t sollfps = 18;        
 uint8_t shutterBlades = 2;         // Wieviele Segmente hat die Umlaufblende?
-uint8_t startMarkOffset = 53;      // Bauer t610, example value
+uint8_t startMarkOffset = 52;      // Bauer t610, example value
 int16_t syncOffsetImps = 0;        
 
 uint8_t applyOggRules = false;            // For Ogg files, the sample count register behaves different
@@ -523,9 +523,9 @@ void sendCurrentAudioSec() {
     prevSecCount = currentSecCount;
   }
 
-  if (currentSecCount >= 1 && !sampleCountRegisterValid) {
+  if (currentSecCount >= 1 && !sampleCountRegisterValid) {  // might use imps here, not a hardcoded second?
     sampleCountRegisterValid = true;
-    Serial.println(F("1 sec is over."));
+//  Serial.println(F("1 sec is over."));
   }
 }
 
@@ -563,13 +563,16 @@ void speedControlPID() {
       long delta = (actualSampleCount - desiredSampleCount);
   
 //      Serial.print(F("Current Sample: "));
-//      Serial.print(actualSampleCount);
+      Serial.print(actualSampleCount);
 //      Serial.print(F(" Desired: "));
 //      Serial.print(desiredSampleCount);
 //      Serial.print(F(" Delta: "));
-//      Serial.println(delta);
+      Serial.print(F(","));
+      Serial.print(delta);
+      Serial.print(F(","));
+      
 //      Serial.print(F(" Bitrate: "));
-//      Serial.println(getBitrate());
+      Serial.println(getBitrate());
   
   
       total = total - readings[readIndex];  // subtract the last reading
@@ -643,9 +646,9 @@ void waitForStartMark() {
     clearSampleCounter();
     long actualSampleCount = Read32BitsFromSCI(0x1800);        
 
-    Serial.print(F("Current Sample: "));
-    Serial.println(actualSampleCount);
-    Serial.println(F("--------"));
+//    Serial.print(F("Current Sample: "));
+//    Serial.println(actualSampleCount);
+//    Serial.println(F("--------"));
     
     tellFrontend(CMD_STARTMARK_HIT, 0);
     Serial.println(F("Los geht's!"));
@@ -847,7 +850,7 @@ void restoreSampleCounter(unsigned long samplecounter) {
 }
 
 uint16_t getBitrate() {
-  return (musicPlayer.Mp3ReadWRAM(para_byteRate));
+  return (musicPlayer.Mp3ReadWRAM(para_byteRate)>>7);
 }
 
 //------------------------------------------------------------------------------
