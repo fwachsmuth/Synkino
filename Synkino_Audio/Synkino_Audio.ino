@@ -7,7 +7,7 @@
  *  [ ] Projektor-Frequenzanzeige
  *  [ ] Update https://github.com/nickgammon/I2C_Anything
  *  [ ] Actually read Sampling Rate from SCI_AUDATA (Bit 15:1) and allow eg 32kHz files
- *  [ ] Try out bigger PID range (downwards)
+ *      Seems like I need to read Byte 40:42 from the file as unsigned little endian
  *  [ ] Cleanup state machine
  *  [ ] Remove PID options
  *  
@@ -445,7 +445,11 @@ uint8_t loadTrackByNo(int trackNo) {
     Serial.println(F("Waiting for start mark..."));
     musicPlayer.setVolume(3,3);
     musicPlayer.pauseMusic();
+    
+    Serial.print(F("Sampling Rate:"));
+    Serial.println((getSamplerate() >> 1) * 2);
     enableResampler();
+    
     while (musicPlayer.getState() != paused_playback) {}
     clearSampleCounter();
     myState = TRACK_LOADED;
@@ -705,5 +709,10 @@ void restoreSampleCounter(unsigned long samplecounter) {
 //------------------------------------------------------------------------------
 uint16_t getBitrate() {
   return (musicPlayer.Mp3ReadWRAM(para_byteRate)>>7);
+}
+
+//------------------------------------------------------------------------------
+uint16_t getSamplerate() {
+  return (musicPlayer.Mp3ReadWRAM(SCI_AUDATA));
 }
 
