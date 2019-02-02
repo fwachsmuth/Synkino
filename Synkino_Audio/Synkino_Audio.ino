@@ -72,6 +72,8 @@ uint8_t sampleCountRegisterValid = true;  // It takes >8 KiB of data until the O
                                           // is valid. Disable the PID until then
   
 float physicalSamplingrate = 41343.75;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
+unsigned long sampleCountBaseLine = 0;    // The Ogg Sample COunter doesn't start at 0, probably due to Buffers.
+                                          // This var stores the baseline right after having the file loaded.
 
 #define impDetectorISRPIN  3
 #define impDetectorPin 3
@@ -428,7 +430,7 @@ uint8_t loadTrackByNo(int trackNo) {
     sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
       applyOggRules = true;
-      startMarkOffset = startMarkOffset - 13; // WHY??
+//    startMarkOffset = startMarkOffset - 13; // WHY??
       
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
@@ -523,7 +525,7 @@ void sendCurrentAudioSec() {
     prevSecCount = currentSecCount;
   }
 
-  if (currentSecCount >= 1 && !sampleCountRegisterValid) {  // might use imps here, not a hardcoded second?
+  if (currentSecCount >= 0 && !sampleCountRegisterValid) {  // might use imps here, not a hardcoded second?
     sampleCountRegisterValid = true;
 //  Serial.println(F("1 sec is over."));
   }
@@ -556,7 +558,7 @@ void speedControlPID() {
   if (totalImpCounter + syncOffsetImps != prevTotalImpCounter) {
  
     if (sampleCountRegisterValid) {
-      long actualSampleCount = Read32BitsFromSCI(0x1800);                 // 8.6ms Latenz here
+      long actualSampleCount = Read32BitsFromSCI(0x1800) - sampleCountBaseLine;                 // 8.6ms Latenz here
       long desiredSampleCount = (totalImpCounter + syncOffsetImps) * impToSamplerateFactor;
   //    unsigned long latenz = millis() - lastISRTime;               // This had less positive imapct than expected
   //    actualSampleCount = actualSampleCount + (latenz * 41);       // 41.344 samples per ms
@@ -568,11 +570,11 @@ void speedControlPID() {
 //      Serial.print(desiredSampleCount);
 //      Serial.print(F(" Delta: "));
       Serial.print(F(","));
-      Serial.print(delta);
-      Serial.print(F(","));
+      Serial.println(delta);
+//      Serial.print(F(","));
       
 //      Serial.print(F(" Bitrate: "));
-      Serial.println(getBitrate());
+//      Serial.println(getBitrate());
   
   
       total = total - readings[readIndex];  // subtract the last reading
@@ -644,11 +646,11 @@ void waitForStartMark() {
     musicPlayer.resumeMusic();
     
     clearSampleCounter();
-    long actualSampleCount = Read32BitsFromSCI(0x1800);        
-
-//    Serial.print(F("Current Sample: "));
-//    Serial.println(actualSampleCount);
-//    Serial.println(F("--------"));
+    sampleCountBaseLine = Read32BitsFromSCI(0x1800);        
+    
+    Serial.print(F("Sample Count Baseline: "));
+    Serial.println(sampleCountBaseLine);
+    Serial.println(F("--------"));
     
     tellFrontend(CMD_STARTMARK_HIT, 0);
     Serial.println(F("Los geht's!"));
