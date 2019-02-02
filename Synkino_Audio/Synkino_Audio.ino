@@ -4,10 +4,10 @@
  *  
  *  [ ] Document diffs to vs1053_SdFat.h
  *  [ ] Try/Switch to 15 MHz xtal
- *  [ ] Projektor-Frequenzanzeige
+ *  [ ] Show Projector Frquency
+ *  [ ] Show File Sampling Rate
  *  [ ] Update https://github.com/nickgammon/I2C_Anything
- *  [ ] Actually read Sampling Rate from SCI_AUDATA (Bit 15:1) and allow eg 32kHz files
- *      Seems like I need to read Byte 40:42 from the file as unsigned little endian
+ *  [ ] Read actual Sampling Rate from file. Seems like I need to read Byte 40:42 from the file as unsigned little endian
  *  [ ] Cleanup state machine
  *  [ ] Remove PID options
  *  
@@ -377,10 +377,11 @@ uint8_t loadTrackByNo(int trackNo) {
   char trackName[11]; 
   char trackNameFound[11];
   
-  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) { 
-    // look for m4a first
-    sprintf(trackName, "%03d-%d.m4a", trackNo, fpsGuess);  
+  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
+    // look for ogg then
+    sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
+      applyOggRules = true;
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
       tellFrontend(CMD_FOUND_FPS, fpsGuess);
@@ -390,51 +391,7 @@ uint8_t loadTrackByNo(int trackNo) {
 //      Serial.println(trackName);
     }
   }
-
-  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
-    // look for ogg then
-    sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);  
-    if (sd.exists(trackName)) {
-      applyOggRules = true;
-      updateFpsDependencies(fpsGuess);
-      strcpy(trackNameFound, trackName);
-      tellFrontend(CMD_FOUND_FPS, fpsGuess);
-    }
-  }
   
-  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
-    // look for mp3 then
-    sprintf(trackName, "%03d-%d.mp3", trackNo, fpsGuess);  
-    if (sd.exists(trackName)) {
-      applyOggRules = false;
-      updateFpsDependencies(fpsGuess);
-      strcpy(trackNameFound, trackName);
-      tellFrontend(CMD_FOUND_FPS, fpsGuess);
-    }
-  }
-
-  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
-    // look for mp4 then
-    sprintf(trackName, "%03d-%d.mp4", trackNo, fpsGuess);  
-    if (sd.exists(trackName)) {
-      applyOggRules = false;
-      updateFpsDependencies(fpsGuess);
-      strcpy(trackNameFound, trackName);
-      tellFrontend(CMD_FOUND_FPS, fpsGuess);
-    }
-  }
-
-  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
-    // look for wav then
-    sprintf(trackName, "%03d-%d.wma", trackNo, fpsGuess);  
-    if (sd.exists(trackName)) {
-      applyOggRules = false;
-      updateFpsDependencies(fpsGuess);
-      strcpy(trackNameFound, trackName);
-      tellFrontend(CMD_FOUND_FPS, fpsGuess);
-    }
-  }
-
   uint8_t result;
   result = musicPlayer.playMP3(trackNameFound);
   if (result != 0) {
