@@ -8,8 +8,10 @@
  *  [ ] Update https://github.com/nickgammon/I2C_Anything
  *  [ ] Actually read Sampling Rate from SCI_AUDATA (Bit 15:1) and allow eg 32kHz files
  *  [ ] Try out bigger PID range (downwards)
+ *  [ ] Try less numReadings
  * 
  */
+ 
 #include <PID_v1.h>
 #include <SPI.h>
 #include <FreeStack.h>
@@ -52,12 +54,10 @@
 #define PAUSED            6
 #define SETTINGS_MENU     7
 
-//#define USE_MP3_REFILL_MEANS  USE_MP3_Timer1
-
-const int myAddress = 0x08;   // Listen on the I2C Bus
+const int myAddress = 0x08;        // Listen on the I2C Bus
 
 uint8_t sollfps = 18;        
-uint8_t shutterBlades = 2;         // Wieviele Segmente hat die Umlaufblende?
+uint8_t shutterBlades = 2;         // Cutout count of the shutter blade
 uint8_t startMarkOffset = 52;      // Bauer t610, example value
 int16_t syncOffsetImps = 0;        
 
@@ -67,7 +67,7 @@ uint8_t sampleCountRegisterValid = true;  // It takes >8 KiB of data until the O
                                           // is valid. Disable the PID until then
   
 float physicalSamplingrate = 41343.75;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
-unsigned long sampleCountBaseLine = 0;    // The Ogg Sample COunter doesn't start at 0, probably due to Buffers.
+unsigned long sampleCountBaseLine = 0;    // The Ogg Sample Counter doesn't start at 0, probably due to Buffers.
                                           // This var stores the baseline right after having the file loaded.
 
 #define impDetectorISRPIN  3
@@ -80,10 +80,9 @@ unsigned int impToAudioSecondsDivider = sollfps * shutterBlades * 2;
 
 #define numReadings   16
 long readings[numReadings];      // the readings from the analog input
-int readIndex = 0;              // the index of the current reading
-long total = 0;                 // the running total
+int readIndex = 0;               // the index of the current reading
+long total = 0;                  // the running total
 long average = 0;                // the average
-
 
 uint8_t myState = IDLING;   
 uint8_t debugPrevState;   
@@ -99,23 +98,19 @@ volatile long i2cParameter;
 volatile unsigned long lastISRTime;
 unsigned long lastInSyncMillis;
 
-
 extEEPROM myEEPROM(kbits_256, 1, 64);
 
 double Setpoint, Input, Output;
-
 double Kp=8, Ki=3, Kd=1;  // PonM WINNER für 16 Readings, but with fixed int overflow
 
 PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, P_ON_M, DIRECT);
-//PID myPID(&Input, &Output, &Setpoint, Kp, Ki, Kd, DIRECT);
-
 
 // Below is not needed if interrupt driven. Safe to remove if not using.
-#if defined(USE_MP3_REFILL_MEANS) && USE_MP3_REFILL_MEANS == USE_MP3_Timer1
-  #include <TimerOne.h>
-#elif defined(USE_MP3_REFILL_MEANS) && USE_MP3_REFILL_MEANS == USE_MP3_SimpleTimer
-  #include <SimpleTimer.h>
-#endif
+//#if defined(USE_MP3_REFILL_MEANS) && USE_MP3_REFILL_MEANS == USE_MP3_Timer1
+//  #include <TimerOne.h>
+//#elif defined(USE_MP3_REFILL_MEANS) && USE_MP3_REFILL_MEANS == USE_MP3_SimpleTimer
+//  #include <SimpleTimer.h>
+//#endif
 
 // Instantiate SD and Player objects
 SdFat sd;
@@ -136,10 +131,8 @@ unsigned int pluginSize;
 
 
 
-
 //------------------------------------------------------------------------------
 void setup() {
-
   for (int thisReading = 0; thisReading < numReadings; thisReading++) {
     readings[thisReading] = 0;
   }
@@ -160,7 +153,7 @@ void setup() {
   Wire.setClock(400000L);
 
   Wire.onReceive(i2cReceive);
-  Wire.onRequest(i2cRequest);
+//  Wire.onRequest(i2cRequest);
 
   // Initialize the SdCard
   //
@@ -200,9 +193,7 @@ void setup() {
     
     while (pluginFile.available()) {
       pluginFile.read(eeData, 64);
-
       byte i2cStat = myEEPROM.write(eeAddress, eeData, 64);
-      
       if ( i2cStat != 0 ) {
         //there was a problem
         Serial.print(F("I2C Problem: "));
@@ -244,14 +235,10 @@ void setup() {
   }
   pluginFile.close();
 
-  
-
-
-  //Initialize the MP3 Player Shield
+  //Initialize the DSP
   Serial.println("Initing DSP...");
   result = musicPlayer.begin();
   Serial.println("Done.");
-  //check result, see readme for error codes.
   if(result != 0) { 
     tellFrontend(CMD_SHOW_ERROR, result + 10);
     Serial.print(F("In player.begin: "));
@@ -330,21 +317,17 @@ void loop() {
         Serial.println(i2cParameter);
       break;
     }
-    
     haveI2Cdata = false;  
-  }  // end if haveData
+  }
 
 // Below is only needed if not interrupt driven. Safe to remove if not using.
-#if defined(USE_MP3_REFILL_MEANS) \
-    && ( (USE_MP3_REFILL_MEANS == USE_MP3_SimpleTimer) \
-    ||   (USE_MP3_REFILL_MEANS == USE_MP3_Polled)      )
+//#if defined(USE_MP3_REFILL_MEANS) \
+//    && ( (USE_MP3_REFILL_MEANS == USE_MP3_SimpleTimer) \
+//    ||   (USE_MP3_REFILL_MEANS == USE_MP3_Polled)      )
+//
+//  musicPlayer.available();
+//#endif
 
-  musicPlayer.available();
-#endif
-
-//  if(Serial.available()) {
-//    parse_menu(Serial.read()); // get command from serial input
-//  }
 
 // State Machine ----------------------------------------------------------------
 //
@@ -395,6 +378,7 @@ void loop() {
     
 }
 
+//------------------------------------------------------------------------------
 void tellFrontend(byte command, long parameter) {
   Wire.beginTransmission(7); // This is the Frontend
   wireWriteData(command);  
@@ -402,6 +386,7 @@ void tellFrontend(byte command, long parameter) {
   Wire.endTransmission();    // stop transmitting
 }
 
+//------------------------------------------------------------------------------
 uint8_t loadTrackByNo(int trackNo) {
   char trackName[11]; 
   char trackNameFound[11];
@@ -425,8 +410,6 @@ uint8_t loadTrackByNo(int trackNo) {
     sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
       applyOggRules = true;
-//    startMarkOffset = startMarkOffset - 13; // WHY??
-      
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
       tellFrontend(CMD_FOUND_FPS, fpsGuess);
@@ -455,8 +438,7 @@ uint8_t loadTrackByNo(int trackNo) {
     }
   }
 
-
-   for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
+  for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
     // look for wav then
     sprintf(trackName, "%03d-%d.wma", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
@@ -466,9 +448,7 @@ uint8_t loadTrackByNo(int trackNo) {
       tellFrontend(CMD_FOUND_FPS, fpsGuess);
     }
   }
- 
-  
-  
+
   uint8_t result;
   result = musicPlayer.playMP3(trackNameFound);
   if (result != 0) {
@@ -488,6 +468,7 @@ uint8_t loadTrackByNo(int trackNo) {
   return result;
 }
 
+//------------------------------------------------------------------------------
 void updateFpsDependencies(uint8_t fps) {
   sollfps = fps;                                // redundant?
   pauseDetectedPeriod = (1000 / fps * 3);
@@ -510,6 +491,7 @@ void updateFpsDependencies(uint8_t fps) {
 //  Serial.println(startMarkOffset);
 }
 
+//------------------------------------------------------------------------------
 void sendCurrentAudioSec() {
   static unsigned long prevSecCount;
   static unsigned long currentSecCount;
@@ -526,6 +508,7 @@ void sendCurrentAudioSec() {
   }
 }
 
+//------------------------------------------------------------------------------
 void checkIfStillRunning() {
   static unsigned long prevTotalImpCounter2;
   static unsigned long lastImpMillis;
@@ -546,8 +529,7 @@ void checkIfStillRunning() {
   }
 }
 
-
-
+//------------------------------------------------------------------------------
 void speedControlPID() {
   static unsigned long prevTotalImpCounter;
   if (totalImpCounter + syncOffsetImps != prevTotalImpCounter) {
@@ -582,7 +564,7 @@ void speedControlPID() {
       }
     
       average = total / numReadings;        // calculate the average
-  //    average = (total >> 4);
+//    average = (total >> 4);
   
       Input = average;
       adjustSamplerate((long) Output);
@@ -590,11 +572,6 @@ void speedControlPID() {
       prevTotalImpCounter = totalImpCounter + syncOffsetImps;        
   
       myPID.Compute();  // 9.2ms Latenz here
-  
-      // Serial.println(latenz); 
-      // Most of the delay here is from printing. One line of printing means one measurement
-      // every 2.3 imps, full CSV output is one ever ~6.3 imps.
-      // Printing the long seems super pricy
   
       static unsigned int prevFrameOffset;
       int frameOffset = average / deltaToFramesDivider;
@@ -615,11 +592,12 @@ void speedControlPID() {
   }
 }
 
-
+//------------------------------------------------------------------------------
 void countISR() {
   totalImpCounter++;
 }
 
+//------------------------------------------------------------------------------
 void waitForStartMark() {
   if (digitalRead(startMarkDetectorPin) == HIGH) return;  // There is still leader
   static int impCountToStartMark = 0;
@@ -655,6 +633,7 @@ void waitForStartMark() {
   }
 }
 
+//------------------------------------------------------------------------------
 void waitForResumeToPlay(unsigned long impCounterStopPos) {
   if ((totalImpCounter + syncOffsetImps) == impCounterStopPos) {
     return;
@@ -667,7 +646,7 @@ void waitForResumeToPlay(unsigned long impCounterStopPos) {
   }
 }
 
-
+//------------------------------------------------------------------------------
 void i2cReceive (int howMany) {
   if (howMany >= (sizeof i2cCommand) + (sizeof i2cParameter)) {
      wireReadData(i2cCommand);   
@@ -676,128 +655,16 @@ void i2cReceive (int howMany) {
    }  // end if have enough data
  }  // end of receive-ISR
 
-
- 
-
-void i2cRequest()
-{
-  // FYI: The Atmel AVR 8 bit microcontroller provides for clock stretching while using
-  // the ISR for the data request.  This is, by extension, happening here, since this
-  // callback is called from the ISR.
-
-  // Send the data.
-//  wireWriteData(ppmCorrection);
-}
-
-
-
-
 //------------------------------------------------------------------------------
-void parse_menu(uint8_t key_command) {
-
-  uint8_t result; // result code from some function as to be tested at later time.
-
-//  Serial.print(F("Received Serial command: "));
-//  Serial.write(key_command);
-//  Serial.println(F(" "));
-
-  //if s, stop the current track
-  if(key_command == 's') {
-    Serial.println(F("Stopping"));
-    musicPlayer.stopTrack();
-
-  //if 1-9, play corresponding track
-  } else if(key_command >= '1' && key_command <= '9') {
-    //convert ascii numbers to real numbers
-    key_command = key_command - 48;
-
-#if USE_MULTIPLE_CARDS
-    sd.chvol(); // assign desired sdcard's volume.
-#endif
-    //tell the MP3 Shield to play a track
-    result = musicPlayer.playTrack(key_command);
-
-    //check result, see readme for error codes.
-    if(result != 0) {
-      Serial.print(F("Error code: "));
-      Serial.print(result);
-      Serial.println(F(" when trying to play track"));
-    } else {
-
-      Serial.println(F("Playing:"));
-
-    }
-
-  /* Alterativly, you could call a track by it's file name by using playMP3(filename);
-  But you must stick to 8.1 filenames, only 8 characters long, and 3 for the extension */
-  } else if(key_command == 'f' || key_command == 'F') {
-    uint32_t offset = 0;
-    if (key_command == 'F') {
-      offset = 2000;
-    }
-
-    //create a string with the filename
-    char trackName[] = "track003.m4a";
-
-#if USE_MULTIPLE_CARDS
-    sd.chvol(); // assign desired sdcard's volume.
-#endif
-    //tell the MP3 Shield to play that file
-    result = musicPlayer.playMP3(trackName, offset);
-
-    musicPlayer.setVolume(3,3);
-    
-    musicPlayer.pauseMusic();
-    
-    enableResampler();
- 
-    while (musicPlayer.getState() != paused_playback) {}
-    clearSampleCounter();
-
-    myState = TRACK_LOADED;
-
-    Serial.println(F("Waiting for start mark..."));
-    
-
-    /*       
-     *
-     *  track001.mp3  tuuuut
-     *  track002.m4a  Mortel
-     *  track003.m4a  Der Himmel ist Blau wie noch nie
-     *  track004.m4a  Giorgio by Moroder
-     *  track005.m4a  Kid Francescoli
-     *  track006.m4a  Der kleine Spatz
-     *  track007.m4a  Bar in Amsterdam
-     *  track008.m4a  Tatort
-     *  track009.m4a  Xylophon
-     *  
-     */
-    unsigned long t = millis();
-    unsigned long currentmillis = 0;
-    Serial.read();
-
-
-
-    //check result, see readme for error codes.
-    if(result != 0) {
-      Serial.print(F("Error code: "));
-      Serial.print(result);
-      Serial.println(F(" when trying to play track"));
-    }
-
-  /* Display the files on the SdCard */
-  } else if(key_command == 'd') {
-    if(!musicPlayer.isPlaying()) {
-      // prevent root.ls when playing, something locks the dump. but keeps playing.
-      // yes, I have tried another unique instance with same results.
-      // something about SdFat and its 500uint8_t cache.
-      Serial.println(F("Files found (name date time size):"));
-      sd.ls(LS_R | LS_DATE | LS_SIZE);
-    } else {
-      Serial.println(F("Busy playing files, try again later."));
-    }
-  }
-}
+//void i2cRequest()
+//{
+//  // FYI: The Atmel AVR 8 bit microcontroller provides for clock stretching while using
+//  // the ISR for the data request.  This is, by extension, happening here, since this
+//  // callback is called from the ISR.
+//
+//  // Send the data.
+////  wireWriteData(ppmCorrection);
+//}
 
 //------------------------------------------------------------------------------
 void adjustSamplerate(signed long ppm2) {
@@ -809,6 +676,7 @@ void adjustSamplerate(signed long ppm2) {
   musicPlayer.Mp3WriteRegister(SCI_AUDATA, musicPlayer.Mp3ReadRegister(SCI_AUDATA));
 }
 
+//------------------------------------------------------------------------------
 void enableResampler() {
   // Enable 15-16 Resampler
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1e09);
@@ -817,16 +685,20 @@ void enableResampler() {
   
 }
 
+//------------------------------------------------------------------------------
 void clearSampleCounter() {
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1800);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
 }
+
+//------------------------------------------------------------------------------
 void clearErrorCounter() {
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x5a82);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
 }
 
+//------------------------------------------------------------------------------
 unsigned long Read32BitsFromSCI(unsigned short addr) {
   unsigned short msbV1, lsb, msbV2;
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, addr+1);
@@ -840,17 +712,19 @@ unsigned long Read32BitsFromSCI(unsigned short addr) {
   return ((unsigned long)msbV1 << 16) | lsb;
 }
 
+//------------------------------------------------------------------------------
 void restoreSampleCounter(unsigned long samplecounter) {
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1800); // MSB
   musicPlayer.Mp3WriteRegister(SCI_WRAM, samplecounter);
   musicPlayer.Mp3WriteRegister(SCI_WRAM, samplecounter >> 16);
 }
 
+//------------------------------------------------------------------------------
 uint16_t getBitrate() {
   return (musicPlayer.Mp3ReadWRAM(para_byteRate)>>7);
 }
 
-//------------------------------------------------------------------------------
+
 
 
 
