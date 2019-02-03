@@ -53,15 +53,15 @@
 #define CMD_TRACK_LOADED        18  /* --->                   */
 #define CMD_STARTMARK_HIT       19  /* --->                   */
 #define CMD_DONE_PLAYING        20  /* --->                   */
-#define CMD_RESET               21  /* --->                   */
+#define CMD_RESETAUDIO          21  /* --->                   */
 
 // ---- Define the various States --------------------------------------------------
 //
 #define IDLING            1
-#define TRACK_LOADED      2
-#define RESET             3
-#define PLAYING           4
-#define PAUSED            5
+#define TRACK_LOADED      3
+#define RESET             4
+#define PLAYING           5
+#define PAUSED            6
 
 const int myAddress = 0x08;        // Listen on the I2C Bus
 
@@ -350,8 +350,6 @@ void loop() {
     switch (myState) {   // Debug output
       case 1: Serial.println(F("--- IDLING."));
       break;
-      case 2: Serial.println(F("--- LOAD_TRACK"));
-      break;
       case 3: Serial.println(F("--- TRACK_LOADED."));
       break;
       case 4: Serial.println(F("--- RESET"));
@@ -360,9 +358,7 @@ void loop() {
       break;
       case 6: Serial.println(F("--- PAUSED"));
       break;
-      case 7: Serial.println(F("--- SETTINGS_MENU"));
-      break;
-     }
+    }
     debugPrevState = myState;
   }
     
@@ -687,13 +683,13 @@ void resetAudio() {
   detachInterrupt(digitalPinToInterrupt(impDetectorISRPIN));
 //  prevSecCount = 0;
 //  currentSecCount = 0;
-  sendCurrentAudioSec();
+//  sendCurrentAudioSec();
 //  prevTotalImpCounter = 0;
-  totalImpCounter = 0;
-  total = 0;
-  average = 0;
+//  totalImpCounter = 0;
+//  total = 0;
+//  average = 0;
   
-  tellFrontend(CMD_RESET, 0);
+  tellFrontend(CMD_RESETAUDIO, 0);
   delay(100); // wait to let the audio switch go down
   musicPlayer.stopTrack();
   myState = IDLING;

@@ -115,7 +115,7 @@ const char *uCVersion = "Synkino v1.1\n";
 #define CMD_TRACK_LOADED        18  /* --->                   */
 #define CMD_STARTMARK_HIT       19  /* --->                   */
 #define CMD_DONE_PLAYING        20  /* --->                   */
-#define CMD_RESET               21  /* --->                   */
+#define CMD_RESETAUDIO          21  /* --->                   */
 
 
 // ---- Define the various States --------------------------------------------------
@@ -405,7 +405,7 @@ void loop(void) {
                break;
       case 20: Serial.println(F("CMD_DONE_PLAYING"));
                break;
-      case 21: Serial.println(F("CMD_RESET"));
+      case 21: Serial.println(F("CMD_RESETAUDIO"));
                break;
       default: Serial.println(i2cCommand);
                Serial.println(i2cParameter);
@@ -467,7 +467,7 @@ void loop(void) {
         // shutdownSelf();
         myState = SELECT_TRACK;
       break;
-      case CMD_RESET:
+      case CMD_RESETAUDIO:
            digitalWrite(AUDIO_EN, LOW);
            startMarkHit = 0;
            trackLoaded = 0;
