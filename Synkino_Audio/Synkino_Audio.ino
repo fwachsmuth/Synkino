@@ -135,6 +135,8 @@ unsigned int pluginSize;
 
 unsigned long prevSecCount;
 unsigned long currentSecCount;
+unsigned long prevTotalImpCounter2;
+unsigned long lastImpMillis;
 
 
 
@@ -471,9 +473,6 @@ void sendCurrentAudioSec() {
 
 //------------------------------------------------------------------------------
 void checkIfStillRunning() {
-  static unsigned long prevTotalImpCounter2;
-  static unsigned long lastImpMillis;
- 
   if ((totalImpCounter + syncOffsetImps) != prevTotalImpCounter2) {
     prevTotalImpCounter2 = totalImpCounter + syncOffsetImps;
     lastImpMillis = millis();
@@ -684,7 +683,11 @@ void resetAudio() {
   detachInterrupt(digitalPinToInterrupt(impDetectorISRPIN));
   prevSecCount = 0;
   currentSecCount = 0;
+  prevTotalImpCounter2 = 0;
+  lastImpMillis = 0;
+
 //  sendCurrentAudioSec();
+
 //  prevTotalImpCounter = 0;
 //  totalImpCounter = 0;
 //  total = 0;
