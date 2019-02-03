@@ -1,6 +1,6 @@
 
 
-const char *uCVersion = "Synkino v1.1\n";
+const char *uCVersion = "Synkino v1.11\n";
 
 /*
  *  This is the frontend part of Synkino
@@ -459,6 +459,7 @@ void loop(void) {
       break;
       case  CMD_DONE_PLAYING:
         shutdownSelf();
+        // myState = SELECT_TRACK;
       break;
       default:
         Serial.println(i2cCommand);
