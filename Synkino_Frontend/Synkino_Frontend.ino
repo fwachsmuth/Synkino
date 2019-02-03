@@ -115,6 +115,7 @@ const char *uCVersion = "Synkino v1.1\n";
 #define CMD_TRACK_LOADED        18  /* --->                   */
 #define CMD_STARTMARK_HIT       19  /* --->                   */
 #define CMD_DONE_PLAYING        20  /* --->                   */
+#define CMD_RESET               21  /* --->                   */
 
 
 // ---- Define the various States --------------------------------------------------
@@ -404,6 +405,8 @@ void loop(void) {
                break;
       case 20: Serial.println(F("CMD_DONE_PLAYING"));
                break;
+      case 21: Serial.println(F("CMD_RESET"));
+               break;
       default: Serial.println(i2cCommand);
                Serial.println(i2cParameter);
     }
@@ -463,6 +466,17 @@ void loop(void) {
       case  CMD_DONE_PLAYING:
         // shutdownSelf();
         myState = SELECT_TRACK;
+      break;
+      case CMD_RESET:
+           digitalWrite(AUDIO_EN, LOW);
+           startMarkHit = 0;
+           trackLoaded = 0;
+           fps = 0;
+           totalSeconds = 0;
+           newFrameCorrectionOffset = 0;
+           oosyncFrames = 0;
+           delay(1000);
+           myState = SELECT_TRACK;
       break;
       default:
         Serial.println(i2cCommand);
@@ -1098,6 +1112,7 @@ uint16_t selectTrackScreen() {
   u8g2.setFont(u8g2_font_helvR10_tr);   // Only until we go to the PLAYING_MENU here
   return newEncPosition;
 }
+
 
 // This overwrites the weak function in u8x8_debounce.c
 uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
