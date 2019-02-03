@@ -10,6 +10,7 @@
  *  [ ] Read actual Sampling Rate from file. Seems like I need to read Byte 40:42 from the file as unsigned little endian
  *  [ ] Cleanup state machine
  *  [ ] Remove PID options
+ *  [ ] Remove non-ogg sampling rate handling
  *  
  */
  
@@ -370,6 +371,7 @@ void tellFrontend(byte command, long parameter) {
   wireWriteData(command);  
   wireWriteData(parameter);  
   Wire.endTransmission();    // stop transmitting
+  delay(1); // avoid bus congestions
 }
 
 //------------------------------------------------------------------------------
@@ -525,7 +527,7 @@ void speedControlPID() {
       } 
       // Below is a hack to send a 0 every so often if everything is in sync – since occasionally signal gets lost on i2c due 
       // to too busy AVRs. Otherwise, the sync icon might not stop blinking in some cases.
-      if ((frameOffset == 0) && (millis() > (lastInSyncMillis + 3000))) {
+      if ((frameOffset == 0) && (millis() > (lastInSyncMillis + 1000))) {
         tellFrontend(CMD_OOSYNC, 0);
         lastInSyncMillis = millis();
       }
