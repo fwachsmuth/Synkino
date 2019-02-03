@@ -1210,8 +1210,8 @@ void printASCII(char * buffer) {
 }
 
 void shutdownSelf() {
+  digitalWrite(AUDIO_EN, LOW); 
   digitalWrite(POWER_OFF, LOW); 
-  //playGoodBye();
   u8g2.firstPage();
   do {
     u8g2.setFont(u8g2_font_helvR10_tr);
