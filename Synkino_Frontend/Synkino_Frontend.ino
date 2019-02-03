@@ -322,6 +322,7 @@ void setup(void) {
   pinMode(POWER_OFF, OUTPUT);
   pinMode(BUZZER, OUTPUT);
   pinMode(ENCODER_BTN, INPUT);
+  digitalWrite(AUDIO_EN, LOW); // no pops please
   digitalWrite(SPI_CS, 0);
   digitalWrite(SPI_DC, 0);		
   digitalWrite(ENCODER_BTN, HIGH);
@@ -335,6 +336,8 @@ void setup(void) {
   Wire.setClock(400000L);
   Wire.onReceive(i2cReceive);
   Wire.onRequest(i2cRequest);
+  
+  
  
   u8g2.begin();  
   //u8g2.begin(/*Select=*/ 7, /*Right/Next=*/ A1, /*Left/Prev=*/ A2, /*Up=*/ A0, /*Down=*/ A3, /*Home/Cancel=*/ 5);
@@ -572,6 +575,7 @@ void loop(void) {
       if ((fps != 0) && (trackLoaded != 0)) {
         drawWaitForPlayingMenu(trackChosen, fps);
         myState = TRACK_LOADED;
+        delay(300); //avoid hearing first bytes in Audio FIFO
         digitalWrite(AUDIO_EN, HIGH);
       } // Todo: Timeout Handler?
       break;
