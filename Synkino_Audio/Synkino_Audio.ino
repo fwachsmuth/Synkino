@@ -3,6 +3,7 @@
  * To Do / Ideas:
  *  
  *  [ ] Chart the PID with the very low control possibilties (on Bauer t610)
+ *  [ ] Teste STOP aus dem Play Menü raus
  *  [ ] Handle Loading Timeouts (F:576)
  *  [ ] Use F:AUDIO_EN to get clicks and pops under control
  *  [ ] Remove non-ogg sampling rate handling
@@ -132,6 +133,8 @@ uint32_t eeAddress = 0;
 byte eeData[64] = {};
 unsigned int pluginSize;
 
+unsigned long prevSecCount;
+unsigned long currentSecCount;
 
 
 
@@ -453,8 +456,6 @@ void updateFpsDependencies(uint8_t fps) {
 
 //------------------------------------------------------------------------------
 void sendCurrentAudioSec() {
-  static unsigned long prevSecCount;
-  static unsigned long currentSecCount;
   currentSecCount = (totalImpCounter + syncOffsetImps) / impToAudioSecondsDivider; 
   
   if (currentSecCount > prevSecCount) {    
@@ -681,8 +682,8 @@ uint16_t getSamplerate() {
 
 void resetAudio() {
   detachInterrupt(digitalPinToInterrupt(impDetectorISRPIN));
-//  prevSecCount = 0;
-//  currentSecCount = 0;
+  prevSecCount = 0;
+  currentSecCount = 0;
 //  sendCurrentAudioSec();
 //  prevTotalImpCounter = 0;
 //  totalImpCounter = 0;
