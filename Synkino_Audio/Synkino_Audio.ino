@@ -683,8 +683,11 @@ uint16_t getSamplerate() {
 }
 
 void resetAudio() {
+  detachInterrupt(digitalPinToInterrupt(impDetectorISRPIN));
   musicPlayer.stopTrack();
   myState = IDLING;
-  //musicPlayer.vs_init();
+  musicPlayer.vs_init();
+  // zero out readings[]
+  
 }
 

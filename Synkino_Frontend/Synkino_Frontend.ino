@@ -1,6 +1,6 @@
 
 
-const char *uCVersion = "Synkino v1.11\n";
+const char *uCVersion = "Synkino v1.1\n";
 
 /*
  *  This is the frontend part of Synkino
@@ -94,7 +94,7 @@ const char *uCVersion = "Synkino v1.11\n";
 #define MENU_ITEM_DUMP            3
 
 // ---- Define the I2C Commands ----------------------------------------------------
-//
+//                                  Audio               Frontend
 #define CMD_RESET               1   /* <---                   */
 #define CMD_SET_SHUTTERBLADES   2   /* <--- (shutterBlades)   */
 #define CMD_SET_STARTMARK       3   /* <--- (StartMarkOffset) */
@@ -458,8 +458,8 @@ void loop(void) {
         startMarkHit = 1;
       break;
       case  CMD_DONE_PLAYING:
-        shutdownSelf();
-        // myState = SELECT_TRACK;
+        // shutdownSelf();
+        myState = SELECT_TRACK;
       break;
       default:
         Serial.println(i2cCommand);
