@@ -2,6 +2,7 @@
  * 
  * To Do / Ideas:
  *  
+ *  [ ] Fix Line 436 (Bitrate loading)
  *  [ ] Document diffs to vs1053_SdFat.h
  *  [ ] Try/Switch to 15 MHz xtal
  *  [ ] Show Projector Frquency
@@ -433,7 +434,7 @@ void updateFpsDependencies(uint8_t fps) {
   sollfps = fps;                                // redundant?
   pauseDetectedPeriod = (1000 / fps * 3);
   if (applyOggRules) {
-//    physicalSamplingrate = 44100.00;
+    // physicalSamplingrate = 44100.00;            // This needs to go if we want to support other Bitrates
     sampleCountRegisterValid = false;           // It takes 8 KiB until the Ogg Sample Counter is valid for sure
   } else {
     physicalSamplingrate = 41343.75;
@@ -574,7 +575,7 @@ void waitForStartMark() {
   if (impCountToStartMark >= shutterBlades * 2 * startMarkOffset) {
     totalImpCounter = 0;
     myPID.SetMode(AUTOMATIC);
-    myPID.SetOutputLimits(-77000, 77000); // -400k - 300k scheint zu gehen. testen.
+    myPID.SetOutputLimits(-300000, 77000); // -400k - 300k scheint zu gehen. testen.
 
     attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
     
