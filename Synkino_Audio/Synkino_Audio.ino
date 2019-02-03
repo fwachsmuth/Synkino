@@ -2,17 +2,20 @@
  * 
  * To Do / Ideas:
  *  
- *  [ ] Fix Line 436 (Bitrate loading)
+ *  [ ] Handle Loading Timeouts (F:576)
+ *  [ ] Use F:AUDIO_EN to get clicks and pops under control
+ *  [ ] Remove non-ogg sampling rate handling
+ *  
+ *  [ ] Show File Sampling Rate
+ *  [ ] First encoder knob push isn't always read?
+ *  
  *  [ ] Document diffs to vs1053_SdFat.h
  *  [ ] Try/Switch to 15 MHz xtal
  *  [ ] Show Projector Frquency
  *  [ ] Show File Sampling Rate
  *  [ ] Update https://github.com/nickgammon/I2C_Anything
- *  [ ] Read actual Sampling Rate from file. Seems like I need to read Byte 40:42 from the file as unsigned little endian
  *  [ ] Cleanup state machine
  *  [ ] Remove PID options
- *  [ ] Remove non-ogg sampling rate handling
- *  [ ] First encoder knob push isn't always read?
  *  
  *  
  */
@@ -27,37 +30,36 @@
 #include <extEEPROM.h>
 
 // ---- Define the I2C Commands ----------------------------------------------------
-//
-#define CMD_RESET               1   /* <---                  √  */
-#define CMD_SET_SHUTTERBLADES   2   /* <--- (shutterBlades)  √  */
-#define CMD_SET_STARTMARK       3   /* <--- (StartMarkOffset)   */
-#define CMD_SET_P               4   /* <--- (P-Value for PID)   */
-#define CMD_SET_I               5   /* <--- (I-Value for PID)   */
-#define CMD_SET_D               6   /* <--- (D-Value for PID)   */
-#define CMD_SYNC_OFFSET         7   /* <--- (# of Frames)       */
-#define CMD_LOAD_TRACK          8   /* <--- (trackId)        √  */
+//                                  Audio               Frontend
+#define CMD_RESET               1   /* <---                   */
+#define CMD_SET_SHUTTERBLADES   2   /* <--- (shutterBlades)   */
+#define CMD_SET_STARTMARK       3   /* <--- (StartMarkOffset) */
+#define CMD_SET_P               4   /* <--- (P-Value for PID) */
+#define CMD_SET_I               5   /* <--- (I-Value for PID) */
+#define CMD_SET_D               6   /* <--- (D-Value for PID) */
+#define CMD_SYNC_OFFSET         7   /* <--- (# of Frames)     */
+#define CMD_LOAD_TRACK          8   /* <--- (trackId)         */
 
-#define CMD_FOUND_FMT           10  /* ---> (fileFormat)        */
-#define CMD_FOUND_FPS           11  /* ---> (fps)            √  */
-#define CMD_CURRENT_AUDIOSEC    12  /* ---> (SecNo)          √  */
-#define CMD_PROJ_PAUSE          13  /* --->                  √  */
-#define CMD_PROJ_PLAY           14  /* --->                  √  */
-#define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)       */
-#define CMD_OOSYNC              16  /* ---> (frameCount)     √  */
-#define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)      √  */
-#define CMD_TRACK_LOADED        18  /* --->                  √  */
-#define CMD_STARTMARK_HIT       19  /* --->                  √  */
-#define CMD_DONE_PLAYING        20  /* --->                     */
+#define CMD_FOUND_FMT           10  /* ---> (fileFormat)      */
+#define CMD_FOUND_FPS           11  /* ---> (fps)             */
+#define CMD_CURRENT_AUDIOSEC    12  /* ---> (SecNo)           */
+#define CMD_PROJ_PAUSE          13  /* --->                   */
+#define CMD_PROJ_PLAY           14  /* --->                   */
+#define CMD_FOUND_TRACKLENGTH   15  /* ---> (TrackLength)     */
+#define CMD_OOSYNC              16  /* ---> (frameCount)      */
+#define CMD_SHOW_ERROR          17  /* ---> (ErrorCode)       */
+#define CMD_TRACK_LOADED        18  /* --->                   */
+#define CMD_STARTMARK_HIT       19  /* --->                   */
+#define CMD_DONE_PLAYING        20  /* --->                   */
+#define CMD_RESET               21  /* --->                   */
 
 // ---- Define the various States --------------------------------------------------
 //
 #define IDLING            1
-#define LOAD_TRACK        2
-#define TRACK_LOADED      3
-#define RESET             4
-#define PLAYING           5
-#define PAUSED            6
-#define SETTINGS_MENU     7
+#define TRACK_LOADED      2
+#define RESET             3
+#define PLAYING           4
+#define PAUSED            5
 
 const int myAddress = 0x08;        // Listen on the I2C Bus
 
@@ -284,35 +286,35 @@ void loop() {
     switch (i2cCommand) {
       case CMD_RESET: 
         resetAudio();
-      break;
+        break;
       case CMD_SET_SHUTTERBLADES: 
         shutterBlades = i2cParameter;
         updateFpsDependencies(sollfps);
-      break;
+        break;
       case CMD_SET_STARTMARK: 
         startMarkOffset = i2cParameter;
-      break;
+        break;
       case CMD_SET_P: 
         Kp = i2cParameter;
-      break;
+        break;
       case CMD_SET_I: 
         Ki = i2cParameter;
-      break;
+        break;
       case CMD_SET_D: 
         Kd = i2cParameter;
         myPID.SetTunings(Kp, Ki, Kd);
-      break;
+        break;
       case CMD_SYNC_OFFSET: 
         syncOffsetImps = i2cParameter * shutterBlades * 2;
         // adjust frame counter
-      break;
+        break;
       case CMD_LOAD_TRACK: 
         loadTrackByNo(i2cParameter);
-      break;
+        break;
       default:
         Serial.println(i2cCommand);
         Serial.println(i2cParameter);
-      break;
+        break;
     }
     haveI2Cdata = false;  
   }
@@ -322,8 +324,6 @@ void loop() {
 //
   switch (myState) {
     case IDLING:
-    break;
-    case LOAD_TRACK:
     break;
     case TRACK_LOADED:
       waitForStartMark();
@@ -338,8 +338,6 @@ void loop() {
     break;
     case PAUSED:
       waitForResumeToPlay(lastImpCounterHaltPos);
-    break;
-    case SETTINGS_MENU:
     break;
     default:
     break;
@@ -684,8 +682,11 @@ uint16_t getSamplerate() {
 
 void resetAudio() {
   detachInterrupt(digitalPinToInterrupt(impDetectorISRPIN));
+  tellFrontend(CMD_RESET, 0);
   musicPlayer.stopTrack();
   myState = IDLING;
+  // mute audio
+  // zero out seconds
   musicPlayer.vs_init();
   // zero out readings[]
   
