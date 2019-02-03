@@ -1278,9 +1278,11 @@ ISR(TIMER1_COMPA_vect) {                  // This gets called once every second
   }
 //if (myState != SYNC_PLAY) {
 //  if (myState != TRACK_LOADED) {
-      if (millis() - lastActivityMillies > 300000) {
-        shutdownSelf();
-      }
+
+  if (millis() - lastActivityMillies > 600000) {
+    shutdownSelf();
+  }
+
 //  }
 //}
 }
