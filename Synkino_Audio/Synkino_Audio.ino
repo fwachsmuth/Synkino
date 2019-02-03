@@ -70,7 +70,7 @@ uint8_t applyOggRules = false;            // For Ogg files, the sample count reg
 uint8_t sampleCountRegisterValid = true;  // It takes >8 KiB of data until the Ogg Samplecount Register
                                           // is valid. Disable the PID until then
   
-float physicalSamplingrate = 41343.75;    // 44100 * 15/16 – to compensate the 15/16 Bit Resampler, only if NOT ogg!
+float physicalSamplingrate = 44100.00;    // 44100 * 15/16 – to compensate the 15/16 Bit Resampler, but only if NOT ogg!
 unsigned long sampleCountBaseLine = 0;    // The Ogg Sample Counter doesn't start at 0, probably due to Buffers.
                                           // This var stores the baseline right after having the file loaded.
 
@@ -435,7 +435,7 @@ void updateFpsDependencies(uint8_t fps) {
   sollfps = fps;                                // redundant?
   pauseDetectedPeriod = (1000 / fps * 3);
   if (applyOggRules) {
-    physicalSamplingrate = 44100.00;
+//    physicalSamplingrate = 44100.00;
     sampleCountRegisterValid = false;           // It takes 8 KiB until the Ogg Sample Counter is valid for sure
   } else {
     physicalSamplingrate = 41343.75;
@@ -575,7 +575,7 @@ void waitForStartMark() {
   if (impCountToStartMark >= shutterBlades * 2 * startMarkOffset) {
     totalImpCounter = 0;
     myPID.SetMode(AUTOMATIC);
-    myPID.SetOutputLimits(-400000, 80000);
+    myPID.SetOutputLimits(-70000, 70000); // -400k - 300k scheint zu gehen. testen.
 
     attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
     
