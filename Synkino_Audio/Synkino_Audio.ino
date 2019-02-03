@@ -2,9 +2,11 @@
  * 
  * To Do / Ideas:
  *  
+ *  [ ] Chart the PID with the very low control possibilties (on Bauer t610)
  *  [ ] Handle Loading Timeouts (F:576)
  *  [ ] Use F:AUDIO_EN to get clicks and pops under control
  *  [ ] Remove non-ogg sampling rate handling
+ *  [ ] Forget the previously loaded title
  *  
  *  [ ] Show File Sampling Rate
  *  [ ] First encoder knob push isn't always read?
@@ -129,6 +131,7 @@ File audioFile;
 uint32_t eeAddress = 0; 
 byte eeData[64] = {};
 unsigned int pluginSize;
+
 
 
 
@@ -285,36 +288,36 @@ void loop() {
 
     switch (i2cCommand) {
       case CMD_RESET: 
-        resetAudio();
-        break;
+           resetAudio();
+           break;
       case CMD_SET_SHUTTERBLADES: 
-        shutterBlades = i2cParameter;
-        updateFpsDependencies(sollfps);
-        break;
+           shutterBlades = i2cParameter;
+           updateFpsDependencies(sollfps);
+           break;
       case CMD_SET_STARTMARK: 
-        startMarkOffset = i2cParameter;
-        break;
+           startMarkOffset = i2cParameter;
+           break;
       case CMD_SET_P: 
-        Kp = i2cParameter;
-        break;
+           Kp = i2cParameter;
+           break;
       case CMD_SET_I: 
-        Ki = i2cParameter;
-        break;
+           Ki = i2cParameter;
+           break;
       case CMD_SET_D: 
-        Kd = i2cParameter;
-        myPID.SetTunings(Kp, Ki, Kd);
-        break;
+           Kd = i2cParameter;
+           myPID.SetTunings(Kp, Ki, Kd);
+           break;
       case CMD_SYNC_OFFSET: 
-        syncOffsetImps = i2cParameter * shutterBlades * 2;
-        // adjust frame counter
-        break;
+           syncOffsetImps = i2cParameter * shutterBlades * 2;
+           // adjust frame counter
+           break;
       case CMD_LOAD_TRACK: 
-        loadTrackByNo(i2cParameter);
-        break;
+           loadTrackByNo(i2cParameter);
+           break;
       default:
-        Serial.println(i2cCommand);
-        Serial.println(i2cParameter);
-        break;
+           Serial.println(i2cCommand);
+           Serial.println(i2cParameter);
+           break;
     }
     haveI2Cdata = false;  
   }
@@ -682,7 +685,16 @@ uint16_t getSamplerate() {
 
 void resetAudio() {
   detachInterrupt(digitalPinToInterrupt(impDetectorISRPIN));
+//  prevSecCount = 0;
+//  currentSecCount = 0;
+  sendCurrentAudioSec();
+//  prevTotalImpCounter = 0;
+  totalImpCounter = 0;
+  total = 0;
+  average = 0;
+  
   tellFrontend(CMD_RESET, 0);
+  delay(100); // wait to let the audio switch go down
   musicPlayer.stopTrack();
   myState = IDLING;
   // mute audio
