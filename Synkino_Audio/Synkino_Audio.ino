@@ -11,6 +11,8 @@
  *  [ ] Cleanup state machine
  *  [ ] Remove PID options
  *  [ ] Remove non-ogg sampling rate handling
+ *  [ ] First encoder knob push isn't always read?
+ *  
  *  
  */
  
@@ -68,7 +70,7 @@ uint8_t applyOggRules = false;            // For Ogg files, the sample count reg
 uint8_t sampleCountRegisterValid = true;  // It takes >8 KiB of data until the Ogg Samplecount Register
                                           // is valid. Disable the PID until then
   
-float physicalSamplingrate = 41343.75;   // 44100 * 15/16 – to compensate the 15/16 Bit Resampler
+float physicalSamplingrate = 41343.75;    // 44100 * 15/16 – to compensate the 15/16 Bit Resampler, only if NOT ogg!
 unsigned long sampleCountBaseLine = 0;    // The Ogg Sample Counter doesn't start at 0, probably due to Buffers.
                                           // This var stores the baseline right after having the file loaded.
 
@@ -120,6 +122,7 @@ unsigned long lastSampleCounterHaltPos = 0;
 volatile unsigned long totalImpCounter = 0;
 
 File pluginFile;
+File audioFile;
 uint32_t eeAddress = 0; 
 byte eeData[64] = {};
 unsigned int pluginSize;
@@ -371,18 +374,27 @@ void tellFrontend(byte command, long parameter) {
   wireWriteData(command);  
   wireWriteData(parameter);  
   Wire.endTransmission();    // stop transmitting
-  delay(1); // avoid bus congestions
+  // delay(1); // avoid bus congestions – is this safe?
 }
 
 //------------------------------------------------------------------------------
 uint8_t loadTrackByNo(int trackNo) {
   char trackName[11]; 
   char trackNameFound[11];
+  uint16_t samplingRate;
   
   for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
-    // look for ogg then
     sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
+      // First, get the Smapling Rate from Byte 40 and 41
+      audioFile = sd.open(trackName);
+      if (audioFile) {
+        audioFile.seekSet(40);  // Byte 40 and 41 contain the sampling rate as little endian uint16_t.
+        samplingRate = audioFile.read() | (audioFile.read() << 8);
+        physicalSamplingrate = samplingRate;
+        audioFile.close();
+      }
+      
       applyOggRules = true;
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
@@ -401,12 +413,13 @@ uint8_t loadTrackByNo(int trackNo) {
     Serial.print(F("Playback-Error: "));
     Serial.println(result);
   } else {
-    Serial.println(F("Waiting for start mark..."));
-    musicPlayer.setVolume(3,3);
+    musicPlayer.setVolume(254,254);
     musicPlayer.pauseMusic();
+    musicPlayer.setVolume(4,4);
+    Serial.println(F("Waiting for start mark..."));
     
-    Serial.print(F("Sampling Rate:"));
-    Serial.println((getSamplerate() >> 1) * 2);
+//    Serial.print(F("Sampling Rate:"));
+//    Serial.println((getSamplerate() >> 1) * 2);
     enableResampler();
     
     while (musicPlayer.getState() != paused_playback) {}
@@ -430,6 +443,7 @@ void updateFpsDependencies(uint8_t fps) {
   impToSamplerateFactor = physicalSamplingrate / fps / shutterBlades / 2;
   deltaToFramesDivider = physicalSamplingrate / fps;
   impToAudioSecondsDivider = sollfps * shutterBlades * 2;  
+  /*
 //  Serial.print(F("FPS: "));
 //  Serial.println(sollfps);
 //  Serial.print(F("Phys. SR: "));
@@ -438,6 +452,7 @@ void updateFpsDependencies(uint8_t fps) {
 //  Serial.println(shutterBlades);
 //  Serial.print(F("Offset: "));
 //  Serial.println(startMarkOffset);
+*/
 }
 
 //------------------------------------------------------------------------------
@@ -488,6 +503,7 @@ void speedControlPID() {
       long desiredSampleCount = (totalImpCounter + syncOffsetImps) * impToSamplerateFactor;
       long delta = (actualSampleCount - desiredSampleCount);
 
+/*
 //   This puts nifty CSV to the Console, to graph PID results.  
 //      Serial.print(F("Current Sample: "));
 //      Serial.print(actualSampleCount);
@@ -499,6 +515,7 @@ void speedControlPID() {
 //      Serial.print(F(","));
 //      Serial.print(F(" Bitrate: "));
 //      Serial.println(getBitrate());
+*/
   
       total = total - readings[readIndex];  // subtract the last reading
       readings[readIndex] = delta;          // read from the sensor:
@@ -601,16 +618,6 @@ void i2cReceive (int howMany) {
    }  // end if have enough data
  }  // end of receive-ISR
 
-//------------------------------------------------------------------------------
-//void i2cRequest()
-//{
-//  // FYI: The Atmel AVR 8 bit microcontroller provides for clock stretching while using
-//  // the ISR for the data request.  This is, by extension, happening here, since this
-//  // callback is called from the ISR.
-//
-//  // Send the data.
-////  wireWriteData(ppmCorrection);
-//}
 
 //------------------------------------------------------------------------------
 void adjustSamplerate(signed long ppm2) {
