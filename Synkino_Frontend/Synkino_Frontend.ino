@@ -1280,6 +1280,7 @@ ISR(TIMER1_COMPA_vect) {                  // This gets called once every second
 //  if (myState != TRACK_LOADED) {
 
   if (millis() - lastActivityMillies > 600000) {
+    lastActivityMillies = millis();
     shutdownSelf();
   }
 
