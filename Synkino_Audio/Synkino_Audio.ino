@@ -282,9 +282,7 @@ void loop() {
 
     switch (i2cCommand) {
       case CMD_RESET: 
-        musicPlayer.stopTrack();
-        myState = IDLING;
-        //musicPlayer.vs_init();
+        resetAudio();
       break;
       case CMD_SET_SHUTTERBLADES: 
         shutterBlades = i2cParameter;
@@ -551,6 +549,7 @@ void speedControlPID() {
     }
     if (musicPlayer.isPlaying() == 0) { // and/or musicPlayer.getState() == 4
       tellFrontend(CMD_DONE_PLAYING, 0);
+      resetAudio();
     }
   }
 }
@@ -575,7 +574,7 @@ void waitForStartMark() {
   if (impCountToStartMark >= shutterBlades * 2 * startMarkOffset) {
     totalImpCounter = 0;
     myPID.SetMode(AUTOMATIC);
-    myPID.SetOutputLimits(-70000, 70000); // -400k - 300k scheint zu gehen. testen.
+    myPID.SetOutputLimits(-77000, 77000); // -400k - 300k scheint zu gehen. testen.
 
     attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
     
@@ -680,5 +679,11 @@ uint16_t getBitrate() {
 //------------------------------------------------------------------------------
 uint16_t getSamplerate() {
   return (musicPlayer.Mp3ReadWRAM(SCI_AUDATA));
+}
+
+void resetAudio() {
+  musicPlayer.stopTrack();
+  myState = IDLING;
+  //musicPlayer.vs_init();
 }
 
