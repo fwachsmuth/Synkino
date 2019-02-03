@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Fuses: e:FD h:D6 l:FF
+# Fuses: e:FD h:D6 l:F7
 /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/bin/avrdude \
 	-C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/avrdude.conf  \
 	-v -patmega328p \
@@ -8,7 +8,7 @@
 	-Pusb \
 	-e \
 	-Ulock:w:0x3F:m \
-	-Uefuse:w:0xFD:m -Uhfuse:w:0xD6:m -Ulfuse:w:0xFF:m
+	-Uefuse:w:0xFD:m -Uhfuse:w:0xD6:m -Ulfuse:w:0xF7:m
 #avrdude -Cavrdude.conf -v -patmega328p -cstk500v2 -Pusb -e -Ulock:w:0x3F:m -Uefuse:w:0xFD:m -Uhfuse:w:0xD6:m -Ulfuse:w:0xFF:m
 
 
