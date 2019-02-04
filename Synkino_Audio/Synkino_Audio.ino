@@ -5,11 +5,10 @@
  *  [ ] Chart the PID with the very low control possibilties (on Bauer t610)
  *  [ ] Teste STOP aus dem Play Menü raus
  *  [ ] Handle Loading Timeouts (F:576)
- *  [ ] Use F:AUDIO_EN to get clicks and pops under control
  *  [ ] Remove non-ogg sampling rate handling
  *  [ ] Forget the previously loaded title
  *  
- *  [ ] Show File Sampling Rate
+ *  [ ] Show File's Sampling Rate
  *  [ ] First encoder knob push isn't always read?
  *  
  *  [ ] Document diffs to vs1053_SdFat.h
@@ -532,6 +531,7 @@ void speedControlPID() {
   
       Input = average;
       adjustSamplerate((long) Output);
+//    Serial.println((long) Output);
     
       prevTotalImpCounter = totalImpCounter + syncOffsetImps;        
 
@@ -577,7 +577,13 @@ void waitForStartMark() {
   if (impCountToStartMark >= shutterBlades * 2 * startMarkOffset) {
     totalImpCounter = 0;
     myPID.SetMode(AUTOMATIC);
-    myPID.SetOutputLimits(-300000, 77000); // -400k - 300k scheint zu gehen. testen.
+    myPID.SetOutputLimits(-400000, 78000); // -400k - 300k scheint zu gehen. testen.
+    /*
+     * 44.1  kHz is changeable from -400000 (73/440 = 17%) to 78000 (508/440 = 114% up). 
+     * 22.05 kHz is changeable from -400000 (73/440 = 17%) to 600000 (1000/440 = 227% up)
+     * 40000 807
+     * 620000 1000
+     */
 
     attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
     
