@@ -688,6 +688,10 @@ void resetAudio() {
 
   sampleCountRegisterValid = true;
 
+  for (int i = 0; i<= numReadings; i++) {
+    readings[i] = 0;
+  }
+
 //  prevTotalImpCounter = 0;
 
   syncOffsetImps = 0;
@@ -695,6 +699,7 @@ void resetAudio() {
   total = 0;
   average = 0;
   Setpoint = 0;
+  readIndex = 0;
 
   //  sendCurrentAudioSec();
   
