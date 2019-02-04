@@ -484,12 +484,6 @@ void checkIfStillRunning() {
       myPID.SetMode(MANUAL);
       lastImpCounterHaltPos = totalImpCounter + syncOffsetImps;
       tellFrontend(CMD_PROJ_PAUSE, 0);
-
-  Serial.println(F(""));
-  for (int i = 0; i< numReadings; i++) {
-    Serial.println(readings[i]);
-  }
-      
       myState = PAUSED;
     }
   }
@@ -531,9 +525,6 @@ void speedControlPID() {
     
       if (readIndex >= numReadings) {       // if we're at the end of the array...
         readIndex = 0;                      // ...wrap around to the beginning:
-        Serial.print(total);
-        Serial.print(F("\t"));
-        Serial.println(actualSampleCount);
       }
     
       average = total / numReadings;        // calculate the average
@@ -702,9 +693,9 @@ void resetAudio() {
 
   sampleCountRegisterValid = true;
 
-//  for (int i = 0; i< numReadings; i++) {
-//    readings[i] = 0;
-//  }
+  for (int i = 0; i< numReadings; i++) {
+    readings[i] = 0;
+  }
 
 //  prevTotalImpCounter = 0;
 
