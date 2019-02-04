@@ -162,7 +162,6 @@ void setup() {
   Wire.setClock(400000L);
 
   Wire.onReceive(i2cReceive);
-//  Wire.onRequest(i2cRequest);
 
   // Initialize the SdCard
   //
@@ -437,9 +436,10 @@ void updateFpsDependencies(uint8_t fps) {
   pauseDetectedPeriod = (1000 / fps * 3);
   if (applyOggRules) {
     // physicalSamplingrate = 44100.00;            // This needs to go if we want to support other Bitrates
-    sampleCountRegisterValid = false;           // It takes 8 KiB until the Ogg Sample Counter is valid for sure
+    sampleCountRegisterValid = true;           // It takes 8 KiB until the Ogg Sample Counter is valid for sure
   } else {
-    physicalSamplingrate = 41343.75;
+//    physicalSamplingrate = 41343.75;
+    Serial.println(F("NEVER."));
   }
   impToSamplerateFactor = physicalSamplingrate / fps / shutterBlades / 2;
   deltaToFramesDivider = physicalSamplingrate / fps;
@@ -502,8 +502,8 @@ void speedControlPID() {
 // /*
 //   This puts nifty CSV to the Console, to graph PID results.  
 //      Serial.print(F("Current Sample:\t"));
-      Serial.print(actualSampleCount);
-      Serial.print(F(","));
+//      Serial.print(actualSampleCount);
+//      Serial.print(F(","));
       Serial.print(desiredSampleCount);
       Serial.print(F(","));
 //      Serial.print(F(","));
@@ -529,7 +529,7 @@ void speedControlPID() {
       adjustSamplerate((long) Output);
     
       prevTotalImpCounter = totalImpCounter + syncOffsetImps;        
-  
+
       myPID.Compute();  // 9.2ms Latenz here
   
       static unsigned int prevFrameOffset;
@@ -686,13 +686,17 @@ void resetAudio() {
   prevTotalImpCounter2 = 0;
   lastImpMillis = 0;
 
-//  sendCurrentAudioSec();
+  sampleCountRegisterValid = true;
 
 //  prevTotalImpCounter = 0;
+
   syncOffsetImps = 0;
   totalImpCounter = 0;
   total = 0;
   average = 0;
+  Setpoint = 0;
+
+  //  sendCurrentAudioSec();
   
   tellFrontend(CMD_RESETAUDIO, 0);
   delay(100); // wait to let the audio switch go down
