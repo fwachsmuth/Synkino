@@ -7,6 +7,10 @@
  *  [ ] Handle Loading Timeouts (F:576)
  *  [ ] Remove non-ogg sampling rate handling
  *  [ ] Forget the previously loaded title
+ *  Die Funktion "Manueller Start" startet die Wiedergabe nicht, wenn gar kein Startmarkensensor angeschlossen 
+ *  ist oder dieser noch weiß sieht
+ *  Bei einem eingestellten Startmark Offset von "0" (unrealistisch) wird die verstrichene 
+ *  Zeit des wiedergegebenen Titels unter Umständen nicht angezeigt
  *  
  *  [ ] Show File's Sampling Rate
  *  [ ] First encoder knob push isn't always read?
@@ -579,7 +583,7 @@ void waitForStartMark() {
     myPID.SetMode(AUTOMATIC);
     myPID.SetOutputLimits(-400000, 78000); // -400k - 300k scheint zu gehen. testen.
     /*
-     * 44.1  kHz is changeable from -400000 (73/440 = 17%) to 78000 (508/440 = 114% up). 
+     * 44.1  kHz is changeable from -400000 (73/440 = 17%) to 78000 (508/440 = 115% up). 
      * 22.05 kHz is changeable from -400000 (73/440 = 17%) to 600000 (1000/440 = 227% up)
      * 40000 807
      * 620000 1000
