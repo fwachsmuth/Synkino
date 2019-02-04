@@ -484,6 +484,12 @@ void checkIfStillRunning() {
       myPID.SetMode(MANUAL);
       lastImpCounterHaltPos = totalImpCounter + syncOffsetImps;
       tellFrontend(CMD_PROJ_PAUSE, 0);
+
+  Serial.println(F(""));
+  for (int i = 0; i< numReadings; i++) {
+    Serial.println(readings[i]);
+  }
+      
       myState = PAUSED;
     }
   }
@@ -492,14 +498,19 @@ void checkIfStillRunning() {
 //------------------------------------------------------------------------------
 void speedControlPID() {
   static unsigned long prevTotalImpCounter;
+  static unsigned long previousActualSampleCount;
   if (totalImpCounter + syncOffsetImps != prevTotalImpCounter) {
  
     if (sampleCountRegisterValid) {
       long actualSampleCount = Read32BitsFromSCI(0x1800) - sampleCountBaseLine;                 // 8.6ms Latenz here
+      previousActualSampleCount = actualSampleCount;
+      if (actualSampleCount < previousActualSampleCount) {
+        actualSampleCount = previousActualSampleCount;
+      }
       long desiredSampleCount = (totalImpCounter + syncOffsetImps) * impToSamplerateFactor;
       long delta = (actualSampleCount - desiredSampleCount);
 
-// /*
+/*
 //   This puts nifty CSV to the Console, to graph PID results.  
 //      Serial.print(F("Current Sample:\t"));
 //      Serial.print(actualSampleCount);
@@ -511,8 +522,8 @@ void speedControlPID() {
 //      Serial.print(F(","));
 //      Serial.print(F(" Bitrate: "));
 //      Serial.println(getBitrate());
-// */
-  
+*/
+ 
       total = total - readings[readIndex];  // subtract the last reading
       readings[readIndex] = delta;          // read from the sensor:
       total = total + readings[readIndex];  // add the reading to the total:
@@ -520,6 +531,9 @@ void speedControlPID() {
     
       if (readIndex >= numReadings) {       // if we're at the end of the array...
         readIndex = 0;                      // ...wrap around to the beginning:
+        Serial.print(total);
+        Serial.print(F("\t"));
+        Serial.println(actualSampleCount);
       }
     
       average = total / numReadings;        // calculate the average
@@ -688,9 +702,9 @@ void resetAudio() {
 
   sampleCountRegisterValid = true;
 
-  for (int i = 0; i<= numReadings; i++) {
-    readings[i] = 0;
-  }
+//  for (int i = 0; i< numReadings; i++) {
+//    readings[i] = 0;
+//  }
 
 //  prevTotalImpCounter = 0;
 
@@ -698,8 +712,11 @@ void resetAudio() {
   totalImpCounter = 0;
   total = 0;
   average = 0;
-  Setpoint = 0;
   readIndex = 0;
+
+  Input = 0;
+  Output = 0;
+  Setpoint = 0;
 
   //  sendCurrentAudioSec();
   
