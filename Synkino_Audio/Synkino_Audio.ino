@@ -69,7 +69,7 @@ const int myAddress = 0x08;        // Listen on the I2C Bus
 uint8_t sollfps = 18;        
 uint8_t shutterBlades = 2;         // Cutout count of the shutter blade
 uint8_t startMarkOffset = 52;      // Bauer t610, example value
-int16_t syncOffsetImps = 0;        
+int32_t syncOffsetImps = 0;        
 
 uint8_t applyOggRules = false;            // For Ogg files, the sample count register behaves different
                                           // This flag allows us to take of that
@@ -375,7 +375,7 @@ void tellFrontend(byte command, long parameter) {
   wireWriteData(command);  
   wireWriteData(parameter);  
   Wire.endTransmission();    // stop transmitting
-  // delay(1); // avoid bus congestions – is this safe?
+  delay(1); // avoid bus congestions – is this safe?
 }
 
 //------------------------------------------------------------------------------
@@ -499,19 +499,19 @@ void speedControlPID() {
       long desiredSampleCount = (totalImpCounter + syncOffsetImps) * impToSamplerateFactor;
       long delta = (actualSampleCount - desiredSampleCount);
 
-/*
+// /*
 //   This puts nifty CSV to the Console, to graph PID results.  
-//      Serial.print(F("Current Sample: "));
-//      Serial.print(actualSampleCount);
-//      Serial.print(F(" Desired: "));
-//      Serial.print(desiredSampleCount);
-//      Serial.print(F(" Delta: "));
+//      Serial.print(F("Current Sample:\t"));
+      Serial.print(actualSampleCount);
+      Serial.print(F(","));
+      Serial.print(desiredSampleCount);
+      Serial.print(F(","));
 //      Serial.print(F(","));
-//      Serial.print(delta);
+      Serial.println(delta);
 //      Serial.print(F(","));
 //      Serial.print(F(" Bitrate: "));
 //      Serial.println(getBitrate());
-*/
+// */
   
       total = total - readings[readIndex];  // subtract the last reading
       readings[readIndex] = delta;          // read from the sensor:
@@ -689,9 +689,10 @@ void resetAudio() {
 //  sendCurrentAudioSec();
 
 //  prevTotalImpCounter = 0;
-//  totalImpCounter = 0;
-//  total = 0;
-//  average = 0;
+  syncOffsetImps = 0;
+  totalImpCounter = 0;
+  total = 0;
+  average = 0;
   
   tellFrontend(CMD_RESETAUDIO, 0);
   delay(100); // wait to let the audio switch go down
