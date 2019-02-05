@@ -384,19 +384,20 @@ void tellFrontend(byte command, long parameter) {
 uint8_t loadTrackByNo(int trackNo) {
   char trackName[11]; 
   char trackNameFound[11];
-  uint16_t samplingRate;
   
   for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
     sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
-      // First, get the Smapling Rate from Byte 40 and 41
-      audioFile = sd.open(trackName);
-      if (audioFile) {
-        audioFile.seekSet(40);  // Byte 40 and 41 contain the sampling rate as little endian uint16_t.
-        samplingRate = audioFile.read() | (audioFile.read() << 8);
-        physicalSamplingrate = samplingRate;
-        audioFile.close();
-      }
+
+// First, get the Smapling Rate from Byte 40 and 41
+//      audioFile = sd.open(trackName);
+//      if (audioFile) {
+//        audioFile.seekSet(40);  // Byte 40 and 41 contain the sampling rate as little endian uint16_t.
+//        samplingRate = audioFile.read() | (audioFile.read() << 8);
+//        physicalSamplingrate = samplingRate;
+//        audioFile.close();
+//      }
+
       
       applyOggRules = true;
       updateFpsDependencies(fpsGuess);
@@ -420,14 +421,12 @@ uint8_t loadTrackByNo(int trackNo) {
     musicPlayer.pauseMusic();
     musicPlayer.setVolume(4,4);
     Serial.println(F("Waiting for start mark..."));
-    
-//    Serial.print(F("Sampling Rate from File:"));
-//    Serial.println((getSamplerate() >> 1) * 2);
     enableResampler();
 
     Serial.print(F("Sampling Rate from SCI: "));
     Serial.println(Read16BitsFromSCI(SCI_AUDATA) & 0xfffe); // Mask the Mono/Stereo Bit
-//    Serial.print(F("HDAT1 (4F67) :"));
+    
+//    Serial.print(F("HDAT1 (4F67) :"));                    // Would determine file type, see 9.6.9 in data sheet
 //    Serial.println(Read16BitsFromSCI(SCI_HDAT1), HEX);
     
     while (musicPlayer.getState() != paused_playback) {}
