@@ -1,25 +1,24 @@
 /**
  * 
- * To Do / Ideas:
- *  
+ *  Todos  
  *  [ ] Chart the PID with the very low control possibilties (on Bauer t610)
- *  [ ] Teste STOP aus dem Play Menü raus
  *  [ ] Handle Loading Timeouts (F:576)
  *  [ ] Remove non-ogg sampling rate handling
- *  [ ] Forget the previously loaded title
- *  Die Funktion "Manueller Start" startet die Wiedergabe nicht, wenn gar kein Startmarkensensor angeschlossen 
- *  ist oder dieser noch weiß sieht
- *  Bei einem eingestellten Startmark Offset von "0" (unrealistisch) wird die verstrichene 
- *  Zeit des wiedergegebenen Titels unter Umständen nicht angezeigt
+ *  [ ] Forget the previously loaded trackname
  *  
- *  [ ] Show File's Sampling Rate
+ *  Bugs:
+ *  [ ] Bug: Manual Start -> Frame Offset destroys time display
+ *  [ ] Manual Start isn't starting if no STartmark Sensor is connected or it still sees White
+ *  [ ] Start Mark Offset 0 sometimes freezes screen
  *  [ ] First encoder knob push isn't always read?
  *  
+ *  Features / Ideas
+ *  [ ] Show File's Sampling Rate
+ *  [ ] Show Projector Frquency
+ *  
+ *  Hygene
  *  [ ] Document diffs to vs1053_SdFat.h
  *  [ ] Try/Switch to 15 MHz xtal
- *  [ ] Show Projector Frquency
- *  [ ] Show File Sampling Rate
- *  [ ] Update https://github.com/nickgammon/I2C_Anything
  *  [ ] Cleanup state machine
  *  [ ] Remove PID options
  *  
@@ -79,7 +78,7 @@ uint8_t applyOggRules = false;            // For Ogg files, the sample count reg
 uint8_t sampleCountRegisterValid = true;  // It takes >8 KiB of data until the Ogg Samplecount Register
                                           // is valid. Disable the PID until then
   
-float physicalSamplingrate = 44100.00;    // 44100 * 15/16 – to compensate the 15/16 Bit Resampler, but only if NOT ogg!
+float physicalSamplingrate = 44444;           // 44100 * 15/16 – to compensate the 15/16 Bit Resampler, but only if NOT ogg!
 unsigned long sampleCountBaseLine = 0;    // The Ogg Sample Counter doesn't start at 0, probably due to Buffers.
                                           // This var stores the baseline right after having the file loaded.
 
@@ -388,16 +387,6 @@ uint8_t loadTrackByNo(int trackNo) {
   for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
     sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);  
     if (sd.exists(trackName)) {
-
-// First, get the Smapling Rate from Byte 40 and 41
-//      audioFile = sd.open(trackName);
-//      if (audioFile) {
-//        audioFile.seekSet(40);  // Byte 40 and 41 contain the sampling rate as little endian uint16_t.
-//        samplingRate = audioFile.read() | (audioFile.read() << 8);
-//        physicalSamplingrate = samplingRate;
-//        audioFile.close();
-//      }
-
       
       applyOggRules = true;
       updateFpsDependencies(fpsGuess);
@@ -423,8 +412,12 @@ uint8_t loadTrackByNo(int trackNo) {
     Serial.println(F("Waiting for start mark..."));
     enableResampler();
 
-    Serial.print(F("Sampling Rate from SCI: "));
-    Serial.println(Read16BitsFromSCI(SCI_AUDATA) & 0xfffe); // Mask the Mono/Stereo Bit
+//    Serial.print(F("Sampling Rate from SCI: "));
+//    Serial.println(Read16BitsFromSCI(SCI_AUDATA) & 0xfffe); // Mask the Mono/Stereo Bit
+    physicalSamplingrate = Read16BitsFromSCI(SCI_AUDATA) & 0xfffe;
+    updateFpsDependencies(sollfps);   // TODO: do it again, this time to adjust for sampling rates. Maybe betteer as a second function?
+    
+    Serial.println(physicalSamplingrate);
     
 //    Serial.print(F("HDAT1 (4F67) :"));                    // Would determine file type, see 9.6.9 in data sheet
 //    Serial.println(Read16BitsFromSCI(SCI_HDAT1), HEX);
@@ -439,7 +432,7 @@ uint8_t loadTrackByNo(int trackNo) {
 
 //------------------------------------------------------------------------------
 void updateFpsDependencies(uint8_t fps) {
-  sollfps = fps;                                // redundant?
+  sollfps = fps;                                // redundant? sollfps is global, fps is local. Horrible.
   pauseDetectedPeriod = (1000 / fps * 3);
   if (applyOggRules) {
     // physicalSamplingrate = 44100.00;            // This needs to go if we want to support other Bitrates
@@ -451,7 +444,8 @@ void updateFpsDependencies(uint8_t fps) {
   impToSamplerateFactor = physicalSamplingrate / fps / shutterBlades / 2;
   deltaToFramesDivider = physicalSamplingrate / fps;
   impToAudioSecondsDivider = sollfps * shutterBlades * 2;  
-  /*
+
+/*
 //  Serial.print(F("FPS: "));
 //  Serial.println(sollfps);
 //  Serial.print(F("Phys. SR: "));
@@ -576,6 +570,7 @@ void waitForStartMark() {
   static int impCountToStartMark = 0;
   static uint8_t previousImpDetectorState = LOW;
   static uint8_t impDetectorPinNow = 0;
+  uint32_t highestCorrectionLimit;
   impDetectorPinNow = digitalRead(impDetectorPin);
   if (impDetectorPinNow != previousImpDetectorState) {
     impCountToStartMark++;
@@ -585,12 +580,34 @@ void waitForStartMark() {
   if (impCountToStartMark >= shutterBlades * 2 * startMarkOffset) {
     totalImpCounter = 0;
     myPID.SetMode(AUTOMATIC);
-    myPID.SetOutputLimits(-400000, 78000); // -400k - 300k scheint zu gehen. testen.
+
+    Serial.print(F("File Sampling rate: "));
+    Serial.print(physicalSamplingrate);
+
+    if (physicalSamplingrate == 22050.00) {
+      highestCorrectionLimit = 600000;
+    } else if (physicalSamplingrate == 32000.00) {
+        highestCorrectionLimit = 285000;
+    } else if (physicalSamplingrate == 44100.00) {
+        highestCorrectionLimit = 77000;
+    } else if (physicalSamplingrate == 48000.00) {
+        highestCorrectionLimit = 29000;
+    } else {
+        highestCorrectionLimit = 77000; // lets assume 44.2 kHz here
+    }
+
+    Serial.print(F("Max: "));
+    Serial.println(highestCorrectionLimit);
+    
+    myPID.SetOutputLimits(-400000, highestCorrectionLimit); // -400k - 300k scheint zu gehen. testen.
     /*
-     * 44.1  kHz is changeable from -400000 (73/440 = 17%) to 78000 (508/440 = 115% up). 
+     * 48.0  kHz is changeable from -400000 (73/440 = 17%) to 29000 (472/440 = 107% up)
+     * 44.1  kHz is changeable from -400000 (73/440 = 17%) to 77000 (511/440 = 116% up) 
+     * 32.0  kHz is changeable from -400000 (73/440 = 17%) to 285000 (702/440 = 159% up) 
      * 22.05 kHz is changeable from -400000 (73/440 = 17%) to 600000 (1000/440 = 227% up)
-     * 40000 807
-     * 620000 1000
+     * 
+     * Approx Max Limit: (51200 - SR) * (47800 / SR) * 10 // clamped at 29000 & 600000
+     * 
      */
 
     attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
