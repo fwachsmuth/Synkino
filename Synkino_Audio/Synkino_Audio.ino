@@ -421,9 +421,14 @@ uint8_t loadTrackByNo(int trackNo) {
     musicPlayer.setVolume(4,4);
     Serial.println(F("Waiting for start mark..."));
     
-//    Serial.print(F("Sampling Rate:"));
+//    Serial.print(F("Sampling Rate from File:"));
 //    Serial.println((getSamplerate() >> 1) * 2);
     enableResampler();
+
+    Serial.print(F("Sampling Rate from SCI: "));
+    Serial.println(Read16BitsFromSCI(SCI_AUDATA) & 0xfffe); // Mask the Mono/Stereo Bit
+//    Serial.print(F("HDAT1 (4F67) :"));
+//    Serial.println(Read16BitsFromSCI(SCI_HDAT1), HEX);
     
     while (musicPlayer.getState() != paused_playback) {}
     clearSampleCounter();
@@ -663,6 +668,10 @@ void clearErrorCounter() {
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
 }
 
+unsigned int Read16BitsFromSCI(unsigned short addr) {
+  return (unsigned int)musicPlayer.Mp3ReadRegister(addr);
+}
+
 //------------------------------------------------------------------------------
 unsigned long Read32BitsFromSCI(unsigned short addr) {
   unsigned short msbV1, lsb, msbV2;
@@ -690,9 +699,9 @@ uint16_t getBitrate() {
 }
 
 //------------------------------------------------------------------------------
-uint16_t getSamplerate() {
-  return (musicPlayer.Mp3ReadWRAM(SCI_AUDATA));
-}
+//uint16_t getSamplerate() {
+//  return (musicPlayer.Mp3ReadWRAM(SCI_AUDATA));
+//}
 
 void resetAudio() {
   detachInterrupt(digitalPinToInterrupt(impDetectorISRPIN));
