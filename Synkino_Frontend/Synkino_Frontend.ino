@@ -537,7 +537,7 @@ void loop(void) {
               
           break;
         case MENU_ITEM_SELECT_TRACK:
-          myState = SELECT_TRACK;
+          myState = SELECT_TRACK; 
           break;
         case MENU_ITEM_POWER_OFF:
           shutdownSelf();
@@ -1069,14 +1069,16 @@ void handleFrameCorrectionOffsetInput() {
 uint16_t selectTrackScreen() {
   int parentMenuEncPosition;
   parentMenuEncPosition = myEnc.read();
-  int newEncPosition;
-  int oldPosition;
+  int newEncPosition = 0;
+  int oldPosition = 0;
   if (encType == 30) {
     myEnc.write(16002);
   } else {
     myEnc.write(16001);
   }
-  
+
+  waitForBttnRelease();
+    
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
     newEncPosition = myEnc.read();
     if (encType == 30) {
@@ -1124,6 +1126,7 @@ uint8_t u8x8_GetMenuEvent(u8x8_t *u8x8) {
   }
   static int oldEncPosition = 8000;
   int encoderBttn = digitalRead(ENCODER_BTN);
+
 
 //Serial.print(F("oldEnc "));
 //Serial.println(oldEncPosition);
@@ -1234,8 +1237,10 @@ void shutdownSelf() {
     u8g2.print("Good Bye.");
   } while ( u8g2.nextPage() );
   playGoodBye();
+  delay(20000);   // If still alive after 20 seconds, we are powered by serial port
   do {
-    delay(10000);
+    lastActivityMillies = millis();   // just to prevent the Power-Down ISR from firing when uC is powered by serial port
+    delay (20000);                    // Safe some Power
   } while(true);
 }
 
