@@ -2,7 +2,6 @@
  * 
  *  Todos  
  *  [ ] Chart the PID with the very low control possibilties (on Bauer t610)
- *  [ ] Remove non-ogg sampling rate handling
  *  
  *  Bugs:
  *  [ ] Bug: Manual Start -> Frame Offset destroys time display
@@ -71,8 +70,6 @@ uint8_t shutterBlades = 2;         // Cutout count of the shutter blade
 uint8_t startMarkOffset = 52;      // Bauer t610, example value
 int32_t syncOffsetImps = 0;        
 
-uint8_t applyOggRules = false;            // For Ogg files, the sample count register behaves different
-                                          // This flag allows us to take of that
 uint8_t sampleCountRegisterValid = true;  // It takes >8 KiB of data until the Ogg Samplecount Register
                                           // is valid. Disable the PID until then
   
@@ -387,7 +384,6 @@ uint8_t loadTrackByNo(int trackNo) {
     sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);   // Mkaing up some possible filenames
     if (sd.exists(trackName)) {
       fileExists = true;
-      applyOggRules = true;
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
       tellFrontend(CMD_FOUND_FPS, fpsGuess);
@@ -432,13 +428,7 @@ uint8_t loadTrackByNo(int trackNo) {
 void updateFpsDependencies(uint8_t fps) {
   sollfps = fps;                                // redundant? sollfps is global, fps is local. Horrible.
   pauseDetectedPeriod = (1000 / fps * 3);
-  if (applyOggRules) {
-    // physicalSamplingrate = 44100.00;            // This needs to go if we want to support other Bitrates
-    sampleCountRegisterValid = true;           // It takes 8 KiB until the Ogg Sample Counter is valid for sure
-  } else {
-//    physicalSamplingrate = 41343.75;
-    Serial.println(F("NEVER."));
-  }
+  sampleCountRegisterValid = true;           // It takes 8 KiB until the Ogg Sample Counter is valid for sure
   impToSamplerateFactor = physicalSamplingrate / fps / shutterBlades / 2;
   deltaToFramesDivider = physicalSamplingrate / fps;
   impToAudioSecondsDivider = sollfps * shutterBlades * 2;  
