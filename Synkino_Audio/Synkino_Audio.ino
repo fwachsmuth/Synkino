@@ -2,9 +2,7 @@
  * 
  *  Todos  
  *  [ ] Chart the PID with the very low control possibilties (on Bauer t610)
- *  [ ] Handle Loading Timeouts (F:576)
  *  [ ] Remove non-ogg sampling rate handling
- *  [ ] Forget the previously loaded trackname
  *  
  *  Bugs:
  *  [ ] Bug: Manual Start -> Frame Offset destroys time display
@@ -376,56 +374,56 @@ void tellFrontend(byte command, long parameter) {
   wireWriteData(command);  
   wireWriteData(parameter);  
   Wire.endTransmission();    // stop transmitting
-  delay(1); // avoid bus congestions – is this safe?
 }
 
 //------------------------------------------------------------------------------
 uint8_t loadTrackByNo(int trackNo) {
   char trackName[11]; 
   char trackNameFound[11];
+  bool fileExists = false; 
+  uint8_t result;
   
   for (uint8_t fpsGuess = 12; fpsGuess <= 25; fpsGuess++) {
-    sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);  
+    sprintf(trackName, "%03d-%d.ogg", trackNo, fpsGuess);   // Mkaing up some possible filenames
     if (sd.exists(trackName)) {
-      
+      fileExists = true;
       applyOggRules = true;
       updateFpsDependencies(fpsGuess);
       strcpy(trackNameFound, trackName);
       tellFrontend(CMD_FOUND_FPS, fpsGuess);
-//      Serial.print(F("File exists and has ")); 
-//      Serial.print(fpsGuess);
-//      Serial.print(F(" fps:"));
-//      Serial.println(trackName);
     }
   }
-  
-  uint8_t result;
-  result = musicPlayer.playMP3(trackNameFound);
-  if (result != 0) {
-    tellFrontend(CMD_SHOW_ERROR, result);
-    Serial.print(F("Playback-Error: "));
-    Serial.println(result);
-  } else {
-    musicPlayer.setVolume(254,254);
-    musicPlayer.pauseMusic();
-    musicPlayer.setVolume(4,4);
-    Serial.println(F("Waiting for start mark..."));
-    enableResampler();
 
-//    Serial.print(F("Sampling Rate from SCI: "));
-//    Serial.println(Read16BitsFromSCI(SCI_AUDATA) & 0xfffe); // Mask the Mono/Stereo Bit
-    physicalSamplingrate = Read16BitsFromSCI(SCI_AUDATA) & 0xfffe;
-    updateFpsDependencies(sollfps);   // TODO: do it again, this time to adjust for sampling rates. Maybe betteer as a second function?
-    
-    Serial.println(physicalSamplingrate);
-    
-//    Serial.print(F("HDAT1 (4F67) :"));                    // Would determine file type, see 9.6.9 in data sheet
-//    Serial.println(Read16BitsFromSCI(SCI_HDAT1), HEX);
-    
-    while (musicPlayer.getState() != paused_playback) {}
-    clearSampleCounter();
-    myState = TRACK_LOADED;
-    tellFrontend(CMD_TRACK_LOADED, 0);
+  if (!fileExists) {
+    Serial.println(F("404 - File not found."));
+    tellFrontend(CMD_SHOW_ERROR, 2);
+    result = 2;   // File not found
+  } else {
+    result = musicPlayer.playMP3(trackNameFound);
+    if (result != 0) {
+      tellFrontend(CMD_SHOW_ERROR, result);
+      Serial.print(F("Playback-Error: "));
+      Serial.println(result);
+    } else {
+      musicPlayer.setVolume(254,254);
+      musicPlayer.pauseMusic();
+      musicPlayer.setVolume(4,4);
+      Serial.println(F("Waiting for start mark..."));
+      enableResampler();
+  
+      physicalSamplingrate = Read16BitsFromSCI(SCI_AUDATA) & 0xfffe;  // Mask the Mono/Stereo Bit
+      updateFpsDependencies(sollfps);   // TODO: do it again, this time to adjust for sampling rates. Maybe betteer as a second function?
+      
+      Serial.println(physicalSamplingrate);
+      
+  //    Serial.print(F("HDAT1 (4F67) :"));                    // Would determine file type, see 9.6.9 in data sheet
+  //    Serial.println(Read16BitsFromSCI(SCI_HDAT1), HEX);
+      
+      while (musicPlayer.getState() != paused_playback) {}
+      clearSampleCounter();
+      myState = TRACK_LOADED;
+      tellFrontend(CMD_TRACK_LOADED, 0);
+    }
   }
   return result;
 }
