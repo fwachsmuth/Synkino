@@ -5,9 +5,8 @@
  *  
  *  Bugs:
  *  [ ] Bug: Manual Start -> Frame Offset destroys time display
- *  [ ] Manual Start isn't starting if no STartmark Sensor is connected or it still sees White
+ *  [ ] Manual Start isn't starting if no Startmark Sensor is connected or it still sees White
  *  [ ] Start Mark Offset 0 sometimes freezes screen
- *  [ ] First encoder knob push isn't always read?
  *  
  *  Features / Ideas
  *  [ ] Show File's Sampling Rate
@@ -554,15 +553,17 @@ void countISR() {
 
 //------------------------------------------------------------------------------
 void waitForStartMark() {
-  if (digitalRead(startMarkDetectorPin) == HIGH) return;  // There is still leader
+  if (digitalRead(startMarkDetectorPin) == HIGH) {
+    return;  // There is still leader
+  }
   static int impCountToStartMark = 0;
   static uint8_t previousImpDetectorState = LOW;
-  static uint8_t impDetectorPinNow = 0;
+  static uint8_t currentImpDetectorState = 0;
   uint32_t highestCorrectionLimit;
-  impDetectorPinNow = digitalRead(impDetectorPin);
-  if (impDetectorPinNow != previousImpDetectorState) {
+  currentImpDetectorState = digitalRead(impDetectorPin);
+  if (currentImpDetectorState != previousImpDetectorState) {
     impCountToStartMark++;
-    previousImpDetectorState = impDetectorPinNow;
+    previousImpDetectorState = currentImpDetectorState;
   }
   
   if (impCountToStartMark >= shutterBlades * 2 * startMarkOffset) {
