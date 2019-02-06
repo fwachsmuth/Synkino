@@ -4,6 +4,8 @@
  *  [ ] Chart the PID with the very low control possibilties (on Bauer t610)
  *  
  *  Bugs:
+ *  [ ] vs1053_SdFat.cpp:L1091 is responsible for the first 100ms to be heard (and the CMD_STARTMARK_HIT to be lost 
+ *      when startmark == 0. 50ms seems to behave better. No final fix though.
  *  [ ] Bug: Manual Start -> Frame Offset destroys time display
  *  [ ] Manual Start isn't starting if no Startmark Sensor is connected or it still sees White
  *  [ ] Start Mark Offset 0 sometimes freezes screen
@@ -103,6 +105,8 @@ volatile long i2cParameter;
 
 volatile unsigned long lastISRTime;
 unsigned long lastInSyncMillis;
+
+unsigned long tempMillis;
 
 extEEPROM myEEPROM(kbits_256, 1, 64);
 
@@ -325,27 +329,6 @@ void loop() {
 
 // State Machine ----------------------------------------------------------------
 //
-  switch (myState) {
-    case IDLING:
-    break;
-    case TRACK_LOADED:
-      waitForStartMark();
-    break;
-    case RESET:
-    break;
-    case PLAYING:
-//      calculateCorrPpm();
-      sendCurrentAudioSec();
-      speedControlPID();
-      checkIfStillRunning();
-    break;
-    case PAUSED:
-      waitForResumeToPlay(lastImpCounterHaltPos);
-    break;
-    default:
-    break;
-  }
-
   if (myState != debugPrevState) {
     switch (myState) {   // Debug output
       case 1: Serial.println(F("--- IDLING."));
@@ -361,7 +344,27 @@ void loop() {
     }
     debugPrevState = myState;
   }
-    
+
+  switch (myState) {
+    case IDLING:
+    break;
+    case TRACK_LOADED:
+      waitForStartMark();
+    break;
+    case RESET:
+    break;
+    case PLAYING:
+      sendCurrentAudioSec();
+      speedControlPID();
+      checkIfStillRunning();
+    break;
+    case PAUSED:
+      waitForResumeToPlay(lastImpCounterHaltPos);
+    break;
+    default:
+    break;
+  }
+   
 }
 
 //------------------------------------------------------------------------------
@@ -389,6 +392,8 @@ uint8_t loadTrackByNo(int trackNo) {
     }
   }
 
+  tempMillis = millis();
+
   if (!fileExists) {
     Serial.println(F("404 - File not found."));
     tellFrontend(CMD_SHOW_ERROR, 2);
@@ -400,12 +405,13 @@ uint8_t loadTrackByNo(int trackNo) {
       Serial.print(F("Playback-Error: "));
       Serial.println(result);
     } else {
-      musicPlayer.setVolume(254,254);
+
       musicPlayer.pauseMusic();
+      musicPlayer.setVolume(254,254);
       musicPlayer.setVolume(4,4);
       Serial.println(F("Waiting for start mark..."));
       enableResampler();
-  
+
       physicalSamplingrate = Read16BitsFromSCI(SCI_AUDATA) & 0xfffe;  // Mask the Mono/Stereo Bit
       updateFpsDependencies(sollfps);   // TODO: do it again, this time to adjust for sampling rates. Maybe betteer as a second function?
       
@@ -413,11 +419,14 @@ uint8_t loadTrackByNo(int trackNo) {
       
   //    Serial.print(F("HDAT1 (4F67) :"));                    // Would determine file type, see 9.6.9 in data sheet
   //    Serial.println(Read16BitsFromSCI(SCI_HDAT1), HEX);
-      
+
       while (musicPlayer.getState() != paused_playback) {}
+ 
       clearSampleCounter();
+
       myState = TRACK_LOADED;
       tellFrontend(CMD_TRACK_LOADED, 0);
+
     }
   }
   return result;
@@ -560,6 +569,11 @@ void waitForStartMark() {
   static uint8_t previousImpDetectorState = LOW;
   static uint8_t currentImpDetectorState = 0;
   uint32_t highestCorrectionLimit;
+
+  // Bug: startMarkOffset = 0 causes tellFrontend(CMD_STARTMARK_HIT, 0) never arrives at Frontend.
+  // It takes 300 ms in this functiono before the message makes it
+
+  // We are counting manually here, not using the ISR. Might make sense to change that. 
   currentImpDetectorState = digitalRead(impDetectorPin);
   if (currentImpDetectorState != previousImpDetectorState) {
     impCountToStartMark++;
@@ -567,27 +581,22 @@ void waitForStartMark() {
   }
   
   if (impCountToStartMark >= shutterBlades * 2 * startMarkOffset) {
+
     totalImpCounter = 0;
+
     myPID.SetMode(AUTOMATIC);
 
     Serial.print(F("File Sampling rate: "));
-    Serial.print(physicalSamplingrate);
+    Serial.println(physicalSamplingrate);
 
-    if (physicalSamplingrate == 22050.00) {
-      highestCorrectionLimit = 600000;
-    } else if (physicalSamplingrate == 32000.00) {
-        highestCorrectionLimit = 285000;
-    } else if (physicalSamplingrate == 44100.00) {
-        highestCorrectionLimit = 77000;
-    } else if (physicalSamplingrate == 48000.00) {
-        highestCorrectionLimit = 29000;
+    if (physicalSamplingrate == 22050.00)        { highestCorrectionLimit = 600000;
+    } else if (physicalSamplingrate == 32000.00) { highestCorrectionLimit = 285000;
+    } else if (physicalSamplingrate == 44100.00) { highestCorrectionLimit = 77000;
+    } else if (physicalSamplingrate == 48000.00) { highestCorrectionLimit = 29000;
     } else {
-        highestCorrectionLimit = 77000; // lets assume 44.2 kHz here
+      highestCorrectionLimit = 77000; // lets assume 44.2 kHz here
     }
 
-    Serial.print(F("Max: "));
-    Serial.println(highestCorrectionLimit);
-    
     myPID.SetOutputLimits(-400000, highestCorrectionLimit); // -400k - 300k scheint zu gehen. testen.
     /*
      * 48.0  kHz is changeable from -400000 (73/440 = 17%) to 29000 (472/440 = 107% up)
@@ -600,20 +609,18 @@ void waitForStartMark() {
      */
 
     attachInterrupt(digitalPinToInterrupt(impDetectorISRPIN), countISR, CHANGE);
-    
     musicPlayer.resumeMusic();
-    
+
     clearSampleCounter();
     sampleCountBaseLine = Read32BitsFromSCI(0x1800);        
-    
-    Serial.print(F("Sample Count Baseline: "));
-    Serial.println(sampleCountBaseLine);
-    Serial.println(F("--------"));
-    
+//    Serial.print(F("Sample Count Baseline: "));
+//    Serial.println(sampleCountBaseLine);
+
     tellFrontend(CMD_STARTMARK_HIT, 0);
     Serial.println(F("Los geht's!"));
 
     impCountToStartMark = 0;
+
     myState = PLAYING;
   }
 }
