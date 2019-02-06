@@ -1234,7 +1234,9 @@ void shutdownSelf() {
     u8g2.print("Good Bye.");
   } while ( u8g2.nextPage() );
   playGoodBye();
-  do {} while(true);
+  do {
+    delay(10000);
+  } while(true);
 }
 
 void showError(char * errorHeader, char * errorMsg1, char * errorMsg2) {
