@@ -1078,6 +1078,7 @@ uint16_t selectTrackScreen() {
   }
 
   waitForBttnRelease();
+  delay(30);  // very very poor an's debounce
     
   while (digitalRead(ENCODER_BTN) == 1) {     // adjust ### as long as button not pressed
     newEncPosition = myEnc.read();
@@ -1087,6 +1088,9 @@ uint16_t selectTrackScreen() {
       newEncPosition = (newEncPosition >> 2) % 1000;
     }
     if (newEncPosition != oldPosition) {
+      Serial.print(F("Enc: "));
+      Serial.println(newEncPosition);
+      
       oldPosition = newEncPosition;
       playClick();
       
