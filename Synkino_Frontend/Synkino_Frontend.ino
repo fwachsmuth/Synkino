@@ -293,7 +293,7 @@ int lastEncRead;
 byte   new_p = 8;
 byte   new_i = 3;
 byte   new_d = 1;
-byte   newStartmarkOffset = 0;
+byte   newStartmarkOffset = 1;
 int8_t newFrameCorrectionOffset = 0;
 int16_t newSyncOffset;
 
@@ -859,7 +859,7 @@ void handleShutterbladeInput() {
 }
 
 void handleStartmarkInput() {
-  u8g2.userInterfaceInputValue("Start Mark Offset:", "", &newStartmarkOffset, 0, 255, 3, " Frames");
+  u8g2.userInterfaceInputValue("Start Mark Offset:", "", &newStartmarkOffset, 1, 255, 3, " Frames");
   waitForBttnRelease();
 }
 
