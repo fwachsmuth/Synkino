@@ -5,10 +5,9 @@
  *  
  *  Bugs:
  *  [ ] vs1053_SdFat.cpp:L1091 is responsible for the first 100ms to be heard (and the CMD_STARTMARK_HIT to be lost 
- *      when startmark == 0. 50ms seems to behave better. No final fix though.
+ *      when startmark == 0. No final fix though. Not sure why SCI_DECODE_TIME needs to zeroed at all
  *  [ ] Bug: Manual Start -> Frame Offset destroys time display
  *  [ ] Manual Start isn't starting if no Startmark Sensor is connected or it still sees White
- *  [ ] Start Mark Offset 0 sometimes freezes screen
  *  
  *  Features / Ideas
  *  [ ] Show File's Sampling Rate
@@ -399,14 +398,27 @@ uint8_t loadTrackByNo(int trackNo) {
     tellFrontend(CMD_SHOW_ERROR, 2);
     result = 2;   // File not found
   } else {
+
     result = musicPlayer.playMP3(trackNameFound);
+
+/*
+ * Might fix the 100 ms Delay in Play:
+ *
+ * SS_DO_NOT_JUMP
+ * (in SCI_STATUS) is clear when the header information has been processed and jumps are
+ * allowed.
+*/
     if (result != 0) {
       tellFrontend(CMD_SHOW_ERROR, result);
       Serial.print(F("Playback-Error: "));
       Serial.println(result);
     } else {
 
-      musicPlayer.pauseMusic();
+    musicPlayer.pauseMusic();
+      
+//    musicPlayer.Mp3WriteRegister(SCI_DECODE_TIME, 0); // Reset the Decode and bitrate from previous play back
+//    delay(100);
+
       musicPlayer.setVolume(254,254);
       musicPlayer.setVolume(4,4);
       Serial.println(F("Waiting for start mark..."));
@@ -414,6 +426,7 @@ uint8_t loadTrackByNo(int trackNo) {
 
       physicalSamplingrate = Read16BitsFromSCI(SCI_AUDATA) & 0xfffe;  // Mask the Mono/Stereo Bit
       updateFpsDependencies(sollfps);   // TODO: do it again, this time to adjust for sampling rates. Maybe betteer as a second function?
+
       
       Serial.println(physicalSamplingrate);
       
