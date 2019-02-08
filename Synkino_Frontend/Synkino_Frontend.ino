@@ -418,7 +418,7 @@ void loop(void) {
         fps = i2cParameter;
       break; 
       case CMD_CURRENT_AUDIOSEC:
-        startMarkHit = 1;+
+        startMarkHit = 1;
         hours   = numberOfHours(i2cParameter);
         minutes = numberOfMinutes(i2cParameter);
         seconds = numberOfSeconds(i2cParameter);
