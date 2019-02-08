@@ -1,7 +1,6 @@
 /**
  * 
  *  Todos  
- *  [ ] Chart the PID with the very low control possibilties (on Bauer t610)
  *  
  *  Bugs:
  *  [ ] vs1053_SdFat.cpp:L1091 is responsible for the first 100ms to be heard (and the CMD_STARTMARK_HIT to be lost 
@@ -517,8 +516,8 @@ void speedControlPID() {
 /*
 //   This puts nifty CSV to the Console, to graph PID results.  
 //      Serial.print(F("Current Sample:\t"));
-//      Serial.print(actualSampleCount);
-//      Serial.print(F(","));
+      Serial.print(actualSampleCount);
+      Serial.print(F(","));
       Serial.print(desiredSampleCount);
       Serial.print(F(","));
 //      Serial.print(F(","));
@@ -526,7 +525,7 @@ void speedControlPID() {
 //      Serial.print(F(","));
 //      Serial.print(F(" Bitrate: "));
 //      Serial.println(getBitrate());
-*/
+// */
  
       total = total - readings[readIndex];  // subtract the last reading
       readings[readIndex] = delta;          // read from the sensor:
