@@ -11,6 +11,10 @@
  *  Features / Ideas
  *  [ ] Show File's Sampling Rate
  *  [ ] Show Projector Frquency
+ *  [ ] make lower correction limit SR-dependant (or configurable)
+ *  [ ] Optimize pause handling: Wait for AUDATA to be updated and try pause mode from patches
+ *  [ ] use positionMsec and allow ffwd/rew
+ *  [ ] Evaluate Speed Shifter (0.68-1.64x)
  *  
  *  Hygene
  *  [ ] Document diffs to vs1053_SdFat.h
