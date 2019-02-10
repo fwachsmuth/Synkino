@@ -1,6 +1,6 @@
 
 
-const char *uCVersion = "Synkino v1.1\n";
+const char *uCVersion = "Synkino v1.2\n";
 
 /*
  *  This is the frontend part of Synkino
