@@ -1,0 +1,12 @@
+(sym_lib_table
+  (lib (name "Synkino-rescue")(type "Legacy")(uri "${KIPRJMOD}/Synkino-rescue.lib")(options "")(descr ""))
+  (lib (name "Synkino")(type "Legacy")(uri "${KIPRJMOD}/lib_sch/Synkino.lib")(options "")(descr ""))
+  (lib (name "max4741")(type "Legacy")(uri "${KIPRJMOD}/lib_sch/max4741.lib")(options "")(descr ""))
+  (lib (name "74hc4050")(type "Legacy")(uri "${KIPRJMOD}/lib_sch/74hc4050.lib")(options "")(descr ""))
+  (lib (name "spioled128x64")(type "Legacy")(uri "${KIPRJMOD}/lib_sch/spioled128x64.lib")(options "")(descr ""))
+  (lib (name "icsp")(type "Legacy")(uri "${KIPRJMOD}/lib_sch/icsp.lib")(options "")(descr ""))
+  (lib (name "qre1113")(type "Legacy")(uri "${KIPRJMOD}/lib_sch/qre1113.lib")(options "")(descr ""))
+  (lib (name "irf7319")(type "Legacy")(uri "${KIPRJMOD}/lib_sch/irf7319.lib")(options "")(descr ""))
+  (lib (name "IRLML2244")(type "Legacy")(uri "${KIPRJMOD}/lib_sch/IRLML2244.lib")(options "")(descr ""))
+  (lib (name "bzx84-z")(type "Legacy")(uri "${KIPRJMOD}/lib_sch/bzx84-z.lib")(options "")(descr ""))
+)
