@@ -13,6 +13,7 @@ raspi/lsyncd.conf
 *~
 _autosave-*
 *.tmp
+*.lck
 *-save.pro
 *-save.kicad_pcb
 fp-info-cache
