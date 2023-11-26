@@ -13643,7 +13643,7 @@
     (property "Value" "3V3" (at 129.54 67.31 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm" (at 129.54 74.93 0)
+    (property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm" (at 129.54 74.93 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "" (at 129.54 74.93 0)
