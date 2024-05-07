@@ -456,8 +456,13 @@
     }
   },
   "libraries": {
-    "pinned_footprint_libs": [],
-    "pinned_symbol_libs": []
+    "pinned_footprint_libs": [
+      "easyEDA",
+      "Peacemans Teile"
+    ],
+    "pinned_symbol_libs": [
+      "easyEDA"
+    ]
   },
   "meta": {
     "filename": "Synkino.kicad_pro",
@@ -645,7 +650,7 @@
   "sheets": [
     [
       "9d4924d9-a2ad-42f2-a951-8d7a9cc74761",
-      ""
+      "Root"
     ]
   ],
   "text_variables": {}

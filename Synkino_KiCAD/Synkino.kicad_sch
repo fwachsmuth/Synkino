@@ -7158,7 +7158,7 @@
 					(radius 0.508)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -7170,7 +7170,7 @@
 					)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -7182,7 +7182,7 @@
 					)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -7193,7 +7193,7 @@
 					(radius 0.508)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -31390,6 +31390,7 @@
 	(symbol
 		(lib_id "Synkino:SW_Push")
 		(at 118.11 214.63 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -31397,7 +31398,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aa06719")
 		(property "Reference" "SW3"
-			(at 119.38 212.09 0)
+			(at 122.682 211.582 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31413,7 +31414,7 @@
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:SW-SMD_4P-L5.1-W5.1-P3.70-LS6.5-TL-2"
+		(property "Footprint" "easyEDA:SW-SMD_4P-L5.1-W5.1-P3.70-LS6.5-TL-2"
 			(at 118.11 209.55 0)
 			(effects
 				(font
@@ -31432,24 +31433,6 @@
 			)
 		)
 		(property "Description" ""
-			(at 118.11 214.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Inventory" "L"
-			(at 118.11 214.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C318884"
 			(at 118.11 214.63 0)
 			(effects
 				(font
