@@ -15944,6 +15944,17 @@
 		)
 		(uuid "58f74deb-775e-47ac-b917-bc4571ca96f6")
 	)
+	(text "Potential Todos:\n- Exchange MAX4741 with TS5A23159, ADG849 or NLAS4051 (to be tested)\n- Exchange AP7312-1833W6-7 with separate 3v3/1v8 LDOs\n- Find SMT 3.5/2.5 mm jacks\n- Find a more robust connector than Dupont to the Eyes\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor iNputs, with optional inverters from the 74HC14\n- Creat e a PCB lid"
+		(exclude_from_sim no)
+		(at 315.468 302.26 0)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify left)
+		)
+		(uuid "7d13e58b-16be-466f-938c-f2990c3f006a")
+	)
 	(text "6-18v\n"
 		(exclude_from_sim no)
 		(at 81.915 5.08 0)
