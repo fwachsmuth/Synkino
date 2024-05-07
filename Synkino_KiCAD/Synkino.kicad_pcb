@@ -329,7 +329,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9d65a6")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -561,7 +563,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9f43c4")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -793,7 +797,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9f4543")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -1025,7 +1031,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9cbcec")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -1257,7 +1265,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9e2637")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -1489,7 +1499,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9e2e2a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -1721,7 +1733,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9d65c0")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -1953,7 +1967,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9d65c6")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -2185,7 +2201,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9e30f5")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -2417,7 +2435,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a81f97a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -2649,7 +2669,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a81fa0c")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -2881,7 +2903,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a81fa5f")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -3113,7 +3137,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "CP_*")
 		(path "/00000000-0000-0000-0000-00005a9b4dc9")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -3576,7 +3602,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a824c83")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -3808,7 +3836,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a8223ea")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -4040,7 +4070,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9b4db1")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -4272,7 +4304,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9a9f64")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -4504,7 +4538,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a824d0c")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -4736,7 +4772,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9a9ef4")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -4968,7 +5006,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9b4db7")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -5200,7 +5240,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9a9e6b")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -5432,7 +5474,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9b4dbd")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -5664,7 +5708,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "CP_*")
 		(path "/00000000-0000-0000-0000-00005a9b536a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -6127,7 +6173,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9abd6f")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -6359,7 +6407,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9acf5d")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -6591,7 +6641,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9b5358")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -6823,7 +6875,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9b535e")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -7055,7 +7109,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a7f5152")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -7287,7 +7343,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9b5364")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -7519,7 +7577,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a7f5112")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -7751,7 +7811,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "CP_*")
 		(path "/00000000-0000-0000-0000-00005a9b4831")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -8214,7 +8276,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9b4366")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -8446,7 +8510,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9b4475")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -8678,7 +8744,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9b4516")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -8910,7 +8978,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "CP_*")
 		(path "/00000000-0000-0000-0000-00005a9abfff")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -9373,7 +9443,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "CP_*")
 		(path "/00000000-0000-0000-0000-00005a9acf69")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -9836,7 +9908,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9b45b7")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -10068,7 +10142,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a821d38")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -10300,7 +10376,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9c5328")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -10532,7 +10610,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "CP_*")
 		(path "/00000000-0000-0000-0000-00005a9bd1cd")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -10995,7 +11075,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005aa1bf58")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -11227,7 +11309,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005aa1bf5e")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -11459,7 +11543,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005a9c9c74")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -11691,7 +11777,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "LED*")
 		(path "/00000000-0000-0000-0000-00005a7f5edf")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -11944,6 +12032,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa59f39")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -12238,7 +12327,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "microSD*Card*Receptable*")
 		(path "/00000000-0000-0000-0000-00005a9babf0")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -12532,6 +12623,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9e386b")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -12855,7 +12947,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "SOT?23*")
 		(path "/00000000-0000-0000-0000-00005a7f50d7")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -13129,7 +13223,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9b4b31")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -13361,7 +13457,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9e21d5")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -13593,7 +13691,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9b4cd4")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -13825,7 +13925,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9b45a7")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -14057,7 +14159,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9b3dd0")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -14289,7 +14393,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9e2416")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -14521,7 +14627,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9d65e3")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -14753,7 +14861,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9c4d4b")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -14985,7 +15095,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9e3688")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -15217,7 +15329,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9e3334")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -15449,7 +15563,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9c4e89")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -15681,7 +15797,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9ce1ea")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -15913,7 +16031,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a8224ae")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -16145,7 +16265,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9a9ddb")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -16377,7 +16499,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a82494c")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -16609,7 +16733,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9a9d60")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -16841,7 +16967,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9a9c4a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -17073,7 +17201,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a7f5192")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -17305,7 +17435,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a823816")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -17537,7 +17669,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9abc5d")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -17769,7 +17903,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9acf57")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -18001,7 +18137,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a7f51ce")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -18233,7 +18371,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9b252a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -18465,7 +18605,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9afcdb")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -18697,7 +18839,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a7f520b")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -18929,7 +19073,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9b2680")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -19161,7 +19307,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a861434")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -19393,7 +19541,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9abed0")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -19625,7 +19775,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9acf63")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -19857,7 +20009,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a7f5e91")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -20090,7 +20244,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8e6a1")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -20323,7 +20479,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8ff06")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -20556,7 +20714,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9dee5a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -20789,7 +20949,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9dee60")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -21021,7 +21183,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9d1c9b")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -21253,7 +21417,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9d1e44")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -21485,7 +21651,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005a9c7bea")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -21729,6 +21897,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9e859d")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -22237,6 +22406,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9d794f")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -22655,6 +22825,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa06719")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -22980,7 +23151,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "TQFP*7x7mm*Pitch0.8mm*")
 		(path "/00000000-0000-0000-0000-00005a9d6594")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -23563,6 +23736,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9ae1d1")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -23961,6 +24135,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9c2204")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -24323,6 +24498,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a81f8c0")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -24509,6 +24685,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a7f5048")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -24869,6 +25046,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a82169a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -25843,6 +26021,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9af4cf")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -26165,6 +26344,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa8e69b")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -26373,7 +26553,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "TQFP*7x7mm*Pitch0.8mm*")
 		(path "/00000000-0000-0000-0000-00005a9c0e54")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -26954,6 +27136,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9dee54")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -27164,6 +27347,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9cbcdc")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -27496,6 +27680,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9c820d")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -27848,6 +28033,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9c7c58")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -28176,7 +28362,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Crystal*")
 		(path "/00000000-0000-0000-0000-00005a9d65b4")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -28304,7 +28492,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Crystal*")
 		(path "/00000000-0000-0000-0000-00005a8248bb")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -28432,7 +28622,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Crystal*")
 		(path "/00000000-0000-0000-0000-00005aa1bf52")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -28563,6 +28755,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9f7e6f")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
@@ -28756,6 +28949,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9f6f7f")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
@@ -28949,6 +29143,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9f6e72")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
@@ -29142,6 +29337,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9f6d74")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
@@ -29335,6 +29531,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9fb10a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
@@ -29528,6 +29725,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa1a58c")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
@@ -29721,6 +29919,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa153d0")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
@@ -29856,6 +30055,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa12548")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
@@ -29991,6 +30191,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa123e1")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
@@ -30126,6 +30327,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa11f6b")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_circle
@@ -30262,6 +30464,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005a9c5a4d")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -30613,7 +30816,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_??x*mm* Connector*:*1x??x*mm* Pin?Header?Straight?1X* Pin?Header?Angled?1X*")
 		(path "/00000000-0000-0000-0000-00005aa8e6b4")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -30912,7 +31117,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_??x*mm* Connector*:*1x??x*mm* Pin?Header?Straight?1X* Pin?Header?Angled?1X*")
 		(path "/00000000-0000-0000-0000-00005aa8ff18")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -31211,7 +31418,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_??x*mm* Connector*:*1x??x*mm* Pin?Header?Straight?1X* Pin?Header?Angled?1X*")
 		(path "/00000000-0000-0000-0000-00005aa8bd44")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -31510,7 +31719,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_??x*mm* Connector*:*1x??x*mm* Pin?Header?Straight?1X* Pin?Header?Angled?1X*")
 		(path "/00000000-0000-0000-0000-00005aa8fef3")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -31809,7 +32020,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_??x*mm* Connector*:*1x??x*mm* Pin?Header?Straight?1X* Pin?Header?Angled?1X*")
 		(path "/00000000-0000-0000-0000-00005aa8f2d8")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -32108,7 +32321,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_??x*mm* Connector*:*1x??x*mm* Pin?Header?Straight?1X* Pin?Header?Angled?1X*")
 		(path "/00000000-0000-0000-0000-00005aa8ff62")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -32407,7 +32622,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_??x*mm* Connector*:*1x??x*mm* Pin?Header?Straight?1X* Pin?Header?Angled?1X*")
 		(path "/00000000-0000-0000-0000-00005aa8f2b3")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -32706,7 +32923,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_??x*mm* Connector*:*1x??x*mm* Pin?Header?Straight?1X* Pin?Header?Angled?1X*")
 		(path "/00000000-0000-0000-0000-00005aa8f922")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -33005,7 +33224,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8e6a7")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -33238,7 +33459,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8ff0c")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -33471,7 +33694,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8fee1")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -33704,7 +33929,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8fee7")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -33937,7 +34164,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8f2c6")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -34170,7 +34399,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8ff50")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -34403,7 +34634,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8f2cc")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -34636,7 +34869,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8ff56")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -34869,7 +35104,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8f2a1")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -35102,7 +35339,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8f2a7")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -35335,7 +35574,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8f910")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -35568,7 +35809,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa8f916")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -35799,6 +36042,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa8ff00")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -36006,6 +36250,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa8fedb")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -36213,6 +36458,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa8f2c0")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -36420,6 +36666,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa8ff4a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -36627,6 +36874,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa8f29b")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -36834,6 +37082,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa8f90a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -37042,7 +37291,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "LED*")
 		(path "/00000000-0000-0000-0000-00005aa9e930")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -37296,6 +37547,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa9bd7a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -37514,7 +37766,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005aa9d705")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -37746,6 +38000,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aa9a1c0")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -37965,6 +38220,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aac02f1")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
@@ -38171,6 +38427,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aabf196")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
@@ -38377,6 +38634,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aabeb19")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
@@ -38570,6 +38828,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005aac02f1")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
@@ -38762,7 +39021,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "SOT?23*")
 		(path "/00000000-0000-0000-0000-00005acbf225")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -39036,7 +39297,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005acc1784")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -39266,7 +39529,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "*Buzzer*")
 		(path "/00000000-0000-0000-0000-00005af4b1d2")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -39462,7 +39727,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005af4cc5c")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -39694,7 +39961,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "SOIC*")
 		(path "/00000000-0000-0000-0000-00005af5587b")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -40019,6 +40288,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005af78798")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
@@ -40211,7 +40481,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "R_* R_*")
 		(path "/00000000-0000-0000-0000-00005af77668")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -40444,6 +40716,7 @@
 			)
 		)
 		(path "/00000000-0000-0000-0000-00005af9f7ca")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(fp_line
@@ -41276,6 +41549,7 @@
 			)
 		)
 		(path "/201122a8-80f5-4176-98e6-479320f9894f")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -42140,7 +42414,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "SOT?23*")
 		(path "/5b6afb21-d30d-4e38-ad4b-655a85ecff86")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -43998,7 +44274,9 @@
 				(justify mirror)
 			)
 		)
+		(property ki_fp_filters "Connector*:*_??x*mm* Connector*:*1x??x*mm* Pin?Header?Straight?1X* Pin?Header?Angled?1X*")
 		(path "/00000000-0000-0000-0000-00005aa472fb")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -44263,7 +44541,9 @@
 				)
 			)
 		)
+		(property ki_fp_filters "SolderJumper*Open*")
 		(path "/9fdb5e86-32ac-4d65-bda8-4db44b76c98a")
+		(sheetname "Root")
 		(sheetfile "Synkino.kicad_sch")
 		(attr exclude_from_pos_files)
 		(net_tie_pad_groups "1, 2")
