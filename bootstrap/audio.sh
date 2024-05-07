@@ -3,8 +3,8 @@
 # Copied from "Burn Bootloader"
 
 # writing Fuses (1st attempt)
-/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/bin/avrdude \
--C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/avrdude.conf \
+/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude \
+-C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf \
 -v -patmega328p \
 -cstk500v2 \
 -Pusb -e \
@@ -14,8 +14,8 @@
 -Ulfuse:w:0xF7:m 
 
 # # writing Optiboot
-# /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/bin/avrdude \
-# -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/avrdude.conf \
+# /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude \
+# -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf \
 # -v -patmega328p \
 # -cstk500v2 \
 # -Pusb \
@@ -23,18 +23,18 @@
 # -Ulock:w:0x0F:m
 
 # Burn Audio Code & bootloader
-/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/bin/avrdude \
-	-C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/avrdude.conf \
+/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude \
+	-C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf \
 	-v \
 	-patmega328p \
 	-cstk500v2 \
 	-Pusb \
-	-Uflash:w:/Users/peaceman/code/Arduino/Synkino/bootstrap/Synkino_Audio_1.1.hex:i
+	-Uflash:w:/Users/peaceman/code/Synkino/bootstrap/Synkino_Audio_1.1.hex:i
 
 
 # # writing Fuses (2nd attempt)
-# /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/bin/avrdude \
-# -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/avrdude.conf \
+# /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude \
+# -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf \
 # -v -patmega328p \
 # -cstk500v2 \
 # -Pusb -e \
@@ -44,8 +44,8 @@
 # -Ulfuse:w:0xF7:m
 #
 # # writing Optiboot again
-# /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/bin/avrdude \
-# -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino9/etc/avrdude.conf \
+# /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude \
+# -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf \
 # -v -patmega328p \
 # -cstk500v2 \
 # -Pusb \
