@@ -16621,7 +16621,7 @@
 		)
 		(uuid "58f74deb-775e-47ac-b917-bc4571ca96f6")
 	)
-	(text "Potential Todos:\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor Inputs, with optional inverters from the 74HC14\n- Create a PCB lid\n- Move a 5mm Cap under the display"
+	(text "Potential Todos:\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor Inputs, with optional inverters from the 74HC14\n- Create a PCB lid\n"
 		(exclude_from_sim no)
 		(at 315.468 302.26 0)
 		(effects
@@ -21519,7 +21519,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Peacemans_Footprints:CRYSTAL_7A"
+		(property "Footprint" "Crystal:Crystal_SMD_5032-2Pin_5.0x3.2mm"
 			(at 173.99 105.41 0)
 			(effects
 				(font
@@ -29415,7 +29415,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Peacemans_Footprints:CRYSTAL_7A"
+		(property "Footprint" "Crystal:Crystal_SMD_5032-2Pin_5.0x3.2mm"
 			(at 80.01 190.5 0)
 			(effects
 				(font
@@ -32666,7 +32666,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Peacemans_Footprints:CRYSTAL_7A"
+		(property "Footprint" "Crystal:Crystal_SMD_5032-2Pin_5.0x3.2mm"
 			(at 347.98 115.57 0)
 			(effects
 				(font
@@ -37603,6 +37603,158 @@
 		)
 	)
 	(symbol
+		(lib_id "Synkino:CP")
+		(at 137.16 172.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2866738b-47ce-4a7d-8df0-cdf3e1cf3df2")
+		(property "Reference" "C44"
+			(at 137.795 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10u"
+			(at 137.795 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:CP_Elec_4x5.8"
+			(at 138.1252 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 137.16 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Inventory" "E"
+			(at 137.16 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C249817"
+			(at 137.16 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fe039379-b1be-49f9-b6d1-f50dc6bc0ba4")
+		)
+		(pin "2"
+			(uuid "4c00462c-a7e8-446c-a816-b08f6dd47df4")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "C44")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Synkino:+5V")
+		(at 137.16 168.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "37e6dab4-45e7-4a84-9f11-a1f5a2cb7b39")
+		(property "Reference" "#PWR079"
+			(at 137.16 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 137.16 165.354 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 137.16 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 137.16 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "898457d5-ec82-44fc-b939-9830a0a4c9c6")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "#PWR079")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Diode:BAV99")
 		(at 88.9 53.975 180)
 		(unit 1)
@@ -37685,6 +37837,71 @@
 			(project "Synkino"
 				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
 					(reference "D4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Synkino:GNDD")
+		(at 137.16 176.53 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9647021a-fdb3-4882-9d15-796f118df503")
+		(property "Reference" "#PWR067"
+			(at 137.16 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GNDD"
+			(at 137.16 179.705 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 137.16 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 137.16 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 137.16 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "417daadb-65c2-4321-934b-71d623f5a0ec")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "#PWR067")
 					(unit 1)
 				)
 			)
