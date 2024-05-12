@@ -8413,208 +8413,28 @@
 				)
 			)
 		)
-		(symbol "easyEDA:TS-1187 (fixed)"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "SW"
-				(at 2.286 0.762 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "TS-1187"
-				(at 5.08 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "easyeda2kicad:SW-SMD_4P-L5.1-W5.1-P3.70-LS6.5-TL-2"
-				(at -1.27 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://lcsc.com/product-detail/Tactile-Switches_XKB-Enterprise-TS-1187-B-A-A_C318884.html"
-				(at -1.27 -7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at -1.524 2.54 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "LCSC Part" "C318884"
-				(at -1.27 -10.16 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "TS-1187 (fixed)_0_1"
-				(circle
-					(center -1.905 2.54)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.54 3.81) (xy 2.54 3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 3.81) (xy 0 0.508)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 1.905 2.54)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin unspecified line
-					(at 5.08 2.54 180)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "TS-1187 (fixed)_1_1"
-				(pin unspecified line
-					(at -5.08 2.54 0)
-					(length 2.54)
-					(name ""
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -5.08 2.54 0)
-					(length 2.54) hide
-					(name "B"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 5.08 2.54 180)
-					(length 2.54) hide
-					(name "D"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "easyeda2kicad:B3F-5000_sm"
-			(pin_numbers hide)
+		(symbol "easyEDA:TS-1094S-A14B2-D2"
 			(pin_names hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "SW"
-				(at -1.27 3.81 0)
+			(property "Reference" "U"
+				(at 3.81 7.62 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Value" "B3F-5000_sm"
-				(at -1.27 -2.54 0)
+			(property "Value" "TS-1094S-A14B2-D2"
+				(at 0 -8.89 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Footprint" "easyeda2kicad:KEY-TH_4P-L12.0-W12.0-P5.0-LS12.5-EH"
+			(property "Footprint" "easyEDA:KEY-SMD_4P-L12.0-W12.0-P5.00-LS15.2"
 				(at 0 -10.16 0)
 				(effects
 					(font
@@ -8623,8 +8443,8 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://lcsc.com/product-detail/Others_Omron-Electronics_B3F-5000_Omron-Electronics-B3F-5000_C93156.html"
-				(at 0 -12.7 0)
+			(property "Datasheet" "https://datasheet.lcsc.com/lcsc/2311101759_Yuandi-TS-1094S-A14B2-D2_C5377648.pdf"
+				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -8641,8 +8461,8 @@
 					(hide yes)
 				)
 			)
-			(property "LCSC Part" "C93156"
-				(at 0 -15.24 0)
+			(property "LCSC Part" "C5377648"
+				(at 0 -12.7 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -8650,21 +8470,10 @@
 					(hide yes)
 				)
 			)
-			(symbol "B3F-5000_sm_0_1"
-				(circle
-					(center -1.02 0)
-					(radius 0.25)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
+			(symbol "TS-1094S-A14B2-D2_0_1"
 				(polyline
 					(pts
-						(xy -1.27 1.27) (xy 1.27 1.27)
+						(xy 0 -2.54) (xy 0 -1.27)
 					)
 					(stroke
 						(width 0)
@@ -8676,7 +8485,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 1.27) (xy 0 -1.27)
+						(xy 0 2.54) (xy 0 1.27)
 					)
 					(stroke
 						(width 0)
@@ -8687,8 +8496,19 @@
 					)
 				)
 				(circle
-					(center 1.02 0)
-					(radius 0.25)
+					(center 0 1.27)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0.254 1.27)
+					(radius 0.0001)
 					(stroke
 						(width 0)
 						(type default)
@@ -8698,11 +8518,46 @@
 					)
 				)
 			)
-			(symbol "B3F-5000_sm_1_1"
-				(pin no_connect line
-					(at 3.81 0 180)
-					(length 2.54) hide
-					(name "~"
+			(symbol "TS-1094S-A14B2-D2_1_1"
+				(circle
+					(center 0 -1.27)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 0) (xy 1.524 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 1.524) (xy -1.778 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 5.08 270)
+					(length 2.54)
+					(name "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -8718,9 +8573,9 @@
 					)
 				)
 				(pin passive line
-					(at 3.81 0 180)
-					(length 2.54)
-					(name "~"
+					(at 2.54 5.08 270)
+					(length 2.54) hide
+					(name "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -8735,10 +8590,10 @@
 						)
 					)
 				)
-				(pin no_connect line
-					(at -3.81 0 0)
-					(length 2.54) hide
-					(name "~"
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 2.54)
+					(name "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -8754,9 +8609,224 @@
 					)
 				)
 				(pin passive line
-					(at -3.81 0 0)
+					(at 2.54 -5.08 90)
+					(length 2.54) hide
+					(name "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "easyEDA:TS-1095S-A14B3-C2D2"
+			(pin_names hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 3.81 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TS-1094S-A14B2-D2"
+				(at 0 -8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "easyEDA:KEY-SMD_4P-L6.0-W6.0-P4.50-LS8.6"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2208250030_Yuandi-TS-1095S-A14B3-C2D2_C5148352.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C5148352"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TS-1095S-A14B3-C2D2_0_1"
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 1.27)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0.254 1.27)
+					(radius 0.0001)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TS-1095S-A14B3-C2D2_1_1"
+				(circle
+					(center 0 -1.27)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 0) (xy 1.524 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.778 1.524) (xy -1.778 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 0 5.08 270)
 					(length 2.54)
-					(name "~"
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 5.08 270)
+					(length 2.54) hide
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -5.08 90)
+					(length 2.54)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54) hide
+					(name "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -9647,6 +9717,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d776ecfe-29f1-4014-86fa-ebc2d59c8cd0")
+	)
+	(junction
+		(at 113.03 217.17)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "dac7a1dd-ec68-457d-9904-504b5f6ee592")
 	)
 	(junction
 		(at 170.18 105.41)
@@ -11026,7 +11102,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 44.45) (xy 74.93 45.72)
+			(xy 76.2 44.45) (xy 76.2 45.72)
 		)
 		(stroke
 			(width 0)
@@ -13196,7 +13272,7 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 218.44) (xy 113.03 214.63)
+			(xy 113.03 218.44) (xy 113.03 217.17)
 		)
 		(stroke
 			(width 0)
@@ -14216,16 +14292,6 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 53.34) (xy 74.93 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "abcae3eb-b7d3-42c9-8440-f3a6506598b5")
-	)
-	(wire
-		(pts
 			(xy 170.18 111.76) (xy 170.18 114.3)
 		)
 		(stroke
@@ -14996,7 +15062,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 44.45) (xy 80.01 44.45)
+			(xy 76.2 44.45) (xy 80.01 44.45)
 		)
 		(stroke
 			(width 0)
@@ -15173,6 +15239,16 @@
 			(type default)
 		)
 		(uuid "d2d380ad-edaa-4408-a255-5e8c3672d56b")
+	)
+	(wire
+		(pts
+			(xy 113.03 217.17) (xy 113.03 214.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3b363a9-cd52-4a5e-8229-1bfbb5ffdf14")
 	)
 	(wire
 		(pts
@@ -15876,6 +15952,16 @@
 	)
 	(wire
 		(pts
+			(xy 76.2 55.88) (xy 76.2 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f1f212fc-436e-4855-a18d-7314d758fa43")
+	)
+	(wire
+		(pts
 			(xy 294.64 231.14) (xy 294.64 234.95)
 		)
 		(stroke
@@ -16318,7 +16404,7 @@
 		)
 		(uuid "58f74deb-775e-47ac-b917-bc4571ca96f6")
 	)
-	(text "Potential Todos:\n- Take a real Reset Button\n- Add markings to FTDI\n- Exchange MAX4741 with TS5A23159, ADG849 or NLAS4051 (to be tested)\n- Exchange AP7312-1833W6-7 with separate 3v3/1v8 LDOs\n- Find SMT 3.5/2.5 mm jacks\n- Find a more robust connector than Dupont to the Eyes\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor iNputs, with optional inverters from the 74HC14\n- Creat e a PCB lid\n- Move a 5mm Cap under the display"
+	(text "Potential Todos:\n- Take a real Reset Button\n- Add markings to FTDI\n- Exchange MAX4741 with TS5A23159, ADG849 or NLAS4051 (to be tested)\n- Exchange AP7312-1833W6-7 with separate 3v3/1v8 LDOs\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor Inputs, with optional inverters from the 74HC14\n- Create a PCB lid\n- Move a 5mm Cap under the display"
 		(exclude_from_sim no)
 		(at 315.468 302.26 0)
 		(effects
@@ -30737,7 +30823,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:GNDD")
-		(at 74.93 54.61 0)
+		(at 76.2 57.15 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -30745,7 +30831,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a9e7a68")
 		(property "Reference" "#PWR064"
-			(at 74.93 60.96 0)
+			(at 76.2 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30754,7 +30840,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 74.93 57.785 0)
+			(at 76.2 60.325 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30762,7 +30848,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 74.93 54.61 0)
+			(at 76.2 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30771,7 +30857,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 74.93 54.61 0)
+			(at 76.2 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30780,7 +30866,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 74.93 54.61 0)
+			(at 76.2 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30801,8 +30887,9 @@
 		)
 	)
 	(symbol
-		(lib_id "easyeda2kicad:B3F-5000_sm")
-		(at 74.93 49.53 90)
+		(lib_id "easyEDA:TS-1094S-A14B2-D2")
+		(at 76.2 50.8 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -30810,7 +30897,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a9e859d")
 		(property "Reference" "SW1"
-			(at 72.39 48.26 0)
+			(at 69.342 53.594 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30819,15 +30906,15 @@
 			)
 		)
 		(property "Value" "Power"
-			(at 76.454 49.53 0)
+			(at 70.358 51.308 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:KEY-TH_4P-L12.0-W12.0-P5.0-LS12.5-EH-small"
-			(at 85.09 49.53 0)
+		(property "Footprint" "easyEDA:KEY-SMD_4P-L12.0-W12.0-P5.00-LS15.2"
+			(at 76.2 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30835,8 +30922,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Others_Omron-Electronics_B3F-5000_Omron-Electronics-B3F-5000_C93156.html"
-			(at 87.63 49.53 0)
+		(property "Datasheet" "https://datasheet.lcsc.com/lcsc/2311101759_Yuandi-TS-1094S-A14B2-D2_C5377648.pdf"
+			(at 76.2 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30845,7 +30932,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 74.93 49.53 0)
+			(at 76.2 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30854,7 +30941,7 @@
 			)
 		)
 		(property "Inventory" "L"
-			(at 74.93 49.53 0)
+			(at 76.2 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30863,7 +30950,7 @@
 			)
 		)
 		(property "LCSC" ""
-			(at 74.93 49.53 0)
+			(at 76.2 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30871,8 +30958,8 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part" "C93156"
-			(at 90.17 49.53 0)
+		(property "LCSC Part" "C5377648"
+			(at 76.2 38.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31816,9 +31903,8 @@
 		)
 	)
 	(symbol
-		(lib_id "easyEDA:TS-1187 (fixed)")
-		(at 118.11 217.17 0)
-		(mirror y)
+		(lib_id "easyEDA:TS-1095S-A14B3-C2D2")
+		(at 118.11 214.63 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -31826,7 +31912,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aa06719")
 		(property "Reference" "SW3"
-			(at 120.65 211.582 0)
+			(at 117.348 219.71 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31835,15 +31921,15 @@
 			)
 		)
 		(property "Value" "Reset"
-			(at 118.11 217.932 0)
+			(at 118.618 217.424 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:SW-SMD_4P-L5.1-W5.1-P3.70-LS6.5-TL-2"
-			(at 118.11 229.87 0)
+		(property "Footprint" "easyEDA:KEY-SMD_4P-L6.0-W6.0-P4.50-LS8.6"
+			(at 107.95 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31851,8 +31937,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://lcsc.com/product-detail/Tactile-Switches_XKB-Enterprise-TS-1187-B-A-A_C318884.html"
-			(at 118.11 232.41 0)
+		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2208250030_Yuandi-TS-1095S-A14B3-C2D2_C5148352.pdf"
+			(at 118.11 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31861,7 +31947,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 119.634 217.678 90)
+			(at 118.11 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31869,8 +31955,8 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part" "C318884"
-			(at 118.11 234.95 0)
+		(property "LCSC Part" "C5148352"
+			(at 105.41 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
