@@ -8223,7 +8223,7 @@
 					)
 				)
 			)
-			(property "Footprint" "easyeda2kicad:MSOP-10_L3.0-W3.0-P0.50-LS5.0-BL"
+			(property "Footprint" "Package_SO:MSOP-10_3x3mm_P0.5mm"
 				(at 0 -12.7 0)
 				(effects
 					(font
@@ -16502,7 +16502,7 @@
 		)
 		(uuid "58f74deb-775e-47ac-b917-bc4571ca96f6")
 	)
-	(text "Potential Todos:\n- Take a real Reset Button\n- Add markings to FTDI\n- Exchange MAX4741 with TS5A23159, or GS3005 (to be tested)\n- Exchange AP7312-1833W6-7 with separate 3v3/1v8 LDOs\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor Inputs, with optional inverters from the 74HC14\n- Create a PCB lid\n- Move a 5mm Cap under the display"
+	(text "Potential Todos:\n- Add markings to FTDI\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor Inputs, with optional inverters from the 74HC14\n- Create a PCB lid\n- Move a 5mm Cap under the display"
 		(exclude_from_sim no)
 		(at 315.468 302.26 0)
 		(effects
@@ -23609,7 +23609,7 @@
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:MSOP-10_L3.0-W3.0-P0.50-LS5.0-BL"
+		(property "Footprint" "Package_SO:MSOP-10_3x3mm_P0.5mm"
 			(at 223.52 177.8 0)
 			(effects
 				(font
