@@ -376,6 +376,211 @@
 				)
 			)
 		)
+		(symbol "Connector:TestPoint"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.762) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Connector:TestPoint_no_name"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.762) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_no_name_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_no_name_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Diode:BAV99"
 			(pin_names hide)
 			(exclude_from_sim no)
@@ -2042,11 +2247,11 @@
 			(symbol "Buzzer_0_1"
 				(arc
 					(start 0 -3.175)
-					(mid 3.1612 0)
+					(mid 3.175 0)
 					(end 0 3.175)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -2058,7 +2263,7 @@
 					)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -2070,7 +2275,7 @@
 					)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -2082,7 +2287,7 @@
 					)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -7080,92 +7285,6 @@
 						)
 					)
 					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "Synkino:TEST"
-			(pin_numbers hide)
-			(pin_names
-				(offset 1.016) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "TP"
-				(at 0 7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify bottom)
-				)
-			)
-			(property "Value" "TEST"
-				(at 0 6.35 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "TEST_0_1"
-				(polyline
-					(pts
-						(xy 0 5.08) (xy -1.27 3.81) (xy 0 2.54) (xy 1.27 3.81) (xy 0 5.08) (xy 0 5.08)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "TEST_1_1"
-				(pin passive line
-					(at 0 0 90)
-					(length 2.54)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -16502,7 +16621,7 @@
 		)
 		(uuid "58f74deb-775e-47ac-b917-bc4571ca96f6")
 	)
-	(text "Potential Todos:\n- Add markings to FTDI\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor Inputs, with optional inverters from the 74HC14\n- Create a PCB lid\n- Move a 5mm Cap under the display"
+	(text "Potential Todos:\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor Inputs, with optional inverters from the 74HC14\n- Create a PCB lid\n- Move a 5mm Cap under the display"
 		(exclude_from_sim no)
 		(at 315.468 302.26 0)
 		(effects
@@ -31406,7 +31525,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 358.14 127 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -31431,8 +31550,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 358.14 127 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 358.14 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31440,8 +31559,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 358.14 127 0)
+		(property "Datasheet" "~"
+			(at 358.14 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31449,7 +31568,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 358.14 127 0)
 			(effects
 				(font
@@ -31489,7 +31608,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 358.14 124.46 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -31514,8 +31633,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 358.14 124.46 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 358.14 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31523,8 +31642,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 358.14 124.46 0)
+		(property "Datasheet" "~"
+			(at 358.14 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31532,7 +31651,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 358.14 124.46 0)
 			(effects
 				(font
@@ -31572,7 +31691,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 358.14 121.92 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -31597,8 +31716,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 358.14 121.92 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 358.14 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31606,8 +31725,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 358.14 121.92 0)
+		(property "Datasheet" "~"
+			(at 358.14 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31615,7 +31734,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 358.14 121.92 0)
 			(effects
 				(font
@@ -31655,7 +31774,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 340.36 119.38 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -31680,8 +31799,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 340.36 119.38 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 340.36 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31689,8 +31808,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 340.36 119.38 0)
+		(property "Datasheet" "~"
+			(at 340.36 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31698,7 +31817,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 340.36 119.38 0)
 			(effects
 				(font
@@ -31738,7 +31857,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 358.14 148.59 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -31763,8 +31882,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 358.14 148.59 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 358.14 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31772,8 +31891,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 358.14 148.59 0)
+		(property "Datasheet" "~"
+			(at 358.14 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31781,7 +31900,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 358.14 148.59 0)
 			(effects
 				(font
@@ -32108,7 +32227,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 82.55 201.93 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -32133,8 +32252,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
-			(at 82.55 201.93 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 82.55 207.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32142,8 +32261,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 82.55 201.93 0)
+		(property "Datasheet" "~"
+			(at 82.55 207.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32151,7 +32270,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 82.55 201.93 0)
 			(effects
 				(font
@@ -32191,7 +32310,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 82.55 199.39 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -32216,8 +32335,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
-			(at 82.55 199.39 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 82.55 204.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32225,8 +32344,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 82.55 199.39 0)
+		(property "Datasheet" "~"
+			(at 82.55 204.47 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32234,7 +32353,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 82.55 199.39 0)
 			(effects
 				(font
@@ -32274,7 +32393,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 82.55 196.85 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -32299,8 +32418,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
-			(at 82.55 196.85 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 82.55 201.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32308,8 +32427,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 82.55 196.85 0)
+		(property "Datasheet" "~"
+			(at 82.55 201.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32317,7 +32436,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 82.55 196.85 0)
 			(effects
 				(font
@@ -32357,7 +32476,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 72.39 194.31 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -32382,8 +32501,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.5mm_Drill0.7mm"
-			(at 72.39 194.31 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 72.39 199.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32391,8 +32510,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 72.39 194.31 0)
+		(property "Datasheet" "~"
+			(at 72.39 199.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32400,7 +32519,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 72.39 194.31 0)
 			(effects
 				(font
@@ -32440,7 +32559,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 358.14 102.87 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -32465,8 +32584,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 358.14 102.87 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 358.14 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32474,8 +32593,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 358.14 102.87 0)
+		(property "Datasheet" "~"
+			(at 358.14 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32483,7 +32602,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 358.14 102.87 0)
 			(effects
 				(font
@@ -36038,11 +36157,11 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint_no_name")
 		(at 388.62 118.11 270)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom no)
+		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aabeb19")
@@ -36053,6 +36172,7 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "SDA"
@@ -36063,8 +36183,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 388.62 118.11 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 388.62 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36072,8 +36192,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 388.62 118.11 0)
+		(property "Datasheet" "~"
+			(at 388.62 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36081,7 +36201,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 388.62 118.11 0)
 			(effects
 				(font
@@ -36121,11 +36241,11 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 388.62 121.92 270)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom no)
+		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aabf196")
@@ -36136,6 +36256,7 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "SCL"
@@ -36146,8 +36267,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 388.62 121.92 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 388.62 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36155,8 +36276,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 388.62 121.92 0)
+		(property "Datasheet" "~"
+			(at 388.62 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36164,7 +36285,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 388.62 121.92 0)
 			(effects
 				(font
@@ -36269,7 +36390,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 388.62 125.73 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -36284,6 +36405,7 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "GND"
@@ -36294,8 +36416,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 388.62 125.73 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 388.62 130.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36303,8 +36425,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 388.62 125.73 0)
+		(property "Datasheet" "~"
+			(at 388.62 130.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36312,7 +36434,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 388.62 125.73 0)
 			(effects
 				(font
@@ -36621,7 +36743,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Peacemans_Footprints:AAC801J-13"
+		(property "Footprint" "easyEDA:BUZ-SMD_4P-L7.5-W7.5-BR"
 			(at 389.255 25.4 90)
 			(effects
 				(font
@@ -37217,7 +37339,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 120.65 25.4 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -37242,8 +37364,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 120.65 25.4 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 120.65 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -37251,8 +37373,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 120.65 25.4 0)
+		(property "Datasheet" "~"
+			(at 120.65 30.48 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -37260,7 +37382,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 120.65 25.4 0)
 			(effects
 				(font
@@ -37300,7 +37422,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:TEST")
+		(lib_id "Connector:TestPoint")
 		(at 129.54 74.93 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -37325,8 +37447,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm"
-			(at 129.54 74.93 0)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 134.62 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -37334,8 +37456,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 129.54 74.93 0)
+		(property "Datasheet" "~"
+			(at 134.62 74.93 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -37343,7 +37465,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "test point"
 			(at 129.54 74.93 0)
 			(effects
 				(font
