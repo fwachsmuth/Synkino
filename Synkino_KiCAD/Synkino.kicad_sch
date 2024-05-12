@@ -6055,216 +6055,6 @@
 				)
 			)
 		)
-		(symbol "Synkino:MAX4741"
-			(pin_names
-				(offset 1.016)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 0 -11.43 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Value" "MAX4741"
-				(at 0 12.7 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 2.54 -1.27 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 2.54 -1.27 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "MAX4741_0_1"
-				(rectangle
-					(start -7.62 10.16)
-					(end 7.62 -8.89)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "MAX4741_1_1"
-				(pin passive line
-					(at -12.7 6.35 0)
-					(length 5.08)
-					(name "NO1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -12.7 2.54 0)
-					(length 5.08)
-					(name "COM1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -12.7 -1.27 0)
-					(length 5.08)
-					(name "IN2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -12.7 -5.08 0)
-					(length 5.08)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 12.7 -5.08 180)
-					(length 5.08)
-					(name "NO2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 12.7 -1.27 180)
-					(length 5.08)
-					(name "COM2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 12.7 2.54 180)
-					(length 5.08)
-					(name "IN1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at 12.7 6.35 180)
-					(length 5.08)
-					(name "V+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "Synkino:Micro_SD_Card_Det_Hirose_DM3AT"
 			(pin_names
 				(offset 1.016)
@@ -8413,6 +8203,256 @@
 				)
 			)
 		)
+		(symbol "easyEDA:GS3005-MR"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "GS3005-MR"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "easyeda2kicad:MSOP-10_L3.0-W3.0-P0.50-LS5.0-BL"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Analog-Switches_Gainsil-GS3005-MR_C840037.html"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C840037"
+				(at 0 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "GS3005-MR_0_1"
+				(rectangle
+					(start -6.35 7.62)
+					(end 6.35 -7.62)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin unspecified line
+					(at -8.89 5.08 0)
+					(length 2.54)
+					(name "VDD"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 8.89 5.08 180)
+					(length 2.54)
+					(name "NO2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -8.89 2.54 0)
+					(length 2.54)
+					(name "NO1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -8.89 0 0)
+					(length 2.54)
+					(name "COM1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -8.89 -2.54 0)
+					(length 2.54)
+					(name "IN1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at -8.89 -5.08 0)
+					(length 2.54)
+					(name "NC1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 8.89 -5.08 180)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 8.89 -2.54 180)
+					(length 2.54)
+					(name "NC2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 8.89 0 180)
+					(length 2.54)
+					(name "IN2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 8.89 2.54 180)
+					(length 2.54)
+					(name "COM2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "easyEDA:TS-1094S-A14B2-D2"
 			(pin_names hide)
 			(exclude_from_sim no)
@@ -9395,12 +9435,6 @@
 		(uuid "7a1bf0ab-88a3-47b7-b0ec-0cf249ab0f72")
 	)
 	(junction
-		(at 236.22 180.34)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7bee5851-8130-445e-9a8e-673f1e44d3b0")
-	)
-	(junction
 		(at 30.48 109.22)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9581,6 +9615,12 @@
 		(uuid "ae19107b-91fe-4d37-9f10-f9427e0cb24f")
 	)
 	(junction
+		(at 238.76 168.91)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "aebd6ceb-6784-4560-8f3c-4fb3383d59d6")
+	)
+	(junction
 		(at 194.31 64.77)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9713,12 +9753,6 @@
 		(uuid "d66a333a-3165-4048-b5d8-935828ae7fe6")
 	)
 	(junction
-		(at 238.76 168.91)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d776ecfe-29f1-4014-86fa-ebc2d59c8cd0")
-	)
-	(junction
 		(at 113.03 217.17)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9747,6 +9781,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e6b56594-6fc7-4169-a665-5bc691cd9890")
+	)
+	(junction
+		(at 234.95 180.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e7a50879-12bf-4cba-b88a-b6a0c1a4b189")
 	)
 	(junction
 		(at 194.31 107.95)
@@ -9843,6 +9883,10 @@
 		(uuid "0044fd0a-6004-48f3-a0f4-99574b07c617")
 	)
 	(no_connect
+		(at 214.63 170.18)
+		(uuid "12dbd524-cd63-4938-8c99-5aac7fb87bc5")
+	)
+	(no_connect
 		(at 307.34 55.88)
 		(uuid "1e345867-1d55-4447-ac17-1b2d36b9864a")
 	)
@@ -9889,6 +9933,10 @@
 	(no_connect
 		(at 24.13 207.01)
 		(uuid "eee70d04-64e4-49e8-9aa8-1467dcf4c425")
+	)
+	(no_connect
+		(at 232.41 167.64)
+		(uuid "f1cbffee-c4b7-4485-8d3e-bb30585813e2")
 	)
 	(wire
 		(pts
@@ -10212,16 +10260,6 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 168.91) (xy 238.76 168.91)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0e284b4a-b49b-49df-baa9-fe802451acce")
-	)
-	(wire
-		(pts
 			(xy 251.46 156.21) (xy 259.08 156.21)
 		)
 		(stroke
@@ -10229,16 +10267,6 @@
 			(type default)
 		)
 		(uuid "0e65ce7c-8a1c-4919-8dd3-7563b9713b31")
-	)
-	(wire
-		(pts
-			(xy 236.22 180.34) (xy 236.22 172.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0ea1ca08-90ea-420a-b7d2-efb5a6c89528")
 	)
 	(wire
 		(pts
@@ -10349,6 +10377,16 @@
 			(type default)
 		)
 		(uuid "1260e2dc-4d97-4406-b784-057530dacff6")
+	)
+	(wire
+		(pts
+			(xy 238.76 162.56) (xy 238.76 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "12c9f1e0-a895-4ca6-82cd-2236322061f5")
 	)
 	(wire
 		(pts
@@ -11532,16 +11570,6 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 165.1) (xy 238.76 165.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3a78aec4-b465-421a-8e8f-ffcaa6293cad")
-	)
-	(wire
-		(pts
 			(xy 194.31 74.93) (xy 194.31 77.47)
 		)
 		(stroke
@@ -11619,6 +11647,16 @@
 			(type default)
 		)
 		(uuid "3ede8554-6423-4216-b857-20e84051679a")
+	)
+	(wire
+		(pts
+			(xy 210.82 168.91) (xy 212.09 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3f1d238c-9ea4-4852-b430-5996ce559be2")
 	)
 	(wire
 		(pts
@@ -11839,16 +11877,6 @@
 			(type default)
 		)
 		(uuid "4b8eacf2-f4c8-49c4-bcd5-536bffc11346")
-	)
-	(wire
-		(pts
-			(xy 209.55 168.91) (xy 210.82 168.91)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4bcaeb26-e65a-43c9-b553-b9a70a9cd1d2")
 	)
 	(wire
 		(pts
@@ -12532,16 +12560,6 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 158.75) (xy 210.82 161.29)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6b37fcdf-b88d-40f1-a1e6-dfb184d3e217")
-	)
-	(wire
-		(pts
 			(xy 340.36 153.67) (xy 342.9 153.67)
 		)
 		(stroke
@@ -12719,16 +12737,6 @@
 			(type default)
 		)
 		(uuid "73a52fe1-3fa8-46c9-aa4c-df473410f803")
-	)
-	(wire
-		(pts
-			(xy 236.22 157.48) (xy 236.22 161.29)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "73be0684-4fde-4bc2-b2f0-82b01e479795")
 	)
 	(wire
 		(pts
@@ -13332,6 +13340,16 @@
 	)
 	(wire
 		(pts
+			(xy 234.95 160.02) (xy 232.41 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8a776bc7-66ce-468a-b575-d9bc1da46afc")
+	)
+	(wire
+		(pts
 			(xy 201.93 237.49) (xy 200.66 237.49)
 		)
 		(stroke
@@ -13529,6 +13547,16 @@
 			(type default)
 		)
 		(uuid "929139cc-a508-49e2-b408-5d05a0945df1")
+	)
+	(wire
+		(pts
+			(xy 212.09 168.91) (xy 212.09 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92a624a0-5845-4c39-9bc5-98a7ac6eb368")
 	)
 	(wire
 		(pts
@@ -13762,7 +13790,7 @@
 	)
 	(wire
 		(pts
-			(xy 203.2 180.34) (xy 236.22 180.34)
+			(xy 203.2 180.34) (xy 234.95 180.34)
 		)
 		(stroke
 			(width 0)
@@ -13882,6 +13910,16 @@
 	)
 	(wire
 		(pts
+			(xy 232.41 170.18) (xy 232.41 185.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9e1263b5-d2d9-4fdb-a98a-d847386e0d44")
+	)
+	(wire
+		(pts
 			(xy 289.56 151.13) (xy 289.56 153.67)
 		)
 		(stroke
@@ -13909,16 +13947,6 @@
 			(type default)
 		)
 		(uuid "9ee521d8-7d11-4746-84df-5b47e2291ebb")
-	)
-	(wire
-		(pts
-			(xy 208.28 172.72) (xy 210.82 172.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9ee8cd65-6d15-4a74-88d6-4113f32ebf7e")
 	)
 	(wire
 		(pts
@@ -13969,6 +13997,16 @@
 			(type default)
 		)
 		(uuid "a0864d56-35de-4800-b35d-2b15879596c0")
+	)
+	(wire
+		(pts
+			(xy 234.95 160.02) (xy 234.95 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a1845af1-8fce-46a3-a724-3fdd963a650b")
 	)
 	(wire
 		(pts
@@ -14312,6 +14350,16 @@
 	)
 	(wire
 		(pts
+			(xy 210.82 158.75) (xy 210.82 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "acd44a48-5306-4187-aae5-71fe73b774a1")
+	)
+	(wire
+		(pts
 			(xy 379.73 222.25) (xy 384.81 222.25)
 		)
 		(stroke
@@ -14449,16 +14497,6 @@
 			(type default)
 		)
 		(uuid "b3aa23b0-5f41-4400-98d5-a18c043e062f")
-	)
-	(wire
-		(pts
-			(xy 236.22 180.34) (xy 238.76 180.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b3c3b976-c9ed-49ab-b7c8-444a3eaccc00")
 	)
 	(wire
 		(pts
@@ -14832,6 +14870,16 @@
 	)
 	(wire
 		(pts
+			(xy 214.63 149.86) (xy 214.63 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c556e756-0d47-4648-9d0b-1815fcd53320")
+	)
+	(wire
+		(pts
 			(xy 105.41 85.09) (xy 105.41 88.9)
 		)
 		(stroke
@@ -14869,6 +14917,16 @@
 			(type default)
 		)
 		(uuid "c72103d6-f848-48f8-9fa1-d1a79cc581f2")
+	)
+	(wire
+		(pts
+			(xy 212.09 167.64) (xy 214.63 167.64)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7d4f106-6981-4058-9e87-dbb43272e957")
 	)
 	(wire
 		(pts
@@ -15089,6 +15147,16 @@
 			(type default)
 		)
 		(uuid "cf74ca2c-63c0-4c92-840c-98d94f779654")
+	)
+	(wire
+		(pts
+			(xy 234.95 180.34) (xy 238.76 180.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cf8e14ea-735d-4f4a-b7cf-342c42535603")
 	)
 	(wire
 		(pts
@@ -15572,6 +15640,16 @@
 	)
 	(wire
 		(pts
+			(xy 232.41 162.56) (xy 238.76 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e4324a5f-8d68-4990-b281-61b27181b6c1")
+	)
+	(wire
+		(pts
 			(xy 340.36 148.59) (xy 358.14 148.59)
 		)
 		(stroke
@@ -15872,6 +15950,16 @@
 	)
 	(wire
 		(pts
+			(xy 232.41 165.1) (xy 240.03 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "efa9b2c8-6e37-4dad-a8b7-8e9cb212d2d5")
+	)
+	(wire
+		(pts
 			(xy 251.46 227.33) (xy 247.65 227.33)
 		)
 		(stroke
@@ -15989,6 +16077,16 @@
 			(type default)
 		)
 		(uuid "f4daee25-998b-4111-b62f-b9155890548e")
+	)
+	(wire
+		(pts
+			(xy 210.82 162.56) (xy 214.63 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f553accc-4e57-4714-8d6a-3c8dfe76bcb4")
 	)
 	(wire
 		(pts
@@ -16342,7 +16440,7 @@
 	)
 	(wire
 		(pts
-			(xy 203.2 165.1) (xy 210.82 165.1)
+			(xy 203.2 165.1) (xy 214.63 165.1)
 		)
 		(stroke
 			(width 0)
@@ -16404,7 +16502,7 @@
 		)
 		(uuid "58f74deb-775e-47ac-b917-bc4571ca96f6")
 	)
-	(text "Potential Todos:\n- Take a real Reset Button\n- Add markings to FTDI\n- Exchange MAX4741 with TS5A23159, ADG849 or NLAS4051 (to be tested)\n- Exchange AP7312-1833W6-7 with separate 3v3/1v8 LDOs\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor Inputs, with optional inverters from the 74HC14\n- Create a PCB lid\n- Move a 5mm Cap under the display"
+	(text "Potential Todos:\n- Take a real Reset Button\n- Add markings to FTDI\n- Exchange MAX4741 with TS5A23159, or GS3005 (to be tested)\n- Exchange AP7312-1833W6-7 with separate 3v3/1v8 LDOs\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor Inputs, with optional inverters from the 74HC14\n- Create a PCB lid\n- Move a 5mm Cap under the display"
 		(exclude_from_sim no)
 		(at 315.468 302.26 0)
 		(effects
@@ -17317,17 +17415,6 @@
 		)
 		(uuid "95860f13-1914-4e97-a529-c62eb2139cf2")
 	)
-	(label "AUD_EN"
-		(at 238.76 165.1 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.524 1.524)
-			)
-			(justify left bottom)
-		)
-		(uuid "966e1364-e1aa-4741-84b7-4e5af26f1299")
-	)
 	(label "GPIO_PLLDWN"
 		(at 252.73 118.11 0)
 		(fields_autoplaced yes)
@@ -17406,7 +17493,7 @@
 		(uuid "a2c1a705-e3bf-427f-9a13-f8f6ceef28aa")
 	)
 	(label "AUD_EN"
-		(at 209.55 168.91 180)
+		(at 210.82 168.91 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17789,6 +17876,17 @@
 			(justify left bottom)
 		)
 		(uuid "f2d68aa4-61f4-45c4-aba7-6c17517d1db5")
+	)
+	(label "AUD_EN"
+		(at 240.03 165.1 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify left bottom)
+		)
+		(uuid "f482b929-6f6f-4594-9cc4-db1ed32b4754")
 	)
 	(label "CTRL_MISO"
 		(at 74.93 182.88 0)
@@ -19438,7 +19536,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C195066"
 			(at 118.11 88.9 0)
 			(effects
 				(font
@@ -23487,8 +23585,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:MAX4741")
-		(at 223.52 167.64 0)
+		(lib_id "easyEDA:GS3005-MR")
+		(at 223.52 165.1 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -23496,41 +23594,41 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a9af4cf")
 		(property "Reference" "U8"
-			(at 223.52 179.07 0)
+			(at 227.838 174.244 0)
 			(effects
 				(font
 					(size 1.524 1.524)
 				)
 			)
 		)
-		(property "Value" "MAX4741"
-			(at 223.52 154.94 0)
+		(property "Value" "GS3005"
+			(at 223.52 155.194 0)
 			(effects
 				(font
 					(size 1.524 1.524)
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:MSOP-8_3x3mm_P0.65mm"
-			(at 226.06 168.91 0)
+		(property "Footprint" "easyeda2kicad:MSOP-10_L3.0-W3.0-P0.50-LS5.0-BL"
+			(at 223.52 177.8 0)
 			(effects
 				(font
-					(size 1.524 1.524)
+					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 226.06 168.91 0)
+		(property "Datasheet" "https://lcsc.com/product-detail/Analog-Switches_Gainsil-GS3005-MR_C840037.html"
+			(at 223.52 180.34 0)
 			(effects
 				(font
-					(size 1.524 1.524)
+					(size 1.27 1.27)
 				)
 				(hide yes)
 			)
 		)
 		(property "Description" ""
-			(at 223.52 167.64 0)
+			(at 223.52 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23539,7 +23637,7 @@
 			)
 		)
 		(property "Inventory" "L"
-			(at 223.52 167.64 0)
+			(at 223.52 165.1 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23547,8 +23645,17 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
-			(at 223.52 167.64 0)
+		(property "LCSC" "C840037"
+			(at 223.52 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part" "C840037"
+			(at 223.52 182.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23579,6 +23686,12 @@
 		)
 		(pin "8"
 			(uuid "d9cf0c93-d4d7-4a1d-8fc3-5ccbbce7178a")
+		)
+		(pin "10"
+			(uuid "cf9d74c2-03d0-49eb-9e22-78a681e23987")
+		)
+		(pin "9"
+			(uuid "58e832a5-ccb6-4491-a5e9-584145bbdc2c")
 		)
 		(instances
 			(project "Synkino"
@@ -24041,7 +24154,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:GNDA")
-		(at 208.28 172.72 0)
+		(at 232.41 185.42 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -24049,7 +24162,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a9b2a17")
 		(property "Reference" "#PWR032"
-			(at 208.28 179.07 0)
+			(at 232.41 191.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24058,7 +24171,7 @@
 			)
 		)
 		(property "Value" "GNDA"
-			(at 208.28 176.53 0)
+			(at 231.648 189.738 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24066,7 +24179,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 208.28 172.72 0)
+			(at 232.41 185.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24075,7 +24188,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 208.28 172.72 0)
+			(at 232.41 185.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24084,7 +24197,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 208.28 172.72 0)
+			(at 232.41 185.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24106,7 +24219,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:+3V3")
-		(at 236.22 157.48 0)
+		(at 214.63 149.86 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -24114,7 +24227,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a9b2c76")
 		(property "Reference" "#PWR033"
-			(at 236.22 161.29 0)
+			(at 214.63 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24123,7 +24236,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 236.22 153.924 0)
+			(at 214.63 146.304 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24131,7 +24244,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 236.22 157.48 0)
+			(at 214.63 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24140,7 +24253,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 236.22 157.48 0)
+			(at 214.63 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24149,7 +24262,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 236.22 157.48 0)
+			(at 214.63 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30949,7 +31062,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" ""
+		(property "LCSC" "C5377648"
 			(at 76.2 50.8 0)
 			(effects
 				(font
@@ -31957,6 +32070,15 @@
 		)
 		(property "LCSC Part" "C5148352"
 			(at 105.41 214.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C5148352"
+			(at 118.11 214.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
