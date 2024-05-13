@@ -10,6 +10,590 @@
 		(company "filmkorn.org")
 	)
 	(lib_symbols
+		(symbol "74xx:74HC14"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "74HC14"
+				(at 0 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Hex inverter schmitt trigger"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "HCMOS not inverter"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "DIP*W7.62mm*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "74HC14_1_0"
+				(polyline
+					(pts
+						(xy -3.81 3.81) (xy -3.81 -3.81) (xy 3.81 0) (xy -3.81 3.81)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at -7.62 0 0)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output inverted
+					(at 7.62 0 180)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "74HC14_1_1"
+				(polyline
+					(pts
+						(xy -1.905 -1.27) (xy -1.905 1.27) (xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -1.27) (xy -0.635 -1.27) (xy -0.635 1.27) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_2_0"
+				(polyline
+					(pts
+						(xy -3.81 3.81) (xy -3.81 -3.81) (xy 3.81 0) (xy -3.81 3.81)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at -7.62 0 0)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output inverted
+					(at 7.62 0 180)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "74HC14_2_1"
+				(polyline
+					(pts
+						(xy -1.905 -1.27) (xy -1.905 1.27) (xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -1.27) (xy -0.635 -1.27) (xy -0.635 1.27) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_3_0"
+				(polyline
+					(pts
+						(xy -3.81 3.81) (xy -3.81 -3.81) (xy 3.81 0) (xy -3.81 3.81)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at -7.62 0 0)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output inverted
+					(at 7.62 0 180)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "74HC14_3_1"
+				(polyline
+					(pts
+						(xy -1.905 -1.27) (xy -1.905 1.27) (xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -1.27) (xy -0.635 -1.27) (xy -0.635 1.27) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_4_0"
+				(polyline
+					(pts
+						(xy -3.81 3.81) (xy -3.81 -3.81) (xy 3.81 0) (xy -3.81 3.81)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin output inverted
+					(at 7.62 0 180)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 0 0)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "74HC14_4_1"
+				(polyline
+					(pts
+						(xy -1.905 -1.27) (xy -1.905 1.27) (xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -1.27) (xy -0.635 -1.27) (xy -0.635 1.27) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_5_0"
+				(polyline
+					(pts
+						(xy -3.81 3.81) (xy -3.81 -3.81) (xy 3.81 0) (xy -3.81 3.81)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin output inverted
+					(at 7.62 0 180)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 0 0)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "74HC14_5_1"
+				(polyline
+					(pts
+						(xy -1.905 -1.27) (xy -1.905 1.27) (xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -1.27) (xy -0.635 -1.27) (xy -0.635 1.27) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_6_0"
+				(polyline
+					(pts
+						(xy -3.81 3.81) (xy -3.81 -3.81) (xy 3.81 0) (xy -3.81 3.81)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin output inverted
+					(at 7.62 0 180)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 0 0)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "74HC14_6_1"
+				(polyline
+					(pts
+						(xy -1.905 -1.27) (xy -1.905 1.27) (xy -0.635 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -1.27) (xy -0.635 -1.27) (xy -0.635 1.27) (xy 0 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "74HC14_7_0"
+				(pin power_in line
+					(at 0 12.7 270)
+					(length 5.08)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -12.7 90)
+					(length 5.08)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "74HC14_7_1"
+				(rectangle
+					(start -5.08 7.62)
+					(end 5.08 -7.62)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+		)
 		(symbol "Connector:Conn_01x02_Socket"
 			(pin_names
 				(offset 1.016) hide)
@@ -2830,563 +3414,6 @@
 						)
 					)
 					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "Synkino:74HC14"
-			(pin_names
-				(offset 0.762)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 3.81 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "74HC14"
-				(at 5.08 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "74HC14_0_0"
-				(polyline
-					(pts
-						(xy -3.81 3.81) (xy -3.81 -3.81) (xy 3.81 0) (xy -3.81 3.81)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin power_in line
-					(at -1.27 2.54 270)
-					(length 0) hide
-					(name "VCC"
-						(effects
-							(font
-								(size 0.508 0.508)
-							)
-						)
-					)
-					(number "14"
-						(effects
-							(font
-								(size 0.762 0.762)
-							)
-						)
-					)
-				)
-				(pin power_in line
-					(at -1.27 -2.54 90)
-					(length 0) hide
-					(name "GND"
-						(effects
-							(font
-								(size 0.508 0.508)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 0.762 0.762)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_1_1"
-				(pin input line
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output inverted
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_1_2"
-				(pin input inverted
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_2_1"
-				(pin input line
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output inverted
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_2_2"
-				(pin input inverted
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_3_1"
-				(pin input line
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output inverted
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_3_2"
-				(pin input inverted
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_4_1"
-				(pin output inverted
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_4_2"
-				(pin output line
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input inverted
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_5_1"
-				(pin output inverted
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_5_2"
-				(pin output line
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input inverted
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_6_1"
-				(pin output inverted
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "74HC14_6_2"
-				(pin output line
-					(at 11.43 0 180)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input inverted
-					(at -11.43 0 0)
-					(length 7.62)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "13"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -9152,7 +9179,7 @@
 		(uuid "09a63578-8c08-4dfc-9961-a585d2b81e29")
 	)
 	(junction
-		(at 220.98 245.11)
+		(at 215.9 233.68)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0a5251b9-f2a1-4f9b-8efa-817961996678")
@@ -9176,13 +9203,13 @@
 		(uuid "0e57c7c1-e8f4-440f-b676-db69c11c756c")
 	)
 	(junction
-		(at 176.53 231.14)
+		(at 171.45 219.71)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0eae2b5c-34ea-4824-b61b-18972949b556")
 	)
 	(junction
-		(at 247.65 229.87)
+		(at 242.57 218.44)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0ef01796-0c22-4680-a08c-0df72ca55697")
@@ -9194,7 +9221,7 @@
 		(uuid "13a7b721-7e6f-4f90-86d5-3c469b483333")
 	)
 	(junction
-		(at 201.93 227.33)
+		(at 196.85 215.9)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "17ab8473-b278-40b5-8c00-727370b5b1f5")
@@ -9266,7 +9293,7 @@
 		(uuid "29d41e40-de94-4479-9f9a-cbd17b3233eb")
 	)
 	(junction
-		(at 177.8 250.19)
+		(at 172.72 238.76)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "29ef7f39-df2a-4550-8b11-1f0a508d4df1")
@@ -9356,7 +9383,7 @@
 		(uuid "3d1e2bbb-f07d-4ef1-b0e6-900098350315")
 	)
 	(junction
-		(at 201.93 233.68)
+		(at 196.85 222.25)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3e4a0b78-a55c-416a-935b-f3681e06f31c")
@@ -9426,12 +9453,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4b0e33eb-0b52-420b-910c-17b5eae9807c")
-	)
-	(junction
-		(at 187.96 245.11)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "4c12f486-27ee-48df-8456-21155c23eb5b")
 	)
 	(junction
 		(at 170.18 111.76)
@@ -9504,6 +9525,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "68b34186-15bf-456f-93f6-f75eae496b4f")
+	)
+	(junction
+		(at 182.88 233.68)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "693da941-b0cd-4a0b-a553-c349e1f91eb8")
 	)
 	(junction
 		(at 384.81 210.82)
@@ -9662,13 +9689,13 @@
 		(uuid "a0cc9ae6-50a4-4d48-83b4-2ff80fa0d75a")
 	)
 	(junction
-		(at 247.65 245.11)
+		(at 242.57 233.68)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a24170e7-acda-4307-aadc-14643d90b32e")
 	)
 	(junction
-		(at 187.96 242.57)
+		(at 182.88 231.14)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a26211e5-c398-4ba2-95b6-9befe61c21bd")
@@ -10139,7 +10166,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 250.19) (xy 177.8 252.73)
+			(xy 172.72 238.76) (xy 172.72 241.3)
 		)
 		(stroke
 			(width 0)
@@ -10269,7 +10296,17 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 252.73) (xy 180.34 252.73)
+			(xy 236.22 233.68) (xy 242.57 233.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "097389c8-1b23-4d5a-852b-eb2c2f7a8095")
+	)
+	(wire
+		(pts
+			(xy 172.72 241.3) (xy 175.26 241.3)
 		)
 		(stroke
 			(width 0)
@@ -10709,7 +10746,7 @@
 	)
 	(wire
 		(pts
-			(xy 247.65 227.33) (xy 247.65 229.87)
+			(xy 242.57 215.9) (xy 242.57 218.44)
 		)
 		(stroke
 			(width 0)
@@ -10799,7 +10836,7 @@
 	)
 	(wire
 		(pts
-			(xy 257.81 231.14) (xy 262.89 231.14)
+			(xy 252.73 219.71) (xy 257.81 219.71)
 		)
 		(stroke
 			(width 0)
@@ -10989,16 +11026,6 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 245.11) (xy 212.09 245.11)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "251db34b-56bb-43bd-b9d2-9f6466f5c626")
-	)
-	(wire
-		(pts
 			(xy 379.73 218.44) (xy 394.97 218.44)
 		)
 		(stroke
@@ -11159,7 +11186,7 @@
 	)
 	(wire
 		(pts
-			(xy 247.65 245.11) (xy 248.92 245.11)
+			(xy 242.57 233.68) (xy 243.84 233.68)
 		)
 		(stroke
 			(width 0)
@@ -11186,6 +11213,16 @@
 			(type default)
 		)
 		(uuid "2aa2df68-6a79-4134-96eb-78afd808a1ab")
+	)
+	(wire
+		(pts
+			(xy 182.88 233.68) (xy 186.69 233.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2aa65a39-b91b-411e-b313-8ef0ab572582")
 	)
 	(wire
 		(pts
@@ -11289,7 +11326,7 @@
 	)
 	(wire
 		(pts
-			(xy 176.53 247.65) (xy 168.91 247.65)
+			(xy 171.45 236.22) (xy 163.83 236.22)
 		)
 		(stroke
 			(width 0)
@@ -11299,7 +11336,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 252.73) (xy 168.91 255.27)
+			(xy 163.83 241.3) (xy 163.83 243.84)
 		)
 		(stroke
 			(width 0)
@@ -11359,7 +11396,7 @@
 	)
 	(wire
 		(pts
-			(xy 247.65 229.87) (xy 250.19 229.87)
+			(xy 242.57 218.44) (xy 245.11 218.44)
 		)
 		(stroke
 			(width 0)
@@ -11419,7 +11456,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 231.14) (xy 176.53 231.14)
+			(xy 163.83 219.71) (xy 171.45 219.71)
 		)
 		(stroke
 			(width 0)
@@ -11519,7 +11556,7 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 233.68) (xy 213.36 233.68)
+			(xy 205.74 222.25) (xy 208.28 222.25)
 		)
 		(stroke
 			(width 0)
@@ -11679,7 +11716,7 @@
 	)
 	(wire
 		(pts
-			(xy 257.81 245.11) (xy 257.81 250.19)
+			(xy 252.73 233.68) (xy 252.73 238.76)
 		)
 		(stroke
 			(width 0)
@@ -11739,7 +11776,7 @@
 	)
 	(wire
 		(pts
-			(xy 195.58 229.87) (xy 222.25 229.87)
+			(xy 190.5 218.44) (xy 220.98 218.44)
 		)
 		(stroke
 			(width 0)
@@ -11789,7 +11826,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 257.81) (xy 187.96 259.08)
+			(xy 182.88 246.38) (xy 182.88 247.65)
 		)
 		(stroke
 			(width 0)
@@ -11849,7 +11886,7 @@
 	)
 	(wire
 		(pts
-			(xy 247.65 240.03) (xy 247.65 245.11)
+			(xy 242.57 228.6) (xy 242.57 233.68)
 		)
 		(stroke
 			(width 0)
@@ -11969,7 +12006,7 @@
 	)
 	(wire
 		(pts
-			(xy 219.71 245.11) (xy 220.98 245.11)
+			(xy 214.63 233.68) (xy 215.9 233.68)
 		)
 		(stroke
 			(width 0)
@@ -12309,6 +12346,16 @@
 	)
 	(wire
 		(pts
+			(xy 236.22 218.44) (xy 242.57 218.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5928586e-4fda-450a-b699-eff6cfed2429")
+	)
+	(wire
+		(pts
 			(xy 289.56 97.79) (xy 289.56 100.33)
 		)
 		(stroke
@@ -12436,16 +12483,6 @@
 			(type default)
 		)
 		(uuid "600a098f-e222-47d9-801d-d1126fee6372")
-	)
-	(wire
-		(pts
-			(xy 187.96 245.11) (xy 187.96 247.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "602cf86e-8f95-4824-bccc-11e93f92de38")
 	)
 	(wire
 		(pts
@@ -12689,7 +12726,7 @@
 	)
 	(wire
 		(pts
-			(xy 195.58 233.68) (xy 195.58 229.87)
+			(xy 190.5 222.25) (xy 190.5 218.44)
 		)
 		(stroke
 			(width 0)
@@ -12709,7 +12746,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 245.11) (xy 222.25 245.11)
+			(xy 215.9 233.68) (xy 220.98 233.68)
 		)
 		(stroke
 			(width 0)
@@ -12799,7 +12836,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 250.19) (xy 177.8 250.19)
+			(xy 163.83 238.76) (xy 172.72 238.76)
 		)
 		(stroke
 			(width 0)
@@ -12879,7 +12916,7 @@
 	)
 	(wire
 		(pts
-			(xy 201.93 233.68) (xy 201.93 237.49)
+			(xy 196.85 222.25) (xy 196.85 226.06)
 		)
 		(stroke
 			(width 0)
@@ -12909,7 +12946,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 233.68) (xy 195.58 233.68)
+			(xy 163.83 222.25) (xy 190.5 222.25)
 		)
 		(stroke
 			(width 0)
@@ -13469,7 +13506,17 @@
 	)
 	(wire
 		(pts
-			(xy 201.93 237.49) (xy 200.66 237.49)
+			(xy 201.93 233.68) (xy 207.01 233.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8bdb03b4-4189-4c4e-bc40-7f184de50a57")
+	)
+	(wire
+		(pts
+			(xy 196.85 226.06) (xy 195.58 226.06)
 		)
 		(stroke
 			(width 0)
@@ -13579,7 +13626,7 @@
 	)
 	(wire
 		(pts
-			(xy 250.19 229.87) (xy 250.19 231.14)
+			(xy 245.11 218.44) (xy 245.11 219.71)
 		)
 		(stroke
 			(width 0)
@@ -14009,7 +14056,7 @@
 	)
 	(wire
 		(pts
-			(xy 262.89 238.76) (xy 262.89 241.3)
+			(xy 257.81 227.33) (xy 257.81 229.87)
 		)
 		(stroke
 			(width 0)
@@ -14219,7 +14266,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 237.49) (xy 187.96 242.57)
+			(xy 182.88 226.06) (xy 182.88 231.14)
 		)
 		(stroke
 			(width 0)
@@ -14309,7 +14356,7 @@
 	)
 	(wire
 		(pts
-			(xy 176.53 231.14) (xy 176.53 247.65)
+			(xy 171.45 219.71) (xy 171.45 236.22)
 		)
 		(stroke
 			(width 0)
@@ -14629,7 +14676,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 242.57) (xy 177.8 250.19)
+			(xy 172.72 231.14) (xy 172.72 238.76)
 		)
 		(stroke
 			(width 0)
@@ -14709,7 +14756,7 @@
 	)
 	(wire
 		(pts
-			(xy 256.54 245.11) (xy 257.81 245.11)
+			(xy 251.46 233.68) (xy 252.73 233.68)
 		)
 		(stroke
 			(width 0)
@@ -14739,7 +14786,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 257.81) (xy 220.98 259.08)
+			(xy 215.9 246.38) (xy 215.9 247.65)
 		)
 		(stroke
 			(width 0)
@@ -14846,16 +14893,6 @@
 			(type default)
 		)
 		(uuid "be7a0ae3-3f5a-4ca3-843f-d653cbc9ddc0")
-	)
-	(wire
-		(pts
-			(xy 245.11 229.87) (xy 247.65 229.87)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "be917c15-9774-48e8-b1b4-6826e21c1817")
 	)
 	(wire
 		(pts
@@ -15009,7 +15046,7 @@
 	)
 	(wire
 		(pts
-			(xy 176.53 227.33) (xy 176.53 231.14)
+			(xy 171.45 215.9) (xy 171.45 219.71)
 		)
 		(stroke
 			(width 0)
@@ -15179,7 +15216,7 @@
 	)
 	(wire
 		(pts
-			(xy 201.93 227.33) (xy 201.93 233.68)
+			(xy 196.85 215.9) (xy 196.85 222.25)
 		)
 		(stroke
 			(width 0)
@@ -15549,7 +15586,7 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 242.57) (xy 177.8 242.57)
+			(xy 175.26 231.14) (xy 172.72 231.14)
 		)
 		(stroke
 			(width 0)
@@ -15679,7 +15716,7 @@
 	)
 	(wire
 		(pts
-			(xy 213.36 233.68) (xy 213.36 234.95)
+			(xy 208.28 222.25) (xy 208.28 223.52)
 		)
 		(stroke
 			(width 0)
@@ -15729,7 +15766,7 @@
 	)
 	(wire
 		(pts
-			(xy 257.81 257.81) (xy 257.81 259.08)
+			(xy 252.73 246.38) (xy 252.73 247.65)
 		)
 		(stroke
 			(width 0)
@@ -15819,7 +15856,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 236.22) (xy 168.91 238.76)
+			(xy 163.83 224.79) (xy 163.83 227.33)
 		)
 		(stroke
 			(width 0)
@@ -15829,7 +15866,7 @@
 	)
 	(wire
 		(pts
-			(xy 251.46 240.03) (xy 247.65 240.03)
+			(xy 246.38 228.6) (xy 242.57 228.6)
 		)
 		(stroke
 			(width 0)
@@ -15869,13 +15906,23 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 252.73) (xy 220.98 245.11)
+			(xy 215.9 241.3) (xy 215.9 233.68)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "e73c4b0d-0452-4019-8e89-746b3b61c317")
+	)
+	(wire
+		(pts
+			(xy 182.88 233.68) (xy 182.88 236.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e7454606-f487-4445-9b1a-a01fee1e0ed8")
 	)
 	(polyline
 		(pts
@@ -16079,7 +16126,7 @@
 	)
 	(wire
 		(pts
-			(xy 251.46 227.33) (xy 247.65 227.33)
+			(xy 246.38 215.9) (xy 242.57 215.9)
 		)
 		(stroke
 			(width 0)
@@ -16106,16 +16153,6 @@
 			(type default)
 		)
 		(uuid "f055f35f-6d0b-4cdf-a4fe-7ac33a65e72f")
-	)
-	(wire
-		(pts
-			(xy 245.11 245.11) (xy 247.65 245.11)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f07b8be8-03f4-43a9-8ccf-2776a0da7be0")
 	)
 	(wire
 		(pts
@@ -16369,7 +16406,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 237.49) (xy 193.04 237.49)
+			(xy 182.88 226.06) (xy 187.96 226.06)
 		)
 		(stroke
 			(width 0)
@@ -16469,7 +16506,7 @@
 	)
 	(wire
 		(pts
-			(xy 205.74 233.68) (xy 201.93 233.68)
+			(xy 200.66 222.25) (xy 196.85 222.25)
 		)
 		(stroke
 			(width 0)
@@ -16499,7 +16536,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 242.57) (xy 187.96 245.11)
+			(xy 182.88 231.14) (xy 182.88 233.68)
 		)
 		(stroke
 			(width 0)
@@ -16569,7 +16606,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 227.33) (xy 201.93 227.33)
+			(xy 199.39 215.9) (xy 196.85 215.9)
 		)
 		(stroke
 			(width 0)
@@ -16621,7 +16658,7 @@
 		)
 		(uuid "58f74deb-775e-47ac-b917-bc4571ca96f6")
 	)
-	(text "Potential Todos:\n- Add a real Power Connector (USB-C?)\n- Add TPs for Sensor Inputs, with optional inverters from the 74HC14\n- Create a PCB lid\n"
+	(text "Potential Todos:\n- Add a real Power Connector (USB-C?)\n- Create a PCB lid\n"
 		(exclude_from_sim no)
 		(at 315.468 302.26 0)
 		(effects
@@ -16820,7 +16857,7 @@
 		(uuid "0bbdefbf-d415-4b53-a4be-fdb954a8b79a")
 	)
 	(label "VCC"
-		(at 204.47 227.33 0)
+		(at 199.39 215.9 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17766,7 +17803,7 @@
 		(uuid "c1e10752-147c-429f-844e-2c2bb848d743")
 	)
 	(label "FlickImp"
-		(at 251.46 240.03 0)
+		(at 246.38 228.6 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17843,7 +17880,7 @@
 		(uuid "d146dfde-682c-4fb3-9974-bd59469491ac")
 	)
 	(label "Startmark"
-		(at 251.46 227.33 0)
+		(at 246.38 215.9 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18085,8 +18122,8 @@
 		(uuid "fe6f726b-acc6-4cb4-8705-a768476c4390")
 	)
 	(symbol
-		(lib_id "Synkino:74HC14")
-		(at 199.39 245.11 0)
+		(lib_id "74xx:74HC14")
+		(at 194.31 233.68 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18094,7 +18131,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f4fe5")
 		(property "Reference" "U6"
-			(at 203.2 242.57 0)
+			(at 198.12 231.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18102,7 +18139,7 @@
 			)
 		)
 		(property "Value" "74HC14"
-			(at 204.47 247.65 0)
+			(at 199.39 236.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18110,7 +18147,7 @@
 			)
 		)
 		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
-			(at 199.39 245.11 0)
+			(at 194.31 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18118,8 +18155,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 199.39 245.11 0)
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
+			(at 194.31 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18127,8 +18164,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 199.39 245.11 0)
+		(property "Description" "Hex inverter schmitt trigger"
+			(at 194.31 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18137,7 +18174,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 199.39 245.11 0)
+			(at 194.31 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18146,7 +18183,7 @@
 			)
 		)
 		(property "LCSC" "C5605"
-			(at 199.39 245.11 0)
+			(at 194.31 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18206,8 +18243,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:74HC14")
-		(at 233.68 245.11 0)
+		(lib_id "74xx:74HC14")
+		(at 228.6 233.68 0)
 		(unit 3)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18215,7 +18252,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f5048")
 		(property "Reference" "U6"
-			(at 237.49 242.57 0)
+			(at 232.41 231.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18223,7 +18260,7 @@
 			)
 		)
 		(property "Value" "74HC14"
-			(at 238.76 247.65 0)
+			(at 233.68 236.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18231,7 +18268,7 @@
 			)
 		)
 		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
-			(at 233.68 245.11 0)
+			(at 228.6 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18239,8 +18276,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 233.68 245.11 0)
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
+			(at 228.6 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18248,8 +18285,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 233.68 245.11 0)
+		(property "Description" "Hex inverter schmitt trigger"
+			(at 228.6 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18258,7 +18295,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 233.68 245.11 0)
+			(at 228.6 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18267,7 +18304,7 @@
 			)
 		)
 		(property "LCSC" "C5605"
-			(at 233.68 245.11 0)
+			(at 228.6 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18328,7 +18365,7 @@
 	)
 	(symbol
 		(lib_id "Synkino-rescue:BC847")
-		(at 185.42 252.73 0)
+		(at 180.34 241.3 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18336,7 +18373,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f50d7")
 		(property "Reference" "Q2"
-			(at 190.5 250.825 0)
+			(at 185.42 239.395 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18345,7 +18382,7 @@
 			)
 		)
 		(property "Value" "BC847 o. SS8050"
-			(at 190.5 252.73 0)
+			(at 185.42 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18354,7 +18391,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 190.5 254.635 0)
+			(at 185.42 243.205 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18365,7 +18402,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 185.42 252.73 0)
+			(at 180.34 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18375,7 +18412,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 185.42 252.73 0)
+			(at 180.34 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18384,7 +18421,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 185.42 252.73 0)
+			(at 180.34 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18393,7 +18430,7 @@
 			)
 		)
 		(property "LCSC" "C2150"
-			(at 185.42 252.73 0)
+			(at 180.34 241.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18421,7 +18458,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:C_Small")
-		(at 220.98 255.27 0)
+		(at 215.9 243.84 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18429,7 +18466,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f5112")
 		(property "Reference" "C30"
-			(at 221.234 253.492 0)
+			(at 216.154 242.062 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18438,7 +18475,7 @@
 			)
 		)
 		(property "Value" "100n"
-			(at 221.234 257.302 0)
+			(at 216.154 245.872 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18447,7 +18484,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 220.98 255.27 0)
+			(at 215.9 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18456,7 +18493,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 220.98 255.27 0)
+			(at 215.9 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18465,7 +18502,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 220.98 255.27 0)
+			(at 215.9 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18474,7 +18511,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 220.98 255.27 0)
+			(at 215.9 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18483,7 +18520,7 @@
 			)
 		)
 		(property "LCSC" "C49678"
-			(at 220.98 255.27 0)
+			(at 215.9 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18508,7 +18545,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:C_Small")
-		(at 208.28 233.68 270)
+		(at 203.2 222.25 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18516,7 +18553,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f5152")
 		(property "Reference" "C28"
-			(at 210.058 233.934 0)
+			(at 204.978 222.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18525,7 +18562,7 @@
 			)
 		)
 		(property "Value" "100n"
-			(at 206.248 233.934 0)
+			(at 201.168 222.504 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18534,7 +18571,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 208.28 233.68 0)
+			(at 203.2 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18543,7 +18580,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 208.28 233.68 0)
+			(at 203.2 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18552,7 +18589,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 208.28 233.68 0)
+			(at 203.2 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18561,7 +18598,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 208.28 233.68 0)
+			(at 203.2 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18570,7 +18607,7 @@
 			)
 		)
 		(property "LCSC" "C49678"
-			(at 208.28 233.68 0)
+			(at 203.2 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18595,7 +18632,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:R")
-		(at 184.15 242.57 90)
+		(at 179.07 231.14 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18603,7 +18640,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f5192")
 		(property "Reference" "R18"
-			(at 184.15 240.538 90)
+			(at 179.07 229.108 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18611,7 +18648,7 @@
 			)
 		)
 		(property "Value" "470k"
-			(at 184.15 242.57 90)
+			(at 179.07 231.14 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18619,7 +18656,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-			(at 184.15 244.348 90)
+			(at 179.07 232.918 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18628,7 +18665,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 184.15 242.57 0)
+			(at 179.07 231.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18637,7 +18674,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 184.15 242.57 0)
+			(at 179.07 231.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18646,7 +18683,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 184.15 242.57 0)
+			(at 179.07 231.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18655,7 +18692,7 @@
 			)
 		)
 		(property "LCSC" "C17709"
-			(at 184.15 242.57 0)
+			(at 179.07 231.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18680,7 +18717,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:R")
-		(at 196.85 237.49 270)
+		(at 191.77 226.06 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18688,7 +18725,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f51ce")
 		(property "Reference" "R22"
-			(at 196.85 239.522 90)
+			(at 191.77 228.092 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18696,7 +18733,7 @@
 			)
 		)
 		(property "Value" "3k3"
-			(at 196.85 237.49 90)
+			(at 191.77 226.06 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18704,7 +18741,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-			(at 196.85 235.712 90)
+			(at 191.77 224.282 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18713,7 +18750,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 196.85 237.49 0)
+			(at 191.77 226.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18722,7 +18759,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 196.85 237.49 0)
+			(at 191.77 226.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18731,7 +18768,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 196.85 237.49 0)
+			(at 191.77 226.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18740,7 +18777,7 @@
 			)
 		)
 		(property "LCSC" "C26010"
-			(at 196.85 237.49 0)
+			(at 191.77 226.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18765,7 +18802,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:R")
-		(at 215.9 245.11 90)
+		(at 210.82 233.68 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18773,7 +18810,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f520b")
 		(property "Reference" "R25"
-			(at 215.9 243.078 90)
+			(at 210.82 231.648 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18781,7 +18818,7 @@
 			)
 		)
 		(property "Value" "3k3"
-			(at 215.9 245.11 90)
+			(at 210.82 233.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18789,7 +18826,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-			(at 215.9 246.888 90)
+			(at 210.82 235.458 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18798,7 +18835,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 215.9 245.11 0)
+			(at 210.82 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18807,7 +18844,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 215.9 245.11 0)
+			(at 210.82 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18816,7 +18853,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 215.9 245.11 0)
+			(at 210.82 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18825,7 +18862,7 @@
 			)
 		)
 		(property "LCSC" "C26010"
-			(at 215.9 245.11 0)
+			(at 210.82 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18850,7 +18887,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:GNDD")
-		(at 187.96 259.08 0)
+		(at 182.88 247.65 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18858,7 +18895,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f5945")
 		(property "Reference" "#PWR01"
-			(at 187.96 265.43 0)
+			(at 182.88 254 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18867,7 +18904,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 187.96 262.255 0)
+			(at 182.88 250.825 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18875,7 +18912,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 187.96 259.08 0)
+			(at 182.88 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18884,7 +18921,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 187.96 259.08 0)
+			(at 182.88 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18893,7 +18930,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 187.96 259.08 0)
+			(at 182.88 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18915,7 +18952,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:GNDD")
-		(at 220.98 259.08 0)
+		(at 215.9 247.65 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18923,7 +18960,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f597f")
 		(property "Reference" "#PWR02"
-			(at 220.98 265.43 0)
+			(at 215.9 254 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18932,7 +18969,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 220.98 262.255 0)
+			(at 215.9 250.825 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18940,7 +18977,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 220.98 259.08 0)
+			(at 215.9 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18949,7 +18986,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 220.98 259.08 0)
+			(at 215.9 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18958,7 +18995,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 220.98 259.08 0)
+			(at 215.9 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18980,7 +19017,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:GNDD")
-		(at 213.36 234.95 0)
+		(at 208.28 223.52 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18988,7 +19025,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f5a25")
 		(property "Reference" "#PWR07"
-			(at 213.36 241.3 0)
+			(at 208.28 229.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18997,7 +19034,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 213.36 238.125 0)
+			(at 208.28 226.695 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19005,7 +19042,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 213.36 234.95 0)
+			(at 208.28 223.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19014,7 +19051,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 213.36 234.95 0)
+			(at 208.28 223.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19023,7 +19060,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 213.36 234.95 0)
+			(at 208.28 223.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19045,7 +19082,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:+5V")
-		(at 201.93 227.33 0)
+		(at 196.85 215.9 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19053,7 +19090,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f5b26")
 		(property "Reference" "#PWR03"
-			(at 201.93 231.14 0)
+			(at 196.85 219.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19062,7 +19099,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 201.93 223.774 0)
+			(at 196.85 212.344 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19070,7 +19107,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 201.93 227.33 0)
+			(at 196.85 215.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19079,7 +19116,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 201.93 227.33 0)
+			(at 196.85 215.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19088,7 +19125,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 201.93 227.33 0)
+			(at 196.85 215.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19110,7 +19147,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:R")
-		(at 252.73 245.11 90)
+		(at 247.65 233.68 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19118,7 +19155,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f5e91")
 		(property "Reference" "R30"
-			(at 252.73 243.078 90)
+			(at 247.65 231.648 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19126,7 +19163,7 @@
 			)
 		)
 		(property "Value" "680"
-			(at 252.73 245.11 90)
+			(at 247.65 233.68 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19134,7 +19171,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-			(at 252.73 246.888 90)
+			(at 247.65 235.458 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19143,7 +19180,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 252.73 245.11 0)
+			(at 247.65 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19152,7 +19189,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 252.73 245.11 0)
+			(at 247.65 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19161,7 +19198,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 252.73 245.11 0)
+			(at 247.65 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19170,7 +19207,7 @@
 			)
 		)
 		(property "LCSC" "C17798"
-			(at 252.73 245.11 0)
+			(at 247.65 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19195,7 +19232,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:LED_ALT")
-		(at 257.81 254 90)
+		(at 252.73 242.57 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19203,7 +19240,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f5edf")
 		(property "Reference" "D2"
-			(at 255.27 254 0)
+			(at 250.19 242.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19211,7 +19248,7 @@
 			)
 		)
 		(property "Value" "LED_ALT"
-			(at 260.35 254 0)
+			(at 255.27 242.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19219,7 +19256,7 @@
 			)
 		)
 		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 257.81 254 0)
+			(at 252.73 242.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19228,7 +19265,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 257.81 254 0)
+			(at 252.73 242.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19237,7 +19274,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 257.81 254 0)
+			(at 252.73 242.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19246,7 +19283,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 257.81 254 0)
+			(at 252.73 242.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19255,7 +19292,7 @@
 			)
 		)
 		(property "LCSC" "C84256"
-			(at 257.81 254 0)
+			(at 252.73 242.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19280,7 +19317,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:GNDD")
-		(at 257.81 259.08 0)
+		(at 252.73 247.65 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19288,7 +19325,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a7f5f4f")
 		(property "Reference" "#PWR04"
-			(at 257.81 265.43 0)
+			(at 252.73 254 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19297,7 +19334,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 257.81 262.255 0)
+			(at 252.73 250.825 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19305,7 +19342,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 257.81 259.08 0)
+			(at 252.73 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19314,7 +19351,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 257.81 259.08 0)
+			(at 252.73 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19323,7 +19360,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 257.81 259.08 0)
+			(at 252.73 247.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19345,7 +19382,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:+5V")
-		(at 176.53 227.33 0)
+		(at 171.45 215.9 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19353,7 +19390,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a806abb")
 		(property "Reference" "#PWR05"
-			(at 176.53 231.14 0)
+			(at 171.45 219.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19362,7 +19399,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 176.53 223.774 0)
+			(at 171.45 212.344 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19370,7 +19407,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 176.53 227.33 0)
+			(at 171.45 215.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19379,7 +19416,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 176.53 227.33 0)
+			(at 171.45 215.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19388,7 +19425,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 176.53 227.33 0)
+			(at 171.45 215.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19410,7 +19447,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:GNDD")
-		(at 168.91 238.76 0)
+		(at 163.83 227.33 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19418,7 +19455,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a806ae7")
 		(property "Reference" "#PWR06"
-			(at 168.91 245.11 0)
+			(at 163.83 233.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19427,7 +19464,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 168.91 241.935 0)
+			(at 163.83 230.505 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19435,7 +19472,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 168.91 238.76 0)
+			(at 163.83 227.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19444,7 +19481,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 168.91 238.76 0)
+			(at 163.83 227.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19453,7 +19490,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 168.91 238.76 0)
+			(at 163.83 227.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19474,8 +19511,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:74HC14")
-		(at 233.68 229.87 0)
+		(lib_id "74xx:74HC14")
+		(at 228.6 218.44 0)
 		(unit 2)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -19483,7 +19520,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005a806d50")
 		(property "Reference" "U6"
-			(at 237.49 227.33 0)
+			(at 232.41 215.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19491,7 +19528,7 @@
 			)
 		)
 		(property "Value" "74HC14"
-			(at 238.76 232.41 0)
+			(at 233.68 220.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19499,7 +19536,7 @@
 			)
 		)
 		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
-			(at 233.68 229.87 0)
+			(at 228.6 218.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19507,8 +19544,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 233.68 229.87 0)
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
+			(at 228.6 218.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19516,8 +19553,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 233.68 229.87 0)
+		(property "Description" "Hex inverter schmitt trigger"
+			(at 228.6 218.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19526,7 +19563,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 233.68 229.87 0)
+			(at 228.6 218.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19535,7 +19572,7 @@
 			)
 		)
 		(property "LCSC" "C5605"
-			(at 233.68 229.87 0)
+			(at 228.6 218.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35679,7 +35716,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 163.83 233.68 180)
+		(at 158.75 222.25 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -35687,7 +35724,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aa9a1c0")
 		(property "Reference" "J2"
-			(at 165.1 238.125 0)
+			(at 160.02 226.695 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35695,7 +35732,7 @@
 			)
 		)
 		(property "Value" "Eye"
-			(at 164.338 231.902 0)
+			(at 159.258 220.472 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35704,7 +35741,7 @@
 			)
 		)
 		(property "Footprint" "easyEDA:CONN-TH_3P-P2.54_MX128-2.54-03P-GN01-CU-Y-A"
-			(at 163.83 233.68 0)
+			(at 158.75 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35713,7 +35750,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2309150913_MAX-MX128-2-54-03P-GN01-Cu-Y-A_C5188443.pdf"
-			(at 163.83 233.68 0)
+			(at 158.75 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35722,7 +35759,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 163.83 233.68 0)
+			(at 158.75 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35731,7 +35768,7 @@
 			)
 		)
 		(property "Inventory" "L"
-			(at 163.83 233.68 0)
+			(at 158.75 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35740,7 +35777,7 @@
 			)
 		)
 		(property "LCSC" "C5188443"
-			(at 163.83 233.68 0)
+			(at 158.75 222.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35768,7 +35805,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Socket")
-		(at 163.83 250.19 180)
+		(at 158.75 238.76 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -35776,7 +35813,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aa9bd7a")
 		(property "Reference" "J12"
-			(at 165.1 254.635 0)
+			(at 160.02 243.205 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35784,7 +35821,7 @@
 			)
 		)
 		(property "Value" "Eye"
-			(at 164.338 248.412 0)
+			(at 159.258 236.982 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35793,7 +35830,7 @@
 			)
 		)
 		(property "Footprint" "easyEDA:CONN-TH_3P-P2.54_MX128-2.54-03P-GN01-CU-Y-A"
-			(at 163.83 250.19 0)
+			(at 158.75 238.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35802,7 +35839,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2309150913_MAX-MX128-2-54-03P-GN01-Cu-Y-A_C5188443.pdf"
-			(at 163.83 250.19 0)
+			(at 158.75 238.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35811,7 +35848,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 163.83 250.19 0)
+			(at 158.75 238.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35820,7 +35857,7 @@
 			)
 		)
 		(property "Inventory" "L"
-			(at 163.83 250.19 0)
+			(at 158.75 238.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35829,7 +35866,7 @@
 			)
 		)
 		(property "LCSC" "C5188443"
-			(at 163.83 250.19 0)
+			(at 158.75 238.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35857,7 +35894,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:GNDD")
-		(at 168.91 255.27 0)
+		(at 163.83 243.84 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -35866,7 +35903,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aa9c89d")
 		(property "Reference" "#PWR070"
-			(at 168.91 261.62 0)
+			(at 163.83 250.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35875,7 +35912,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 168.91 258.445 0)
+			(at 163.83 247.015 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35883,7 +35920,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 168.91 255.27 0)
+			(at 163.83 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35892,7 +35929,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 168.91 255.27 0)
+			(at 163.83 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35901,7 +35938,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 168.91 255.27 0)
+			(at 163.83 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35923,7 +35960,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:R")
-		(at 254 231.14 90)
+		(at 248.92 219.71 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -35931,7 +35968,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aa9d705")
 		(property "Reference" "R47"
-			(at 254 229.108 90)
+			(at 248.92 217.678 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35939,7 +35976,7 @@
 			)
 		)
 		(property "Value" "680"
-			(at 254 231.14 90)
+			(at 248.92 219.71 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35947,7 +35984,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-			(at 254 232.918 90)
+			(at 248.92 221.488 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35956,7 +35993,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 254 231.14 0)
+			(at 248.92 219.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35965,7 +36002,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 254 231.14 0)
+			(at 248.92 219.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35974,7 +36011,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 254 231.14 0)
+			(at 248.92 219.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -35983,7 +36020,7 @@
 			)
 		)
 		(property "LCSC" "C17798"
-			(at 254 231.14 0)
+			(at 248.92 219.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36008,7 +36045,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:LED_ALT")
-		(at 262.89 234.95 90)
+		(at 257.81 223.52 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -36016,7 +36053,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aa9e930")
 		(property "Reference" "D3"
-			(at 260.35 234.95 0)
+			(at 255.27 223.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36024,7 +36061,7 @@
 			)
 		)
 		(property "Value" "LED_ALT"
-			(at 265.43 234.95 0)
+			(at 260.35 223.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36032,7 +36069,7 @@
 			)
 		)
 		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
-			(at 262.89 234.95 0)
+			(at 257.81 223.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36041,7 +36078,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 262.89 234.95 0)
+			(at 257.81 223.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36050,7 +36087,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 262.89 234.95 0)
+			(at 257.81 223.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36059,7 +36096,7 @@
 			)
 		)
 		(property "Inventory" "B"
-			(at 262.89 234.95 0)
+			(at 257.81 223.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36068,7 +36105,7 @@
 			)
 		)
 		(property "LCSC" "C84256"
-			(at 262.89 234.95 0)
+			(at 257.81 223.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36093,7 +36130,7 @@
 	)
 	(symbol
 		(lib_id "Synkino:GNDD")
-		(at 262.89 241.3 0)
+		(at 257.81 229.87 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -36101,7 +36138,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aa9eb1c")
 		(property "Reference" "#PWR071"
-			(at 262.89 247.65 0)
+			(at 257.81 236.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36110,7 +36147,7 @@
 			)
 		)
 		(property "Value" "GNDD"
-			(at 262.89 244.475 0)
+			(at 257.81 233.045 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36118,7 +36155,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 262.89 241.3 0)
+			(at 257.81 229.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36127,7 +36164,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 262.89 241.3 0)
+			(at 257.81 229.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36136,7 +36173,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 262.89 241.3 0)
+			(at 257.81 229.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -37603,6 +37640,112 @@
 		)
 	)
 	(symbol
+		(lib_id "74xx:74HC14")
+		(at 237.49 262.89 0)
+		(unit 7)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "224c3f7d-1bbf-4770-8af8-f564e0e3c276")
+		(property "Reference" "U6"
+			(at 243.84 261.6199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "74HC14"
+			(at 243.84 264.1599 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 237.49 262.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74HC14"
+			(at 237.49 262.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Hex inverter schmitt trigger"
+			(at 237.49 262.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "6"
+			(uuid "2461d274-ab61-4719-b509-36922ee53fa7")
+		)
+		(pin "12"
+			(uuid "025b50ac-c304-43a8-8b6b-25b3ee8eee6b")
+		)
+		(pin "8"
+			(uuid "58f8b88c-925f-4be3-888d-1b9b9fd5a708")
+		)
+		(pin "4"
+			(uuid "2f1c97d9-7dc8-42f8-b2f3-4c085975520d")
+		)
+		(pin "13"
+			(uuid "5070b730-01fa-4026-a487-02b803839873")
+		)
+		(pin "9"
+			(uuid "822e0d72-afc4-420f-b1f0-77f8def68cc7")
+		)
+		(pin "2"
+			(uuid "402197b5-fe27-4d7b-b2da-0497f643f78c")
+		)
+		(pin "1"
+			(uuid "256b0529-f86c-4f71-b2e7-f468766c673a")
+		)
+		(pin "10"
+			(uuid "3d3a26ad-771b-4cbb-80a2-eb82c116a37f")
+		)
+		(pin "14"
+			(uuid "db614389-d87e-44f9-bf63-39f1775dcebd")
+		)
+		(pin "7"
+			(uuid "74a3fbfa-ae81-4fda-b826-7e97bf189a8e")
+		)
+		(pin "11"
+			(uuid "a6f0a225-5dd8-4b8b-ad69-4cf77ab92d37")
+		)
+		(pin "5"
+			(uuid "114374e9-3076-478c-983a-6ee229a5a057")
+		)
+		(pin "3"
+			(uuid "7d43198b-46e6-4934-b635-6c384bca6f9e")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "U6")
+					(unit 7)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Synkino:CP")
 		(at 137.16 172.72 0)
 		(unit 1)
@@ -37908,6 +38051,71 @@
 		)
 	)
 	(symbol
+		(lib_id "Synkino:GNDD")
+		(at 237.49 275.59 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "99d50775-69ca-4e4a-a8b5-7bb26ea6fdfe")
+		(property "Reference" "#PWR080"
+			(at 237.49 281.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GNDD"
+			(at 237.49 278.765 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 237.49 275.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 237.49 275.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 237.49 275.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3dc77bb3-865c-4647-a741-81278a685f08")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "#PWR080")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Jumper:SolderJumper_2_Open")
 		(at 219.075 123.825 0)
 		(unit 1)
@@ -37972,6 +38180,71 @@
 			(project "Synkino"
 				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
 					(reference "JP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Synkino:+5V")
+		(at 237.49 250.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ee43f74b-330e-4ae6-81bd-0188823409ea")
+		(property "Reference" "#PWR081"
+			(at 237.49 254 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 237.49 246.634 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 237.49 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 237.49 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 237.49 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0adbad37-e946-44c7-a045-7229f2d250e9")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "#PWR081")
 					(unit 1)
 				)
 			)
