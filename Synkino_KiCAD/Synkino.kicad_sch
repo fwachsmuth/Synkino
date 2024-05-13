@@ -594,6 +594,660 @@
 				)
 			)
 		)
+		(symbol "ATMEGA328P-AU_1"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -19.05 31.75 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+				)
+			)
+			(property "Value" "ATMEGA328P-AU"
+				(at 10.16 -35.56 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+				)
+			)
+			(property "Footprint" "Housings_QFP:TQFP-32_7x7mm_Pitch0.8mm"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "TQFP*7x7mm*Pitch0.8mm*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "ATMEGA328P-AU_1_0_1"
+				(rectangle
+					(start -19.05 30.48)
+					(end 21.59 -33.02)
+					(stroke
+						(width 0.254)
+						(type solid)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "ATMEGA328P-AU_1_1_1"
+				(pin bidirectional line
+					(at 25.4 -20.32 180)
+					(length 3.81)
+					(name "(PCINT19/OC2B/INT1)PD3"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 -27.94 180)
+					(length 3.81)
+					(name "(PCINT22/OC0A/AIN0)PD6"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 -30.48 180)
+					(length 3.81)
+					(name "(PCINT23/AIN1)PD7"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 27.94 180)
+					(length 3.81)
+					(name "(PCINT0/CLKO/ICP1)PB0"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 25.4 180)
+					(length 3.81)
+					(name "(PCINT1/OC1A)PB1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 22.86 180)
+					(length 3.81)
+					(name "(PCINT2/OC1B/~{SS})PB2"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 20.32 180)
+					(length 3.81)
+					(name "(PCINT3/OC2A/MOSI)PB3"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 17.78 180)
+					(length 3.81)
+					(name "(PCINT4/MISO)PB4"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 15.24 180)
+					(length 3.81)
+					(name "(PCINT5/SCK)PB5"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "17"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -22.86 20.32 0)
+					(length 3.81)
+					(name "AVCC"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -22.86 -6.35 0)
+					(length 3.81)
+					(name "ADC6"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "19"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 -22.86 180)
+					(length 3.81)
+					(name "(PCINT20/XCK/T0)PD4"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -22.86 12.7 0)
+					(length 3.81)
+					(name "AREF"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "20"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -22.86 -25.4 0)
+					(length 3.81)
+					(name "GND"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "21"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -22.86 -8.89 0)
+					(length 3.81)
+					(name "ADC7"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "22"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 6.35 180)
+					(length 3.81)
+					(name "(PCINT8/ADC0)PC0"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "23"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 3.81 180)
+					(length 3.81)
+					(name "(PCINT9/ADC1)PC1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "24"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 1.27 180)
+					(length 3.81)
+					(name "(PCINT10/ADC2)PC2"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "25"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 -1.27 180)
+					(length 3.81)
+					(name "(PCINT11/ADC3)PC3"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "26"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 -3.81 180)
+					(length 3.81)
+					(name "(PCINT12/SDA/ADC4)PC4"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "27"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 -6.35 180)
+					(length 3.81)
+					(name "(PCINT13/SCL/ADC5)PC5"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "28"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 -8.89 180)
+					(length 3.81)
+					(name "(PCINT14/~{RESET})PC6"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "29"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -22.86 -30.48 0)
+					(length 3.81)
+					(name "GND"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 -12.7 180)
+					(length 3.81)
+					(name "(PCINT16/RXD)PD0"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "30"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 -15.24 180)
+					(length 3.81)
+					(name "(PCINT17/TXD)PD1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "31"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 -17.78 180)
+					(length 3.81)
+					(name "(PCINT18/INT0)PD2"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "32"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -22.86 27.94 0)
+					(length 3.81)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -22.86 -27.94 0)
+					(length 3.81)
+					(name "GND"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -22.86 25.4 0)
+					(length 3.81)
+					(name "VCC"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 12.7 180)
+					(length 3.81)
+					(name "(PCINT6/XTAL1/TOSC1)PB6"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 10.16 180)
+					(length 3.81)
+					(name "(PCINT7/XTAL2/TOSC2)PB7"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 25.4 -25.4 180)
+					(length 3.81)
+					(name "(PCINT21/OC0B/T1)PD5"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Connector:Conn_01x02_Socket"
 			(pin_names
 				(offset 1.016) hide)
@@ -1156,6 +1810,398 @@
 						)
 					)
 					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:C"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0.635 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "C"
+				(at 0.635 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0.9652 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Unpolarized capacitor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "cap capacitor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "C_0_1"
+				(polyline
+					(pts
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.032 0.762) (xy 2.032 0.762)
+					)
+					(stroke
+						(width 0.508)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 2.794)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.794)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:C_Small"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.254) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0.254 1.778 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "C_Small"
+				(at 0.254 -2.032 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Unpolarized capacitor, small symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "capacitor cap"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "C_Small_0_1"
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.3048)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_Small_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:R"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3198,7 +4244,7 @@
 					)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -3210,7 +4256,7 @@
 					)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -3222,7 +4268,7 @@
 					)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -4569,133 +5615,6 @@
 				)
 			)
 		)
-		(symbol "Synkino:C"
-			(pin_numbers hide)
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "C"
-				(at 0.635 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "C"
-				(at 0.635 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0.9652 -3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "C_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "C_0_1"
-				(polyline
-					(pts
-						(xy -2.032 -0.762) (xy 2.032 -0.762)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -2.032 0.762) (xy 2.032 0.762)
-					)
-					(stroke
-						(width 0.508)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "C_1_1"
-				(pin passive line
-					(at 0 3.81 270)
-					(length 2.794)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 2.794)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "Synkino:CP"
 			(pin_numbers hide)
 			(pin_names
@@ -4861,132 +5780,6 @@
 				(pin passive line
 					(at 0 -3.81 90)
 					(length 2.794)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "Synkino:C_Small"
-			(pin_numbers hide)
-			(pin_names
-				(offset 0.254) hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "C"
-				(at 0.254 1.778 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "C_Small"
-				(at 0.254 -2.032 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "C_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "C_Small_0_1"
-				(polyline
-					(pts
-						(xy -1.524 -0.508) (xy 1.524 -0.508)
-					)
-					(stroke
-						(width 0.3302)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.524 0.508) (xy 1.524 0.508)
-					)
-					(stroke
-						(width 0.3048)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "C_Small_1_1"
-				(pin passive line
-					(at 0 2.54 270)
-					(length 2.032)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 90)
-					(length 2.032)
 					(name "~"
 						(effects
 							(font
@@ -5228,7 +6021,7 @@
 					(end 0.762 1.524)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -5240,7 +6033,7 @@
 					)
 					(stroke
 						(width 0.381)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -5252,7 +6045,7 @@
 					)
 					(stroke
 						(width 0.381)
-						(type default)
+						(type solid)
 					)
 					(fill
 						(type none)
@@ -5637,488 +6430,6 @@
 						)
 					)
 					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "Synkino:GNDD"
-			(power)
-			(pin_names
-				(offset 0)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "#PWR"
-				(at 0 -6.35 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Value" "GNDD"
-				(at 0 -3.175 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "GNDD_0_1"
-				(rectangle
-					(start -1.27 -1.524)
-					(end 1.27 -2.032)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0) (xy 0 -1.524)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "GNDD_1_1"
-				(pin power_in line
-					(at 0 0 270)
-					(length 0) hide
-					(name "GNDD"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "Synkino:ICSP"
-			(pin_names
-				(offset 1.016)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "X"
-				(at 0 7.62 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Value" "ICSP"
-				(at 0 -7.62 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at -1.27 -3.81 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at -1.27 -3.81 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "ICSP_0_1"
-				(rectangle
-					(start -5.08 5.08)
-					(end 5.08 -5.08)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "ICSP_1_1"
-				(pin input line
-					(at -10.16 2.54 0)
-					(length 5.08)
-					(name "MI"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 2.54 180)
-					(length 5.08)
-					(name "VCC"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -10.16 0 0)
-					(length 5.08)
-					(name "SCK"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 10.16 0 180)
-					(length 5.08)
-					(name "MO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -10.16 -2.54 0)
-					(length 5.08)
-					(name "RST"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 -2.54 180)
-					(length 5.08)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "Synkino:IRF7319"
-			(pin_names
-				(offset 1.016)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "Q"
-				(at 0 7.62 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Value" "IRF7319"
-				(at 1.27 -10.16 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 2.54 -1.27 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 2.54 -1.27 0)
-				(effects
-					(font
-						(size 1.524 1.524)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "IRF7319_0_1"
-				(rectangle
-					(start -3.81 5.08)
-					(end 5.08 -7.62)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "IRF7319_1_1"
-				(pin unspecified line
-					(at -8.89 -5.08 0)
-					(length 5.08)
-					(name "S1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 10.16 -5.08 180)
-					(length 5.08)
-					(name "G1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -8.89 2.54 0)
-					(length 5.08)
-					(name "S2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -8.89 0 0)
-					(length 5.08)
-					(name "G2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 10.16 0 180)
-					(length 5.08)
-					(name "D2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 10.16 2.54 180)
-					(length 5.08)
-					(name "D2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at 10.16 -2.54 180)
-					(length 5.08)
-					(name "D1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin unspecified line
-					(at -8.89 -2.54 0)
-					(length 5.08)
-					(name "D1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -6692,118 +7003,6 @@
 					)
 					(fill
 						(type none)
-					)
-				)
-			)
-		)
-		(symbol "Synkino:R"
-			(pin_numbers hide)
-			(pin_names
-				(offset 0)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "R"
-				(at 2.032 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "R"
-				(at 0 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at -1.778 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "R_* R_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "R_0_1"
-				(rectangle
-					(start -1.016 -2.54)
-					(end 1.016 2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "R_1_1"
-				(pin passive line
-					(at 0 3.81 270)
-					(length 1.27)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 1.27)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
 					)
 				)
 			)
@@ -8417,7 +8616,7 @@
 						(type background)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at -8.89 5.08 0)
 					(length 2.54)
 					(name "VDD"
@@ -8435,7 +8634,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 8.89 5.08 180)
 					(length 2.54)
 					(name "NO2"
@@ -8453,7 +8652,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -8.89 2.54 0)
 					(length 2.54)
 					(name "NO1"
@@ -8471,7 +8670,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -8.89 0 0)
 					(length 2.54)
 					(name "COM1"
@@ -8489,7 +8688,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin input line
 					(at -8.89 -2.54 0)
 					(length 2.54)
 					(name "IN1"
@@ -8507,7 +8706,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at -8.89 -5.08 0)
 					(length 2.54)
 					(name "NC1"
@@ -8525,7 +8724,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin power_in line
 					(at 8.89 -5.08 180)
 					(length 2.54)
 					(name "GND"
@@ -8543,7 +8742,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 8.89 -2.54 180)
 					(length 2.54)
 					(name "NC2"
@@ -8561,7 +8760,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin input line
 					(at 8.89 0 180)
 					(length 2.54)
 					(name "IN2"
@@ -8579,7 +8778,7 @@
 						)
 					)
 				)
-				(pin unspecified line
+				(pin passive line
 					(at 8.89 2.54 180)
 					(length 2.54)
 					(name "COM2"
@@ -8590,6 +8789,130 @@
 						)
 					)
 					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "easyEDA:ME6210A50PG"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "ME6210A50PG"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "easyeda2kicad:SOT-89-3_L4.5-W2.5-P1.50-LS4.2-BR"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Low-Dropout-Regulators-LDO_ME6210A50PG_C82940.html"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C82940"
+				(at 0 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "ME6210A50PG_0_1"
+				(rectangle
+					(start -7.62 7.62)
+					(end 7.62 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin power_in line
+					(at 0 -5.08 90)
+					(length 5.08)
+					(name "VSS"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -12.7 5.08 0)
+					(length 5.08)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 12.7 5.08 180)
+					(length 5.08)
+					(name "VOUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -8759,7 +9082,7 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 5.08 270)
+					(at 0 5.08 270)
 					(length 2.54) hide
 					(name "2"
 						(effects
@@ -8795,7 +9118,7 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 -5.08 90)
+					(at 0 -5.08 90)
 					(length 2.54) hide
 					(name "4"
 						(effects
@@ -8974,7 +9297,7 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 5.08 270)
+					(at 0 5.08 270)
 					(length 2.54) hide
 					(name "2"
 						(effects
@@ -9010,7 +9333,7 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 -5.08 90)
+					(at 0 -5.08 90)
 					(length 2.54) hide
 					(name "4"
 						(effects
@@ -9029,40 +9352,43 @@
 				)
 			)
 		)
-		(symbol "easyeda2kicad:ME6210A50PG"
+		(symbol "icsp:ICSP"
+			(pin_names
+				(offset 1.016)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U"
-				(at 0 10.16 0)
+			(property "Reference" "X"
+				(at 0 7.62 0)
 				(effects
 					(font
-						(size 1.27 1.27)
+						(size 1.524 1.524)
 					)
 				)
 			)
-			(property "Value" "ME6210A50PG"
-				(at 0 -10.16 0)
+			(property "Value" "ICSP"
+				(at 0 -7.62 0)
 				(effects
 					(font
-						(size 1.27 1.27)
+						(size 1.524 1.524)
 					)
 				)
 			)
-			(property "Footprint" "easyeda2kicad:SOT-89-3_L4.5-W2.5-P1.50-LS4.2-BR"
-				(at 0 -12.7 0)
+			(property "Footprint" ""
+				(at -1.27 -3.81 0)
 				(effects
 					(font
-						(size 1.27 1.27)
+						(size 1.524 1.524)
 					)
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://lcsc.com/product-detail/Low-Dropout-Regulators-LDO_ME6210A50PG_C82940.html"
-				(at 0 -15.24 0)
+			(property "Datasheet" ""
+				(at -1.27 -3.81 0)
 				(effects
 					(font
-						(size 1.27 1.27)
+						(size 1.524 1.524)
 					)
 					(hide yes)
 				)
@@ -9076,31 +9402,24 @@
 					(hide yes)
 				)
 			)
-			(property "LCSC Part" "C82940"
-				(at 0 -17.78 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "ME6210A50PG_0_1"
+			(symbol "ICSP_0_1"
 				(rectangle
-					(start -7.62 7.62)
-					(end 7.62 0)
+					(start -5.08 5.08)
+					(end 5.08 -5.08)
 					(stroke
 						(width 0)
-						(type default)
+						(type solid)
 					)
 					(fill
-						(type background)
+						(type none)
 					)
 				)
-				(pin unspecified line
-					(at 0 -5.08 90)
+			)
+			(symbol "ICSP_1_1"
+				(pin bidirectional line
+					(at -10.16 2.54 0)
 					(length 5.08)
-					(name "VSS"
+					(name "MI"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -9115,10 +9434,10 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at -12.7 5.08 0)
+				(pin bidirectional line
+					(at 10.16 2.54 180)
 					(length 5.08)
-					(name "VIN"
+					(name "VCC"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -9133,10 +9452,10 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at 12.7 5.08 180)
+				(pin bidirectional line
+					(at -10.16 0 0)
 					(length 5.08)
-					(name "VOUT"
+					(name "SCK"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -9144,6 +9463,377 @@
 						)
 					)
 					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 10.16 0 180)
+					(length 5.08)
+					(name "MO"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -10.16 -2.54 0)
+					(length 5.08)
+					(name "RST"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 10.16 -2.54 180)
+					(length 5.08)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "irf7319:IRF7319"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Value" "IRF7319"
+				(at 1.27 -10.16 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 2.54 -1.27 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 2.54 -1.27 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "IRF7319_0_1"
+				(rectangle
+					(start -3.81 5.08)
+					(end 5.08 -7.62)
+					(stroke
+						(width 0)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "IRF7319_1_1"
+				(pin input line
+					(at -8.89 -5.08 0)
+					(length 5.08)
+					(name "S1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 10.16 -5.08 180)
+					(length 5.08)
+					(name "G1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -8.89 2.54 0)
+					(length 5.08)
+					(name "S2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -8.89 0 0)
+					(length 5.08)
+					(name "G2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 10.16 0 180)
+					(length 5.08)
+					(name "D2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 10.16 2.54 180)
+					(length 5.08)
+					(name "D2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 10.16 -2.54 180)
+					(length 5.08)
+					(name "D1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at -8.89 -2.54 0)
+					(length 5.08)
+					(name "D1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "power:GNDD"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "GNDD"
+				(at 0 -3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "GNDD_0_1"
+				(rectangle
+					(start -1.27 -1.524)
+					(end 1.27 -2.032)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.524)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GNDD_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -9551,6 +10241,12 @@
 		(uuid "703aa002-a5f1-401f-b525-a97a132f5645")
 	)
 	(junction
+		(at 118.11 29.21)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "707b178a-1769-453d-a594-9be0066d367b")
+	)
+	(junction
 		(at 289.56 93.98)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9597,6 +10293,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "81dff5d4-4ad8-426b-af8c-49ad384977ac")
+	)
+	(junction
+		(at 41.91 52.07)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "825a3ca7-5e74-4aed-8ae8-faa52105da05")
 	)
 	(junction
 		(at 243.84 30.48)
@@ -9899,12 +10601,6 @@
 		(uuid "d66a333a-3165-4048-b5d8-935828ae7fe6")
 	)
 	(junction
-		(at 113.03 217.17)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "dac7a1dd-ec68-457d-9904-504b5f6ee592")
-	)
-	(junction
 		(at 170.18 105.41)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9969,6 +10665,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "eded95df-6b9a-4ec3-a243-3e0d0a32a17c")
+	)
+	(junction
+		(at 248.92 81.28)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ee0f35f3-8a1c-4d5f-8206-d936743228f1")
 	)
 	(junction
 		(at 21.59 231.14)
@@ -12376,6 +13078,16 @@
 	)
 	(wire
 		(pts
+			(xy 118.11 29.21) (xy 118.11 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b35b88d-5f7b-491b-a5dd-d58b8a06e352")
+	)
+	(wire
+		(pts
 			(xy 384.81 190.5) (xy 384.81 191.77)
 		)
 		(stroke
@@ -13436,7 +14148,7 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 218.44) (xy 113.03 217.17)
+			(xy 113.03 214.63) (xy 113.03 218.44)
 		)
 		(stroke
 			(width 0)
@@ -15386,7 +16098,7 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 25.4) (xy 118.11 34.29)
+			(xy 118.11 25.4) (xy 118.11 29.21)
 		)
 		(stroke
 			(width 0)
@@ -15463,16 +16175,6 @@
 			(type default)
 		)
 		(uuid "d2d380ad-edaa-4408-a255-5e8c3672d56b")
-	)
-	(wire
-		(pts
-			(xy 113.03 217.17) (xy 113.03 214.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d3b363a9-cd52-4a5e-8229-1bfbb5ffdf14")
 	)
 	(wire
 		(pts
@@ -18457,7 +19159,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 215.9 243.84 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -18492,7 +19194,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 215.9 243.84 0)
 			(effects
 				(font
@@ -18501,7 +19203,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 215.9 243.84 0)
 			(effects
 				(font
@@ -18544,7 +19246,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 203.2 222.25 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -18579,7 +19281,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 203.2 222.25 0)
 			(effects
 				(font
@@ -18588,7 +19290,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 203.2 222.25 0)
 			(effects
 				(font
@@ -18631,7 +19333,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 179.07 231.14 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -18664,7 +19366,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 179.07 231.14 0)
 			(effects
 				(font
@@ -18673,7 +19375,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 179.07 231.14 0)
 			(effects
 				(font
@@ -18716,7 +19418,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 191.77 226.06 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -18749,7 +19451,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 191.77 226.06 0)
 			(effects
 				(font
@@ -18758,7 +19460,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 191.77 226.06 0)
 			(effects
 				(font
@@ -18801,7 +19503,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 210.82 233.68 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -18834,7 +19536,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 210.82 233.68 0)
 			(effects
 				(font
@@ -18843,7 +19545,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 210.82 233.68 0)
 			(effects
 				(font
@@ -18886,7 +19588,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 182.88 247.65 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -18929,7 +19631,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 182.88 247.65 0)
 			(effects
 				(font
@@ -18951,7 +19653,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 215.9 247.65 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -18994,7 +19696,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 215.9 247.65 0)
 			(effects
 				(font
@@ -19016,7 +19718,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 208.28 223.52 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -19059,7 +19761,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 208.28 223.52 0)
 			(effects
 				(font
@@ -19146,7 +19848,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 247.65 233.68 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -19179,7 +19881,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 247.65 233.68 0)
 			(effects
 				(font
@@ -19188,7 +19890,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 247.65 233.68 0)
 			(effects
 				(font
@@ -19316,7 +20018,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 252.73 247.65 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -19359,7 +20061,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 252.73 247.65 0)
 			(effects
 				(font
@@ -19446,7 +20148,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 163.83 227.33 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -19489,7 +20191,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 163.83 227.33 0)
 			(effects
 				(font
@@ -19729,7 +20431,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 107.95 99.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -19764,7 +20466,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 107.95 99.06 0)
 			(effects
 				(font
@@ -19773,7 +20475,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 107.95 99.06 0)
 			(effects
 				(font
@@ -19816,7 +20518,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 135.89 99.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -19851,7 +20553,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 135.89 99.06 0)
 			(effects
 				(font
@@ -19860,7 +20562,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 135.89 99.06 0)
 			(effects
 				(font
@@ -19903,7 +20605,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 140.97 99.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -19938,7 +20640,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 140.97 99.06 0)
 			(effects
 				(font
@@ -19947,7 +20649,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 140.97 99.06 0)
 			(effects
 				(font
@@ -19990,7 +20692,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 140.97 105.41 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -20033,7 +20735,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 140.97 105.41 0)
 			(effects
 				(font
@@ -20055,7 +20757,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 135.89 105.41 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -20098,7 +20800,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 135.89 105.41 0)
 			(effects
 				(font
@@ -20120,7 +20822,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 107.95 105.41 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -20163,7 +20865,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 107.95 105.41 0)
 			(effects
 				(font
@@ -20315,7 +21017,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 130.81 105.41 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -20358,7 +21060,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 130.81 105.41 0)
 			(effects
 				(font
@@ -20603,7 +21305,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 265.43 68.58 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -20638,7 +21340,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 265.43 68.58 0)
 			(effects
 				(font
@@ -20647,7 +21349,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 265.43 68.58 0)
 			(effects
 				(font
@@ -20820,7 +21522,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 171.45 62.23 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -20855,7 +21557,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 171.45 62.23 0)
 			(effects
 				(font
@@ -20864,7 +21566,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 171.45 62.23 0)
 			(effects
 				(font
@@ -20907,7 +21609,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 171.45 67.31 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -20950,7 +21652,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 171.45 67.31 0)
 			(effects
 				(font
@@ -20972,7 +21674,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 165.1 59.69 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -21005,7 +21707,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 165.1 59.69 0)
 			(effects
 				(font
@@ -21014,7 +21716,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 165.1 59.69 0)
 			(effects
 				(font
@@ -21122,7 +21824,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 189.23 62.23 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -21165,7 +21867,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 189.23 62.23 0)
 			(effects
 				(font
@@ -21317,7 +22019,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 187.96 80.01 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -21350,7 +22052,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 187.96 80.01 0)
 			(effects
 				(font
@@ -21359,7 +22061,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 187.96 80.01 0)
 			(effects
 				(font
@@ -21402,7 +22104,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 181.61 80.01 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -21445,7 +22147,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 181.61 80.01 0)
 			(effects
 				(font
@@ -21617,7 +22319,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 173.99 111.76 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -21650,7 +22352,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 173.99 111.76 0)
 			(effects
 				(font
@@ -21659,7 +22361,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 173.99 111.76 0)
 			(effects
 				(font
@@ -21702,7 +22404,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 170.18 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -21737,7 +22439,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 170.18 116.84 0)
 			(effects
 				(font
@@ -21746,7 +22448,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 170.18 116.84 0)
 			(effects
 				(font
@@ -21789,7 +22491,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 177.8 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -21824,7 +22526,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 177.8 116.84 0)
 			(effects
 				(font
@@ -21833,7 +22535,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 177.8 116.84 0)
 			(effects
 				(font
@@ -21876,7 +22578,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 170.18 121.92 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -21919,7 +22621,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 170.18 121.92 0)
 			(effects
 				(font
@@ -21941,7 +22643,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 177.8 121.92 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -21984,7 +22686,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 177.8 121.92 0)
 			(effects
 				(font
@@ -22006,7 +22708,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 248.92 113.03 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -22039,7 +22741,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 248.92 113.03 0)
 			(effects
 				(font
@@ -22048,7 +22750,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 248.92 113.03 0)
 			(effects
 				(font
@@ -22091,7 +22793,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 182.88 165.1 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -22124,7 +22826,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 182.88 165.1 0)
 			(effects
 				(font
@@ -22133,7 +22835,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 182.88 165.1 0)
 			(effects
 				(font
@@ -22176,7 +22878,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 177.8 165.1 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -22209,7 +22911,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 177.8 165.1 0)
 			(effects
 				(font
@@ -22218,7 +22920,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 177.8 165.1 0)
 			(effects
 				(font
@@ -22261,7 +22963,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 172.72 165.1 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -22294,7 +22996,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 172.72 165.1 0)
 			(effects
 				(font
@@ -22303,7 +23005,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 172.72 165.1 0)
 			(effects
 				(font
@@ -22346,7 +23048,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 182.88 175.26 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -22381,7 +23083,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 182.88 175.26 0)
 			(effects
 				(font
@@ -22390,7 +23092,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 182.88 175.26 0)
 			(effects
 				(font
@@ -22433,7 +23135,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 177.8 175.26 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -22468,7 +23170,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 177.8 175.26 0)
 			(effects
 				(font
@@ -22477,7 +23179,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 177.8 175.26 0)
 			(effects
 				(font
@@ -22520,7 +23222,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 172.72 175.26 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -22555,7 +23257,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 172.72 175.26 0)
 			(effects
 				(font
@@ -22564,7 +23266,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 172.72 175.26 0)
 			(effects
 				(font
@@ -22672,7 +23374,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 190.5 153.67 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -22705,7 +23407,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 190.5 153.67 0)
 			(effects
 				(font
@@ -22714,7 +23416,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 190.5 153.67 0)
 			(effects
 				(font
@@ -22757,7 +23459,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 196.85 157.48 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -22792,7 +23494,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 196.85 157.48 0)
 			(effects
 				(font
@@ -22801,7 +23503,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 196.85 157.48 0)
 			(effects
 				(font
@@ -22844,7 +23546,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 251.46 160.02 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -22877,7 +23579,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 251.46 160.02 0)
 			(effects
 				(font
@@ -22886,7 +23588,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 251.46 160.02 0)
 			(effects
 				(font
@@ -23146,7 +23848,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 190.5 170.18 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -23179,7 +23881,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 190.5 170.18 0)
 			(effects
 				(font
@@ -23188,7 +23890,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 190.5 170.18 0)
 			(effects
 				(font
@@ -23231,7 +23933,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 196.85 173.99 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -23266,7 +23968,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 196.85 173.99 0)
 			(effects
 				(font
@@ -23275,7 +23977,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 196.85 173.99 0)
 			(effects
 				(font
@@ -23318,7 +24020,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 251.46 179.07 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -23351,7 +24053,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 251.46 179.07 0)
 			(effects
 				(font
@@ -23360,7 +24062,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 251.46 179.07 0)
 			(effects
 				(font
@@ -23859,7 +24561,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 215.9 185.42 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -23892,7 +24594,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 215.9 185.42 0)
 			(effects
 				(font
@@ -23901,7 +24603,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 215.9 185.42 0)
 			(effects
 				(font
@@ -24074,7 +24776,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 207.01 158.75 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -24107,7 +24809,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 207.01 158.75 0)
 			(effects
 				(font
@@ -24116,7 +24818,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 207.01 158.75 0)
 			(effects
 				(font
@@ -24159,7 +24861,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 238.76 176.53 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -24192,7 +24894,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 238.76 176.53 0)
 			(effects
 				(font
@@ -24201,7 +24903,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 238.76 176.53 0)
 			(effects
 				(font
@@ -24244,7 +24946,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 46.99 114.3 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -24287,7 +24989,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 46.99 114.3 0)
 			(effects
 				(font
@@ -24439,7 +25141,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 35.56 114.3 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -24482,7 +25184,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 35.56 114.3 0)
 			(effects
 				(font
@@ -24504,7 +25206,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 39.37 111.76 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -24537,7 +25239,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 39.37 111.76 0)
 			(effects
 				(font
@@ -24546,7 +25248,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 39.37 111.76 0)
 			(effects
 				(font
@@ -24589,7 +25291,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 231.14 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -24624,7 +25326,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 231.14 26.67 0)
 			(effects
 				(font
@@ -24633,7 +25335,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 231.14 26.67 0)
 			(effects
 				(font
@@ -24676,7 +25378,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 237.49 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -24711,7 +25413,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 237.49 26.67 0)
 			(effects
 				(font
@@ -24720,7 +25422,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 237.49 26.67 0)
 			(effects
 				(font
@@ -24763,7 +25465,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 243.84 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -24798,7 +25500,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 243.84 26.67 0)
 			(effects
 				(font
@@ -24807,7 +25509,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 243.84 26.67 0)
 			(effects
 				(font
@@ -24850,7 +25552,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 38.1 91.44 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -24883,7 +25585,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 38.1 91.44 0)
 			(effects
 				(font
@@ -24892,7 +25594,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 38.1 91.44 0)
 			(effects
 				(font
@@ -24935,7 +25637,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 250.19 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -24970,7 +25672,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 250.19 26.67 0)
 			(effects
 				(font
@@ -24979,7 +25681,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 250.19 26.67 0)
 			(effects
 				(font
@@ -25174,7 +25876,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 224.79 31.75 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -25217,7 +25919,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 224.79 31.75 0)
 			(effects
 				(font
@@ -25239,7 +25941,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 30.48 91.44 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -25272,7 +25974,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 30.48 91.44 0)
 			(effects
 				(font
@@ -25281,7 +25983,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 30.48 91.44 0)
 			(effects
 				(font
@@ -25324,7 +26026,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 34.29 91.44 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -25357,7 +26059,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 34.29 91.44 0)
 			(effects
 				(font
@@ -25366,7 +26068,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 34.29 91.44 0)
 			(effects
 				(font
@@ -25409,7 +26111,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 172.72 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -25444,7 +26146,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 172.72 26.67 0)
 			(effects
 				(font
@@ -25453,7 +26155,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 172.72 26.67 0)
 			(effects
 				(font
@@ -25496,7 +26198,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 179.07 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -25531,7 +26233,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 179.07 26.67 0)
 			(effects
 				(font
@@ -25540,7 +26242,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 179.07 26.67 0)
 			(effects
 				(font
@@ -25583,7 +26285,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 185.42 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -25618,7 +26320,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 185.42 26.67 0)
 			(effects
 				(font
@@ -25627,7 +26329,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 185.42 26.67 0)
 			(effects
 				(font
@@ -25757,7 +26459,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 166.37 31.75 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -25800,7 +26502,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 166.37 31.75 0)
 			(effects
 				(font
@@ -25822,7 +26524,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 200.66 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -25857,7 +26559,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 200.66 26.67 0)
 			(effects
 				(font
@@ -25866,7 +26568,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 200.66 26.67 0)
 			(effects
 				(font
@@ -25909,7 +26611,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 207.01 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -25944,7 +26646,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 207.01 26.67 0)
 			(effects
 				(font
@@ -25953,7 +26655,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 207.01 26.67 0)
 			(effects
 				(font
@@ -25996,7 +26698,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 213.36 26.67 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -26031,7 +26733,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 213.36 26.67 0)
 			(effects
 				(font
@@ -26040,7 +26742,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 213.36 26.67 0)
 			(effects
 				(font
@@ -26339,7 +27041,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 306.07 67.31 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -26382,7 +27084,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 306.07 67.31 0)
 			(effects
 				(font
@@ -26556,7 +27258,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 292.1 31.75 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -26599,7 +27301,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 292.1 31.75 0)
 			(effects
 				(font
@@ -26621,6 +27323,7 @@
 		)
 	)
 	(symbol
+		(lib_name "ATMEGA328P-AU_1")
 		(lib_id "Synkino:ATMEGA328P-AU")
 		(at 314.96 125.73 0)
 		(unit 1)
@@ -26647,7 +27350,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "Package_QFP:TQFP-32_7x7mm_P0.8mm"
+		(property "Footprint" "Housings_QFP:TQFP-32_7x7mm_Pitch0.8mm"
 			(at 314.96 125.73 0)
 			(effects
 				(font
@@ -26899,7 +27602,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 76.2 247.65 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -26942,7 +27645,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 76.2 247.65 0)
 			(effects
 				(font
@@ -26964,7 +27667,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 52.07 54.61 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -27007,7 +27710,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 52.07 54.61 0)
 			(effects
 				(font
@@ -27224,7 +27927,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 97.79 175.26 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -27257,7 +27960,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 97.79 175.26 0)
 			(effects
 				(font
@@ -27266,7 +27969,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 97.79 175.26 0)
 			(effects
 				(font
@@ -27309,7 +28012,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 102.87 175.26 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -27342,7 +28045,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 102.87 175.26 0)
 			(effects
 				(font
@@ -27351,7 +28054,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 102.87 175.26 0)
 			(effects
 				(font
@@ -27394,7 +28097,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 114.3 198.12 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -27437,7 +28140,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 114.3 198.12 0)
 			(effects
 				(font
@@ -27459,7 +28162,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 289.56 116.84 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -27494,7 +28197,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 289.56 116.84 0)
 			(effects
 				(font
@@ -27503,7 +28206,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 289.56 116.84 0)
 			(effects
 				(font
@@ -27546,7 +28249,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 289.56 121.92 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -27589,7 +28292,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 289.56 121.92 0)
 			(effects
 				(font
@@ -27611,7 +28314,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:ICSP")
+		(lib_id "icsp:ICSP")
 		(at 384.81 93.98 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -27773,7 +28476,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 394.97 99.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -27816,7 +28519,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 394.97 99.06 0)
 			(effects
 				(font
@@ -27903,7 +28606,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 289.56 157.48 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -27946,7 +28649,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 289.56 157.48 0)
 			(effects
 				(font
@@ -27968,7 +28671,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 357.505 134.62 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -28001,7 +28704,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 357.505 134.62 0)
 			(effects
 				(font
@@ -28010,7 +28713,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 357.505 134.62 0)
 			(effects
 				(font
@@ -28215,7 +28918,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:ICSP")
+		(lib_id "icsp:ICSP")
 		(at 107.95 147.32 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -28377,7 +29080,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 118.11 152.4 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -28420,7 +29123,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 118.11 152.4 0)
 			(effects
 				(font
@@ -28442,7 +29145,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 394.97 158.75 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -28477,7 +29180,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 394.97 158.75 0)
 			(effects
 				(font
@@ -28486,7 +29189,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 394.97 158.75 0)
 			(effects
 				(font
@@ -28626,7 +29329,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 53.34 158.75 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -28661,7 +29364,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 53.34 158.75 0)
 			(effects
 				(font
@@ -28670,7 +29373,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 53.34 158.75 0)
 			(effects
 				(font
@@ -28713,7 +29416,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 110.49 168.91 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -28746,7 +29449,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 110.49 168.91 0)
 			(effects
 				(font
@@ -28755,7 +29458,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 110.49 168.91 0)
 			(effects
 				(font
@@ -28798,7 +29501,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 31.75 54.61 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -28841,7 +29544,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 31.75 54.61 0)
 			(effects
 				(font
@@ -28863,7 +29566,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 357.505 129.54 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -28896,7 +29599,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 357.505 129.54 0)
 			(effects
 				(font
@@ -28905,7 +29608,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 357.505 129.54 0)
 			(effects
 				(font
@@ -28948,7 +29651,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 357.505 132.08 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -28981,7 +29684,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 357.505 132.08 0)
 			(effects
 				(font
@@ -28990,7 +29693,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 357.505 132.08 0)
 			(effects
 				(font
@@ -29276,7 +29979,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C")
+		(lib_id "Device:C")
 		(at 21.59 191.77 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -29311,7 +30014,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 21.59 191.77 0)
 			(effects
 				(font
@@ -29320,7 +30023,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor"
 			(at 21.59 191.77 0)
 			(effects
 				(font
@@ -29363,7 +30066,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 21.59 196.85 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -29406,7 +30109,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 21.59 196.85 0)
 			(effects
 				(font
@@ -29513,7 +30216,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 86.36 187.96 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -29548,7 +30251,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 86.36 187.96 0)
 			(effects
 				(font
@@ -29557,7 +30260,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 86.36 187.96 0)
 			(effects
 				(font
@@ -29600,7 +30303,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 86.36 193.04 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -29635,7 +30338,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 86.36 193.04 0)
 			(effects
 				(font
@@ -29644,7 +30347,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 86.36 193.04 0)
 			(effects
 				(font
@@ -29687,7 +30390,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 92.71 190.5 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -29730,7 +30433,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 92.71 190.5 0)
 			(effects
 				(font
@@ -29752,7 +30455,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 21.59 232.41 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -29795,7 +30498,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 21.59 232.41 0)
 			(effects
 				(font
@@ -29817,7 +30520,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 91.44 209.55 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -29850,7 +30553,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 91.44 209.55 0)
 			(effects
 				(font
@@ -29859,7 +30562,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 91.44 209.55 0)
 			(effects
 				(font
@@ -30152,7 +30855,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 318.77 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -30185,7 +30888,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 318.77 186.69 0)
 			(effects
 				(font
@@ -30194,7 +30897,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 318.77 186.69 0)
 			(effects
 				(font
@@ -30237,7 +30940,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 323.85 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -30270,7 +30973,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 323.85 186.69 0)
 			(effects
 				(font
@@ -30279,7 +30982,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 323.85 186.69 0)
 			(effects
 				(font
@@ -30322,7 +31025,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 99.06 54.61 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -30365,7 +31068,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 99.06 54.61 0)
 			(effects
 				(font
@@ -30387,7 +31090,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 80.01 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -30420,7 +31123,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 80.01 38.1 0)
 			(effects
 				(font
@@ -30429,7 +31132,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 80.01 38.1 0)
 			(effects
 				(font
@@ -30472,7 +31175,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 87.63 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -30505,7 +31208,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 87.63 38.1 0)
 			(effects
 				(font
@@ -30514,7 +31217,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 87.63 38.1 0)
 			(effects
 				(font
@@ -30557,7 +31260,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 83.82 44.45 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -30592,7 +31295,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 83.82 44.45 0)
 			(effects
 				(font
@@ -30601,7 +31304,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 83.82 44.45 0)
 			(effects
 				(font
@@ -30644,7 +31347,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 93.98 38.1 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -30679,7 +31382,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 93.98 38.1 0)
 			(effects
 				(font
@@ -30688,7 +31391,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 93.98 38.1 0)
 			(effects
 				(font
@@ -30731,7 +31434,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 121.92 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -30766,7 +31469,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 121.92 38.1 0)
 			(effects
 				(font
@@ -30775,7 +31478,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 121.92 38.1 0)
 			(effects
 				(font
@@ -30818,7 +31521,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 128.27 45.72 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -30851,7 +31554,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 128.27 45.72 0)
 			(effects
 				(font
@@ -30860,7 +31563,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 128.27 45.72 0)
 			(effects
 				(font
@@ -30903,7 +31606,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 121.92 45.72 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -30936,7 +31639,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 121.92 45.72 0)
 			(effects
 				(font
@@ -30945,7 +31648,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 121.92 45.72 0)
 			(effects
 				(font
@@ -30988,7 +31691,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:IRF7319")
+		(lib_id "irf7319:IRF7319")
 		(at 107.95 36.83 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -31091,7 +31794,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 76.2 57.15 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -31134,7 +31837,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 76.2 57.15 0)
 			(effects
 				(font
@@ -31323,7 +32026,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 215.265 125.095 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -31366,7 +32069,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 215.265 125.095 0)
 			(effects
 				(font
@@ -31388,7 +32091,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 52.07 48.26 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -31423,7 +32126,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 52.07 48.26 0)
 			(effects
 				(font
@@ -31432,7 +32135,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 52.07 48.26 0)
 			(effects
 				(font
@@ -31475,7 +32178,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 62.23 48.26 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -31510,7 +32213,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 62.23 48.26 0)
 			(effects
 				(font
@@ -31519,7 +32222,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 62.23 48.26 0)
 			(effects
 				(font
@@ -32107,7 +32810,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 113.03 218.44 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -32150,7 +32853,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 113.03 218.44 0)
 			(effects
 				(font
@@ -32764,7 +33467,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 355.6 113.03 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -32799,7 +33502,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 355.6 113.03 0)
 			(effects
 				(font
@@ -32808,7 +33511,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 355.6 113.03 0)
 			(effects
 				(font
@@ -32851,7 +33554,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:C_Small")
+		(lib_id "Device:C_Small")
 		(at 355.6 118.11 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -32886,7 +33589,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 355.6 118.11 0)
 			(effects
 				(font
@@ -32895,7 +33598,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Unpolarized capacitor, small symbol"
 			(at 355.6 118.11 0)
 			(effects
 				(font
@@ -32938,7 +33641,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 361.95 115.57 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -32981,7 +33684,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 361.95 115.57 0)
 			(effects
 				(font
@@ -33356,7 +34059,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 289.56 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -33389,7 +34092,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 289.56 186.69 0)
 			(effects
 				(font
@@ -33398,7 +34101,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 289.56 186.69 0)
 			(effects
 				(font
@@ -33441,7 +34144,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 294.64 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -33474,7 +34177,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 294.64 186.69 0)
 			(effects
 				(font
@@ -33483,7 +34186,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 294.64 186.69 0)
 			(effects
 				(font
@@ -33706,7 +34409,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 379.73 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -33739,7 +34442,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 379.73 186.69 0)
 			(effects
 				(font
@@ -33748,7 +34451,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 379.73 186.69 0)
 			(effects
 				(font
@@ -33791,7 +34494,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 384.81 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -33824,7 +34527,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 384.81 186.69 0)
 			(effects
 				(font
@@ -33833,7 +34536,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 384.81 186.69 0)
 			(effects
 				(font
@@ -34056,7 +34759,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 350.52 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -34089,7 +34792,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 350.52 186.69 0)
 			(effects
 				(font
@@ -34098,7 +34801,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 350.52 186.69 0)
 			(effects
 				(font
@@ -34141,7 +34844,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 355.6 186.69 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -34174,7 +34877,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 355.6 186.69 0)
 			(effects
 				(font
@@ -34183,7 +34886,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 355.6 186.69 0)
 			(effects
 				(font
@@ -34406,7 +35109,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 289.56 226.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -34439,7 +35142,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 289.56 226.06 0)
 			(effects
 				(font
@@ -34448,7 +35151,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 289.56 226.06 0)
 			(effects
 				(font
@@ -34491,7 +35194,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 294.64 226.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -34524,7 +35227,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 294.64 226.06 0)
 			(effects
 				(font
@@ -34533,7 +35236,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 294.64 226.06 0)
 			(effects
 				(font
@@ -34756,7 +35459,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 350.52 226.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -34789,7 +35492,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 350.52 226.06 0)
 			(effects
 				(font
@@ -34798,7 +35501,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 350.52 226.06 0)
 			(effects
 				(font
@@ -34841,7 +35544,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 355.6 226.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -34874,7 +35577,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 355.6 226.06 0)
 			(effects
 				(font
@@ -34883,7 +35586,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 355.6 226.06 0)
 			(effects
 				(font
@@ -35106,7 +35809,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 318.77 226.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -35139,7 +35842,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 318.77 226.06 0)
 			(effects
 				(font
@@ -35148,7 +35851,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 318.77 226.06 0)
 			(effects
 				(font
@@ -35191,7 +35894,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 323.85 226.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -35224,7 +35927,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 323.85 226.06 0)
 			(effects
 				(font
@@ -35233,7 +35936,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 323.85 226.06 0)
 			(effects
 				(font
@@ -35456,7 +36159,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 379.73 226.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -35489,7 +36192,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 379.73 226.06 0)
 			(effects
 				(font
@@ -35498,7 +36201,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 379.73 226.06 0)
 			(effects
 				(font
@@ -35541,7 +36244,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 384.81 226.06 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -35574,7 +36277,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 384.81 226.06 0)
 			(effects
 				(font
@@ -35583,7 +36286,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 384.81 226.06 0)
 			(effects
 				(font
@@ -35893,7 +36596,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 163.83 243.84 0)
 		(mirror y)
 		(unit 1)
@@ -35937,7 +36640,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 163.83 243.84 0)
 			(effects
 				(font
@@ -35959,7 +36662,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 248.92 219.71 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -35992,7 +36695,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 248.92 219.71 0)
 			(effects
 				(font
@@ -36001,7 +36704,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 248.92 219.71 0)
 			(effects
 				(font
@@ -36129,7 +36832,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 257.81 229.87 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -36172,7 +36875,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 257.81 229.87 0)
 			(effects
 				(font
@@ -36362,7 +37065,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 386.08 125.73 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -36405,7 +37108,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 386.08 125.73 0)
 			(effects
 				(font
@@ -36604,7 +37307,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 31.75 48.26 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -36637,7 +37340,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 31.75 48.26 0)
 			(effects
 				(font
@@ -36646,7 +37349,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 31.75 48.26 0)
 			(effects
 				(font
@@ -36841,7 +37544,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 381 25.4 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -36874,7 +37577,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 381 25.4 0)
 			(effects
 				(font
@@ -36883,7 +37586,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 381 25.4 0)
 			(effects
 				(font
@@ -36926,7 +37629,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 387.35 34.29 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -36969,7 +37672,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 387.35 34.29 0)
 			(effects
 				(font
@@ -37096,7 +37799,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 384.81 69.85 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -37139,7 +37842,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 384.81 69.85 0)
 			(effects
 				(font
@@ -37226,7 +37929,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:R")
+		(lib_id "Device:R")
 		(at 119.38 227.33 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -37259,7 +37962,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
+		(property "Datasheet" "~"
 			(at 119.38 227.33 0)
 			(effects
 				(font
@@ -37268,7 +37971,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Resistor"
 			(at 119.38 227.33 0)
 			(effects
 				(font
@@ -37311,7 +38014,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 113.03 229.87 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -37354,7 +38057,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 113.03 229.87 0)
 			(effects
 				(font
@@ -37542,7 +38245,7 @@
 		)
 	)
 	(symbol
-		(lib_id "easyeda2kicad:ME6210A50PG")
+		(lib_id "easyEDA:ME6210A50PG")
 		(at 57.15 39.37 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -37898,6 +38601,71 @@
 		)
 	)
 	(symbol
+		(lib_id "Synkino:PWR_FLAG")
+		(at 248.92 81.28 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4b856c86-9956-4f1c-beb0-b1c1150ce9a4")
+		(property "Reference" "#FLG03"
+			(at 250.825 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 257.048 81.28 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 248.92 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 248.92 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 248.92 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d4e051a5-18e4-4341-a1ca-a9d2e3215048")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "#FLG03")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Diode:BAV99")
 		(at 88.9 53.975 180)
 		(unit 1)
@@ -37986,7 +38754,137 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "Synkino:PWR_FLAG")
+		(at 41.91 52.07 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "60767836-1fb2-468a-ad6d-3a8e8c387a67")
+		(property "Reference" "#FLG01"
+			(at 43.815 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 46.228 54.356 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 41.91 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 41.91 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 41.91 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "707358fa-217b-459b-8467-58e540108805")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "#FLG01")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Synkino:PWR_FLAG")
+		(at 118.11 29.21 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "86ed7dd1-ed07-46d7-ba96-f27add157024")
+		(property "Reference" "#FLG02"
+			(at 120.015 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "PWR_FLAG"
+			(at 126.238 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 118.11 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 118.11 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 118.11 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8254919d-38cb-4856-b1f7-5c2c5fea0ba1")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "#FLG02")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GNDD")
 		(at 137.16 176.53 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -38029,7 +38927,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 137.16 176.53 0)
 			(effects
 				(font
@@ -38051,7 +38949,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Synkino:GNDD")
+		(lib_id "power:GNDD")
 		(at 237.49 275.59 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -38094,7 +38992,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
 			(at 237.49 275.59 0)
 			(effects
 				(font
