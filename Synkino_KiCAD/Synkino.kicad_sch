@@ -31801,10 +31801,11 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "AA3"
-			(at 365.76 127 90)
+			(at 364.49 127 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31884,10 +31885,11 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "AA2"
-			(at 365.76 124.46 90)
+			(at 364.49 124.46 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31967,10 +31969,11 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "AA1"
-			(at 365.76 121.92 90)
+			(at 364.49 121.92 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32050,10 +32053,11 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "AA0"
-			(at 347.98 119.38 90)
+			(at 346.71 119.38 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32133,10 +32137,11 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "AD4"
-			(at 365.76 148.59 90)
+			(at 364.49 148.59 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32503,10 +32508,11 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "CA3"
-			(at 90.17 201.93 90)
+			(at 88.9 201.93 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32586,10 +32592,11 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "CA2"
-			(at 90.17 199.39 90)
+			(at 88.9 199.39 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32669,10 +32676,11 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "CA1"
-			(at 90.17 196.85 90)
+			(at 88.9 196.85 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32738,7 +32746,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 72.39 194.31 270)
+		(at 71.12 194.31 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -32746,16 +32754,17 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aa153d0")
 		(property "Reference" "CA0"
-			(at 83.82 195.58 90)
+			(at 82.55 195.58 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
 			)
 		)
 		(property "Value" "CA0"
-			(at 80.01 194.31 90)
+			(at 78.74 194.31 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32763,7 +32772,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
-			(at 72.39 199.39 0)
+			(at 71.12 199.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32772,7 +32781,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 72.39 199.39 0)
+			(at 71.12 199.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32781,7 +32790,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 72.39 194.31 0)
+			(at 71.12 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32790,7 +32799,7 @@
 			)
 		)
 		(property "Inventory" "-"
-			(at 72.39 194.31 0)
+			(at 71.12 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32799,7 +32808,7 @@
 			)
 		)
 		(property "LCSC" ""
-			(at 72.39 194.31 0)
+			(at 71.12 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
