@@ -24,15 +24,18 @@
  *  
  *  
  */
- 
-#include <PID_v1.h>
+
+// Libraries needed
+#include <PID_v1.h>         // using 1.2.0 from https://github.com/br3ttb/Arduino-PID-Library
 #include <SPI.h>
-#include <FreeStack.h>
-#include <vs1053_SdFat.h>
+#include <FreeStack.h>      // using 1.0.3 from https://github.com/greiman/SdFat
+#include <vs1053_SdFat.h>   // using 1.3.0 from https://github.com/mpflaga/Arduino_Library-vs1053_for_SdFat
 #include <Arduino.h>
 #include <Wire.h>
-#include <WireData.h>
-#include <extEEPROM.h>
+#include <WireData.h>       // 
+#include <extEEPROM.h>      // using 3.4.1 from https://github.com/PaoloP74/extEEPROM
+                            // also using TimerOne 1.1.1 from https://github.com/PaulStoffregen/TimerOne
+
 
 // ---- Define the I2C Commands ----------------------------------------------------
 //                                  Audio               Frontend

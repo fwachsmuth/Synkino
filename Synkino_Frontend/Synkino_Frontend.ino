@@ -26,11 +26,11 @@ const char *uCVersion = "Synkino v1.2\n";
 
  
 #include <Arduino.h>
-#include <U8g2lib.h>
+#include <U8g2lib.h>    // using 2.32.15 from https://github.com/olikraus/u8g2
 #include <SPI.h>
-#include <Encoder.h>
-#include <Wire.h>
-#include <WireData.h>
+#include <Encoder.h>    // using 1.4.1 from https://github.com/PaulStoffregen/Encoder
+#include <Wire.h> 
+#include <WireData.h>   // using 1.0.0 from https://github.com/bhagman/WireData
 #include <EEPROM.h>
 // #include <SmallSetup.h>
 
@@ -1314,5 +1314,3 @@ ISR(TIMER1_COMPA_vect) {                  // This gets called once every second
 //  }
 //}
 }
-
-
