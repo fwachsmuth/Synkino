@@ -153,11 +153,11 @@ void setup() {
 
   Setpoint = 0;
   
-  uint8_t result; //result code for initialization functions
+  uint8_t result; // result code for initialization functions
 
   Serial.begin(115200);
 
-  Serial.print(F("Free RAM = ")); 
+  Serial.print(F("Free RAM = "));
   Serial.println(FreeStack(), DEC);  // FreeStack() is provided by SdFat
 
   Wire.begin(myAddress);
@@ -166,33 +166,29 @@ void setup() {
   Wire.onReceive(i2cReceive);
 
   // Initialize the SdCard
-  //
   result = sd.begin(SD_SEL, SPI_FULL_SPEED);
-  if(result != 1) {
+  if (result != 1) {
     tellFrontend(CMD_SHOW_ERROR, result + 20);
     Serial.print(F("In SD.Begin: "));
     Serial.println(result);
     sd.initErrorHalt();
   }
-  result = sd.chdir("/");
 
-  if(result != 1) {
+  result = sd.chdir("/");
+  if (result != 1) {
     tellFrontend(CMD_SHOW_ERROR, result + 30);
     Serial.print(F("In SD.chdir: "));
     Serial.println(result);
     sd.errorHalt("sd.chdir");
   }
 
-  // Initialize the external EEPROM 
-  //
+  // Initialize the external EEPROM
   byte i2cStat = myEEPROM.begin(myEEPROM.twiClock400kHz);
-  if ( i2cStat != 0 ) {
+  if (i2cStat != 0) {
     Serial.println(F("Could not talk to I2C EEPROM."));
   }
 
-
   // Check for DSP Firmware availability
-  //
   pluginFile = sd.open("synkino.fir");
   if (pluginFile) {
     Serial.println(F("Found new DSP Patch Package."));
@@ -200,14 +196,14 @@ void setup() {
     myEEPROM.write(eeAddress, pluginSize & 0xFF);     // LSB
     myEEPROM.write(eeAddress + 1, pluginSize >> 8);   // MSB
     eeAddress = 64; // to write full banks
-    
+
     while (pluginFile.available()) {
       pluginFile.read(eeData, 64);
       byte i2cStat = myEEPROM.write(eeAddress, eeData, 64);
-      if ( i2cStat != 0 ) {
-        //there was a problem
+      if (i2cStat != 0) {
+        // there was a problem
         Serial.print(F("I2C Problem: "));
-        if ( i2cStat == EEPROM_ADDR_ERR) {
+        if (i2cStat == EEPROM_ADDR_ERR) {
           Serial.println(F("Wrong eeAddress"));
         } else {
           Serial.print(F("I2C error: "));
@@ -220,23 +216,27 @@ void setup() {
     }
     // rename DSP patches package
     if (!sd.exists("super.ctl")) {  // If this file exists, keep the synkino.fir file. Used to init all the PCBs.
-      pluginFile.rename(sd.vwd(), "patches.053");
+      // Open the root directory
+      File root = sd.open("/");
+      if (pluginFile.rename(&root, "patches.053")) {
+        Serial.println(F("Renamed synkino.fir to patches.053"));
+      } else {
+        Serial.println(F("Renaming failed"));
+      }
     }
-  }   
+  }
   pluginFile.close();
 
-
   // Check for DSP Plugin availability
-  //
   pluginFile = sd.open("patches.053");
-  if (!pluginFile) {  // Let's re-create the file from EEPROM 
+  if (!pluginFile) {  // Let's re-create the file from EEPROM
     eeAddress = 0; // Here are two bytes with the plugin size
     pluginSize = myEEPROM.read(eeAddress) + ((myEEPROM.read(eeAddress + 1) << 8) & 0xFF00);
     eeAddress = 64;
     pluginFile = sd.open("patches.053", FILE_WRITE);
     if (pluginFile) {
       for (eeAddress; eeAddress < (pluginSize + 64); eeAddress++) {
-        pluginFile.write(myEEPROM.read(eeAddress));  
+        pluginFile.write(myEEPROM.read(eeAddress));
       }
     } else {
       // if the file didn't open, print an error:
@@ -245,20 +245,20 @@ void setup() {
   }
   pluginFile.close();
 
-  //Initialize the DSP
+  // Initialize the DSP
   Serial.println("Initing DSP...");
   result = musicPlayer.begin();
   Serial.println("Done.");
-  if(result != 0) { 
+  if (result != 0) {
     tellFrontend(CMD_SHOW_ERROR, result + 10);
     Serial.print(F("In player.begin: "));
     Serial.print(result);
-    if( result == 6 ) {
-      Serial.println(F("ERROR: DSP patch file not found!")); 
+    if (result == 6) {
+      Serial.println(F("ERROR: DSP patch file not found!"));
     }
   }
-
 }
+
 
 //------------------------------------------------------------------------------
 
@@ -768,4 +768,3 @@ void resetAudio() {
   // zero out readings[]
   
 }
-
