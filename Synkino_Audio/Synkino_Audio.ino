@@ -9,15 +9,19 @@
  *  [ ] Manual Start isn't starting if no Startmark Sensor is connected or it still sees White
  *  
  *  Features / Ideas
+ *  [ ] Make Auto-Off optional via GND-Jumper at DA0
+ *  [ ] Allow floats for PID
  *  [ ] Show File's Sampling Rate
- *  [ ] Show Projector Frquency
+ *  [ ] Show Actual Projector Frquency
  *  [ ] make lower correction limit SR-dependant (or configurable)
  *  [ ] Optimize pause handling: Wait for AUDATA to be updated and try pause mode from patches
  *  [ ] use positionMsec and allow ffwd/rew
  *  [ ] Evaluate Speed Shifter (0.68-1.64x)
+ *  [ ] Try automatic PID-Tuning mode (myPID.SetMode(AUTOMATIC);)
+ *  [ ] Improve Error Handling 81d8243f-cbcb-401e-bc57-bc4b09228f7b
+
  *  
  *  Hygene
- *  [ ] Document diffs to vs1053_SdFat.h
  *  [ ] Try/Switch to 15 MHz xtal
  *  [ ] Cleanup state machine
  *  [ ] Remove PID options
@@ -668,22 +672,37 @@ void i2cReceive (int howMany) {
 
 
 //------------------------------------------------------------------------------
+// Function to adjust the sample rate using the resampler
 void adjustSamplerate(signed long ppm2) {
+  // Set WRAMADDR to the base address for sample rate finetuning
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1e07);
+
+  // Write the lower 16 bits of the ppm2 value to WRAM
   musicPlayer.Mp3WriteRegister(SCI_WRAM, ppm2);
+
+  // Write the upper 16 bits of the ppm2 value to WRAM
   musicPlayer.Mp3WriteRegister(SCI_WRAM, ppm2 >> 16);
+
+  // Set WRAMADDR to the address for finetuning control
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x5b1c);
+
+  // Write zero to the finetuning control to apply changes
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0);
+
+  // Write to the SCI_AUDATA register to reload the current sample rate and apply the new finetuning
   musicPlayer.Mp3WriteRegister(SCI_AUDATA, musicPlayer.Mp3ReadRegister(SCI_AUDATA));
 }
 
-//------------------------------------------------------------------------------
+// Function to enable the 15/16 resampler
 void enableResampler() {
-  // Enable 15-16 Resampler
+  // Set WRAMADDR to the address for enabling the resampler
   musicPlayer.Mp3WriteRegister(SCI_WRAMADDR, 0x1e09);
+
+  // Enable the 15/16 resampler by writing 0x0080 to WRAM
   musicPlayer.Mp3WriteRegister(SCI_WRAM, 0x0080);
+
+  // Print a message indicating that resampling has been enabled
   Serial.println(F("15/16 resampling enabled."));
-  
 }
 
 //------------------------------------------------------------------------------
