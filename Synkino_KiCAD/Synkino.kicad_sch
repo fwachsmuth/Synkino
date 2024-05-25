@@ -14289,6 +14289,16 @@
 	)
 	(wire
 		(pts
+			(xy 386.08 130.81) (xy 388.62 130.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9cca80ad-3c5a-40a1-86ac-f0f4dc75dcc8")
+	)
+	(wire
+		(pts
 			(xy 248.92 80.01) (xy 242.57 80.01)
 		)
 		(stroke
@@ -16894,7 +16904,7 @@
 	)
 	(text "6-18v\n"
 		(exclude_from_sim no)
-		(at 81.915 5.08 0)
+		(at 14.224 43.688 0)
 		(effects
 			(font
 				(size 1.524 1.524)
@@ -16968,17 +16978,6 @@
 			(justify left bottom)
 		)
 		(uuid "c2abafbb-d809-4175-b50f-74f6db19c636")
-	)
-	(text "10u"
-		(exclude_from_sim no)
-		(at 82.55 8.255 0)
-		(effects
-			(font
-				(size 1.524 1.524)
-			)
-			(justify left bottom)
-		)
-		(uuid "c2dbc890-03d8-4ce2-ba54-542bac8bebfb")
 	)
 	(text "and shutter blade gaps"
 		(exclude_from_sim no)
@@ -18613,7 +18612,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TO_SOT_Packages_SMD:SOT-23"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 185.42 243.205 0)
 			(effects
 				(font
@@ -19879,7 +19878,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Peacemans_Footprints:AP7312"
+		(property "Footprint" "Peacemans Teile:AP7312"
 			(at 114.3 88.9 0)
 			(effects
 				(font
@@ -23988,7 +23987,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Package_SO:MSOP-10_3x3mm_P0.5mm"
+		(property "Footprint" "Package_SO:MSOP-10_3x3mm_P0.5mm_0.2_clearance"
 			(at 223.52 177.8 0)
 			(effects
 				(font
@@ -26483,7 +26482,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:SD-SMD_DM3AT-SF-PEJM5"
+		(property "Footprint" "easyEDA:SD-SMD_DM3AT-SF-PEJM5"
 			(at 382.27 30.48 0)
 			(effects
 				(font
@@ -26870,7 +26869,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "Housings_QFP:TQFP-32_7x7mm_Pitch0.8mm"
+		(property "Footprint" "Package_QFP:TQFP-32_7x7mm_P0.8mm"
 			(at 314.96 125.73 0)
 			(effects
 				(font
@@ -27046,7 +27045,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Peacemans_Footprints:SPIOLED"
+		(property "Footprint" "Peacemans Teile:SPIOLED_no_holes"
 			(at 118.11 276.86 0)
 			(effects
 				(font
@@ -29283,7 +29282,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "Housings_QFP:TQFP-32_7x7mm_Pitch0.8mm"
+		(property "Footprint" "Package_QFP:TQFP-32_7x7mm_P0.8mm"
 			(at 46.99 200.66 0)
 			(effects
 				(font
@@ -30215,7 +30214,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Peacemans_Footprints:SW_PEC11"
+		(property "Footprint" "Peacemans Teile:SW_PEC11"
 			(at 111.76 183.896 0)
 			(effects
 				(font
@@ -32746,7 +32745,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 71.12 194.31 270)
+		(at 72.39 194.31 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -32754,7 +32753,7 @@
 		(dnp no)
 		(uuid "00000000-0000-0000-0000-00005aa153d0")
 		(property "Reference" "CA0"
-			(at 82.55 195.58 90)
+			(at 83.82 195.58 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32764,7 +32763,7 @@
 			)
 		)
 		(property "Value" "CA0"
-			(at 78.74 194.31 90)
+			(at 78.486 195.072 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32772,7 +32771,7 @@
 			)
 		)
 		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
-			(at 71.12 199.39 0)
+			(at 72.39 199.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32781,7 +32780,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 71.12 199.39 0)
+			(at 72.39 199.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32790,7 +32789,7 @@
 			)
 		)
 		(property "Description" "test point"
-			(at 71.12 194.31 0)
+			(at 72.39 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32799,7 +32798,7 @@
 			)
 		)
 		(property "Inventory" "-"
-			(at 71.12 194.31 0)
+			(at 72.39 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32808,7 +32807,7 @@
 			)
 		)
 		(property "LCSC" ""
-			(at 71.12 194.31 0)
+			(at 72.39 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -33345,7 +33344,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Peacemans_Footprints:SJ1-352XNG-3pin"
+		(property "Footprint" "Peacemans Teile:SJ1-352XNG-3pin"
 			(at 256.54 171.45 0)
 			(effects
 				(font
@@ -36770,7 +36769,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "SOT-23"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
 			(at 34.29 32.639 0)
 			(effects
 				(font
@@ -37249,7 +37248,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Housings_SOIC:SOIC-8_3.9x4.9mm_Pitch1.27mm"
+		(property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
 			(at 386.08 66.04 0)
 			(effects
 				(font
@@ -37775,6 +37774,90 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 388.62 130.81 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "154e5042-7734-4946-a496-250adbd89486")
+		(property "Reference" "GND2"
+			(at 400.05 132.08 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 396.24 130.81 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_THTPad_1.5x1.5mm_Drill0.7mm_no_name"
+			(at 388.62 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 388.62 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 388.62 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Inventory" "-"
+			(at 388.62 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" ""
+			(at 388.62 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "40f33dd2-ffb6-4c39-860d-fee12cd01afa")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "GND2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "easyEDA:ME6210A50PG")
 		(at 57.15 39.37 0)
 		(unit 1)
@@ -37800,7 +37883,7 @@
 				)
 			)
 		)
-		(property "Footprint" "easyeda2kicad:SOT-89-3_L4.5-W2.5-P1.50-LS4.2-BR"
+		(property "Footprint" "Package_TO_SOT_SMD:SOT-89-3"
 			(at 57.15 52.07 0)
 			(effects
 				(font
@@ -37900,7 +37983,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
 			(at 237.49 262.89 0)
 			(effects
 				(font
@@ -38608,6 +38691,71 @@
 			(project "Synkino"
 				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
 					(reference "JP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GNDD")
+		(at 386.08 130.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ac7a1f1e-c16d-4d82-8ebe-9f054a10fc23")
+		(property "Reference" "#PWR082"
+			(at 386.08 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GNDD"
+			(at 386.08 133.985 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 386.08 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 386.08 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GNDD\" , digital ground"
+			(at 386.08 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f5dcc500-02c1-45fd-8e44-6e178e2ab9de")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "#PWR082")
 					(unit 1)
 				)
 			)
