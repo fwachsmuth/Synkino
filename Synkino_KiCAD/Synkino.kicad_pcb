@@ -35520,7 +35520,7 @@
 			)
 		)
 		(property "Inventory" "L"
-			(at 0 0 270)
+			(at 0 0 -90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "4a4ac5e6-a0c1-4399-8adf-4c6addb37e30")
@@ -35532,7 +35532,7 @@
 			)
 		)
 		(property "LCSC" ""
-			(at 0 0 270)
+			(at 0 0 -90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "92fcf7d3-62dc-4339-991a-a748a46ca0dc")
@@ -35757,7 +35757,7 @@
 			)
 		)
 		(property "Inventory" "L"
-			(at 0 0 270)
+			(at 0 0 -90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "23cdcd8b-273a-4352-93f2-2ac0dcfe9771")
@@ -35769,7 +35769,7 @@
 			)
 		)
 		(property "LCSC" ""
-			(at 0 0 270)
+			(at 0 0 -90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "c5aea3a2-6711-40a2-b4e1-feee3ada62e0")
@@ -35994,7 +35994,7 @@
 			)
 		)
 		(property "Inventory" "L"
-			(at 0 0 270)
+			(at 0 0 -90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "15009d1b-0731-42a3-a698-c874d5c9a361")
@@ -36006,7 +36006,7 @@
 			)
 		)
 		(property "LCSC" ""
-			(at 0 0 270)
+			(at 0 0 -90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "a56146e9-b62a-48ff-87d9-9af070b33866")
@@ -40902,7 +40902,7 @@
 			(uuid "14065bfd-45cc-49f4-95d0-4a7b39d062b8")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0.2 0 270)
+			(at 0.2 0 -90)
 			(layer "F.Fab")
 			(uuid "a11bb9b5-4d6f-4e32-89dc-8ff04eccdddf")
 			(effects
