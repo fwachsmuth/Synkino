@@ -1,0 +1,127 @@
+stateDiagram-v2
+    %% Main System States
+    [*] --> MAIN_MENU
+    MAIN_MENU --> SELECT_TRACK: Select Track
+    MAIN_MENU --> WAIT_FOR_LOADING: Load Track
+    MAIN_MENU --> SHUTDOWN: Power Off
+    MAIN_MENU --> EXTRAS_MENU: Extras
+    MAIN_MENU --> PROJECTOR_ACTION_MENU: Projector
+
+    SELECT_TRACK --> WAIT_FOR_LOADING: Track Selected
+    WAIT_FOR_LOADING --> TRACK_LOADED: Track Loaded and FPS Received
+    TRACK_LOADED --> SYNC_PLAY: Start Mark Hit
+    TRACK_LOADED --> MAIN_MENU: Stop
+    TRACK_LOADED --> ADJUST_SYNC_OFFSET: Manual Start
+    SYNC_PLAY --> TRACK_LOADED: Adjust Sync Offset
+    ADJUST_SYNC_OFFSET --> SYNC_PLAY: Sync Adjusted
+
+    PROJECTOR_ACTION_MENU --> MAIN_MENU: Exit
+    PROJECTOR_ACTION_MENU --> NEW_PROJECTOR: New Projector
+    PROJECTOR_ACTION_MENU --> SELECT_PROJECTOR: Select Projector
+    PROJECTOR_ACTION_MENU --> EDIT_PROJECTOR: Edit Projector
+    PROJECTOR_ACTION_MENU --> DELETE_PROJECTOR: Delete Projector
+
+    NEW_PROJECTOR --> MAIN_MENU: Projector Created
+    SELECT_PROJECTOR --> MAIN_MENU: Projector Selected
+    EDIT_PROJECTOR --> MAIN_MENU: Projector Edited
+    DELETE_PROJECTOR --> MAIN_MENU: Projector Deleted
+
+    EXTRAS_MENU --> MAIN_MENU: Exit
+    EXTRAS_MENU --> DELETE_EEPROM: Delete EEPROM
+    EXTRAS_MENU --> DUMP_EEPROM: Dump EEPROM
+    EXTRAS_MENU --> SHOW_VERSION: Show Version
+
+    SHUTDOWN --> [*]: Power Off
+
+    %% Second System States
+    [*] --> IDLING
+    IDLING --> TRACK_LOADED_SYS2: Track Loaded
+    TRACK_LOADED_SYS2 --> PLAYING: Start Mark Hit
+    TRACK_LOADED_SYS2 --> PAUSED: Pause Command
+    PLAYING --> PAUSED: Pause Command
+    PLAYING --> IDLING: Track Done
+    PAUSED --> PLAYING: Resume Command
+    PAUSED --> IDLING: Stop Command
+    IDLING --> RESET: Reset Command
+    RESET --> IDLING: Reset Done
+
+    %% I2C Communication
+    WAIT_FOR_LOADING --> IDLING: I2C Command Received
+    TRACK_LOADED --> IDLING: I2C Command Received
+    SYNC_PLAY --> IDLING: I2C Command Received
+    IDLING --> MAIN_MENU: Command Processed
+    IDLING --> SELECT_TRACK: Command Processed
+    IDLING --> WAIT_FOR_LOADING: Command Processed
+    IDLING --> TRACK_LOADED: Command Processed
+    IDLING --> SYNC_PLAY: Command Processed
+    IDLING --> IDLING: Command Processed
+    IDLING --> PLAYING: Command Processed
+    IDLING --> PAUSED: Command Processed
+    IDLING --> RESET: Command Processed
+
+
+Frontend:
+
+stateDiagram-v2
+    [*] --> MAIN_MENU
+
+    MAIN_MENU --> SELECT_TRACK: Select Track
+    MAIN_MENU --> WAIT_FOR_LOADING: Load Track
+    MAIN_MENU --> SHUTDOWN: Power Off
+    MAIN_MENU --> EXTRAS: Extras
+    MAIN_MENU --> PROJECTOR_ACTION_MENU: Projector
+
+    SELECT_TRACK --> WAIT_FOR_LOADING: Track Selected
+    WAIT_FOR_LOADING --> TRACK_LOADED: Track Loaded and FPS Received
+    TRACK_LOADED --> SYNC_PLAY: Start Mark Hit
+    TRACK_LOADED --> MAIN_MENU: Stop Playback
+    TRACK_LOADED --> ADJUST_SYNC_OFFSET: Manual Start
+    SYNC_PLAY --> TRACK_LOADED: Adjust Sync Offset
+    ADJUST_SYNC_OFFSET --> SYNC_PLAY: Sync Adjusted
+
+    EXTRAS --> MAIN_MENU: Exit
+    EXTRAS --> DELETE_EEPROM: Delete EEPROM
+    EXTRAS --> DUMP_EEPROM: Dump EEPROM
+    EXTRAS --> SHOW_VERSION: Show Version
+
+    PROJECTOR_ACTION_MENU --> MAIN_MENU: Exit
+    PROJECTOR_ACTION_MENU --> NEW_PROJECTOR: New Projector
+    PROJECTOR_ACTION_MENU --> SELECT_PROJECTOR: Select Projector
+    PROJECTOR_ACTION_MENU --> EDIT_PROJECTOR: Edit Projector
+    PROJECTOR_ACTION_MENU --> DELETE_PROJECTOR: Delete Projector
+
+    NEW_PROJECTOR --> MAIN_MENU: Projector Created
+    SELECT_PROJECTOR --> MAIN_MENU: Projector Selected
+    EDIT_PROJECTOR --> MAIN_MENU: Projector Edited
+    DELETE_PROJECTOR --> MAIN_MENU: Projector Deleted
+
+    SHUTDOWN --> [*]: Power Off
+
+Audio: 
+
+stateDiagram-v2
+    [*] --> IDLING
+    IDLING --> TRACK_LOADED: Load Track
+    TRACK_LOADED --> PLAYING: Start Mark Hit
+    TRACK_LOADED --> PAUSED: Pause Command
+    PLAYING --> PAUSED: Pause Command
+    PLAYING --> IDLING: Track Done
+    PAUSED --> PLAYING: Resume Command
+    PAUSED --> IDLING: Stop Command
+    IDLING --> RESET: Reset Command
+    RESET --> IDLING: Reset Done
+
+    %% I2C Communication
+    IDLING --> RECEIVING_DATA: I2C Data Available
+    RECEIVING_DATA --> PROCESS_COMMAND: Process I2C Command
+    PROCESS_COMMAND --> IDLING: CMD_RESET
+    PROCESS_COMMAND --> TRACK_LOADED: CMD_LOAD_TRACK
+    PROCESS_COMMAND --> PLAYING: CMD_PROJ_PLAY
+    PROCESS_COMMAND --> PAUSED: CMD_PROJ_PAUSE
+    PROCESS_COMMAND --> SYNC_PLAY: CMD_SYNC_OFFSET
+
+    RECEIVING_DATA --> IDLING: Command Processed
+    RECEIVING_DATA --> TRACK_LOADED: Command Processed
+    RECEIVING_DATA --> PLAYING: Command Processed
+    RECEIVING_DATA --> PAUSED: Command Processed
+    RECEIVING_DATA --> RESET: Command Processed
