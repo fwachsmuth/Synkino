@@ -28122,7 +28122,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical_displaced"
 			(at 383.54 97.79 0)
 			(effects
 				(font
@@ -28726,7 +28726,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x03_P2.54mm_Vertical_displaced"
 			(at 106.68 151.13 0)
 			(effects
 				(font
@@ -30470,12 +30470,13 @@
 				)
 			)
 		)
-		(property "Value" "Rotary_Encoder_Switch"
+		(property "Value" "Encoder"
 			(at 114.3 194.564 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "Peacemans Teile:SW_PEC11"
@@ -30578,7 +30579,7 @@
 				)
 			)
 		)
-		(property "Footprint" "OptoDevice:OnSemi_CASE100CY"
+		(property "Footprint" "OptoDevice:OnSemi_CASE100CY_1-smaller"
 			(at 322.58 224.79 0)
 			(effects
 				(font
@@ -33791,7 +33792,7 @@
 				)
 			)
 		)
-		(property "Footprint" "OptoDevice:OnSemi_CASE100CY"
+		(property "Footprint" "OptoDevice:OnSemi_CASE100CY_1-smaller"
 			(at 293.37 224.79 0)
 			(effects
 				(font
@@ -34141,7 +34142,7 @@
 				)
 			)
 		)
-		(property "Footprint" "OptoDevice:OnSemi_CASE100CY"
+		(property "Footprint" "OptoDevice:OnSemi_CASE100CY_1-smaller"
 			(at 383.54 224.79 0)
 			(effects
 				(font
@@ -34491,7 +34492,7 @@
 				)
 			)
 		)
-		(property "Footprint" "OptoDevice:OnSemi_CASE100CY"
+		(property "Footprint" "OptoDevice:OnSemi_CASE100CY_1-smaller"
 			(at 354.33 224.79 0)
 			(effects
 				(font
@@ -34841,7 +34842,7 @@
 				)
 			)
 		)
-		(property "Footprint" "OptoDevice:OnSemi_CASE100CY"
+		(property "Footprint" "OptoDevice:OnSemi_CASE100CY_1-smaller"
 			(at 293.37 264.16 0)
 			(effects
 				(font
@@ -35191,7 +35192,7 @@
 				)
 			)
 		)
-		(property "Footprint" "OptoDevice:OnSemi_CASE100CY"
+		(property "Footprint" "OptoDevice:OnSemi_CASE100CY_1-smaller"
 			(at 354.33 264.16 0)
 			(effects
 				(font
@@ -35541,7 +35542,7 @@
 				)
 			)
 		)
-		(property "Footprint" "OptoDevice:OnSemi_CASE100CY"
+		(property "Footprint" "OptoDevice:OnSemi_CASE100CY_1-smaller"
 			(at 322.58 264.16 0)
 			(effects
 				(font
@@ -35891,7 +35892,7 @@
 				)
 			)
 		)
-		(property "Footprint" "OptoDevice:OnSemi_CASE100CY"
+		(property "Footprint" "OptoDevice:OnSemi_CASE100CY_1-smaller"
 			(at 383.54 264.16 0)
 			(effects
 				(font
@@ -38159,7 +38160,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
 			(at 201.93 269.24 0)
 			(effects
 				(font
@@ -38684,7 +38685,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
 			(at 162.56 269.24 0)
 			(effects
 				(font
@@ -38712,46 +38713,46 @@
 			)
 		)
 		(pin "1"
-			(uuid "3e45b533-065d-4751-972f-99ffc71fc811")
+			(uuid "3e45b533-065d-4751-972f-99ffc71fc812")
 		)
 		(pin "2"
-			(uuid "cf6c38c3-6015-412f-b531-e9d47cb85aa1")
+			(uuid "cf6c38c3-6015-412f-b531-e9d47cb85aa2")
 		)
 		(pin "13"
-			(uuid "f7ff3e6c-d21d-4fab-8001-0d7199826140")
+			(uuid "f7ff3e6c-d21d-4fab-8001-0d7199826141")
 		)
 		(pin "12"
-			(uuid "5df5a22e-078c-4b65-aa30-2d803fc86393")
+			(uuid "5df5a22e-078c-4b65-aa30-2d803fc86394")
 		)
 		(pin "8"
-			(uuid "a4b23ea5-1ea3-41ad-a50c-aacf60d0422a")
+			(uuid "a4b23ea5-1ea3-41ad-a50c-aacf60d0422b")
 		)
 		(pin "10"
-			(uuid "52d89fa2-8d7c-4afb-8d91-f6c6c1f48e69")
+			(uuid "52d89fa2-8d7c-4afb-8d91-f6c6c1f48e6a")
 		)
 		(pin "6"
-			(uuid "3537655b-fe09-4a03-b574-871be4276b0d")
+			(uuid "3537655b-fe09-4a03-b574-871be4276b0e")
 		)
 		(pin "5"
-			(uuid "aed5a105-7971-462a-8278-e1237623e311")
+			(uuid "aed5a105-7971-462a-8278-e1237623e312")
 		)
 		(pin "4"
-			(uuid "c7482196-68f5-4982-96af-37360c776142")
+			(uuid "c7482196-68f5-4982-96af-37360c776143")
 		)
 		(pin "14"
-			(uuid "79c5ab63-1981-4c7a-9849-40ef58169be7")
+			(uuid "79c5ab63-1981-4c7a-9849-40ef58169be8")
 		)
 		(pin "7"
-			(uuid "13b89427-ef44-4325-ae92-c5482aaa45fc")
+			(uuid "13b89427-ef44-4325-ae92-c5482aaa45fd")
 		)
 		(pin "9"
-			(uuid "3498b06f-8602-4540-8773-b1c0e40e756d")
+			(uuid "3498b06f-8602-4540-8773-b1c0e40e756e")
 		)
 		(pin "3"
-			(uuid "5ed32b2f-7009-4dbd-8212-567f2b6f25fc")
+			(uuid "5ed32b2f-7009-4dbd-8212-567f2b6f25fd")
 		)
 		(pin "11"
-			(uuid "6cef8f0c-6614-4720-97d0-f58b4299753c")
+			(uuid "6cef8f0c-6614-4720-97d0-f58b4299753d")
 		)
 		(instances
 			(project "Synkino"
@@ -39271,7 +39272,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm"
 			(at 181.61 269.24 0)
 			(effects
 				(font
@@ -39299,46 +39300,46 @@
 			)
 		)
 		(pin "1"
-			(uuid "3e45b533-065d-4751-972f-99ffc71fc811")
+			(uuid "3e45b533-065d-4751-972f-99ffc71fc813")
 		)
 		(pin "2"
-			(uuid "cf6c38c3-6015-412f-b531-e9d47cb85aa1")
+			(uuid "cf6c38c3-6015-412f-b531-e9d47cb85aa3")
 		)
 		(pin "13"
-			(uuid "f7ff3e6c-d21d-4fab-8001-0d7199826140")
+			(uuid "f7ff3e6c-d21d-4fab-8001-0d7199826142")
 		)
 		(pin "12"
-			(uuid "5df5a22e-078c-4b65-aa30-2d803fc86393")
+			(uuid "5df5a22e-078c-4b65-aa30-2d803fc86395")
 		)
 		(pin "8"
-			(uuid "a4b23ea5-1ea3-41ad-a50c-aacf60d0422a")
+			(uuid "a4b23ea5-1ea3-41ad-a50c-aacf60d0422c")
 		)
 		(pin "10"
-			(uuid "52d89fa2-8d7c-4afb-8d91-f6c6c1f48e69")
+			(uuid "52d89fa2-8d7c-4afb-8d91-f6c6c1f48e6b")
 		)
 		(pin "6"
-			(uuid "3537655b-fe09-4a03-b574-871be4276b0d")
+			(uuid "3537655b-fe09-4a03-b574-871be4276b0f")
 		)
 		(pin "5"
-			(uuid "aed5a105-7971-462a-8278-e1237623e311")
+			(uuid "aed5a105-7971-462a-8278-e1237623e313")
 		)
 		(pin "4"
-			(uuid "c7482196-68f5-4982-96af-37360c776142")
+			(uuid "c7482196-68f5-4982-96af-37360c776144")
 		)
 		(pin "14"
-			(uuid "79c5ab63-1981-4c7a-9849-40ef58169be7")
+			(uuid "79c5ab63-1981-4c7a-9849-40ef58169be9")
 		)
 		(pin "7"
-			(uuid "13b89427-ef44-4325-ae92-c5482aaa45fc")
+			(uuid "13b89427-ef44-4325-ae92-c5482aaa45fe")
 		)
 		(pin "9"
-			(uuid "3498b06f-8602-4540-8773-b1c0e40e756d")
+			(uuid "3498b06f-8602-4540-8773-b1c0e40e756f")
 		)
 		(pin "3"
-			(uuid "5ed32b2f-7009-4dbd-8212-567f2b6f25fc")
+			(uuid "5ed32b2f-7009-4dbd-8212-567f2b6f25fe")
 		)
 		(pin "11"
-			(uuid "6cef8f0c-6614-4720-97d0-f58b4299753c")
+			(uuid "6cef8f0c-6614-4720-97d0-f58b4299753e")
 		)
 		(instances
 			(project "Synkino"
