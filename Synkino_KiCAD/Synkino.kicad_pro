@@ -581,8 +581,8 @@
         },
         {
           "group_by": false,
-          "label": "LCSC Part",
-          "name": "LCSC Part",
+          "label": "Alternative",
+          "name": "Alternative",
           "show": true
         },
         {
@@ -590,6 +590,12 @@
           "label": "Description",
           "name": "Description",
           "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Manual Assy",
+          "name": "Manual Assy",
+          "show": true
         }
       ],
       "filter_string": "",
