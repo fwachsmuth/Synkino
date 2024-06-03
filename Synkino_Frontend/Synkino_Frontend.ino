@@ -1,6 +1,6 @@
 
 
-const char *uCVersion = "Synkino v1.2\n";
+const char *uCVersion = "Synkino v1.3\n";
 
 /*
  *  This is the frontend part of Synkino
@@ -323,6 +323,8 @@ void setup(void) {
   pinMode(POWER_OFF, OUTPUT);
   pinMode(BUZZER, OUTPUT);
   pinMode(ENCODER_BTN, INPUT);
+  pinMode(A0, INPUT_PULLUP); // For Hannes Fretzer, to alow disabling Auto Power Off via switch to GND
+  
   digitalWrite(AUDIO_EN, LOW); // no pops please
   digitalWrite(SPI_CS, 0);
   digitalWrite(SPI_DC, 0);		
@@ -353,17 +355,19 @@ void setup(void) {
   myState = MAIN_MENU;
 
   restoreLastProjectorUsed();
-  
-  noInterrupts();
-  // Setup Timer1 to periodically (every second) check if a Power-Off is due 
-  TCCR1A = 0;                             // Clear registers
-  TCCR1B = 0;
-  TCNT1  = 0;
-  OCR1A = 15624;                          // 1 Hz (16000000/((15624+1)*1024))
-  TCCR1B |= (1 << WGM12);                 // CTC
-  TCCR1B |= (1 << CS12) | (1 << CS10);    // Prescaler 1024
-  TIMSK1 |= (1 << OCIE1A);                // Output Compare Match A Interrupt Enable
-  interrupts();
+
+  if (digitalRead(A0) == HIGH) {   // For Hannes Fretzer, to alow disabling Auto Power Off via switch to GND
+    noInterrupts();
+    // Setup Timer1 to periodically (every second) check if a Power-Off is due 
+    TCCR1A = 0;                             // Clear registers
+    TCCR1B = 0;
+    TCNT1  = 0;
+    OCR1A = 15624;                          // 1 Hz (16000000/((15624+1)*1024))
+    TCCR1B |= (1 << WGM12);                 // CTC
+    TCCR1B |= (1 << CS12) | (1 << CS10);    // Prescaler 1024
+    TIMSK1 |= (1 << OCIE1A);                // Output Compare Match A Interrupt Enable
+    interrupts();
+ }
 
   tone(BUZZER, 6000, 30); // Hello!
 }
@@ -1299,14 +1303,14 @@ void playGoodBye() {
 }
 
 ISR(TIMER1_COMPA_vect) {                  // This gets called once every second
-  if (myEnc.read() != lastEncRead) {  // See if there was any user activity
+  if (myEnc.read() != lastEncRead) {      // See if there was any user activity
     lastActivityMillies = millis();
     lastEncRead = myEnc.read();
   }
 //if (myState != SYNC_PLAY) {
 //  if (myState != TRACK_LOADED) {
 
-  if (millis() - lastActivityMillies > 600000) {
+  if (millis() - lastActivityMillies > 600000) { // 10 Minutes are the auto power off threshold
     lastActivityMillies = millis();
     shutdownSelf();
   }
