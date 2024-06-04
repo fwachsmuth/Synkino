@@ -48690,7 +48690,7 @@
 			(justify mirror)
 		)
 	)
-	(gr_text "Synkino • Rev. G"
+	(gr_text "Synkino • Rev. H"
 		(at 69.596 70 270)
 		(layer "B.SilkS")
 		(uuid "00000000-0000-0000-0000-00005acfdfc2")
@@ -49689,7 +49689,7 @@
 			)
 		)
 	)
-	(gr_text "Synkino • Rev. G"
+	(gr_text "Synkino • Rev. H"
 		(at 69.596 69.977 270)
 		(layer "F.SilkS")
 		(uuid "00000000-0000-0000-0000-00005aabe3b3")
@@ -50275,6 +50275,18 @@
 				(size 1 1)
 				(thickness 0.15)
 			)
+		)
+	)
+	(gr_text "- Display Cutout 1mm lower\n- +^- marks on the PCB top\n- Remove Bottom Mid Support Hole\n- Battery wire holes closer to the edge\n- V-Cuts? Sensor Board Order Separate?\n- Main PCB Black\n- Support Cap C44 larger (higher)\n- Impulse LED behind Logo's Lens?\n- ICSP/FTDI offset +0.1mm\n- 9mm Stand-offs\n- Holes for the Sensor screws\n- Copper on the Logo Reels\n- SMT Encoder?\n- Power Cutout 1mm less diameter\n- Back Plane with Battery cutout (17mm height) \n- Sensor Terminals mounte from bottom?\n- Flip ICSPs\n- Add bottom TPs for Sensor-In and Power (test jig)\n- Remove Sensor Hole and increase distance from eye to Terminal"
+		(at 105.4 155 0)
+		(layer "F.SilkS")
+		(uuid "d9bcc136-4d94-40c3-a744-e65fd30509f2")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
 		)
 	)
 	(gr_text "VCC"
