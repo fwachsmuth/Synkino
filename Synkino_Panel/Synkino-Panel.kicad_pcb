@@ -2069,8 +2069,20 @@
 		(layer "Edge.Cuts")
 		(uuid "ff2cb8f9-3af5-446f-978c-ab26fe381f3b")
 	)
+	(gr_text "Rev.B"
+		(at 137.6 99.3 0)
+		(layer "B.SilkS")
+		(uuid "77c84c35-f57c-4ee0-a05a-d78612596af2")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom mirror)
+		)
+	)
 	(gr_text "JLCJLCJLCJLC"
-		(at 134.9 99.6 0)
+		(at 131.8 99.3 0)
 		(layer "B.SilkS")
 		(uuid "d676f15d-fbc4-4599-b88b-15146a83f888")
 		(effects
