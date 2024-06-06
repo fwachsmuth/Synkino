@@ -26,6 +26,13 @@
  *  [ ] Cleanup state machine
  *  [ ] Remove PID options
  *  
+ *  Large Functions and Variables:
+    Functions such as 
+       FatFile::open, 
+       DedicatedSpiCard::readSectors, 
+       extEEPROM::write, and 
+       FatPartition::init 
+    use a considerable amount of memory. Review these functions to see if they can be optimized or if their usage can be minimized.
  *  
  */
 
@@ -36,8 +43,9 @@
 #include <vs1053_SdFat.h>   // using 1.3.0 from https://github.com/mpflaga/Arduino_Library-vs1053_for_SdFat
 //#include <Arduino.h>
 #include <Wire.h>
-#include <WireData.h>       // 
+#include <WireData.h>       // using 1.0.0 from https://github.com/bhagman/WireData
 #include <extEEPROM.h>      // using 3.4.1 from https://github.com/PaoloP74/extEEPROM
+                            // using 3.3.5 saves 218 Bytes Progmem
                             // also using TimerOne 1.1.1 from https://github.com/PaulStoffregen/TimerOne
 
 
