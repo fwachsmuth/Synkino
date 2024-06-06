@@ -32,9 +32,9 @@
 // Libraries needed
 #include <PID_v1.h>         // using 1.2.0 from https://github.com/br3ttb/Arduino-PID-Library
 #include <SPI.h>
-#include <FreeStack.h>      // using 1.0.3 from https://github.com/greiman/SdFat
+//#include <FreeStack.h>      // using 1.0.3 from https://github.com/greiman/SdFat
 #include <vs1053_SdFat.h>   // using 1.3.0 from https://github.com/mpflaga/Arduino_Library-vs1053_for_SdFat
-#include <Arduino.h>
+//#include <Arduino.h>
 #include <Wire.h>
 #include <WireData.h>       // 
 #include <extEEPROM.h>      // using 3.4.1 from https://github.com/PaoloP74/extEEPROM
@@ -164,8 +164,8 @@ void setup() {
 
   Serial.begin(115200);
 
-  Serial.print(F("Free RAM = "));
-  Serial.println(FreeStack(), DEC);  // FreeStack() is provided by SdFat
+//  Serial.print(F("Free RAM = "));
+//  Serial.println(FreeStack(), DEC);  // FreeStack() is provided by SdFat
 
   Wire.begin(myAddress);
   Wire.setClock(400000L);
@@ -200,8 +200,11 @@ void setup() {
   if (pluginFile) {
     Serial.println(F("Found new DSP Patch Package."));
     pluginSize = pluginFile.size();
+//    Serial.print(F("A"));
     myEEPROM.write(eeAddress, pluginSize & 0xFF);     // LSB
     myEEPROM.write(eeAddress + 1, pluginSize >> 8);   // MSB
+//    Serial.print(F("B"));
+
     eeAddress = 64; // to write full banks
 
     while (pluginFile.available()) {
@@ -253,9 +256,9 @@ void setup() {
   pluginFile.close();
 
   // Initialize the DSP
-  Serial.println("Initing DSP...");
+  Serial.println(F("Initing DSP..."));
   result = musicPlayer.begin();
-  Serial.println("Done.");
+  Serial.println(F("Done."));
   if (result != 0) {
     tellFrontend(CMD_SHOW_ERROR, result + 10);
     Serial.print(F("In player.begin: "));
