@@ -19696,7 +19696,7 @@
 				)
 			)
 		)
-		(property "Value" "680"
+		(property "Value" "470"
 			(at 247.65 233.68 90)
 			(effects
 				(font
@@ -19740,7 +19740,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C17798"
+		(property "LCSC" "C17710"
 			(at 247.65 233.68 0)
 			(effects
 				(font
@@ -19834,7 +19834,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C84256"
+		(property "LCSC" "C34499"
 			(at 252.73 242.57 0)
 			(effects
 				(font
@@ -34537,6 +34537,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Value" "Pwr"
@@ -34583,7 +34584,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C5188442"
+		(property "LCSC" ""
 			(at 19.05 36.83 0)
 			(effects
 				(font
@@ -34592,7 +34593,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manual Assy" ""
+		(property "Manual Assy" "C5188442"
 			(at 19.05 36.83 0)
 			(effects
 				(font
@@ -37620,7 +37621,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C5188443"
+		(property "LCSC" ""
 			(at 158.75 222.25 0)
 			(effects
 				(font
@@ -37629,7 +37630,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manual Assy" ""
+		(property "Manual Assy" "C5188443"
 			(at 158.75 222.25 0)
 			(effects
 				(font
@@ -37718,7 +37719,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C5188443"
+		(property "LCSC" ""
 			(at 158.75 238.76 0)
 			(effects
 				(font
@@ -37727,7 +37728,7 @@
 				(hide yes)
 			)
 		)
-		(property "Manual Assy" ""
+		(property "Manual Assy" "C5188443"
 			(at 158.75 238.76 0)
 			(effects
 				(font

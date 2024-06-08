@@ -26,14 +26,14 @@
  *  [ ] Cleanup state machine
  *  [ ] Remove PID options
  *  
- *  Large Functions and Variables:
-    Functions such as 
+ *  Largest Functions and Variables
        FatFile::open, 
        DedicatedSpiCard::readSectors, 
        extEEPROM::write, and 
        FatPartition::init 
-    use a considerable amount of memory. Review these functions to see if they can be optimized or if their usage can be minimized.
- *  
+
+    To reduce Progmem further, comment out more println().
+    
  */
 
 // Libraries needed
