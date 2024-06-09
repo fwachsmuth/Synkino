@@ -54002,7 +54002,7 @@
 			)
 		)
 	)
-	(gr_text "- Add bottom TPs for Sensor-In and Power (test jig)\n\n- Remove Sensor Hole and increase distance from eye to Terminal\n- Omit Holes for the Sensor screws\n- V-Cuts? Sensor Board Order Separate?\n\n- Order C5188442 \n- Three-Strand-Wire\n- 9mm Stand-offs\n- Back Plane with Battery cutout (17mm height) \n"
+	(gr_text "- Remove Sensor Hole and increase distance from eye to Terminal\n- Omit Holes for the Sensor screws\n- V-Cuts? Sensor Board Order Separate?\n\n- Order C5188442 \n- Three-Strand-Wire\n- 9mm Stand-offs\n- Back Plane with Battery cutout (17mm height) \n"
 		(at 93.8 138.4 0)
 		(layer "F.SilkS")
 		(uuid "d9bcc136-4d94-40c3-a744-e65fd30509f2")
