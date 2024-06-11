@@ -1,0 +1,21 @@
+{
+    "layout": {
+        "hspace": "2mm",
+        "vspace": "2mm",
+        "rows": "6",
+        "cols": "9"
+    },
+    "tabs": {
+        "type": "fixed"
+    },
+    "cuts": {
+        "type": "vcuts"
+    },
+    "framing": {
+        "type": "tightframe"
+    },
+    "text": {
+        "type": "simple",
+        "text": "JLCJLCJLCJLC"
+    }
+}

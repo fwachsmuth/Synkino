@@ -1371,6 +1371,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB_CORRECTION" ""
+			(at 101.6 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "5043311a-92b0-4394-a1cf-5f54e68b4aaa")
 		)
@@ -1543,6 +1552,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB_CORRECTION" "0;0;90"
+			(at 82.55 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "dd8196b9-b79b-4770-9a8b-381acef7356c")
 		)
@@ -1691,7 +1709,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25792"
+		(property "LCSC" "C25819"
 			(at 85.09 73.66 0)
 			(effects
 				(font
@@ -1701,6 +1719,15 @@
 			)
 		)
 		(property "Manual Assy" ""
+			(at 85.09 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB_CORRECTION" ""
 			(at 85.09 73.66 0)
 			(effects
 				(font
@@ -1785,7 +1812,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC" "C25091"
+		(property "LCSC" "C22962"
 			(at 80.01 73.66 0)
 			(effects
 				(font
@@ -1795,6 +1822,15 @@
 			)
 		)
 		(property "Manual Assy" ""
+			(at 80.01 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB_CORRECTION" ""
 			(at 80.01 73.66 0)
 			(effects
 				(font
@@ -1874,6 +1910,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB_CORRECTION" ""
+			(at 85.09 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "ce486772-8434-4fc7-b5a4-17251fe43a5b")
 		)
@@ -1934,6 +1979,15 @@
 			)
 		)
 		(property "Description" "test point"
+			(at 85.09 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB_CORRECTION" ""
 			(at 85.09 81.28 0)
 			(effects
 				(font
