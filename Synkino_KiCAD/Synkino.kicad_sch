@@ -12953,6 +12953,16 @@
 	)
 	(wire
 		(pts
+			(xy 22.86 44.45) (xy 25.4 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b18f211-8a85-49d8-bb9a-3945ae7bdd97")
+	)
+	(wire
+		(pts
 			(xy 125.73 29.21) (xy 125.73 34.29)
 		)
 		(stroke
@@ -13360,6 +13370,16 @@
 			(type default)
 		)
 		(uuid "6d71795b-8b3a-4f2f-985e-14666b83af14")
+	)
+	(wire
+		(pts
+			(xy 22.86 46.99) (xy 27.94 46.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e074ad8-64cf-4835-923f-88a335120e91")
 	)
 	(wire
 		(pts
@@ -15663,6 +15683,16 @@
 	)
 	(wire
 		(pts
+			(xy 27.94 46.99) (xy 27.94 36.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c3bbe29a-ce5b-4766-a93a-ab240fa1cc79")
+	)
+	(wire
+		(pts
 			(xy 374.65 62.23) (xy 372.11 62.23)
 		)
 		(stroke
@@ -16320,6 +16350,16 @@
 			(type default)
 		)
 		(uuid "ddcd1741-51a9-4c0f-b604-d4cae65ceae5")
+	)
+	(wire
+		(pts
+			(xy 25.4 44.45) (xy 25.4 34.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "de14bcbf-a196-43a8-bb79-ca6e71cc39ff")
 	)
 	(wire
 		(pts
@@ -17308,7 +17348,7 @@
 	)
 	(text "6-18v\n"
 		(exclude_from_sim no)
-		(at 21.844 43.688 0)
+		(at 14.478 28.194 0)
 		(effects
 			(font
 				(size 1.524 1.524)
@@ -34714,8 +34754,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "Pwr"
-			(at 14.986 35.306 0)
+		(property "Value" "Pwr Terminal"
+			(at 18.796 32.258 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -41169,6 +41209,73 @@
 			(project "Synkino"
 				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
 					(reference "JP1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 17.78 46.99 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a5ca66b5-338e-464b-8844-21bb41802081")
+		(property "Reference" "J14"
+			(at 15.24 45.974 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Pwr Pins"
+			(at 18.034 49.276 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 17.78 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 17.78 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 17.78 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "d910186b-584a-4bf0-8e72-f3810b0e388a")
+		)
+		(pin "1"
+			(uuid "d819a965-40c4-4ac4-a68a-821936a33c84")
+		)
+		(instances
+			(project "Synkino"
+				(path "/9d4924d9-a2ad-42f2-a951-8d7a9cc74761"
+					(reference "J14")
 					(unit 1)
 				)
 			)
