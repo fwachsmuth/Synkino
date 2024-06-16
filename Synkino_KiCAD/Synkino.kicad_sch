@@ -20004,7 +20004,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_ALT"
+		(property "Value" "LED_wh"
 			(at 255.27 242.57 0)
 			(effects
 				(font
@@ -22458,6 +22458,15 @@
 			)
 		)
 		(property "Manual Assy" ""
+			(at 173.99 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Alternative" "C251589"
 			(at 173.99 105.41 0)
 			(effects
 				(font
@@ -38146,7 +38155,7 @@
 				)
 			)
 		)
-		(property "Value" "LED_ALT"
+		(property "Value" "LED_re"
 			(at 260.35 223.52 0)
 			(effects
 				(font
@@ -41219,8 +41228,8 @@
 		(at 17.78 46.99 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
+		(in_bom no)
+		(on_board no)
 		(dnp no)
 		(uuid "a5ca66b5-338e-464b-8844-21bb41802081")
 		(property "Reference" "J14"
@@ -41229,6 +41238,7 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Value" "Pwr Pins"
