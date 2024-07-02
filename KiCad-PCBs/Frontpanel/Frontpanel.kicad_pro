@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.5
+          "min_clearance": 0.0
         }
       },
       "diff_pair_dimensions": [],
@@ -219,7 +219,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "Synkino_Eyes_Panlized.kicad_pro",
+    "filename": "Frontpanel.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -254,7 +254,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "gerber/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
