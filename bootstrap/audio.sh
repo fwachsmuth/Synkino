@@ -2,16 +2,27 @@
 
 # Copied from "Burn Bootloader"
 
-# writing Fuses (1st attempt)
+# writing Fuses (old avrdude attempt)
+# /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude \
+# -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf \
+# -v -patmega328p \
+# -cstk500v2 \
+# -Pusb -e \
+# -Ulock:w:0x2F:m \
+# -Uefuse:w:0xFD:m \
+# -Uhfuse:w:0xD6:m \
+# -Ulfuse:w:0xF7:m 
+
+# writing fuses wit newer avrdude:
 /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude \
 -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf \
 -v -patmega328p \
 -cstk500v2 \
 -Pusb -e \
--Ulock:w:0x2F:m \
+-Ulock:w:0x3F:m \
 -Uefuse:w:0xFD:m \
--Uhfuse:w:0xD6:m \
--Ulfuse:w:0xF7:m 
+-Uhfuse:w:0xDA:m \
+-Ulfuse:w:0xFF:m 
 
 # # writing Optiboot
 # /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude \
@@ -31,23 +42,3 @@
 	-Pusb \
 	-Uflash:w:/Users/peaceman/code/Synkino/bootstrap/Synkino_Audio_1.1.hex:i
 
-
-# # writing Fuses (2nd attempt)
-# /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude \
-# -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf \
-# -v -patmega328p \
-# -cstk500v2 \
-# -Pusb -e \
-# -Ulock:w:0x2F:m \
-# -Uefuse:w:0xFD:m \
-# -Uhfuse:w:0xD6:m \
-# -Ulfuse:w:0xF7:m
-#
-# # writing Optiboot again
-# /Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/bin/avrdude \
-# -C/Users/peaceman/Library/Arduino15/packages/arduino/tools/avrdude/6.3.0-arduino17/etc/avrdude.conf \
-# -v -patmega328p \
-# -cstk500v2 \
-# -Pusb \
-# -Uflash:w:/Users/peaceman/Library/Arduino15/packages/Optiboot/hardware/avr/0.6.2/bootloaders/optiboot/optiboot_atmega328.hex:i \
-# -Ulock:w:0x0F:m
